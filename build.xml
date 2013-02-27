@@ -1,0 +1,20 @@
+<project name="WordPress Flowplayer" default="zip" basedir=".">
+
+    <property name="zip-name" value="wp-flowplayer5-0.3.zip"/>
+
+    <target name="prepare">
+        <mkdir dir="dist" />
+    </target>
+
+    <target name="zip" depends="prepare">
+        <zip destfile="dist/${zip-name}" update="false">
+            <zipfileset prefix="wordpress-flowplayer" dir=".">
+                <include name="**/*"/>
+                <exclude name="*.iml" />
+                <exclude name="dist/*" />
+                <exclude name="dist" />
+            </zipfileset>
+        </zip>
+    </target>
+
+</project>

@@ -1,0 +1,30 @@
+WEBVTT FILE
+
+1
+00:00.000 --> 00:02.000
+This here is a subtitle.
+Works on all browsers. Styleable with CSS.
+
+2
+00:02.000 --> 00:04.000
+Subtitles are defined in a <b>VTT</b> file
+
+3
+00:05.000 --> 00:07.000
+For each subtitle you configure the start time, end time and text
+
+4
+00:08.000 --> 00:12.000
+This one is bigger
+
+5
+00:14.000 --> 00:17.000
+In general you should not style subtitles and let your audience focus on the video
+
+6
+00:19.500 --> 00:22.000
+This is the last one
+
+7
+00:28.000 --> 00:29.000
+Bye
