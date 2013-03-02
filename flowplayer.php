@@ -8,19 +8,19 @@ Author URI: http://flowplayer.org/
 Plugin URI: http://flowplayer.org/wordpress
 */
 
-define('FP5_PLUGIN_VERSION', '0.3');
-define('FP5_FLOWPLAYER_VERSION', '5.2.1');
+define('FP5_PLUGIN_VERSION', '0.4');
+define('FP5_FLOWPLAYER_VERSION', '5.3.2');
 
 $my_plugin_file = __FILE__;
 
 if (isset($plugin)) {
-    $my_plugin_file = $plugin;
+	$my_plugin_file = $plugin;
 }
 else if (isset($mu_plugin)) {
-    $my_plugin_file = $mu_plugin;
+	$my_plugin_file = $mu_plugin;
 }
 else if (isset($network_plugin)) {
-    $my_plugin_file = $network_plugin;
+	$my_plugin_file = $network_plugin;
 }
 
 define('FP5_PLUGIN_DIR', WP_PLUGIN_DIR.'/'.basename(dirname($my_plugin_file)) . '/');
@@ -28,14 +28,12 @@ define('FP5_PLUGIN_URL', plugin_dir_url( $my_plugin_file));
 
 function fp5_load(){
 
-    if(is_admin()) {
-        require_once(FP5_PLUGIN_DIR.'includes/admin.php');
-    }
+	if(is_admin()) {
+		require_once(FP5_PLUGIN_DIR.'includes/admin.php');
+	}
 
-    require_once(FP5_PLUGIN_DIR.'includes/core.php');
+	require_once(FP5_PLUGIN_DIR.'includes/core.php');
 }
 
 fp5_load();
 register_activation_hook($my_plugin_file, 'fp5_initGlobalOptions');
-
-?>
