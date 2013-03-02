@@ -1,4 +1,4 @@
-=== Plugin Name ===
+=== Flowplayer 5 for Wordpress ===
 Contributors: anssi, grapplerulrich
 Donate link: http://flowplayer.org/download
 Tags: video, html5 video, flowplayer
@@ -50,6 +50,10 @@ is supported by your web browser. See here for some info on video formats on dif
 
 == Changelog ==
 
+= 0.5 =
+* updated the Flowplayer code to version 5.3.2
+* fixed splash image sizing
+
 = 0.4 =
 * fixed the new "show logo on origin site" checkbox that was introduced in version 0.3
 * now possible to add several players with different skins in one post/page
@@ -70,11 +74,14 @@ is supported by your web browser. See here for some info on video formats on dif
 
 == Upgrade Notice ==
 
+= 0.5 =
+* bugs fixed
+
 = 0.4 =
 * fixes a critical issue with the media library
 
 = 0.2 =
-Bugs fixed. Player size is no longer fixed: Works better on different screen sizes.
+* Bugs fixed. Player size is no longer fixed: Works better on different screen sizes.
 
 = 0.1 =
-This is the first stable release.
+* This is the first stable release.
