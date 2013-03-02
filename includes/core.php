@@ -22,7 +22,7 @@ function fp5_shortcode($atts) {
     if ($splash != '') {
         $out .= '
             jQuery(function() {
-                jQuery(".flowplayer").css("background", "url('.$splash.') center no-repeat");
+                jQuery(".flowplayer").css("background-image", "url('.$splash.')");
             });
         ';
     }
