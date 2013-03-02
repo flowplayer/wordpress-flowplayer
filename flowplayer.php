@@ -37,3 +37,10 @@ function fp5_load(){
 
 fp5_load();
 register_activation_hook($my_plugin_file, 'fp5_initGlobalOptions');
+
+// Support the file format webm
+add_filter( 'upload_mimes', 'custom_mimes' );
+	function custom_mimes( $mimes ){
+		$mimes['webm'] = 'video/webm';
+	return $mimes;
+}
