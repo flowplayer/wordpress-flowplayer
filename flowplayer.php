@@ -5,7 +5,7 @@ Description: A Flowplayer plugin for showing videos in WordPress. Integrates Flo
 Version: 0.4
 Author: Flowplayer ltd. Anssi Piirainen
 Author URI: http://flowplayer.org/
-Plugin URI: http://flowplayer.org/wordpress
+Plugin URI: http://wordpress.org/extend/plugins/flowplayer5/
 */
 
 define('FP5_PLUGIN_VERSION', '0.4');
