@@ -1,5 +1,5 @@
 === Plugin Name ===
-Contributors: anssi
+Contributors: anssi, grapplerulrich
 Donate link: http://flowplayer.org/download
 Tags: video, html5 video, flowplayer
 Requires at least: 3.0.1
