@@ -1,0 +1,20 @@
+/* Flowplayer5 for WordPress
+ * Public styles
+*/
+
+/* Display logo on own site */
+
+.flowplayer.commercial .fp-logo {
+	display: block;
+	opacity: 1;
+}
+
+.playful.fixed-controls {
+margin-bottom: 35px;
+}
+.minimalist.fixed-controls {
+margin-bottom: 20px;
+}
+.functional.fixed-controls {
+margin-bottom: 30px;
+}
