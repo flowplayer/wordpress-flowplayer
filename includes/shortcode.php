@@ -14,9 +14,15 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-// example shortcode [flowplayer id='39']
-
-// Add Shortcode
+/**
+ * Flowplayer video Shortcode
+ *
+ * Retrieves a media files and settings to display a video.
+ *
+ * @since 1.0.0
+ * @param array $atts Shortcode attributes
+ * @example [flowplayer id='39']
+ */
 function add_fp5_shortcode( $atts ) {
 
 	global $post;

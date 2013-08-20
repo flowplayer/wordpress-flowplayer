@@ -14,12 +14,13 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+/**
+ * Registers all of the required Flowplayer 5 settings.
+ *
+ * @since 1.0.0
+*/
 function fp5_register_settings() {
 
-	/**
-	 * 'Whitelisted' fp5 settings, filters are provided for each settings
-	 * section to allow extensions and other plugins to add their own settings
-	 */
 	$fp5_settings = array(
 		'general' => apply_filters('fp5_settings_general',
 			array(
@@ -156,9 +157,8 @@ add_action( 'admin_init', 'fp5_register_settings' );
  *
  * Renders the header.
  *
- * @since 1.0
+ * @since 1.0.0
  * @param array $args Arguments passed by the setting
- * @return void
  */
 function fp5_header_callback( $args ) {
 	echo '<p class="description">' . $args['desc'] . '</p>';
@@ -169,10 +169,9 @@ function fp5_header_callback( $args ) {
  *
  * Renders text fields.
  *
- * @since 1.0
+ * @since 1.0.0
  * @param array $args Arguments passed by the setting
  * @global $fp5_options Array of all the fp5 Options
- * @return void
  */
 function fp5_text_callback( $args ) {
 	global $fp5_options;
@@ -197,7 +196,6 @@ function fp5_text_callback( $args ) {
  * @since 1.0
  * @param array $args Arguments passed by the setting
  * @global $fp5_options Array of all the fp5 Options
- * @return void
  */
 function fp5_upload_callback($args) {
 	global $fp5_options;
@@ -225,7 +223,6 @@ function fp5_upload_callback($args) {
  * @since 1.0
  * @param array $args Arguments passed by the setting
  * @global $fp5_options Array of all the fp5 Options
- * @return void
  */
 function fp5_checkbox_callback( $args ) {
 	global $fp5_options;
@@ -242,9 +239,8 @@ function fp5_checkbox_callback( $args ) {
  *
  * If a function is missing for settings callbacks alert the user.
  *
- * @since 1.3.1
+ * @since 1.0.0
  * @param array $args Arguments passed by the setting
- * @return void
  */
 function fp5_missing_callback($args) {
 	printf( __( 'The callback function used for the <strong>%s</strong> setting is missing.', 'flowplayer5' ), $args['id'] );
@@ -256,9 +252,9 @@ function fp5_missing_callback($args) {
  * Adds a settings error (for the updated message)
  * At some point this will validate input
  *
- * @since 1.0.8.2
+ * @since 1.0.0
  * @param array $input The value inputted in the field
- * @return string $input Sanitizied value
+ * @return string $input Sanitised value
  */
 function fp5_settings_sanitize( $input ) {
 	add_settings_error( 'fp5-notices', '', __('Settings Updated', 'flowplayer5'), 'updated' );
@@ -270,7 +266,7 @@ function fp5_settings_sanitize( $input ) {
  *
  * Retrieves all plugin settings and returns them as a combined array.
  *
- * @since 1.0
+ * @since 1.0.0
  * @return array Merged array of all the EDD settings
  */
 function fp5_get_settings() {

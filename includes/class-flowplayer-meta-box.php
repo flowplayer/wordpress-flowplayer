@@ -14,6 +14,12 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+/**
+ * Meta box class.
+ *
+ * @package Flowplayer5
+ * @author  Ulrich Pogson <ulrich@pogson.ch>
+ */
 class Video_Meta_Box {
 
 	/**
@@ -108,7 +114,6 @@ class Video_Meta_Box {
 	/**
 	 * Registers the meta box for displaying the 'Flowplayer Video' in the post editor.
 	 *
-	 * @version    1.0.0
 	 * @since      1.0.0
 	 */
 	public function add_video_meta_box() {
