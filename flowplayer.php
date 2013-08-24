@@ -32,6 +32,7 @@ require_once( plugin_dir_path( __FILE__ ) . 'includes/class-flowplayer-meta-box.
 require_once( plugin_dir_path( __FILE__ ) . 'includes/register-settings.php' );
 $fp5_options = fp5_get_settings();
 require_once( plugin_dir_path( __FILE__ ) . 'includes/shortcode.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/insert-video-button.php' );
 
 // Register hooks that are fired when the plugin is activated, deactivated, and uninstalled, respectively.
 register_activation_hook( __FILE__, array( 'Flowplayer5', 'activate' ) );

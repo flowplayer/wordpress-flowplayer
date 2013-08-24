@@ -194,6 +194,13 @@ class Flowplayer5 {
 			wp_enqueue_style( $this->plugin_slug .'-admin-styles', plugins_url( '/assets/css/admin.css', __FILE__ ), $this->version );
 		//}
 
+		global $pagenow, $typenow;
+
+		// Only run in post/page creation and edit screens
+		if ( in_array( $pagenow, array( 'post.php', 'page.php', 'post-new.php', 'post-edit.php' ) ) && $typenow != 'flowplayer5' ) {
+			wp_enqueue_style( 'jquery-colorbox', plugins_url( '/assets/jquery-colorbox/colorbox.css', __FILE__ ), '1.4.27' );
+		}
+
 	}
 
 	/**
@@ -246,8 +253,16 @@ class Flowplayer5 {
 					'button' => __( 'Insert Logo', 'flowplayer5' )              // This will be used as the default button text
 				)
 			);
+
 			wp_enqueue_media();
 
+		}
+
+		global $pagenow, $typenow;
+
+		// Only run in post/page creation and edit screens
+		if ( in_array( $pagenow, array( 'post.php', 'page.php', 'post-new.php', 'post-edit.php' ) ) && $typenow != 'flowplayer5' ) {
+			wp_enqueue_script( 'jquery-colorbox', plugins_url( '/assets/jquery-colorbox/jquery.colorbox-min.js', __FILE__ ), 'jquery', '1.4.27', false );
 		}
 
 	}
@@ -378,7 +393,7 @@ class Flowplayer5 {
 
 	}
 
-	/*
+	/**
 	 * Add settings action link to the plugins page.
 	 *
 	 * @since    1.0.0

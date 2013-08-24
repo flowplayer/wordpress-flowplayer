@@ -19,6 +19,14 @@
 	background: url(../img/32x32.png) no-repeat;
 }
 
+.wp-media-buttons .add-video span.wp-media-buttons-icon {
+	-webkit-background-size: 25px;
+	-moz-background-size: 25px;
+	background-size: 25px;
+	background-image: url(../img/28x28-sprite.png);
+	background-position: -5px -30px;
+}
+
 /* Meta box */
 .player-previews {
 	display: inline;
