@@ -116,8 +116,12 @@ class Flowplayer5 {
 		$plugin_basename = plugin_basename( plugin_dir_path( __FILE__ ) . 'flowplayer.php' );
 		add_filter( 'plugin_action_links_' . $plugin_basename, array( $this, 'add_action_links' ) );
 
-		// Edit messages
+		// Edit update messages
 		add_filter( 'post_updated_messages', array( $this, 'set_messages' ) );
+
+		// Add column and rows
+		add_filter( 'manage_flowplayer5_posts_columns',  array( $this, 'shortcode_column'), 5, 2 );
+		add_action( 'manage_flowplayer5_posts_custom_column',  array( $this, 'shortcode_row'), 5, 2 );
 
 		// Add file support
 		add_filter( 'upload_mimes', array( $this, 'flowplayer_custom_mimes' ) );
@@ -485,6 +489,44 @@ class Flowplayer5 {
 		);
 
 		return $messages;
+
+	}
+
+	/**
+	 * Add a column for the shortcodes.
+	 *
+	 * @since    1.1.0
+	 */
+	public function shortcode_column( $columns ){
+
+		$columns = array(
+
+			'cb'        => '<input type="checkbox" />',
+			'title'     => __( 'Title' ),
+			'author'    => __( 'Author' ),
+			'shortcode' => __( 'Shortcode', $this->plugin_slug ),
+			'date'      => __( 'Date' )
+
+		);
+
+		return $columns;
+
+	}
+
+	/**
+	 * Add row with shortcodes
+	 *
+	 * @since    1.1.0
+	 */
+	public function shortcode_row( $column, $post_id  ){
+
+		switch ( $column ) {
+
+			case 'shortcode' :
+				echo '[flowplayer id="' . $post_id . '"]'; 
+				break;
+
+		}
 
 	}
 
