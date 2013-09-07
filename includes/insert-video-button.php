@@ -49,29 +49,30 @@ function fp5_modal_content() {
 	if ( $screen->base == 'post' && $screen->post_type != 'flowplayer5' ) {
 		?>
 		<script type="text/javascript">
-			jQuery(document).ready(function ($) {
+			jQuery(document).ready( function ($) {
 				// Open modal
 				$( '.add-video' ).colorbox({
 					inline: true,
 					width: false,
 					transition: "none"
 				});
-
-				function insertVideo() {
-					var id = $( '#flowplayer5_videos' ).val();
-	
-					// Return early if no download is selected
-					if ( '' === id ) {
-						alert('<?php _e( 'You must choose a Video', 'flowplayer5' ); ?>');
-						return;
-					}
-	
-					// Send the shortcode to the editor
-					window.send_to_editor( '[flowplayer id="' + id + '"]' );
-					// Close modal
-					$.colorbox.close();
-				}
 			});
+
+			function insertVideo() {
+				var id = jQuery( '#flowplayer5_videos' ).val();
+
+				// Return early if no download is selected
+				if ( '' === id ) {
+					alert('<?php _e( 'You must choose a Video', 'flowplayer5' ); ?>');
+					return;
+				}
+
+				// Send the shortcode to the editor
+				window.send_to_editor( '[flowplayer id="' + id + '"]' );
+				// Close modal
+				jQuery.colorbox.close();
+			};
+
 		</script>
 
 	<div style="display: none;">
