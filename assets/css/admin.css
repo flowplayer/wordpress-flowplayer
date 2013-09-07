@@ -1,6 +1,6 @@
 /* Flowplayer5 for WordPress
  * Admin styles
-*/
+ */
 
 /* Custom Post Type Logo */
 #adminmenu .menu-icon-flowplayer5 div.wp-menu-image {
@@ -51,4 +51,9 @@ select#fp5-select-skin {
 
 #fp5-preview video{
 	max-width: 100%
+}
+
+/* Colorbox */
+#cboxLoadedContent {
+	padding: 10px;
 }

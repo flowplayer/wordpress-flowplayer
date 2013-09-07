@@ -21,11 +21,11 @@ if ( ! defined( 'WPINC' ) ) {
  * @return string "Insert Video" Button
  */
 function fp5_media_button() {
-	global $pagenow, $typenow, $wp_version;
+	$screen = get_current_screen();
 	$output = '';
 
 	/** Only run in post/page creation and edit screens */
-	if ( in_array( $pagenow, array( 'post.php', 'page.php', 'post-new.php', 'post-edit.php' ) ) && $typenow != 'flowplayer5' ) {
+	if ( $screen->base == 'post' && $screen->post_type != 'flowplayer5' ) {
 		$img = '<span class="wp-media-buttons-icon" ></span>';
 		$output = '<a href="#choose-video" class="button add-video" title="' . __( 'Insert Video', 'flowplayer5' ) . '" style="padding-left: .4em;">' . $img . __( 'Insert Video', 'flowplayer5' ) . '</a>';
 	}
@@ -43,38 +43,39 @@ add_action( 'media_buttons', 'fp5_media_button', 11 );
  * @global $typenow
  */
 function fp5_modal_content() {
-	global $pagenow, $typenow;
+	$screen = get_current_screen();
 
 	// Only run in post/page creation and edit screens
-	if ( in_array( $pagenow, array( 'post.php', 'page.php', 'post-new.php', 'post-edit.php' ) ) && $typenow != 'flowplayer5' ) {
+	if ( $screen->base == 'post' && $screen->post_type != 'flowplayer5' ) {
 		?>
 		<script type="text/javascript">
-            jQuery(document).ready(function () {
-                // Open modal
-                jQuery(".add-video").colorbox({
-                    inline: true,
-                    width: false,
-                    transition: "none"
-                });
-            });
-            function insertVideo() {
-                var id = jQuery('#flowplayer5_videos').val();
+			jQuery(document).ready(function ($) {
+				// Open modal
+				$( '.add-video' ).colorbox({
+					inline: true,
+					width: false,
+					transition: "none"
+				});
 
-                // Return early if no download is selected
-                if ('' === id) {
-                    alert('<?php _e( "You must choose a Video", "flowplayer5" ); ?>');
-                    return;
-                }
-
-                // Send the shortcode to the editor
-                window.send_to_editor('[flowplayer id="' + id + '"]');
-                // Close modal
-                jQuery.colorbox.close();
-            }
+				function insertVideo() {
+					var id = $( '#flowplayer5_videos' ).val();
+	
+					// Return early if no download is selected
+					if ( '' === id ) {
+						alert('<?php _e( 'You must choose a Video', 'flowplayer5' ); ?>');
+						return;
+					}
+	
+					// Send the shortcode to the editor
+					window.send_to_editor( '[flowplayer id="' + id + '"]' );
+					// Close modal
+					$.colorbox.close();
+				}
+			});
 		</script>
 
 	<div style="display: none;">
-		<div id="choose-video" class="wrap">
+		<div id="choose-video">
 			<p><?php echo __( 'Use the dropdown below to chose a video to insert as a shortcode', 'flowplayer5' ); ?></p>
 			<div>
 				<select name="flowplayer5_videos" id="flowplayer5_videos">

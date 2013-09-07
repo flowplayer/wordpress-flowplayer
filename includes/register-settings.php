@@ -18,7 +18,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Registers all of the required Flowplayer 5 settings.
  *
  * @since 1.0.0
-*/
+ */
 function fp5_register_settings() {
 
 	$fp5_settings = array(
@@ -84,7 +84,7 @@ function fp5_register_settings() {
 				),
 				'library' => array(
 					'id' => 'library',
-					'name' => __('Libary', 'flowplayer5'),
+					'name' => __('Library', 'flowplayer5'),
 					'desc' => __('URL of the Flowplayer API library script', 'flowplayer5'),
 					'type' => 'text',
 					'size' => 'regular'
@@ -133,14 +133,14 @@ function fp5_register_settings() {
 			'flowplayer5_settings',
 			'fp5_settings_general',
 			array(
-				'id' => $option['id'],
-				'desc' => $option['desc'],
-				'name' => $option['name'],
+				'id'      => $option['id'],
+				'desc'    => $option['desc'],
+				'name'    => $option['name'],
 				'section' => 'general',
 				'preview' => isset( $option['preview'] ) ? $option['preview'] : null,
-				'size' => isset( $option['size'] ) ? $option['size'] : null,
+				'size'    => isset( $option['size'] ) ? $option['size'] : null,
 				'options' => isset( $option['options'] ) ? $option['options'] : '',
-				'std' => isset( $option['std'] ) ? $option['std'] : ''
+				'std'     => isset( $option['std'] ) ? $option['std'] : ''
 			)
 		);
 	}

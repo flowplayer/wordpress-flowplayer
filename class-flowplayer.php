@@ -9,14 +9,13 @@
  * @copyright 2013 Flowplayer Ltd
  */
 
-
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
 /**
- * Plugin class.
+ * Initial Flowplayer class
  *
  * @package Flowplayer5
  * @author  Ulrich Pogson <ulrich@pogson.ch>
@@ -32,7 +31,7 @@ class Flowplayer5 {
 	 */
 	protected $version = '1.0.0';
 
-	function get_version() {
+	public function get_version() {
 		return $this->version;
 	}
 
@@ -46,7 +45,7 @@ class Flowplayer5 {
 	 */
 	protected $player_version = '5.4.3';
 
-	function get_player_version() {
+	public function get_player_version() {
 		return $this->player_version;
 	}
 
@@ -63,7 +62,7 @@ class Flowplayer5 {
 	 */
 	protected $plugin_slug = 'flowplayer5';
 
-	function get_plugin_slug() {
+	public function get_plugin_slug() {
 		return $this->plugin_slug;
 	}
 
@@ -178,7 +177,7 @@ class Flowplayer5 {
 		$domain = $this->plugin_slug;
 		$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
 
-		load_textdomain( $domain, WP_LANG_DIR . '/' . $domain . '/' . $domain . '-' . $locale . '.mo' );
+		load_textdomain( $domain, trailingslashit( WP_LANG_DIR ) . $domain . '/' . $domain . '-' . $locale . '.mo' );
 		load_plugin_textdomain( $domain, FALSE, dirname( plugin_basename( __FILE__ ) ) . '/lang/' );
 
 	}
@@ -192,16 +191,12 @@ class Flowplayer5 {
 	 */
 	public function enqueue_admin_styles() {
 
-		$current_screen = get_current_screen();
+		$screen = get_current_screen();
 
-		//if ( $current_screen->post_type === $this->plugin_slug ) {
-			wp_enqueue_style( $this->plugin_slug .'-admin-styles', plugins_url( '/assets/css/admin.css', __FILE__ ), $this->version );
-		//}
+		wp_enqueue_style( $this->plugin_slug .'-admin-styles', plugins_url( '/assets/css/admin.css', __FILE__ ), $this->version );
 
-		global $pagenow, $typenow;
-
-		// Only run in post/page creation and edit screens
-		if ( in_array( $pagenow, array( 'post.php', 'page.php', 'post-new.php', 'post-edit.php' ) ) && $typenow != 'flowplayer5' ) {
+		// Only run in new post and edit screens
+		if ( $screen->base == 'post' ) {
 			wp_enqueue_style( 'jquery-colorbox', plugins_url( '/assets/jquery-colorbox/colorbox.css', __FILE__ ), '1.4.27' );
 		}
 
@@ -216,9 +211,9 @@ class Flowplayer5 {
 	 */
 	public function enqueue_admin_scripts() {
 
-		$current_screen = get_current_screen();
-		
-		if ( $current_screen->post_type === $this->plugin_slug ) {
+		$screen = get_current_screen();
+
+		if ( $screen->post_type === $this->plugin_slug ) {
 
 			wp_enqueue_script( $this->plugin_slug . '-media', plugins_url( '/assets/js/media.js', __FILE__ ), array(), $this->version, false );
 			wp_localize_script( $this->plugin_slug . '-media', 'splash_image',
@@ -262,10 +257,8 @@ class Flowplayer5 {
 
 		}
 
-		global $pagenow, $typenow;
-
-		// Only run in post/page creation and edit screens
-		if ( in_array( $pagenow, array( 'post.php', 'page.php', 'post-new.php', 'post-edit.php' ) ) && $typenow != 'flowplayer5' ) {
+		// Only run in new post and edit screens
+		if ( $screen->base == 'post' ) {
 			wp_enqueue_script( 'jquery-colorbox', plugins_url( '/assets/jquery-colorbox/jquery.colorbox-min.js', __FILE__ ), 'jquery', '1.4.27', false );
 		}
 
@@ -280,8 +273,8 @@ class Flowplayer5 {
 	public function enqueue_styles() {
 
 		// set the options for the shortcode - pulled from the register-settings.php
-		$options     = get_option('fp5_settings_general');
-		$cdn         = isset( $options['cdn_option'] );
+		$options = get_option('fp5_settings_general');
+		$cdn     = isset( $options['cdn_option'] );
 
 		global $post;
 
