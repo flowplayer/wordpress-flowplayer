@@ -15,7 +15,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * Meta box class.
+ * Video Meta box class.
  *
  * @package Flowplayer5
  * @author  Ulrich Pogson <ulrich@pogson.ch>
@@ -70,7 +70,7 @@ class Video_Meta_Box {
 		$flowplayer5 = Flowplayer5::get_instance();
 		$this->plugin_slug = $flowplayer5->get_plugin_slug();
 
-		// Setup the meta boxs for the video and shortcode
+		// Setup the meta boxes for the video and shortcode
 		add_action( 'add_meta_boxes', array( $this, 'add_shortcode_meta_box' ) );
 		add_action( 'add_meta_boxes', array( $this, 'add_video_meta_box' ) );
 
@@ -138,7 +138,6 @@ class Video_Meta_Box {
 
 		wp_nonce_field( plugin_basename( __FILE__ ), 'fp5-nonce' );
 		$fp5_stored_meta = get_post_meta( $post->ID );
-		$fp5_select_skin = get_post_meta( $post->ID,'_fp5_select_skin',true );
 		?>
 
 		<table class="form-table">
@@ -146,14 +145,14 @@ class Video_Meta_Box {
 
 				<tr valign="top">
 					<th scope="row"><span class="fp5-row-title"><strong><?php _e( 'Media files', $this->plugin_slug )?></strong></span></th>
-					<td><?php _e( 'It is recommended to add at least two video formats so that the video plays on as many browsers as possible. To be able to calculate the dimensions of the video the video format added needs to be comptible with the browser.', $this->plugin_slug ) ?> <a href="http://flowplayer.org/docs/#video-formats" target="_blank"><?php _e( 'About video formats.', $this->plugin_slug ) ?></a>
+					<td><?php _e( 'It is recommended to add at least two video formats so that the video plays on as many browsers as possible. To be able to calculate the dimensions of the video the video format added needs to be compatible with the browser.', $this->plugin_slug ) ?> <a href="http://flowplayer.org/docs/#video-formats" target="_blank"><?php _e( 'About video formats.', $this->plugin_slug ) ?></a>
 					</td>
 				</tr>
 
 				<tr valign="top">
 					<th scope="row"><label for="fp5-splash-image"><?php _e( 'Splash Image', $this->plugin_slug )?></label> <a href="http://flowplayer.org/docs/index.html#splash" target="_blank">?</a></th>
 					<td>
-						<input class="media-url" type="text" name="fp5-splash-image" id="fp5-splash-image" size="70" value="<?php if ( isset ( $fp5_stored_meta['fp5-splash-image'] ) ) echo $fp5_stored_meta['fp5-splash-image'][0]?>" />
+						<input class="media-url" type="text" name="fp5-splash-image" id="fp5-splash-image" size="70" value="<?php if ( isset ( $fp5_stored_meta['fp5-splash-image'] ) ) echo esc_url( $fp5_stored_meta['fp5-splash-image'][0] ); ?>" />
 						<a href="#" class="fp5-add-splash-image button button-primary" title="<?php _e( 'Add splash image', $this->plugin_slug )?>"><?php _e( 'Add splash image', $this->plugin_slug )?></a>
 					</td>
 				</tr>
@@ -161,7 +160,7 @@ class Video_Meta_Box {
 				<tr valign="top">
 					<th scope="row"><label for="fp5-mp4-video"><?php _e( 'mp4 Video', $this->plugin_slug )?></label></th>
 					<td>
-						<input class="media-url" type="text" name="fp5-mp4-video" id="fp5-mp4-video" size="70" value="<?php if ( isset ( $fp5_stored_meta['fp5-mp4-video'] ) ) echo $fp5_stored_meta['fp5-mp4-video'][0]; ?>" />
+						<input class="media-url" type="text" name="fp5-mp4-video" id="fp5-mp4-video" size="70" value="<?php if ( isset ( $fp5_stored_meta['fp5-mp4-video'] ) ) echo esc_url( $fp5_stored_meta['fp5-mp4-video'][0] ); ?>" />
 						<a href="#" class="fp5-add-mp4 button button-primary" title="<?php _e( 'Add mp4 Video', $this->plugin_slug )?>"><?php _e( 'Add mp4 Video', $this->plugin_slug )?></a>
 					</td>
 				</tr>
@@ -169,7 +168,7 @@ class Video_Meta_Box {
 				<tr valign="top">
 					<th scope="row"><label for="fp5-webm-video"><?php _e( 'webm Video', $this->plugin_slug )?></label></th>
 					<td>
-						<input class="media-url" type="text" name="fp5-webm-video" id="fp5-webm-video" size="70" value="<?php if ( isset ( $fp5_stored_meta['fp5-webm-video'] ) ) echo $fp5_stored_meta['fp5-webm-video'][0]; ?>" />
+						<input class="media-url" type="text" name="fp5-webm-video" id="fp5-webm-video" size="70" value="<?php if ( isset ( $fp5_stored_meta['fp5-webm-video'] ) ) echo esc_url( $fp5_stored_meta['fp5-webm-video'][0] ); ?>" />
 						<a href="#" class="fp5-add-webm button button-primary" title="<?php _e( 'Add webm Video', $this->plugin_slug )?>"><?php _e( 'Add webm Video', $this->plugin_slug )?></a>
 					</td>
 				</tr>
@@ -177,7 +176,7 @@ class Video_Meta_Box {
 				<tr valign="top">
 					<th scope="row"><label for="fp5-ogg-video"><?php _e( 'ogg Video', $this->plugin_slug )?></label></th>
 					<td>	
-						<input class="media-url" type="text" name="fp5-ogg-video" id="fp5-ogg-video" size="70" value="<?php if ( isset ( $fp5_stored_meta['fp5-ogg-video'] ) ) echo $fp5_stored_meta['fp5-ogg-video'][0]; ?>" />
+						<input class="media-url" type="text" name="fp5-ogg-video" id="fp5-ogg-video" size="70" value="<?php if ( isset ( $fp5_stored_meta['fp5-ogg-video'] ) ) echo esc_url( $fp5_stored_meta['fp5-ogg-video'][0] ); ?>" />
 						<a href="#" class="fp5-add-ogg button button-primary" title="<?php _e( 'Add ogg Video', $this->plugin_slug )?>"><?php _e( 'Add ogg Video', $this->plugin_slug )?></a>
 					</td>
 				</tr>
@@ -185,7 +184,7 @@ class Video_Meta_Box {
 				<!-- <tr valign="top">
 					<th scope="row"><label for="fp5-vtt-subtitles"><?php _e( 'vtt file (Subtitles)', $this->plugin_slug )?></label> <a href="http://flowplayer.org/docs/subtitles.html" target="_blank">?</a></th>
 					<td>
-						<input class="media-url" type="text" name="fp5-vtt-subtitles" id="fp5-vtt-subtitles" size="70" value="<?php if ( isset ( $fp5_stored_meta['fp5-vtt-subtitles'] ) ) echo $fp5_stored_meta['fp5-vtt-subtitles'][0]; ?>" />
+						<input class="media-url" type="text" name="fp5-vtt-subtitles" id="fp5-vtt-subtitles" size="70" value="<?php if ( isset ( $fp5_stored_meta['fp5-vtt-subtitles'] ) ) echo esc_url( $fp5_stored_meta['fp5-vtt-subtitles'][0] ); ?>" />
 						<a href="#" class="fp5-add-vtt button button-primary" title="<?php _e( 'Add vtt file', $this->plugin_slug )?>"><?php _e( 'Add vtt file', $this->plugin_slug )?></a>
 					</td>
 				</tr> -->
@@ -267,11 +266,11 @@ class Video_Meta_Box {
 			</div>
 			<div class="fp5-row-content">
 				<label for="fp5-max-width" class="fp5-row-title"><?php _e( 'Max Width', $this->plugin_slug )?></label>
-				<input type="text" name="fp5-max-width" id="fp5-max-width" value="<?php if ( isset ( $fp5_stored_meta['fp5-max-width'] ) ) echo $fp5_stored_meta['fp5-max-width'][0]; ?>" />
+				<input type="text" name="fp5-max-width" id="fp5-max-width" value="<?php if ( isset ( $fp5_stored_meta['fp5-max-width'] ) ) echo esc_attr( $fp5_stored_meta['fp5-max-width'][0] ); ?>" />
 				<label for="fp5-width" class="fp5-row-title"><?php _e( 'Width', $this->plugin_slug )?></label>
-				<input type="text" name="fp5-width" id="fp5-width" value="<?php if ( isset ( $fp5_stored_meta['fp5-width'] ) ) echo $fp5_stored_meta['fp5-width'][0]; ?>" />
+				<input type="text" name="fp5-width" id="fp5-width" value="<?php if ( isset ( $fp5_stored_meta['fp5-width'] ) ) echo esc_attr( $fp5_stored_meta['fp5-width'][0] ); ?>" />
 				<label for="fp5-height" class="fp5-row-title"><?php _e( 'Height', $this->plugin_slug )?></label>
-				<input type="text" name="fp5-height" id="fp5-height" value="<?php if ( isset ( $fp5_stored_meta['fp5-height'] ) ) echo $fp5_stored_meta['fp5-height'][0]; ?>" />
+				<input type="text" name="fp5-height" id="fp5-height" value="<?php if ( isset ( $fp5_stored_meta['fp5-height'] ) ) echo esc_attr( $fp5_stored_meta['fp5-height'][0] ); ?>" />
 			</div>
 		</p>
 
