@@ -14,9 +14,15 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-// example shortcode [flowplayer id='39']
-
-// Add Shortcode
+/**
+ * Flowplayer video Shortcode
+ *
+ * Retrieves a media files and settings to display a video.
+ *
+ * @since 1.0.0
+ * @param array $atts Shortcode attributes
+ * @example [flowplayer id='39']
+ */
 function add_fp5_shortcode( $atts ) {
 
 	global $post;
@@ -87,7 +93,11 @@ function add_fp5_shortcode( $atts ) {
 
 	} else {
 
-		//[flowplayer splash="http://flowplayer.grappler.tk/files/2013/02/trailer_1080p.jpg" webm="http://flowplayer.grappler.tk/files/2013/02/trailer_1080p.webm" mp4="http://flowplayer.grappler.tk/files/2013/02/trailer_1080p.mp4" ogg="http://flowplayer.grappler.tk/files/2013/02/trailer_1080p.ogv" width="1920" height="1080" skin="functional" autoplay="true" loop="true" fixed="true" subtitles="http://www.grappler.tk/flowplayer/wp-content/uploads/2013/08/bunny-en.vtt"]
+		/**
+		 * Old flowplayer shortcode
+		 *
+		 * @example [flowplayer splash="trailer_1080p.jpg" webm="trailer_1080p.webm" mp4="trailer_1080p.mp4" ogg="trailer_1080p.ogv" width="1920" height="1080" skin="functional" autoplay="true" loop="true" fixed="false" subtitles="bunny-en.vtt"]
+		 */
 
 		// Attributes
 		extract( shortcode_atts(
@@ -103,14 +113,15 @@ function add_fp5_shortcode( $atts ) {
 				'width'     => '',
 				'height'    => '',
 				'fixed'     => 'false'
-			), $atts )
-		);
+			),
+			$atts
+		) );
 
 		// set the options for the shortcode - pulled from the register-settings.php
 		$options       = get_option('fp5_settings_general');
-		$key           = $options['key'];
-		$logo          = $options['logo'];
-		$ga_account_id = $options['ga_account_id'];
+		$key           = ( isset( $options['key'] ) ) ? $options['key'] : '';
+		$logo          = ( isset( $options['logo'] ) ) ? $options['logo'] : '';
+		$ga_account_id = ( isset( $options['ga_account_id'] ) ) ? $options['ga_account_id'] : '';
 
 		// Shortcode processing
 		$ratio            = ( ( $width != 0 && $height != 0 ) ? intval( $height ) / intval( $width ) : '' );

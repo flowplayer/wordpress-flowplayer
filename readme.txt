@@ -1,7 +1,7 @@
 === Flowplayer 5 for WordPress ===
 Contributors: anssi, grapplerulrich
 Donate link: http://flowplayer.org/download
-Tags: video, html5 video, flowplayer, responsive
+Tags: video, html5 video, flowplayer, responsive, flowplayer5
 Requires at least: 3.5
 Tested up to: 3.6
 Stable tag: trunk
@@ -28,6 +28,8 @@ The main features of this plugin are:
 
 == Credits ==
 Thank you [Tom McFarlin](http://tommcfarlin.com/) for the [WordPress Plugin Boilerplate](https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate)
+The settings code was adapted from [Easy Digital Downloads](https://github.com/easydigitaldownloads/Easy-Digital-Downloads) by [Pippin Williamson](http://pippinsplugins.com/)
+The meta box settings was adapted from [Theme Foundation](http://themefoundation.com/wordpress-meta-boxes-guide/) by [Alex Mansfield](http://sackclothstudios.com/)
 
 == Installation ==
 
@@ -60,7 +62,11 @@ global options. You can purchase a commercial license at [flowplayer.org](http:/
 
 == Frequently Asked Questions ==
 
-= Why are the subtitlen no longer available? =
+= Why use Flowplayer when there is video support in WordPress 3.6? =
+
+Flowplayer 5 for WordPress provides a video management system where you can manage all of your video froma centeral place. This plugin also allows for simple customisation of the videos. We are continuasly adding further features to the plugin.
+
+= Why are the subtitles no longer available? =
 
 WordPress 3.6 updated jQuery to version 1.10 and included jQuery Migrate. Flowplayer 5.4.3 when using subtitles is not compatible with jQuery Migrate. When version 5.5 is released the subtitles will be added back.
 
@@ -70,7 +76,7 @@ Nothing, other then it being disabled.
 
 = What happens when I uninstall the plugin? =
 
-Why would you want to do that? :-) If you do need to uninstall the plugin all of the data (Flowplayer videos and settings) will be deleted so that you do not have unnecessary info in your database. Your media files will not be deleted. If you want to backup the Flowplayer videos that you have created you can easily export them under Tools -> Export -> Videos.
+Why would you want to do that? :-) If you do need to uninstall the plugin all of the data (Flowplayer videos and settings) will be deleted so that you do not have unnecessary data left on your database. Your media files will not be deleted. If you want to backup the Flowplayer videos that you have created you can easily export them under Tools -> Export -> Videos.
 
 == Screenshots ==
 
@@ -78,6 +84,11 @@ Why would you want to do that? :-) If you do need to uninstall the plugin all of
 2. Plugin Settings
 
 == Changelog ==
+
+= 1.1.0 =
+* add extra column to show the shortcode in the overview
+* add a button in the posts pages so add shortcodes easily
+* fixed typos and updated pot file
 
 = 1.0.0 =
 * complete rewrite of plugin - now you can manage all of your videos in one place

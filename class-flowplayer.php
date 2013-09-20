@@ -9,14 +9,13 @@
  * @copyright 2013 Flowplayer Ltd
  */
 
-
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
 /**
- * Plugin class.
+ * Initial Flowplayer class
  *
  * @package Flowplayer5
  * @author  Ulrich Pogson <ulrich@pogson.ch>
@@ -32,7 +31,7 @@ class Flowplayer5 {
 	 */
 	protected $version = '1.0.0';
 
-	function get_version() {
+	public function get_version() {
 		return $this->version;
 	}
 
@@ -46,7 +45,7 @@ class Flowplayer5 {
 	 */
 	protected $player_version = '5.4.3';
 
-	function get_player_version() {
+	public function get_player_version() {
 		return $this->player_version;
 	}
 
@@ -63,7 +62,7 @@ class Flowplayer5 {
 	 */
 	protected $plugin_slug = 'flowplayer5';
 
-	function get_plugin_slug() {
+	public function get_plugin_slug() {
 		return $this->plugin_slug;
 	}
 
@@ -116,8 +115,12 @@ class Flowplayer5 {
 		$plugin_basename = plugin_basename( plugin_dir_path( __FILE__ ) . 'flowplayer.php' );
 		add_filter( 'plugin_action_links_' . $plugin_basename, array( $this, 'add_action_links' ) );
 
-		// Edit messages
+		// Edit update messages
 		add_filter( 'post_updated_messages', array( $this, 'set_messages' ) );
+
+		// Add column and rows
+		add_filter( 'manage_flowplayer5_posts_columns',  array( $this, 'shortcode_column'), 5, 2 );
+		add_action( 'manage_flowplayer5_posts_custom_column',  array( $this, 'shortcode_row'), 5, 2 );
 
 		// Add file support
 		add_filter( 'upload_mimes', array( $this, 'flowplayer_custom_mimes' ) );
@@ -174,7 +177,7 @@ class Flowplayer5 {
 		$domain = $this->plugin_slug;
 		$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
 
-		load_textdomain( $domain, WP_LANG_DIR . '/' . $domain . '/' . $domain . '-' . $locale . '.mo' );
+		load_textdomain( $domain, trailingslashit( WP_LANG_DIR ) . $domain . '/' . $domain . '-' . $locale . '.mo' );
 		load_plugin_textdomain( $domain, FALSE, dirname( plugin_basename( __FILE__ ) ) . '/lang/' );
 
 	}
@@ -188,11 +191,14 @@ class Flowplayer5 {
 	 */
 	public function enqueue_admin_styles() {
 
-		$current_screen = get_current_screen();
+		$screen = get_current_screen();
 
-		//if ( $current_screen->post_type === $this->plugin_slug ) {
-			wp_enqueue_style( $this->plugin_slug .'-admin-styles', plugins_url( '/assets/css/admin.css', __FILE__ ), $this->version );
-		//}
+		wp_enqueue_style( $this->plugin_slug .'-admin-styles', plugins_url( '/assets/css/admin.css', __FILE__ ), $this->version );
+
+		// Only run in new post and edit screens
+		if ( $screen->base == 'post' ) {
+			wp_enqueue_style( 'jquery-colorbox', plugins_url( '/assets/jquery-colorbox/colorbox.css', __FILE__ ), '1.4.27' );
+		}
 
 	}
 
@@ -205,9 +211,9 @@ class Flowplayer5 {
 	 */
 	public function enqueue_admin_scripts() {
 
-		$current_screen = get_current_screen();
-		
-		if ( $current_screen->post_type === $this->plugin_slug ) {
+		$screen = get_current_screen();
+
+		if ( $screen->post_type === $this->plugin_slug ) {
 
 			wp_enqueue_script( $this->plugin_slug . '-media', plugins_url( '/assets/js/media.js', __FILE__ ), array(), $this->version, false );
 			wp_localize_script( $this->plugin_slug . '-media', 'splash_image',
@@ -246,8 +252,14 @@ class Flowplayer5 {
 					'button' => __( 'Insert Logo', 'flowplayer5' )              // This will be used as the default button text
 				)
 			);
+
 			wp_enqueue_media();
 
+		}
+
+		// Only run in new post and edit screens
+		if ( $screen->base == 'post' ) {
+			wp_enqueue_script( 'jquery-colorbox', plugins_url( '/assets/jquery-colorbox/jquery.colorbox-min.js', __FILE__ ), 'jquery', '1.4.27', false );
 		}
 
 	}
@@ -261,8 +273,8 @@ class Flowplayer5 {
 	public function enqueue_styles() {
 
 		// set the options for the shortcode - pulled from the register-settings.php
-		$options     = get_option('fp5_settings_general');
-		$cdn         = isset( $options['cdn_option'] );
+		$options = get_option('fp5_settings_general');
+		$cdn     = isset( $options['cdn_option'] );
 
 		global $post;
 
@@ -378,7 +390,7 @@ class Flowplayer5 {
 
 	}
 
-	/*
+	/**
 	 * Add settings action link to the plugins page.
 	 *
 	 * @since    1.0.0
@@ -470,6 +482,44 @@ class Flowplayer5 {
 		);
 
 		return $messages;
+
+	}
+
+	/**
+	 * Add a column for the shortcodes.
+	 *
+	 * @since    1.1.0
+	 */
+	public function shortcode_column( $columns ){
+
+		$columns = array(
+
+			'cb'        => '<input type="checkbox" />',
+			'title'     => __( 'Title' ),
+			'author'    => __( 'Author' ),
+			'shortcode' => __( 'Shortcode', $this->plugin_slug ),
+			'date'      => __( 'Date' )
+
+		);
+
+		return $columns;
+
+	}
+
+	/**
+	 * Add row with shortcodes
+	 *
+	 * @since    1.1.0
+	 */
+	public function shortcode_row( $column, $post_id  ){
+
+		switch ( $column ) {
+
+			case 'shortcode' :
+				echo '[flowplayer id="' . $post_id . '"]'; 
+				break;
+
+		}
 
 	}
 
