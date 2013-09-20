@@ -125,9 +125,6 @@ class Flowplayer5 {
 		// Add file support
 		add_filter( 'upload_mimes', array( $this, 'flowplayer_custom_mimes' ) );
 
-		// Allow shortcodes to work in text widgets
-		add_filter( 'widget_text', 'do_shortcode' );
-
 	}
 
 	/**
