@@ -213,7 +213,7 @@ class Flowplayer5 {
 
 		$screen = get_current_screen();
 
-		if ( $screen->post_type === $this->plugin_slug ) {
+		if ( $screen->post_type === $this->plugin_slug && $screen->base == 'post' ) {
 
 			wp_enqueue_script( $this->plugin_slug . '-media', plugins_url( '/assets/js/media.js', __FILE__ ), array(), $this->version, false );
 			wp_localize_script( $this->plugin_slug . '-media', 'splash_image',
