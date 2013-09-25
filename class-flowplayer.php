@@ -414,7 +414,7 @@ class Flowplayer5 {
 	 */
 	public function add_fp5_videos() {
 
-		$labels = array(
+		$labels = apply_filters( 'fp5_post_type_labels', array(
 			'name'                => _x( 'Videos', 'Post Type General Name', $this->plugin_slug ),
 			'singular_name'       => _x( 'Video', 'Post Type Singular Name', $this->plugin_slug ),
 			'menu_name'           => __( 'Video', $this->plugin_slug ),
@@ -428,9 +428,9 @@ class Flowplayer5 {
 			'search_items'        => __( 'Search videos', $this->plugin_slug ),
 			'not_found'           => __( 'No videos found', $this->plugin_slug ),
 			'not_found_in_trash'  => __( 'No videos found in Trash', $this->plugin_slug ),
-		);
+		) );
 
-		$args = array(
+		$args = apply_filters( 'fp5_post_type_args', array(
 			'label'               => __( 'Video', $this->plugin_slug ),
 			'description'         => __( 'Flowplayer videos', $this->plugin_slug ),
 			'labels'              => $labels,
@@ -450,7 +450,7 @@ class Flowplayer5 {
 			'query_var'           => 'video',
 			'rewrite'             => false,
 			'capability_type'     => 'page',
-		);
+		) );
 
 		register_post_type( 'flowplayer5', $args );
 
