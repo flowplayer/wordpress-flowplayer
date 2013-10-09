@@ -42,9 +42,11 @@ function add_fp5_shortcode( $atts ) {
 		$coloring       = get_post_meta( $id, 'fp5-coloring', true );
 		$skin           = get_post_meta( $id, 'fp5-select-skin', true );
 		$splash         = get_post_meta( $id, 'fp5-splash-image', true );
-		$mp4            = get_post_meta( $id, 'fp5-mp4-video', true );
-		$webm           = get_post_meta( $id, 'fp5-webm-video', true );
-		$ogg            = get_post_meta( $id, 'fp5-ogg-video', true) ;
+		$formats		= array(
+			'mp4'       => get_post_meta( $id, 'fp5-mp4-video', true ),
+			'webm'      => get_post_meta( $id, 'fp5-webm-video', true ),
+			'ogg'       => get_post_meta( $id, 'fp5-ogg-video', true),
+		);
 		$subtitles      = get_post_meta( $id, 'fp5-vtt-subtitles', true );
 		$max_width      = get_post_meta( $id, 'fp5-max-width', true );
 		$width          = get_post_meta( $id, 'fp5-width', true );
@@ -74,9 +76,9 @@ function add_fp5_shortcode( $atts ) {
 		// Shortcode output
 		$return = '<div style="' . $size . $splash_style . ' background-size: contain;" class="' . $class . $modifier_classes . '" ' . $data_key . $data_logo . $data_analytics . $data_ratio . '>';
 			$return .= '<video ' . $attributes . '>';
-				$webm      != '' ? $return .= '<source type="video/webm" src="' . $webm . '">' : '';
-				$mp4       != '' ? $return .= '<source type="video/mp4" src="' . $mp4 . '">' : '';
-				$ogg       != '' ? $return .= '<source type="video/ogg" src="' . $ogg . '">' : '';
+				foreach( $formats as $format => $src ){
+					$src   != '' ? $return .= '<source type="video/' . $format . '" src="' . apply_filters( 'fp5_filter_video_src', $src, $format, $id ) . '">' : '';
+				}
 				// $subtitles != '' ? $return .= '<track src="' . $subtitles . '"/>' : '';
 			$return .= '</video>';
 		$return .= '</div>';
@@ -87,7 +89,7 @@ function add_fp5_shortcode( $atts ) {
 		$return .= '</script>';
 
 		// Check if a video has been added before output
-		if ( $webm || $mp4 || $ogg ) {
+		if ( $formats['webm'] || $formats['mp4'] || $formats['ogg'] ) {
 			return $return;
 		}
 
