@@ -77,7 +77,7 @@ function add_fp5_shortcode( $atts ) {
 		$return = '<div style="' . $size . $splash_style . ' background-size: contain;" class="' . $class . $modifier_classes . '" ' . $data_key . $data_logo . $data_analytics . $data_ratio . '>';
 			$return .= '<video ' . $attributes . '>';
 				foreach( $formats as $format => $src ){
-					$src   != '' ? $return .= '<source type="video/' . $format . '" src="' . apply_filters( 'fp5_filter_' . $format . ' _src', $src, $id ) . '">' : '';
+					$src   != '' ? $return .= '<source type="video/' . $format . '" src="' . apply_filters( 'fp5_filter_video_src', $src, $format, $id ) . '">' : '';
 				}
 				// $subtitles != '' ? $return .= '<track src="' . $subtitles . '"/>' : '';
 			$return .= '</video>';
