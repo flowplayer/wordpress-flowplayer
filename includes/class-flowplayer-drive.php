@@ -226,7 +226,7 @@ class Flowplayer_Drive {
 				}
 
 				$return = '<div class="video">';
-					$return .= '<a href="#" class="choose-video" data-webm="' . $webm .'" data-mp4="' . $mp4 .'" data-img="' . $video->snapshotUrl . '">';
+					$return .= '<a href="#" class="choose-video" data-user-id="' . $video->userId .'" data-video-id="' . $video->id .'" data-webm="' . $webm .'" data-mp4="' . $mp4 .'" data-img="' . $video->snapshotUrl . '">';
 						$return .= '<h2 class="video-title">' . $video->title . '</h2>';
 						$return .= '<div class="thumb" style="background-image: url(' . $video->thumbnailUrl . ');">';
 							$return .= '<em class="duration">' . $duration . '</em>';

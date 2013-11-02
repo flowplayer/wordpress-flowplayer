@@ -295,6 +295,15 @@ class Video_Meta_Box {
 			</div>
 		</p>
 
+		<p>
+			<div class="fp5-row-content hidden">
+				<label for="fp5-user-id" class="fp5-row-title">User ID</label>
+				<input type="text" name="fp5-user-id" id="fp5-user-id" value="<?php if ( isset ( $fp5_stored_meta['fp5-user-id'] ) ) echo esc_attr( $fp5_stored_meta['fp5-user-id'][0] ); ?>" />
+				<label for="fp5-video-id" class="fp5-row-title">Video ID</label>
+				<input type="text" name="fp5-video-id" id="fp5-video-id" value="<?php if ( isset ( $fp5_stored_meta['fp5-video-id'] ) ) echo esc_attr( $fp5_stored_meta['fp5-video-id'][0] ); ?>" />
+			</div>
+		</p>
+
 	<?php
 	}
 
@@ -438,7 +447,7 @@ class Video_Meta_Box {
 				update_post_meta(
 					$post_id,
 					'fp5-width',
-					$_POST[ 'fp5-width' ]
+					$_POST['fp5-width']
 				);
 			}
 
@@ -447,7 +456,7 @@ class Video_Meta_Box {
 				update_post_meta(
 					$post_id,
 					'fp5-height',
-					$_POST[ 'fp5-height' ]
+					$_POST['fp5-height']
 				);
 			}
 
@@ -478,6 +487,24 @@ class Video_Meta_Box {
 					$post_id,
 					'fp5-fixed-width',
 					''
+				);
+			}
+
+			// Checks for input and saves if needed
+			if( isset( $_POST['fp5-user-id'] ) ) {
+				update_post_meta(
+					$post_id,
+					'fp5-user-id',
+					$_POST['fp5-user-id']
+				);
+			}
+
+			// Checks for input and saves if needed
+			if( isset( $_POST['fp5-video-id'] ) ) {
+				update_post_meta(
+					$post_id,
+					'fp5-video-id',
+					$_POST['fp5-video-id']
 				);
 			}
 
