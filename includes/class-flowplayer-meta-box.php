@@ -100,7 +100,7 @@ class Video_Meta_Box {
 	/**
 	 * Displays the meta box for displaying the 'Shortcode'
 	 *
-	 * @since      0.1.0
+	 * @since      1.0.0
 	 */
 	public function display_shortcode_meta_box() {
 
@@ -150,6 +150,13 @@ class Video_Meta_Box {
 				</tr>
 
 				<tr valign="top">
+					<th scope="row"><?php _e( 'Flowplayer Designer', $this->plugin_slug )?> <a href="http://flowplayer.org/designer/" target="_blank">?</a></th>
+					<td>
+						<a href="#flowplayer-drive" class="fp5-add-drive button button-primary cboxElement" title="<?php _e( 'Add from Flowplayer Designer', $this->plugin_slug )?>"><?php _e( 'Add from Flowplayer Designer', $this->plugin_slug )?></a>
+					</td>
+				</tr>
+
+				<tr valign="top">
 					<th scope="row"><label for="fp5-splash-image"><?php _e( 'Splash Image', $this->plugin_slug )?></label> <a href="http://flowplayer.org/docs/index.html#splash" target="_blank">?</a></th>
 					<td>
 						<input class="media-url" type="text" name="fp5-splash-image" id="fp5-splash-image" size="70" value="<?php if ( isset ( $fp5_stored_meta['fp5-splash-image'] ) ) echo esc_url( $fp5_stored_meta['fp5-splash-image'][0] ); ?>" />
@@ -175,7 +182,7 @@ class Video_Meta_Box {
 
 				<tr valign="top">
 					<th scope="row"><label for="fp5-ogg-video"><?php _e( 'ogg Video', $this->plugin_slug )?></label></th>
-					<td>	
+					<td>
 						<input class="media-url" type="text" name="fp5-ogg-video" id="fp5-ogg-video" size="70" value="<?php if ( isset ( $fp5_stored_meta['fp5-ogg-video'] ) ) echo esc_url( $fp5_stored_meta['fp5-ogg-video'][0] ); ?>" />
 						<a href="#" class="fp5-add-ogg button button-primary" title="<?php _e( 'Add ogg Video', $this->plugin_slug )?>"><?php _e( 'Add ogg Video', $this->plugin_slug )?></a>
 					</td>
@@ -302,93 +309,176 @@ class Video_Meta_Box {
 		if ( $this->user_can_save( $post_id, 'fp5-nonce' ) ) {
 
 			// Checks for input and saves if needed
-			if( isset( $_POST[ 'fp5-select-skin' ] ) ) {
-				update_post_meta( $post_id, 'fp5-select-skin', $_POST[ 'fp5-select-skin' ] );
+			if( isset( $_POST['fp5-select-skin'] ) ) {
+				update_post_meta(
+					$post_id,
+					'fp5-select-skin',
+					$_POST['fp5-select-skin']
+				);
 			}
 
 			// Checks for input and saves
-			if( isset( $_POST[ 'fp5-autoplay' ] ) ) {
-				update_post_meta( $post_id, 'fp5-autoplay', 'true' );
+			if( isset( $_POST['fp5-autoplay'] ) ) {
+				update_post_meta(
+					$post_id,
+					'fp5-autoplay',
+					'true'
+				);
 			} else {
-				update_post_meta( $post_id, 'fp5-autoplay', '' );
+				update_post_meta(
+					$post_id,
+					'fp5-autoplay',
+					''
+				);
 			}
 
 			// Checks for input and saves
-			if( isset( $_POST[ 'fp5-loop' ] ) ) {
-				update_post_meta( $post_id, 'fp5-loop', 'true' );
+			if( isset( $_POST['fp5-loop'] ) ) {
+				update_post_meta(
+					$post_id,
+					'fp5-loop',
+					'true'
+				);
 			} else {
-				update_post_meta( $post_id, 'fp5-loop', '' );
+				update_post_meta(
+					$post_id,
+					'fp5-loop',
+					''
+				);
 			}
 
 			// Checks for input and saves
-			if( isset( $_POST[ 'fp5-preload' ] ) ) {
-				update_post_meta( $post_id, 'fp5-preload', $_POST[ 'fp5-preload' ] );
+			if( isset( $_POST['fp5-preload'] ) ) {
+				update_post_meta(
+					$post_id,
+					'fp5-preload',
+					$_POST['fp5-preload']
+				);
 			}
 
 			// Checks for input and saves
-			if( isset( $_POST[ 'fp5-fixed-controls' ] ) ) {
-				update_post_meta( $post_id, 'fp5-fixed-controls', 'true' );
+			if( isset( $_POST['fp5-fixed-controls'] ) ) {
+				update_post_meta(
+					$post_id,
+					'fp5-fixed-controls',
+					'true'
+				);
 			} else {
-				update_post_meta( $post_id, 'fp5-fixed-controls', '' );
+				update_post_meta(
+					$post_id,
+					'fp5-fixed-controls',
+					''
+				);
 			}
 
 			// Checks for input and saves
-			if( isset( $_POST[ 'fp5-coloring' ] ) ) {
-				update_post_meta( $post_id, 'fp5-coloring', $_POST[ 'fp5-coloring' ] );
+			if( isset( $_POST['fp5-coloring'] ) ) {
+				update_post_meta(
+					$post_id,
+					'fp5-coloring',
+					$_POST['fp5-coloring']
+				);
 			}
 
 			// Checks for input and saves if needed
-			if( isset( $_POST[ 'fp5-splash-image' ] ) ) {
-				update_post_meta( $post_id, 'fp5-splash-image', $_POST[ 'fp5-splash-image' ] );
+			if( isset( $_POST['fp5-splash-image'] ) ) {
+				update_post_meta(
+					$post_id,
+					'fp5-splash-image',
+					$_POST['fp5-splash-image']
+				);
 			}
 
 			// Checks for input and saves if needed
-			if( isset( $_POST[ 'fp5-mp4-video' ] ) ) {
-				update_post_meta( $post_id, 'fp5-mp4-video', $_POST[ 'fp5-mp4-video' ] );
+			if( isset( $_POST[ 'fp5-mp4-video'] ) ) {
+				update_post_meta(
+					$post_id, 'fp5-mp4-video',
+					$_POST['fp5-mp4-video']
+				);
 			}
 
 			// Checks for input and saves if needed
-			if( isset( $_POST[ 'fp5-webm-video' ] ) ) {
-				update_post_meta( $post_id, 'fp5-webm-video', $_POST[ 'fp5-webm-video' ] );
+			if( isset( $_POST['fp5-webm-video'] ) ) {
+				update_post_meta(
+					$post_id,
+					'fp5-webm-video',
+					$_POST['fp5-webm-video']
+				);
 			}
 
 			// Checks for input and saves if needed
-			if( isset( $_POST[ 'fp5-ogg-video' ] ) ) {
-				update_post_meta( $post_id, 'fp5-ogg-video', $_POST[ 'fp5-ogg-video' ] );
+			if( isset( $_POST['fp5-ogg-video'] ) ) {
+				update_post_meta(
+					$post_id,
+					'fp5-ogg-video',
+					$_POST['fp5-ogg-video']
+				);
 			}
 
 			// Checks for input and saves if needed
-			if( isset( $_POST[ 'fp5-vtt-subtitles' ] ) ) {
-				update_post_meta( $post_id, 'fp5-vtt-subtitles', $_POST[ 'fp5-vtt-subtitles' ] );
+			if( isset( $_POST['fp5-vtt-subtitles'] ) ) {
+				update_post_meta(
+					$post_id,
+					'fp5-vtt-subtitles',
+					$_POST['fp5-vtt-subtitles']
+				);
 			}
 
 			// Checks for input and saves if needed
-			if( isset( $_POST[ 'fp5-max-width' ] ) ) {
-				update_post_meta( $post_id, 'fp5-max-width', $_POST[ 'fp5-max-width' ] );
+			if( isset( $_POST['fp5-max-width'] ) ) {
+				update_post_meta(
+					$post_id,
+					'fp5-max-width',
+					$_POST['fp5-max-width']
+				);
 			}
 
 			// Checks for input and saves if needed
-			if( isset( $_POST[ 'fp5-width' ] ) ) {
-				update_post_meta( $post_id, 'fp5-width', $_POST[ 'fp5-width' ] );
+			if( isset( $_POST['fp5-width'] ) ) {
+				update_post_meta(
+					$post_id,
+					'fp5-width',
+					$_POST[ 'fp5-width' ]
+				);
 			}
 
 			// Checks for input and saves if needed
-			if( isset( $_POST[ 'fp5-height' ] ) ) {
-				update_post_meta( $post_id, 'fp5-height', $_POST[ 'fp5-height' ] );
+			if( isset( $_POST['fp5-height'] ) ) {
+				update_post_meta(
+					$post_id,
+					'fp5-height',
+					$_POST[ 'fp5-height' ]
+				);
 			}
 
 			// Checks for input and saves
-			if( isset( $_POST[ 'fp5-aspect-ratio' ] ) ) {
-				update_post_meta( $post_id, 'fp5-aspect-ratio', 'true' );
+			if( isset( $_POST['fp5-aspect-ratio'] ) ) {
+				update_post_meta(
+					$post_id,
+					'fp5-aspect-ratio',
+					'true'
+				);
 			} else {
-				update_post_meta( $post_id, 'fp5-aspect-ratio', '' );
+				update_post_meta(
+					$post_id,
+					'fp5-aspect-ratio',
+					''
+				);
 			}
 
 			// Checks for input and saves
-			if( isset( $_POST[ 'fp5-fixed-width' ] ) ) {
-				update_post_meta( $post_id, 'fp5-fixed-width', 'true' );
+			if( isset( $_POST['fp5-fixed-width'] ) ) {
+				update_post_meta(
+					$post_id,
+					'fp5-fixed-width',
+					'true'
+				);
 			} else {
-				update_post_meta( $post_id, 'fp5-fixed-width', '' );
+				update_post_meta(
+					$post_id,
+					'fp5-fixed-width',
+					''
+				);
 			}
 
 		}

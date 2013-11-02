@@ -53,7 +53,34 @@ select#fp5-select-skin {
 	max-width: 100%
 }
 
-/* Colorbox */
-#cboxLoadedContent {
-	padding: 10px;
+/* Flowplayer Drive */
+.video {
+	float: left;
+	margin: 10px;
+	width: 240px;
+}
+
+.video .thumb {
+	width: 240px;
+	height: 130px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-color: #fff;
+	background-size: cover;
+}
+
+.video .thumb .duration {
+	background-color: rgba(0,32,38,0.8);
+	padding: 2px;
+	display: block;
+	color: #fff;
+	font-size: 1.2em;
+	font-weight: 600;
+	text-align: right;
+}
+
+.video-title {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }

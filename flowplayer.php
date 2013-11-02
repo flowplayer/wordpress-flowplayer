@@ -34,6 +34,7 @@ $fp5_options = fp5_get_settings();
 if( is_admin() ) {
 	require_once( plugin_dir_path( __FILE__ ) . 'includes/class-flowplayer-meta-box.php' );
 	require_once( plugin_dir_path( __FILE__ ) . 'includes/insert-video-button.php' );
+	require_once( plugin_dir_path( __FILE__ ) . 'includes/class-flowplayer-drive.php' );
 } else {
 	require_once( plugin_dir_path( __FILE__ ) . 'includes/shortcode.php' );
 }
@@ -45,4 +46,5 @@ register_deactivation_hook( __FILE__, array( 'Flowplayer5', 'deactivate' ) );
 Flowplayer5::get_instance();
 if( is_admin() ) {
 	Video_Meta_Box::get_instance();
+	Flowplayer_Drive::get_instance();
 }
