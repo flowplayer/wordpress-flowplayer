@@ -19,9 +19,9 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * Retrieves a media files and settings to display a video.
  *
- * @since 1.0.0
- * @param array $atts Shortcode attributes
- * @example [flowplayer id='39']
+ * @since    1.0.0
+ * @param    array $atts Shortcode attributes
+ * @example  [flowplayer id='39']
  */
 function add_fp5_shortcode( $atts ) {
 
@@ -147,12 +147,20 @@ function add_fp5_shortcode( $atts ) {
 
 		// Shortcode output
 		$return = '<div style="' . $size . $splash_style . ' background-size: contain;" class="' . $class . '" ' . apply_filters( 'fp5_filter_flowplayer_data', $flowplayer_data ) . '>';
+			ob_start();
+			$return .= do_action( 'fp5_video_top' );
+			$return .= ob_get_contents();
+			ob_clean();
 			$return .= '<video ' . $attributes . '>';
 				$webm      != '' ? $return .= '<source type="video/webm" src="' . $webm . '">' : '';
 				$mp4       != '' ? $return .= '<source type="video/mp4" src="' . $mp4 . '">' : '';
 				$ogg       != '' ? $return .= '<source type="video/ogg" src="' . $ogg . '">' : '';
 				// $subtitles != '' ? $return .= '<track src="' . $subtitles . '"/>' : '';
 			$return .= '</video>';
+			ob_start();
+			$return .= do_action( 'fp5_video_bottom' );
+			$return .= ob_get_contents();
+			ob_clean();
 		$return .= '</div>';
 
 		return $return;
