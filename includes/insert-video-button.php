@@ -17,8 +17,8 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Adds an "Insert Video" button above the TinyMCE Editor on add/edit screens.
  *
- * @since 1.1.0
- * @return string "Insert Video" Button
+ * @since    1.1.0
+ * @return   string "Insert Video" Button
  */
 function fp5_media_button() {
 	$screen = get_current_screen();
@@ -38,9 +38,7 @@ add_action( 'media_buttons', 'fp5_media_button', 11 );
  *
  * Prints the footer code needed for the Insert Video button.
  *
- * @since 1.1.0
- * @global $pagenow
- * @global $typenow
+ * @since    1.1.0
  */
 function fp5_modal_content() {
 	$screen = get_current_screen();

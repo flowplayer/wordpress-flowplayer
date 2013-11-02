@@ -19,15 +19,19 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) )
  * @since    1.0.0
  */
 
-/** Delete All the Custom Post Types */
-$edd_post_types = array( 'flowplayer5' );
-foreach ( $edd_post_types as $post_type ) {
+/**
+ * Delete All the Custom Post Types
+ *
+ * @since    1.0.0
+ */
+$fp5_post_types = array( 'flowplayer5' );
+foreach ( $fp5_post_types as $post_type ) {
 
 	$items = get_posts(
 		array(
-			'post_type' => $post_type,
+			'post_type'   => $post_type,
 			'numberposts' => -1,
-			'fields' => 'ids'
+			'fields'      => 'ids'
 		)
 	);
 
@@ -38,5 +42,9 @@ foreach ( $edd_post_types as $post_type ) {
 	}
 }
 
-/** Delete all the Plugin Options */
+/**
+ * Delete all the Plugin Options
+ *
+ * @since    1.0.0
+ */
 delete_option( 'fp5_settings_general' );
