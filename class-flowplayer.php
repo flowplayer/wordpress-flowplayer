@@ -87,7 +87,7 @@ class Flowplayer5 {
 	/**
 	 * Initialize the plugin by setting localization, filters, and administration functions.
 	 *
-	 * @since     1.0.0
+	 * @since    1.0.0
 	 */
 	private function __construct() {
 
@@ -130,9 +130,9 @@ class Flowplayer5 {
 	/**
 	 * Return an instance of this class.
 	 *
-	 * @since     1.0.0
+	 * @since    1.0.0
 	 *
-	 * @return    object    A single instance of this class.
+	 * @return   object    A single instance of this class.
 	 */
 	public static function get_instance() {
 
@@ -185,9 +185,9 @@ class Flowplayer5 {
 	/**
 	 * Register and enqueue admin-specific style sheet.
 	 *
-	 * @since     1.0.0
+	 * @since    1.0.0
 	 *
-	 * @return    null    Return early if no settings page is registered.
+	 * @return   null    Return early if no settings page is registered.
 	 */
 	public function enqueue_admin_styles() {
 
@@ -205,51 +205,52 @@ class Flowplayer5 {
 	/**
 	 * Register and enqueue admin-specific JavaScript.
 	 *
-	 * @since     1.0.0
+	 * @since    1.0.0
 	 *
-	 * @return    null    Return early if no settings page is registered.
+	 * @return   null    Return early if no settings page is registered.
 	 */
 	public function enqueue_admin_scripts() {
 
 		$screen = get_current_screen();
 
+		// Only run on flowplayer new and edit post screens
 		if ( $screen->post_type === $this->plugin_slug && $screen->base == 'post' ) {
 
 			wp_enqueue_script( $this->plugin_slug . '-media', plugins_url( '/assets/js/media.js', __FILE__ ), array(), $this->version, false );
 			wp_localize_script( $this->plugin_slug . '-media', 'splash_image',
 				array(
-					'title'  => __( 'Upload or choose a splash image', 'flowplayer5' ), // This will be used as the default title
-					'button' => __( 'Insert Splash Image', 'flowplayer5' )              // This will be used as the default button text
+					'title'  => __( 'Upload or choose a splash image', $this->plugin_slug ), // This will be used as the default title
+					'button' => __( 'Insert Splash Image', $this->plugin_slug )              // This will be used as the default button text
 				)
 			);
 			wp_localize_script( $this->plugin_slug . '-media', 'mp4_video',
 				array(
-					'title'  => __( 'Upload or choose a mp4 video file', 'flowplayer5' ), // This will be used as the default title
-					'button' => __( 'Insert mp4 Video', 'flowplayer5' )                   // This will be used as the default button text
+					'title'  => __( 'Upload or choose a mp4 video file', $this->plugin_slug ), // This will be used as the default title
+					'button' => __( 'Insert mp4 Video', $this->plugin_slug )                   // This will be used as the default button text
 				)
 			);
 			wp_localize_script( $this->plugin_slug . '-media', 'webm_video',
 				array(
-					'title'  => __( 'Upload or choose a webm video file', 'flowplayer5' ), // This will be used as the default title
-					'button' => __( 'Insert webm Video', 'flowplayer5' )                   // This will be used as the default button text
+					'title'  => __( 'Upload or choose a webm video file', $this->plugin_slug ), // This will be used as the default title
+					'button' => __( 'Insert webm Video', $this->plugin_slug )                   // This will be used as the default button text
 				)
 			);
 			wp_localize_script( $this->plugin_slug . '-media', 'ogg_video',
 				array(
-					'title'  => __( 'Upload or choose a ogg video file', 'flowplayer5' ), // This will be used as the default title
-					'button' => __( 'Insert ogg Video', 'flowplayer5' )                   // This will be used as the default button text
+					'title'  => __( 'Upload or choose a ogg video file', $this->plugin_slug ), // This will be used as the default title
+					'button' => __( 'Insert ogg Video', $this->plugin_slug )                   // This will be used as the default button text
 				)
 			);
 			wp_localize_script( $this->plugin_slug . '-media', 'webvtt',
 				array(
-					'title'  => __( 'Upload or choose a webvtt file', 'flowplayer5' ), // This will be used as the default title
-					'button' => __( 'Insert webvtt', 'flowplayer5' )                   // This will be used as the default button text
+					'title'  => __( 'Upload or choose a webvtt file', $this->plugin_slug ), // This will be used as the default title
+					'button' => __( 'Insert webvtt', $this->plugin_slug )                   // This will be used as the default button text
 				)
 			);
 			wp_localize_script( $this->plugin_slug . '-media', 'logo',
 				array(
-					'title'  => __( 'Upload or choose a logo', 'flowplayer5' ), // This will be used as the default title
-					'button' => __( 'Insert Logo', 'flowplayer5' )              // This will be used as the default button text
+					'title'  => __( 'Upload or choose a logo', $this->plugin_slug ), // This will be used as the default title
+					'button' => __( 'Insert Logo', $this->plugin_slug )              // This will be used as the default button text
 				)
 			);
 
@@ -257,7 +258,22 @@ class Flowplayer5 {
 
 		}
 
-		// Only run in new post and edit screens
+		// Only run on settings screen
+		if ( $screen->post_type === $this->plugin_slug && $screen->id == 'flowplayer5_page_flowplayer5_settings' ) {
+
+			wp_enqueue_script( $this->plugin_slug . '-settings', plugins_url( '/assets/js/settings.js', __FILE__ ), array(), $this->version, false );
+			wp_localize_script( $this->plugin_slug . '-settings', 'logo',
+				array(
+					'title'  => __( 'Upload or choose a logo', $this->plugin_slug ), // This will be used as the default title
+					'button' => __( 'Insert Logo', $this->plugin_slug )              // This will be used as the default button text
+				)
+			);
+
+			wp_enqueue_media();
+
+		}
+
+		// Only run on new and edit post screens
 		if ( $screen->base == 'post' ) {
 			wp_enqueue_script( 'jquery-colorbox', plugins_url( '/assets/jquery-colorbox/jquery.colorbox-min.js', __FILE__ ), 'jquery', '1.4.27', false );
 		}
@@ -511,7 +527,7 @@ class Flowplayer5 {
 	 *
 	 * @since    1.1.0
 	 */
-	public function shortcode_row( $column, $post_id  ){
+	public function shortcode_row( $column, $post_id ){
 
 		switch ( $column ) {
 
@@ -531,7 +547,7 @@ class Flowplayer5 {
 	public function flowplayer_custom_mimes( $mimes ){
 
 		$mimes['webm'] = 'video/webm';
-		$mimes['vtt'] = 'text/vtt';
+		$mimes['vtt']  = 'text/vtt';
 
 		return $mimes;
 
