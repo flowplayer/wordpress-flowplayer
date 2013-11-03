@@ -84,3 +84,16 @@ select#fp5-select-skin {
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+
+/* Settings page */
+.fp5-main {
+	float: left;
+}
+
+.fp5-sidebar {
+	float: right;
+}
+
+#fp5_about .hndle {
+	cursor: default;
+}
