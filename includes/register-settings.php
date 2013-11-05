@@ -32,7 +32,7 @@ function fp5_register_settings() {
 				),
 				'key' => array(
 					'id'   => 'key',
-					'name' => __( 'License Key', 'flowplayer5' ) . ' <a href="http://flowplayer.org/docs/index.html#commercial-configuration">?</a>',
+					'name' => __( 'License Key', 'flowplayer5' ) . ' <a href="http://flowplayer.org/docs/setup.html#commercial-configuration">?</a>',
 					'desc' => __( 'Specify your License Key here.', 'flowplayer5' ),
 					'type' => 'text',
 					'size' => 'medium'

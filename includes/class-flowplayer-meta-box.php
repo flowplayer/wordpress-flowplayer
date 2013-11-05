@@ -145,7 +145,7 @@ class Video_Meta_Box {
 
 				<tr valign="top">
 					<th scope="row"><span class="fp5-row-title"><strong><?php _e( 'Media files', $this->plugin_slug )?></strong></span></th>
-					<td><?php _e( 'It is recommended to add at least two video formats so that the video plays on as many browsers as possible. To be able to calculate the dimensions of the video the video format added needs to be compatible with the browser.', $this->plugin_slug ) ?> <a href="http://flowplayer.org/docs/#video-formats" target="_blank"><?php _e( 'About video formats.', $this->plugin_slug ) ?></a>
+					<td><?php _e( 'It is recommended to add at least two video formats so that the video plays on as many browsers as possible. To be able to calculate the dimensions of the video the video format added needs to be compatible with the browser.', $this->plugin_slug ) ?> <a href="http://flowplayer.org/docs/setup.html#video-formats" target="_blank"><?php _e( 'About video formats.', $this->plugin_slug ) ?></a>
 					</td>
 				</tr>
 
@@ -157,7 +157,7 @@ class Video_Meta_Box {
 				</tr>
 
 				<tr valign="top">
-					<th scope="row"><label for="fp5-splash-image"><?php _e( 'Splash Image', $this->plugin_slug )?></label> <a href="http://flowplayer.org/docs/index.html#splash" target="_blank">?</a></th>
+					<th scope="row"><label for="fp5-splash-image"><?php _e( 'Splash Image', $this->plugin_slug )?></label> <a href="http://flowplayer.org/docs/setup.html#splash" target="_blank">?</a></th>
 					<td>
 						<input class="media-url" type="text" name="fp5-splash-image" id="fp5-splash-image" size="70" value="<?php if ( isset ( $fp5_stored_meta['fp5-splash-image'] ) ) echo esc_url( $fp5_stored_meta['fp5-splash-image'][0] ); ?>" />
 						<a href="#" class="fp5-add-splash-image button button-primary" title="<?php _e( 'Add splash image', $this->plugin_slug )?>"><?php _e( 'Add splash image', $this->plugin_slug )?></a>
@@ -219,7 +219,7 @@ class Video_Meta_Box {
 
 		<p>
 			<div class="fp5-row-content">
-				<span class="fp5-row-title"><strong><?php _e( 'Video attributes', $this->plugin_slug )?></strong> <a href="http://flowplayer.org/docs/index.html#video-attributes" target="_blank">?</a></span>
+				<span class="fp5-row-title"><strong><?php _e( 'Video attributes', $this->plugin_slug )?></strong> <a href="http://flowplayer.org/docs/setup.html#video-attributes" target="_blank">?</a></span>
 			</div>
 			<div class="fp5-row-content">
 				<label for="fp5-autoplay">
