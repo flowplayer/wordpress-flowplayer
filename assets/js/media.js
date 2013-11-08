@@ -199,9 +199,9 @@ jQuery(document).ready(function($){
     $(".media-url").blur(CreatePreview=function() {
         $('#video video').remove();
         $('#video').append('<video controls id="preview">' +
-            '<source type="video/mp4" src="' + $('#fp5-mp4-video').val() + '"/>' +
             '<source type="video/webm" src="' + $('#fp5-webm-video').val() + '"/>' +
-            '<source type="video/webm" src="' + $('#fp5-ogg-video').val() + '"/>' +
+            '<source type="video/mp4" src="' + $('#fp5-mp4-video').val() + '"/>' +
+            '<source type="video/ogg" src="' + $('#fp5-ogg-video').val() + '"/>' +
             '</video>');
 
         var preview = $("#preview");
