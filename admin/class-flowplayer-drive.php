@@ -1,6 +1,6 @@
 <?php
 /**
- * Flowplayer
+ * Flowplayer 5 for WordPress
  *
  * @package   Flowplayer_Drive
  * @author    Ulrich Pogson <ulrich@pogson.ch>

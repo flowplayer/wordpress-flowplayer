@@ -1,8 +1,8 @@
 <?php
 /**
- * Meta boxes for custom post type
+ * Flowplayer 5 for WordPress
  *
- * @package   Flowplayer 5 for WordPress
+ * @package   Video_Meta_Box
  * @author    Ulrich Pogson <ulrich@pogson.ch>
  * @license   GPL-2.0+
  * @link      http://flowplayer.org/
@@ -17,7 +17,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Video Meta box class.
  *
- * @package Flowplayer5
+ * @package Video_Meta_Box
  * @author  Ulrich Pogson <ulrich@pogson.ch>
  */
 class Video_Meta_Box {
@@ -210,9 +210,9 @@ class Video_Meta_Box {
 					<option id="fp5-playful" value="playful" <?php if ( isset ( $fp5_stored_meta['fp5-select-skin'] ) ) selected( $fp5_stored_meta['fp5-select-skin'][0], 'playful' ); ?>>Playful</option>
 				</select>
 				<div class="player-previews">
-					<img id="fp5_minimalist" class="minimalist player-preview" src="<?php echo plugins_url( '/assets/img/minimalist.png', dirname(__FILE__) ) ?>" />
-					<img id="fp5_functional" class="functional player-preview" src="<?php echo plugins_url( '/assets/img/functional.png', dirname(__FILE__) ) ?>" />
-					<img id="fp5_playful" class="playful player-preview" src="<?php echo plugins_url( '/assets/img/playful.png', dirname(__FILE__) ) ?>" />
+					<img id="fp5_minimalist" class="minimalist player-preview" src="<?php echo plugins_url( '/assets/img/minimalist.png', __FILE__ ) ?>" />
+					<img id="fp5_functional" class="functional player-preview" src="<?php echo plugins_url( '/assets/img/functional.png', __FILE__ ) ?>" />
+					<img id="fp5_playful" class="playful player-preview" src="<?php echo plugins_url( '/assets/img/playful.png', __FILE__ ) ?>" />
 				</div>
 			</div>
 		</p>
