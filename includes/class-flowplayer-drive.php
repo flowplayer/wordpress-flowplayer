@@ -9,6 +9,11 @@
  * @copyright 2013 Flowplayer Ltd
  */
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 /**
  * Flowplayer Drive Class
  *
@@ -99,7 +104,7 @@ class Flowplayer_Drive {
 
 		} else {
 
-			echo '<div class="api-error"><p>' . __( 'Unable to connect to the Authentication Seed API.', 'flowplayer5' ) . '</p></div>';
+			echo '<div class="api-error"><p>' . __( 'Unable to connect to the Flowplayer Authentication Seed API.', 'flowplayer5' ) . '</p></div>';
 
 		}
 
@@ -137,7 +142,7 @@ class Flowplayer_Drive {
 				array(
 					'callback' => '?',
 					'username' => $user_name,
-					'hash'     => sha1( $user_name . $seed . sha1( $password ) ),
+					'hash'     => sha1( $user_name . $seed . $password ),
 					'seed'     => $seed
 				),
 				esc_url_raw( $this->account_api_url )
@@ -151,11 +156,26 @@ class Flowplayer_Drive {
 
 				$auth = json_decode( $body );
 
-				return $auth->result->authcode;
+				if ( $auth->success == true ) {
+
+					return $auth->result->authcode;
+
+				} else {
+
+					$return = '<div class="login-error"><p>';
+					$return .= sprintf(
+						__( 'You have enter a incorrect username and/or password. Please check your username and password in the <a href="%1$s">settings</a>.', $this->plugin_slug ),
+						esc_url( admin_url( 'edit.php?post_type=flowplayer5&page=flowplayer5_settings' ) )
+					);
+					$return .= '</p></div>';
+
+					echo $return;
+
+				}
 
 			} else {
 
-				echo '<div class="api-error"><p>' . __( 'Unable to connect to the Authentication API.', $this->plugin_slug ) . '</p></div>';
+				echo '<div class="api-error"><p>' . __( 'Unable to connect to the Flowplayer Authentication API.', $this->plugin_slug ) . '</p></div>';
 
 			}
 
@@ -182,17 +202,32 @@ class Flowplayer_Drive {
 
 		$response_videos = wp_remote_get( $verified_video_api_url );
 
+		$body = wp_remote_retrieve_body( $response_videos );
+
+		$json = json_decode( $body );
+
 		if ( wp_remote_retrieve_response_code( $response_videos ) == 200 ) {
 
-			$body = wp_remote_retrieve_body( $response_videos );
-
-			$json = json_decode( $body );
-
-			return $json->videos;
+				return $json->videos;
 
 		} else {
 
-			echo '<div class="api-error"><p>' . __( 'Unable to connect to the Video API.', $this->plugin_slug ) . '</p></div>';
+			if ( $json == 'Cannot find account' ) {
+
+				$return = '<div class="new-user-error"><p>';
+				$return .= sprintf(
+					__( 'You have not uploaded any videos yet. You can upload the video in <a href="%1$s">Flowplayer Designer</a>.', $this->plugin_slug ),
+					esc_url( 'http://flowplayer.org/designer/' )
+				);
+				$return .= '</p></div>';
+
+				echo $return;
+
+			} elseif ( $json != 'authcode missing' ) {
+
+				echo '<div class="api-error"><p>' . __( 'Unable to connect to the Flowplayer Video API.', $this->plugin_slug ) . '</p></div>';
+
+			}
 
 		}
 
