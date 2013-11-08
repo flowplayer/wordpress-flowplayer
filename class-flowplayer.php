@@ -42,7 +42,7 @@ class Flowplayer5 {
 	 *
 	 * @var     string
 	 */
-	protected $player_version = '5.4.3';
+	protected $player_version = '5.4.4';
 
 	public function get_player_version() {
 		return $this->player_version;
