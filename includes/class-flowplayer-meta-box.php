@@ -512,7 +512,6 @@ class Video_Meta_Box {
 
 	}
 
-
 	/**
 	 * Determines whether or not the current user has the ability to save meta data associated with this post.
 	 *

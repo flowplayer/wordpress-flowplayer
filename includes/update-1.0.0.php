@@ -1,6 +1,6 @@
 <?php
 /**
- * Update Flowplayer5 to 2.0.0
+ * Update Flowplayer5 to 1.0.0
  *
  * @package   Flowplayer 5 for WordPress
  * @author    Ulrich Pogson <ulrich@pogson.ch>

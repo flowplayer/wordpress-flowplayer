@@ -35,7 +35,6 @@ class Flowplayer5 {
 		return $this->plugin_version;
 	}
 
-
 	/**
 	 * Player version, used for cache-busting of style and script file references.
 	 *
@@ -48,7 +47,6 @@ class Flowplayer5 {
 	public function get_player_version() {
 		return $this->player_version;
 	}
-
 
 	/**
 	 * Unique identifier for your plugin.
@@ -348,6 +346,11 @@ class Flowplayer5 {
 
 	}
 
+	/**
+	 * Flowplayer global JavaScript settings.
+	 *
+	 * @since    1.0.0
+	 */
 	public function global_config_script() {
 
 		// set the options for the shortcode - pulled from the display-settings.php
