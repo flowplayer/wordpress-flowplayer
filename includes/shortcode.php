@@ -83,7 +83,7 @@ function add_fp5_shortcode( $atts ) {
 				$webm      != '' ? $return .= '<source type="video/webm" src="' . $webm . '">' : '';
 				$mp4       != '' ? $return .= '<source type="video/mp4" src="' . $mp4 . '">' : '';
 				$ogg       != '' ? $return .= '<source type="video/ogg" src="' . $ogg . '">' : '';
-				// $subtitles != '' ? $return .= '<track src="' . $subtitles . '"/>' : '';
+				$subtitles != '' ? $return .= '<track src="' . $subtitles . '"/>' : '';
 			$return .= '</video>';
 			ob_start();
 			$return .= do_action( 'fp5_video_bottom' );
@@ -155,7 +155,7 @@ function add_fp5_shortcode( $atts ) {
 				$webm      != '' ? $return .= '<source type="video/webm" src="' . $webm . '">' : '';
 				$mp4       != '' ? $return .= '<source type="video/mp4" src="' . $mp4 . '">' : '';
 				$ogg       != '' ? $return .= '<source type="video/ogg" src="' . $ogg . '">' : '';
-				// $subtitles != '' ? $return .= '<track src="' . $subtitles . '"/>' : '';
+				$subtitles != '' ? $return .= '<track src="' . $subtitles . '"/>' : '';
 			$return .= '</video>';
 			ob_start();
 			$return .= do_action( 'fp5_video_bottom' );
