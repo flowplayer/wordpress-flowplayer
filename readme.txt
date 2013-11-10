@@ -13,6 +13,7 @@ A HTML5 responsive video player plugin. From the makers of Flowplayer.
 == Description ==
 
 The main features are:
+
 * One central place to manage all of your videos
 * Video can be added using shortcodes e.g. [flowplayer5 id="1"]
 * Skin selection with three default Flowplayer skins: Minimalist, Functional and Playful
@@ -97,7 +98,7 @@ Why would you want to do that? :-) If you do need to uninstall the plugin all of
 == Changelog ==
 
 = 1.2.0 =
-* added functionalityto fetch videos from Flowplayer Designer directly in the admin area
+* added functionality to fetch videos from Flowplayer Designer directly in the admin area
 * added a few filters and actions
 * reorganisations of files and folders
 * Update to Flowplayer 5.4.4
