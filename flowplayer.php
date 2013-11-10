@@ -11,11 +11,11 @@
  * Plugin Name: Flowplayer 5 for WordPress
  * Plugin URI:  http://wordpress.org/plugins/flowplayer5/
  * Description: A HTML5 responsive video player plugin. From the makers of Flowplayer. Supports all three default Flowplayer skins, subtitles, tracking with Google Analytics, splash images. You can use your own watermark logo if you own a Commercial Flowplayer license.
- * Version:     1.1.0
- * Author:      Flowplayer ltd. Anssi Piirainen, Ulrich Pogson
+ * Version:     1.2.0
+ * Author:      Flowplayer ltd.
  * Author URI:  http://flowplayer.org/
  * Text Domain: flowplayer5
- * Domain Path: /lang
+ * Domain Path: /languages
  * License:     GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  */
@@ -27,15 +27,22 @@ if ( ! defined( 'WPINC' ) ) {
 
 global $fp5_options;
 
-require_once( plugin_dir_path( __FILE__ ) . 'class-flowplayer.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'includes/register-settings.php' );
+// Plugin Root File
+if ( ! defined( 'FP5_PLUGIN_FILE' ) )
+	define( 'FP5_PLUGIN_FILE', __FILE__ );
+
+require_once( plugin_dir_path( __FILE__ ) . 'includes/class-flowplayer5.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'admin/register-settings.php' );
 $fp5_options = fp5_get_settings();
 
 if( is_admin() ) {
-	require_once( plugin_dir_path( __FILE__ ) . 'includes/class-flowplayer-meta-box.php' );
-	require_once( plugin_dir_path( __FILE__ ) . 'includes/insert-video-button.php' );
+	require_once( plugin_dir_path( __FILE__ ) . 'admin/class-flowplayer5-admin.php' );
+	require_once( plugin_dir_path( __FILE__ ) . 'admin/class-flowplayer5-meta-box.php' );
+	require_once( plugin_dir_path( __FILE__ ) . 'admin/insert-video-button.php' );
+	require_once( plugin_dir_path( __FILE__ ) . 'admin/class-flowplayer-drive.php' );
 } else {
-	require_once( plugin_dir_path( __FILE__ ) . 'includes/shortcode.php' );
+	require_once( plugin_dir_path( __FILE__ ) . 'frontend/class-flowplayer5-frontend.php' );
+	require_once( plugin_dir_path( __FILE__ ) . 'frontend/shortcode.php' );
 }
 
 // Register hooks that are fired when the plugin is activated, deactivated, and uninstalled, respectively.
@@ -44,5 +51,9 @@ register_deactivation_hook( __FILE__, array( 'Flowplayer5', 'deactivate' ) );
 
 Flowplayer5::get_instance();
 if( is_admin() ) {
+	Flowplayer5_Admin::get_instance();
 	Video_Meta_Box::get_instance();
+	Flowplayer_Drive::get_instance();
+} else {
+	Flowplayer5_Frontend::get_instance();
 }

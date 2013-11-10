@@ -1,9 +1,9 @@
 === Flowplayer 5 for WordPress ===
-Contributors: anssi, grapplerulrich
+Contributors: flowplayerorg, grapplerulrich, anssi
 Donate link: http://flowplayer.org/download
 Tags: video, html5 video, flowplayer, responsive, flowplayer5
 Requires at least: 3.5
-Tested up to: 3.6
+Tested up to: 3.7.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -12,41 +12,46 @@ A HTML5 responsive video player plugin. From the makers of Flowplayer.
 
 == Description ==
 
-The main features of this plugin are:
+The main features are:
 
-* One central place to mange all of your videos
-* Video can be added using shortcodes [flowplayer5 id="1"]
+* One central place to manage all of your videos
+* Video can be added using shortcodes e.g. [flowplayer5 id="1"]
 * Skin selection with three default Flowplayer skins: Minimalist, Functional and Playful
 * Show your video in any desired player size
-* Playback options: autoplay, loop
-* Include a [splash image](http://flowplayer.org/docs/index.html#splash) for your video
+* [Subtitles support](http://flowplayer.org/docs/subtitles.html)
 * [Google Analytics](http://flowplayer.org/docs/analytics.html) support for tracking video audience and traffic
+* Playback options: autoplay, loop
+* Include a [splash image](http://flowplayer.org/docs/setup.html#splash) for your video
 * Video selection using the WordPress 3.5 Media Library
 * Detects the video dimensions for configuring the correct player size
 * Commercial Flowplayer version can be enabled by supplying a [license key](http://flowplayer.org/download)
 * Use your own logo watermark images when using the commercial Flowplayer version
 
 == Credits ==
+The plugin can also be found on [GitHub](https://github.com/flowplayer/wordpress-flowplayer).
+
 Thank you [Tom McFarlin](http://tommcfarlin.com/) for the [WordPress Plugin Boilerplate](https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate)
+
 The settings code was adapted from [Easy Digital Downloads](https://github.com/easydigitaldownloads/Easy-Digital-Downloads) by [Pippin Williamson](http://pippinsplugins.com/)
+
 The meta box settings was adapted from [Theme Foundation](http://themefoundation.com/wordpress-meta-boxes-guide/) by [Alex Mansfield](http://sackclothstudios.com/)
 
 == Installation ==
 
-= Using The WordPress Dashboard =
+= Installing from the WordPress dashboard =
 
-1. Navigate to the 'Add New' Plugin Dashboard
-2. Search for 'Flowplayer5'
+1. Navigate to the 'Add New' plugins dashboard
+2. Search for 'Flowplayer5 for WordPress'
 3. Click 'Install Now'
-4. Activate the plugin on the WordPress Plugin Dashboard
+4. Activate the plugin on the WordPress Plugin dashboard
 
-= Using The WordPress Dashboard =
+= Uploading in the WordPress dashboard =
 
-1. Navigate to the 'Add New' Plugin Dashboard
+1. Navigate to the 'Add New' plugins dashboard
 2. Navigate to the 'Upload' area
 3. Select `flowplayer5.zip` from your computer
 4. Upload
-5. Activate the plugin on the WordPress Plugin Dashboard
+5. Activate the plugin on the WordPress Plugin dashboard
 
 = Using FTP =
 
@@ -55,10 +60,9 @@ The meta box settings was adapted from [Theme Foundation](http://themefoundation
 3. Upload the `flowplayer5` directory to your `wp-content/plugins` directory
 4. Activate the plugin on the WordPress Plugins dashboard
 
-Configuration
+= Configuration =
 
-You can configure Google Analytics, a Commercial Flowplayer license key and a custom watermark logo in the plugin's
-global options. You can purchase a commercial license at [flowplayer.org](http://flowplayer.org/download).
+You can configure Google Analytics, a Commercial Flowplayer license key and a custom watermark logo in the plugin's global options. You can purchase a commercial license at [flowplayer.org](http://flowplayer.org/download).
 
 == Frequently Asked Questions ==
 
@@ -66,9 +70,17 @@ global options. You can purchase a commercial license at [flowplayer.org](http:/
 
 Flowplayer 5 for WordPress provides a video management system where you can manage all of your video froma centeral place. This plugin also allows for simple customisation of the videos. We are continuasly adding further features to the plugin.
 
-= Why are the subtitles no longer available? =
+= How to load Flowplayer assets locally when using Flowplayer Commercial =
 
-WordPress 3.6 updated jQuery to version 1.10 and included jQuery Migrate. Flowplayer 5.4.3 when using subtitles is not compatible with jQuery Migrate. When version 5.5 is released the subtitles will be added back.
+If you want to load the Flowplayer assets (JS, CSS and SWF) for your site then you can download the files from [your account](http://flowplayer.org/account/). Create a new folder `flowplayer-commercial` in `wp-content`. Place the files in this new folder. The option in the settings to use Floplayer CDN should be disabled.
+
+= API Issues? =
+
+If you are unable to conect to the Flowplayer Designer videos, make sure you are conected to the internet and are logined in. You can add your username and password in the Video Settings.
+
+= Known Flowplayer Issues? =
+
+If you are having a issue please check the [Flowplayer Known Issues page](http://flowplayer.org/docs/known-issues.html).
 
 = What happens when I disable the plugin? =
 
@@ -85,9 +97,16 @@ Why would you want to do that? :-) If you do need to uninstall the plugin all of
 
 == Changelog ==
 
+= 1.2.0 =
+* added functionality to fetch videos from Flowplayer Designer directly in the admin area
+* added a few filters and actions
+* reorganisations of files and folders
+* Update to Flowplayer 5.4.4
+* enable subtitle after being disabled in version 1.0.0
+
 = 1.1.0 =
-* add extra column to show the shortcode in the overview
-* add a button in the posts pages so add shortcodes easily
+* added an extra column to show the shortcode in the overview
+* added a button in the posts pages so add shortcodes easily
 * fixed typos and updated pot file
 
 = 1.0.0 =
@@ -97,7 +116,7 @@ Why would you want to do that? :-) If you do need to uninstall the plugin all of
 * added CDN option
 * added a few more flowplayer options
 * added embed options
-* removed subtitles temporarily till Flowplayer version 5.5 is released
+* disable subtitles temporarily till Flowplayer version 5.5 is released
 
 = 0.5.0 =
 * updated the Flowplayer code to version 5.3.2
@@ -122,6 +141,12 @@ Why would you want to do that? :-) If you do need to uninstall the plugin all of
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.2.0 =
+* add videos from Flowplayer Designer directly in the admin area
+
+= 1.1.0 =
+* add small new features
 
 = 1.0.0 =
 * big plugin rewrite
