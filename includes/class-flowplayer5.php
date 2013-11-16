@@ -71,6 +71,9 @@ class Flowplayer5 {
 		// Load plugin text domain
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 
+		// Add custom post type
+		add_action( 'init', array( $this, 'add_fp5_videos' ) );
+
 		// Add file support
 		add_filter( 'upload_mimes', array( $this, 'flowplayer_custom_mimes' ) );
 
@@ -161,6 +164,66 @@ class Flowplayer5 {
 
 		load_textdomain( $domain, trailingslashit( WP_LANG_DIR ) . $domain . '/' . $domain . '-' . $locale . '.mo' );
 		load_plugin_textdomain( $domain, FALSE, basename( dirname( FP5_PLUGIN_FILE ) ) . '/languages/' );
+
+	}
+
+	/**
+	 * Add video Custom Post Type for flowplayer5
+	 *
+	 * @since    1.0.0
+	 */
+	public function add_fp5_videos() {
+
+		$labels = apply_filters( 'fp5_post_type_labels', array(
+			'name'                => _x( 'Videos', 'Post Type General Name', $this->plugin_slug ),
+			'singular_name'       => _x( 'Video', 'Post Type Singular Name', $this->plugin_slug ),
+			'menu_name'           => __( 'Videos', $this->plugin_slug ),
+			'parent_item_colon'   => __( 'Parent Video', $this->plugin_slug ),
+			'all_items'           => __( 'All Videos', $this->plugin_slug ),
+			'view_item'           => __( 'View Video', $this->plugin_slug ),
+			'add_new_item'        => __( 'Add New Video', $this->plugin_slug ),
+			'add_new'             => __( 'New Video', $this->plugin_slug ),
+			'edit_item'           => __( 'Edit Video', $this->plugin_slug ),
+			'update_item'         => __( 'Update Video', $this->plugin_slug ),
+			'search_items'        => __( 'Search Videos', $this->plugin_slug ),
+			'not_found'           => __( 'No Videos found', $this->plugin_slug ),
+			'not_found_in_trash'  => __( 'No Videos found in Trash', $this->plugin_slug ),
+		) );
+
+		$supports = apply_filters( 'fp5_post_type_supports', array(
+			'title',
+		) );
+
+		$rewrite = apply_filters( 'fp5_post_type_rewrite', array(
+			'slug'                => __( 'video', $this->plugin_slug ),
+			'with_front'          => true,
+			'pages'               => true,
+			'feeds'               => true,
+		) );
+
+		$args = apply_filters( 'fp5_post_type_args', array(
+			'label'               => __( 'flowplayer5', $this->plugin_slug ),
+			'description'         => __( 'Flowplayer Videos', $this->plugin_slug ),
+			'labels'              => $labels,
+			'supports'            => $supports,
+			'hierarchical'        => false,
+			'public'              => false,
+			'show_ui'             => true,
+			'show_in_menu'        => true,
+			'show_in_nav_menus'   => false,
+			'show_in_admin_bar'   => true,
+			'menu_position'       => 15,
+			'menu_icon'           => '',
+			'can_export'          => true,
+			'has_archive'         => false,
+			'exclude_from_search' => true,
+			'publicly_queryable'  => true,
+			'rewrite'             => $rewrite,
+			'query_var'           => 'video',
+			'capability_type'     => 'page',
+		) );
+
+		register_post_type( 'flowplayer5', $args );
 
 	}
 
