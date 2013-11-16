@@ -50,6 +50,9 @@ class Flowplayer5_Frontend {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
+		// Filter video output to video post
+		add_filter( 'the_content',  array( $this, 'get_video_output' ) );
+
 		// Load script for Flowplayer global configuration
 		add_action( 'wp_head', array( $this, 'global_config_script' ) );
 
@@ -142,6 +145,20 @@ class Flowplayer5_Frontend {
 			wp_enqueue_script( $this->plugin_slug . '-script', trailingslashit( $flowplayer5_directory ) . 'flowplayer.min.js', array( 'jquery' ), $this->player_version, false );
 		}
 
+	}
+
+	/**
+	 * Add video to post
+	 *
+	 * Add video html to flowplayer video posts
+	 *
+	 * @since    1.3.0
+	 */
+	public function get_video_output( $content ) {
+		if( is_singular( 'flowplayer5') || is_post_type_archive( 'flowplayer5') && is_main_query() ) {
+			$content .= Flowplayer5_Shortcode::create_fp5_video_output( get_the_ID() );
+		}
+		return $content;
 	}
 
 	/**
