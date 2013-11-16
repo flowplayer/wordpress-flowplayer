@@ -42,7 +42,7 @@ if( is_admin() ) {
 	require_once( plugin_dir_path( __FILE__ ) . 'admin/class-flowplayer-drive.php' );
 } else {
 	require_once( plugin_dir_path( __FILE__ ) . 'frontend/class-flowplayer5-frontend.php' );
-	require_once( plugin_dir_path( __FILE__ ) . 'frontend/shortcode.php' );
+	require_once( plugin_dir_path( __FILE__ ) . 'frontend/class-flowplayer5-shortcode.php' );
 }
 
 // Register hooks that are fired when the plugin is activated, deactivated, and uninstalled, respectively.
@@ -56,4 +56,5 @@ if( is_admin() ) {
 	Flowplayer_Drive::get_instance();
 } else {
 	Flowplayer5_Frontend::get_instance();
+	Flowplayer5_Shortcode::get_instance();
 }
