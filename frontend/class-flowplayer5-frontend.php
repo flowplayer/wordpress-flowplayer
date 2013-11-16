@@ -94,7 +94,9 @@ class Flowplayer5_Frontend {
 
 		// Register stylesheets
 		if( function_exists( 'has_shortcode' ) ) {
-			if( has_shortcode( $post->post_content, 'flowplayer' ) ) {
+			$post_content = isset( $post->post_content ) ? $post->post_content : '';
+			$has_shortcode = '';
+			if( has_shortcode( $post_content, 'flowplayer' ) || 'flowplayer5' == get_post_type() || apply_filters( 'fp5_filter_has_shortcode', $has_shortcode ) ) {
 				wp_enqueue_style( $this->plugin_slug .'-skins' , trailingslashit( $flowplayer5_directory ) . 'all-skins.css', array(), $this->player_version );
 				wp_enqueue_style( $this->plugin_slug .'-logo-origin', plugins_url( '/assets/css/public.css', __FILE__ ), array(), $this->plugin_version );
 			}
@@ -131,7 +133,9 @@ class Flowplayer5_Frontend {
 
 		// Register JavaScript
 		if( function_exists( 'has_shortcode' ) ) {
-			if( has_shortcode( $post->post_content, 'flowplayer' ) ) {
+			$post_content = isset( $post->post_content ) ? $post->post_content : '';
+			$has_shortcode = '';
+			if( has_shortcode( $post_content, 'flowplayer' ) || 'flowplayer5' == get_post_type() || apply_filters( 'fp5_filter_has_shortcode', $has_shortcode ) ) {
 				wp_enqueue_script( $this->plugin_slug . '-script', trailingslashit( $flowplayer5_directory ) . 'flowplayer.min.js', array( 'jquery' ), $this->player_version, false );
 			}
 		} else {
