@@ -71,7 +71,7 @@ class Flowplayer5_Shortcode {
 	 * @param    array $atts Shortcode attributes
 	 */
 	public function create_fp5_video_output( $atts ) {
-	
+
 		global $post;
 		
 		if ( isset( $atts['id'] ) ) {
@@ -79,15 +79,15 @@ class Flowplayer5_Shortcode {
 		} elseif ( 'flowplayer5' == get_post_type() ) {
 			$id = get_the_ID();
 		}
-	
+
 		if ( isset( $id ) ) {
-	
+
 			/**
 			 * New flowplayer shortcode
 			 *
 			 * @example [flowplayer id="123"]
 			 */
-	
+
 			// get the meta from the post type
 			$loop           = get_post_meta( $id, 'fp5-loop', true );
 			$autoplay       = get_post_meta( $id, 'fp5-autoplay', true );
@@ -106,15 +106,15 @@ class Flowplayer5_Shortcode {
 			$height         = get_post_meta( $id, 'fp5-height', true );
 			$ratio          = get_post_meta( $id, 'fp5-aspect-ratio', true );
 			$fixed          = get_post_meta( $id, 'fp5-fixed-width', true );
-	
+
 		} else {
-	
+
 			/**
 			 * Old flowplayer shortcode
 			 *
 			 * @example [flowplayer splash="trailer_1080p.jpg" webm="trailer_1080p.webm" mp4="trailer_1080p.mp4" ogg="trailer_1080p.ogv" width="1920" height="1080" skin="functional" autoplay="true" loop="true" fixed="false" subtitles="bunny-en.vtt" fixed_controls="true" coloring="default" preload="auto"]
 			 */
-	
+
 			// Attributes
 			extract(
 				shortcode_atts(
@@ -138,18 +138,18 @@ class Flowplayer5_Shortcode {
 					$atts
 				)
 			);
-	
+
 			$max_width = $width;
-	
+
 		}
-	
+
 		// set the options for the shortcode - pulled from the register-settings.php
 		$options       = get_option('fp5_settings_general');
 		$key           = ( isset( $options['key'] ) ) ? $options['key'] : '';
 		$logo          = ( isset( $options['logo'] ) ) ? $options['logo'] : '';
 		$ga_account_id = ( isset( $options['ga_account_id'] ) ) ? $options['ga_account_id'] : '';
 		$logo_origin   = ( isset( $options['logo_origin'] ) ) ? $options['logo_origin'] : '';
-	
+
 		// Shortcode processing
 		$ratio            = ( ( $width != 0 && $height != 0 ) ? intval( $height ) / intval( $width ) : '' );
 		$size             = ( $fixed == 'true' && $width != '' && $height != '' ? 'width:' . $width . 'px; height:' . $height . 'px; ' : ( ( $max_width != 0 ) ?  'max-width:' . $max_width . 'px; ' : '' ) );
@@ -159,11 +159,11 @@ class Flowplayer5_Shortcode {
 		$data_logo        = ( 0 < strlen  ( $key ) && 0 < strlen  ( $logo ) ? 'data-logo="' . $logo . '" ' : '' );
 		$data_analytics   = ( 0 < strlen  ( $ga_account_id ) ? 'data-analytics="' . $ga_account_id . '" ' : '' );
 		$data_ratio       = ( $ratio != 0 ? 'data-ratio="' . $ratio . '" ' : '' );
-	
+
 		$modifier_classes = ( ( $fixed_controls == 'true' ) ? 'fixed-controls ' : '' ) . ( $coloring != 'default' ? $coloring : '' );
 		$flowplayer_data  = $data_key . $data_logo . $data_analytics . $data_ratio;
 		$attributes       = ( ( $autoplay == 'true' ) ? 'autoplay ' : '' ) . ( ( $loop == 'true' ) ? 'loop ' : '' ) . ( isset ( $preload ) ? 'preload="' . $preload . '" ' : '' ) . ( ( $poster == 'true' ) ? 'poster' : '' );
-	
+
 		// Shortcode output
 		$return = '<div style="' . $size . $splash_style . ' background-size: contain;" class="' . $class . $modifier_classes . '" ' . apply_filters( 'fp5_filter_flowplayer_data', $flowplayer_data ) . '>';
 			ob_start();
@@ -181,17 +181,17 @@ class Flowplayer5_Shortcode {
 			$return .= ob_get_contents();
 			ob_clean();
 		$return .= '</div>';
-	
+
 		// Extra options
 		$return .= '<script>';
 			$width == 0 && $height == 0 ? $return .= 'flowplayer.conf.adaptiveRatio = true;' : '';
 		$return .= '</script>';
-	
+
 		// Check if a video has been added before output
 		if ( $webm || $mp4 || $ogg ) {
 			return $return;
 		}
-	
+
 	}
 
 }
