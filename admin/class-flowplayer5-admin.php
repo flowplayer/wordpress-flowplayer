@@ -243,7 +243,7 @@ class Flowplayer5_Admin {
 
 		global $post;
 
-		$messages[$this->plugin_slug] = array(
+		$messages[$this->plugin_slug] = apply_filters( 'fp5_filter_set_messages', array(
 
 			0  => '', // Unused. Messages start at index 1.
 			1  => __( 'Video updated.', $this->plugin_slug ) . ' ' . sprintf( __( 'Shortcode: %1$s', $this->plugin_slug ), '[flowplayer id="' . get_the_ID() . '"]' ),
@@ -257,7 +257,7 @@ class Flowplayer5_Admin {
 			9  => sprintf( __( 'Video scheduled for: %1$s', $this->plugin_slug ), date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ) ),
 			10 => __( 'Video draft updated.', $this->plugin_slug ),
 
-		);
+		) );
 
 		return $messages;
 
