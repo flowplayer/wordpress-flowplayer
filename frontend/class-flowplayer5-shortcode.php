@@ -32,7 +32,7 @@ class Flowplayer5_Shortcode {
 	protected static $instance = null;
 
 	/**
-	 * Initialize the plugin by setting localization, filters, and administration functions.
+	 * Initialize the class by adding the shortcode.
 	 *
 	 * @since    1.3.0
 	 */
