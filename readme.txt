@@ -43,7 +43,7 @@ __Stay tuned for a BIG announcement at the end of this year!__
 
 = Commercial Flowplayer =
 
-The Commercial version is free of Flowplayer branding and you can use your logo. Commercial Flowplayer version can be enabled by supplying a [license key](http://flowplayer.org/download).
+The commercial version is free of Flowplayer branding and you can use your logo. The commercial Flowplayer version can be enabled by supplying a [license key](http://flowplayer.org/download).
 
 == Credits ==
 
@@ -51,7 +51,6 @@ The plugin can also be found on [GitHub](https://github.com/flowplayer/wordpress
 
 * Thank you [Tom McFarlin](http://tommcfarlin.com/) for the [WordPress Plugin Boilerplate](https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate)
 * The settings code was adapted from [Easy Digital Downloads](https://github.com/easydigitaldownloads/Easy-Digital-Downloads) by [Pippin Williamson](http://pippinsplugins.com/)
-
 * The meta box settings was adapted from [Theme Foundation](http://themefoundation.com/wordpress-meta-boxes-guide/) by [Alex Mansfield](http://sackclothstudios.com/)
 
 == Installation ==
