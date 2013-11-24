@@ -60,9 +60,6 @@ class Flowplayer5_Admin {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
 
-		// Add custom post type
-		add_action( 'init', array( $this, 'add_fp5_videos' ) );
-
 		// Add action links
 		$plugin_basename = plugin_basename( plugin_dir_path( FP5_PLUGIN_FILE ) . 'flowplayer.php' );
 		add_filter( 'plugin_action_links_' . $plugin_basename, array( $this, 'add_action_links' ) );
@@ -238,65 +235,15 @@ class Flowplayer5_Admin {
 	}
 
 	/**
-	 * NOTE:  Actions are points in the execution of a page or process
-	 *        lifecycle that WordPress fires.
-	 *
-	 * @since    1.0.0
-	 */
-	public function add_fp5_videos() {
-
-		$labels = apply_filters( 'fp5_post_type_labels', array(
-			'name'                => _x( 'Videos', 'Post Type General Name', $this->plugin_slug ),
-			'singular_name'       => _x( 'Video', 'Post Type Singular Name', $this->plugin_slug ),
-			'menu_name'           => __( 'Video', $this->plugin_slug ),
-			'parent_item_colon'   => __( 'Parent Video', $this->plugin_slug ),
-			'all_items'           => __( 'All Videos', $this->plugin_slug ),
-			'view_item'           => __( 'View Video', $this->plugin_slug ),
-			'add_new_item'        => __( 'Add New Video', $this->plugin_slug ),
-			'add_new'             => __( 'New Video', $this->plugin_slug ),
-			'edit_item'           => __( 'Edit Video', $this->plugin_slug ),
-			'update_item'         => __( 'Update Video', $this->plugin_slug ),
-			'search_items'        => __( 'Search videos', $this->plugin_slug ),
-			'not_found'           => __( 'No videos found', $this->plugin_slug ),
-			'not_found_in_trash'  => __( 'No videos found in Trash', $this->plugin_slug ),
-		) );
-
-		$args = apply_filters( 'fp5_post_type_args', array(
-			'label'               => __( 'Video', $this->plugin_slug ),
-			'description'         => __( 'Flowplayer videos', $this->plugin_slug ),
-			'labels'              => $labels,
-			'supports'            => array( 'title' ),
-			'hierarchical'        => false,
-			'public'              => false,
-			'show_ui'             => true,
-			'show_in_menu'        => true,
-			'show_in_nav_menus'   => true,
-			'show_in_admin_bar'   => true,
-			'menu_position'       => 15,
-			'menu_icon'           => '',
-			'can_export'          => true,
-			'has_archive'         => false,
-			'exclude_from_search' => true,
-			'publicly_queryable'  => false,
-			'query_var'           => 'video',
-			'rewrite'             => false,
-			'capability_type'     => 'page',
-		) );
-
-		register_post_type( 'flowplayer5', $args );
-
-	}
-
-	/**
 	 * Edit custom post type messages.
 	 *
 	 * @since    1.0.0
 	 */
-	public function set_messages($messages) {
+	public function set_messages( $messages ) {
 
 		global $post;
 
-		$messages[$this->plugin_slug] = array(
+		$messages[$this->plugin_slug] = apply_filters( 'fp5_filter_set_messages', array(
 
 			0  => '', // Unused. Messages start at index 1.
 			1  => __( 'Video updated.', $this->plugin_slug ) . ' ' . sprintf( __( 'Shortcode: %1$s', $this->plugin_slug ), '[flowplayer id="' . get_the_ID() . '"]' ),
@@ -310,7 +257,7 @@ class Flowplayer5_Admin {
 			9  => sprintf( __( 'Video scheduled for: %1$s', $this->plugin_slug ), date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ) ),
 			10 => __( 'Video draft updated.', $this->plugin_slug ),
 
-		);
+		) );
 
 		return $messages;
 
