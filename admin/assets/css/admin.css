@@ -3,23 +3,39 @@
  */
 
 /* Custom Post Type Logo */
-#adminmenu .menu-icon-flowplayer5 div.wp-menu-image {
+.branch-3-5 #adminmenu .menu-icon-flowplayer5 div.wp-menu-image,
+.branch-3-6 #adminmenu .menu-icon-flowplayer5 div.wp-menu-image,
+.branch-3-7 #adminmenu .menu-icon-flowplayer5 div.wp-menu-image {
 	background-position: 0 -28px;
 }
-#adminmenu .menu-icon-flowplayer5:hover div.wp-menu-image,
-#adminmenu .menu-icon-flowplayer5.wp-has-current-submenu div.wp-menu-image,
-#adminmenu .menu-icon-flowplayer5.current div.wp-menu-image {
+
+.branch-3-5 #adminmenu .menu-icon-flowplayer5:hover div.wp-menu-image,
+.branch-3-6 #adminmenu .menu-icon-flowplayer5:hover div.wp-menu-image,
+.branch-3-7 #adminmenu .menu-icon-flowplayer5:hover div.wp-menu-image,
+.branch-3-5 #adminmenu .menu-icon-flowplayer5.wp-has-current-submenu div.wp-menu-image,
+.branch-3-6 #adminmenu .menu-icon-flowplayer5.wp-has-current-submenu div.wp-menu-image,
+.branch-3-7 #adminmenu .menu-icon-flowplayer5.wp-has-current-submenu div.wp-menu-image,
+.branch-3-5 #adminmenu .menu-icon-flowplayer5.current div.wp-menu-image,
+.branch-3-6 #adminmenu .menu-icon-flowplayer5.current div.wp-menu-image,
+.branch-3-7 #adminmenu .menu-icon-flowplayer5.current div.wp-menu-image {
 	background-position: 0 0;
 }
-.menu-icon-flowplayer5 div.wp-menu-image {
+
+.branch-3-5 .menu-icon-flowplayer5 div.wp-menu-image,
+.branch-3-6 .menu-icon-flowplayer5 div.wp-menu-image,
+.branch-3-7 .menu-icon-flowplayer5 div.wp-menu-image {
 	background-image: url(../img/28x28-sprite.png);
 }
 
-#icon-edit.icon32-posts-flowplayer5 {
+.branch-3-5 #icon-edit.icon32-posts-flowplayer5,
+.branch-3-6 #icon-edit.icon32-posts-flowplayer5,
+.branch-3-7 #icon-edit.icon32-posts-flowplayer5 {
 	background: url(../img/32x32.png) no-repeat;
 }
 
-.wp-media-buttons .add-video span.wp-media-buttons-icon {
+.branch-3-5 .wp-media-buttons .add-video span.wp-media-buttons-icon,
+.branch-3-6 .wp-media-buttons .add-video span.wp-media-buttons-icon,
+.branch-3-7 .wp-media-buttons .add-video span.wp-media-buttons-icon {
 	-webkit-background-size: 25px;
 	-moz-background-size: 25px;
 	background-size: 25px;
@@ -27,14 +43,29 @@
 	background-position: -5px -30px;
 }
 
+.branch-3-8 .icon16.menu-icon-flowplayer5:before,
+.branch-3-8 #adminmenu .menu-icon-flowplayer5 div.wp-menu-image:before {
+	content: "\f126";
+}
+
 /* Meta box */
+.fp5-video-meta-box select,
+.fp5-video-meta-box td {
+	vertical-align: middle;
+}
+
+.fp5-video-meta-box .button-primary {
+	min-width: 126px;
+	text-align: center;
+}
+
 .player-previews {
 	display: inline;
 }
 
 .player-preview {
 	display: none;
-	margin-bottom: -7px;
+	vertical-align: bottom;
 }
 
 .fp5-row-content {
@@ -42,11 +73,7 @@
 }
 
 select#fp5-select-skin {
-	margin-top: 13px;
-}
-
-#fp5-preview {
-	display: none;
+	margin-top: 11px;
 }
 
 #fp5-preview video{
