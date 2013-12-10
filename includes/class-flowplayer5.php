@@ -19,6 +19,8 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @package Flowplayer5
  * @author  Ulrich Pogson <ulrich@pogson.ch>
+ *
+ * @since 1.0.0
  */
 class Flowplayer5 {
 
@@ -186,8 +188,8 @@ class Flowplayer5 {
 			'edit_item'           => __( 'Edit Video', $this->plugin_slug ),
 			'update_item'         => __( 'Update Video', $this->plugin_slug ),
 			'search_items'        => __( 'Search Videos', $this->plugin_slug ),
-			'not_found'           => __( 'No Videos found', $this->plugin_slug ),
-			'not_found_in_trash'  => __( 'No Videos found in Trash', $this->plugin_slug ),
+			'not_found'           => __( 'No videos found', $this->plugin_slug ),
+			'not_found_in_trash'  => __( 'No videos found in Trash', $this->plugin_slug ),
 		) );
 
 		$supports = apply_filters( 'fp5_post_type_supports', array(
