@@ -75,19 +75,22 @@ function fp5_modal_content() {
 
 	<div style="display: none;">
 		<div id="choose-video">
-			<p><?php echo __( 'Use the dropdown below to chose a video to insert as a shortcode', 'flowplayer5' ); ?></p>
+			<p><?php echo __( 'Choose a video from the dropdown to insert as a shortcode', 'flowplayer5' ); ?></p>
 			<div>
 				<select name="flowplayer5_videos" id="flowplayer5_videos">
 					<?php
-					global $post;
-					$args = array( 
-						'posts_per_page' => -1,
-						'post_type'      => 'flowplayer5'
+					// WP_Query arguments
+					$args = array (
+						'post_type' => 'flowplayer5'
 					);
-					$posts = get_posts( $args );
-					foreach( $posts as $post ) : setup_postdata( $post ); ?>
-					<option value="<? echo $post->ID; ?>"><?php the_title(); ?></option>
-					<?php endforeach; ?>
+			
+					// The Query
+					$query = new WP_Query( $args );
+					$posts = $query->posts;
+
+					foreach ( $posts as $post ) { ?>
+						<option value="<? echo esc_attr( $post->ID ) ?>"><? echo esc_attr( $post->post_title ) ?></option>
+					<?php } ?>
 				</select>
 			</div>
 			<p class="submit">
