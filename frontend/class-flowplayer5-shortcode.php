@@ -19,6 +19,8 @@ if ( ! defined( 'WPINC' ) ) {
  *
  * @package Flowplayer5_Shortcode
  * @author  Ulrich Pogson <ulrich@pogson.ch>
+ *
+ * @since 1.3.0
  */
 class Flowplayer5_Shortcode {
 
@@ -32,7 +34,7 @@ class Flowplayer5_Shortcode {
 	protected static $instance = null;
 
 	/**
-	 * Initialize the class by adding the shortcode.
+	 * Add shortcode
 	 *
 	 * @since    1.3.0
 	 */
@@ -72,12 +74,8 @@ class Flowplayer5_Shortcode {
 	 */
 	public function create_fp5_video_output( $atts ) {
 
-		global $post;
-		
 		if ( isset( $atts['id'] ) ) {
 			$id = $atts['id'];
-		} elseif ( 'flowplayer5' == get_post_type() ) {
-			$id = get_the_ID();
 		}
 
 		if ( isset( $id ) ) {
@@ -153,28 +151,28 @@ class Flowplayer5_Shortcode {
 		// Shortcode processing
 		$ratio            = ( ( $width != 0 && $height != 0 ) ? intval( $height ) / intval( $width ) : '' );
 		$size             = ( $fixed == 'true' && $width != '' && $height != '' ? 'width:' . $width . 'px; height:' . $height . 'px; ' : ( ( $max_width != 0 ) ?  'max-width:' . $max_width . 'px; ' : '' ) );
-		$splash_style     = 'background: #777 url(' . $splash . ') no-repeat;';
+		$splash_style     = 'background: #777 url(' . esc_url( $splash ) . ') no-repeat;';
 		$class            = 'flowplayer ' . $skin . ' ' . ( ! empty ( $splash ) ? 'is-splash ' : '' ) . ( ! empty ( $logo_origin ) ? 'commercial ' : '' );
-		$data_key         = ( 0 < strlen ( $key ) ? 'data-key="' . $key . '" ' : '');
-		$data_logo        = ( 0 < strlen  ( $key ) && 0 < strlen  ( $logo ) ? 'data-logo="' . $logo . '" ' : '' );
-		$data_analytics   = ( 0 < strlen  ( $ga_account_id ) ? 'data-analytics="' . $ga_account_id . '" ' : '' );
-		$data_ratio       = ( $ratio != 0 ? 'data-ratio="' . $ratio . '" ' : '' );
+		$data_key         = ( 0 < strlen ( $key ) ? 'data-key="' . esc_attr( $key ) . '" ' : '');
+		$data_logo        = ( 0 < strlen  ( $key ) && 0 < strlen  ( $logo ) ? 'data-logo="' . esc_url( $logo ) . '" ' : '' );
+		$data_analytics   = ( 0 < strlen  ( $ga_account_id ) ? 'data-analytics="' . esc_attr( $ga_account_id ) . '" ' : '' );
+		$data_ratio       = ( $ratio != 0 ? 'data-ratio="' . esc_attr( $ratio ) . '" ' : '' );
 
 		$modifier_classes = ( ( $fixed_controls == 'true' ) ? 'fixed-controls ' : '' ) . ( $coloring != 'default' ? $coloring : '' );
 		$flowplayer_data  = $data_key . $data_logo . $data_analytics . $data_ratio;
-		$attributes       = ( ( $autoplay == 'true' ) ? 'autoplay ' : '' ) . ( ( $loop == 'true' ) ? 'loop ' : '' ) . ( isset ( $preload ) ? 'preload="' . $preload . '" ' : '' ) . ( ( $poster == 'true' ) ? 'poster' : '' );
+		$attributes       = ( ( $autoplay == 'true' ) ? 'autoplay ' : '' ) . ( ( $loop == 'true' ) ? 'loop ' : '' ) . ( isset ( $preload ) ? 'preload="' . esc_attr( $preload ) . '" ' : '' ) . ( ( $poster == 'true' ) ? 'poster' : '' );
 
 		// Shortcode output
-		$return = '<div style="' . $size . $splash_style . ' background-size: contain;" class="' . $class . $modifier_classes . '" ' . apply_filters( 'fp5_filter_flowplayer_data', $flowplayer_data ) . '>';
+		$return = '<div style="' . esc_attr( $size ) . esc_attr( $splash_style ) . ' background-size: contain;" class="' . esc_attr( $class ) . esc_attr( $modifier_classes ) . '" ' . apply_filters( 'fp5_filter_flowplayer_data', $flowplayer_data ) . '>';
 			ob_start();
 			$return .= do_action( 'fp5_video_top' );
 			$return .= ob_get_contents();
 			ob_clean();
 			$return .= '<video ' . $attributes . '>';
-				$webm      != '' ? $return .= '<source type="video/webm" src="' . $webm . '">' : '';
-				$mp4       != '' ? $return .= '<source type="video/mp4" src="' . $mp4 . '">' : '';
-				$ogg       != '' ? $return .= '<source type="video/ogg" src="' . $ogg . '">' : '';
-				$subtitles != '' ? $return .= '<track src="' . $subtitles . '"/>' : '';
+				$webm      != '' ? $return .= '<source type="video/webm" src="' . esc_url( $webm ) . '">' : '';
+				$mp4       != '' ? $return .= '<source type="video/mp4" src="' . esc_url( $mp4 ) . '">' : '';
+				$ogg       != '' ? $return .= '<source type="video/ogg" src="' . esc_url( $ogg ) . '">' : '';
+				$subtitles != '' ? $return .= '<track src="' . esc_url( $subtitles ) . '"/>' : '';
 			$return .= '</video>';
 			ob_start();
 			$return .= do_action( 'fp5_video_bottom' );
@@ -184,7 +182,7 @@ class Flowplayer5_Shortcode {
 
 		// Extra options
 		$return .= '<script>';
-			$width == 0 && $height == 0 ? $return .= 'flowplayer.conf.adaptiveRatio = true;' : '';
+			$width == 0 && esc_attr( $height ) == 0 ? $return .= 'flowplayer.conf.adaptiveRatio = true;' : '';
 		$return .= '</script>';
 
 		// Check if a video has been added before output

@@ -1,9 +1,9 @@
 === Flowplayer 5 for WordPress ===
 Contributors: flowplayerorg, grapplerulrich, anssi
 Donate link: http://flowplayer.org/download
-Tags: video, html5 video, flowplayer, responsive, flowplayer5, player
+Tags: flowplayer, flowplayer5, responsive, html5, video, player
 Requires at least: 3.5
-Tested up to: 3.7.1
+Tested up to: 3.8
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -12,11 +12,11 @@ The video player for the web. HTML5 responsive video player. From the makers of 
 
 == Description ==
 
-Flowplayer 5 for WordPress lets you manage your self hosted videos easily and dispaly them with a simply and minimalistic player. This is the official Flowplayer.org WordPress Plugin.
+Flowplayer 5 for WordPress lets you manage your self-hosted videos easily and display them with the world-famous Flowplayer video player. This is the official WordPress plugin from the makers of Flowplayer.
 
 = Includes Flowplayer Designer =
 
-[Video transcoding and hosting solution](http://flowplayer.org/designer/) integrated in the Flowplayer 5 for WordPress.
+[Video transcoding and hosting solution](http://flowplayer.org/designer/) integrated in Flowplayer 5 for WordPress.
 
 * Maximum browser coverage with Flowplayer 5 using MP4 and WEBM encodings
 * Optimal device compatibility with 640px video width
@@ -32,6 +32,7 @@ __Stay tuned for a BIG announcement at the end of this year!__
 
 * One central place to manage all of your videos
 * Video can be added using shortcodes e.g. [flowplayer5 id="123"]
+* Easily display videos in a sidebar with the Video Widget
 * Skin selection with three default Flowplayer skins: Minimalist, Functional and Playful
 * Show your video in any desired player size
 * [Subtitles support](http://flowplayer.org/docs/subtitles.html)
@@ -83,17 +84,27 @@ You can configure Google Analytics, a Commercial Flowplayer license key and a cu
 
 == Frequently Asked Questions ==
 
+= Where can I upload the videos? =
+There are three ways you add add a video
+
+1. You can use the WordPress media manager and upload the videos there.
+2. You can use [Flowplayer Designer](http://flowplayer.org/designer/) to upload a video and let Flowplayer.org host you video.
+3. You can store your videos on Amazon S3 or any other cloud host and add the links manually.
+
+= What video format do I need? =
+It is recommended to add at least two [video formats](http://flowplayer.org/docs/setup.html#video-formats) so that the video plays on as many browsers as possible. By default Flowplayer attempts to use HTML5 video, and if it's not supported then Flash (9.0+) and MP4 is used. MP4 is enough for complete browser support, but providing WebM and/or OGG video gives you broader support for HTML5 video which is the preferred technology.
+
 = Why use Flowplayer when there is video support since WordPress 3.6? =
 
-Flowplayer 5 for WordPress provides a video management system where you can manage all of your video froma centeral place. This plugin also allows for simple customisation of the videos. We are continuasly adding further features to the plugin.
+Flowplayer 5 for WordPress provides a video management system where you can manage all of your video from a central place. This plugin also allows for simple customisation of the videos. We are continuously adding further features to the plugin.
 
-= How to load Flowplayer assets locally when using Flowplayer Commercial =
+= How do I load Flowplayer assets locally when using Flowplayer Commercial? =
 
-If you want to load the Flowplayer assets (JS, CSS and SWF) for your site then you can download the files from [your account](http://flowplayer.org/account/). Create a new folder `flowplayer-commercial` in `wp-content`. Place the files in this new folder. The option in the settings to use Floplayer CDN should be disabled.
+If you want to load the Flowplayer assets (JS, CSS and SWF) for your site then you can download the files from [your account](http://flowplayer.org/account/). Create a new folder `flowplayer-commercial` in `wp-content`. Place the files in this new folder. The option in the settings to use Flowplayer CDN should be disabled.
 
 = Flowplayer Designer API Issues? =
 
-If you are unable to connect to the Flowplayer Designer API, make sure you are conected to the internet and that you are logged in. You can login in the Settings.
+If you are unable to connect to the Flowplayer Designer API, make sure you are connected to the internet and that you are logged in. You can login in the Settings page.
 
 = Known Flowplayer Issues? =
 
@@ -160,16 +171,24 @@ add_filter( 'fp5_post_type_args', 'fp5_post_type_arg_video_post' );`
 == Screenshots ==
 
 1. Posting a video
-2. Plugin Settings
+2. Flowplayer Designer
+3. Video Widget
+4. Plugin Settings
 
 == Changelog ==
 
-We have alot of plans for this plugin. You can see some of the up and comming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
+We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
+
+= 1.4.0 =
+* code improvements
+* added a video widget
+* added support for WordPress 3.8
+* added responsive design to the admin area
 
 = 1.3.0 =
 * code improvements
 * added a few extra filters
-* updated [FAQ](http://wordpress.org/plugins/flowplayer5/faq/) with more code documention
+* updated [FAQ](http://wordpress.org/plugins/flowplayer5/faq/) with more code documentation
 
 = 1.2.0 =
 * added functionality to fetch videos from Flowplayer Designer directly in the admin area
@@ -216,8 +235,11 @@ We have alot of plans for this plugin. You can see some of the up and comming fe
 
 == Upgrade Notice ==
 
+= 1.4.0 =
+* new video widget
+
 = 1.3.0 =
-* code improvemnts
+* code improvements
 
 = 1.2.0 =
 * add videos from Flowplayer Designer directly in the admin area
