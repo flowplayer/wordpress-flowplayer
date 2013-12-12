@@ -101,17 +101,18 @@ class Flowplayer5_Admin {
 	public function enqueue_admin_styles() {
 
 		$screen = get_current_screen();
+		$suffix  = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 		// Enqueue differnt stylesheet if WordPress version is greater then 3.8-alpha
 		if ( version_compare( $GLOBALS['wp_version'], '3.8-alpha', '>' ) ) {
-			wp_enqueue_style( $this->plugin_slug .'-admin-styles', plugins_url( '/assets/css/+3.8-admin.css', __FILE__ ), $this->plugin_version );
+			wp_enqueue_style( $this->plugin_slug .'-admin-styles', plugins_url( '/assets/css/+3.8-admin' . $suffix . '.css', __FILE__ ), $this->plugin_version );
 		} else {
-			wp_enqueue_style( $this->plugin_slug .'-admin-styles', plugins_url( '/assets/css/-3.8-admin.css', __FILE__ ), $this->plugin_version );
+			wp_enqueue_style( $this->plugin_slug .'-admin-styles', plugins_url( '/assets/css/-3.8-admin' . $suffix . '.css', __FILE__ ), $this->plugin_version );
 		}
 
 		// Only run in new post and edit screens
 		if ( $screen->base == 'post' ) {
-			wp_enqueue_style( 'jquery-colorbox', plugins_url( '/assets/jquery-colorbox/colorbox.css', __FILE__ ), '1.4.27' );
+			wp_enqueue_style( 'jquery-colorbox', plugins_url( '/assets/jquery-colorbox/colorbox' . $suffix . '.css', __FILE__ ), '1.4.27' );
 		}
 
 	}
@@ -126,11 +127,12 @@ class Flowplayer5_Admin {
 	public function enqueue_admin_scripts() {
 
 		$screen = get_current_screen();
+		$suffix  = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 		// Only run on flowplayer new and edit post screens
 		if ( $screen->post_type === $this->plugin_slug && $screen->base == 'post' ) {
 
-			wp_enqueue_script( $this->plugin_slug . '-media', plugins_url( '/assets/js/media.js', __FILE__ ), array(), $this->plugin_version, false );
+			wp_enqueue_script( $this->plugin_slug . '-media', plugins_url( '/assets/js/media' . $suffix . '.js', __FILE__ ), array(), $this->plugin_version, false );
 			wp_localize_script( $this->plugin_slug . '-media', 'splash_image',
 				array(
 					'title'  => __( 'Upload or choose a splash image', $this->plugin_slug ), // This will be used as the default title
@@ -175,7 +177,7 @@ class Flowplayer5_Admin {
 		// Only run on settings screen
 		if ( $screen->post_type === $this->plugin_slug && $screen->id == 'flowplayer5_page_flowplayer5_settings' ) {
 
-			wp_enqueue_script( $this->plugin_slug . '-settings', plugins_url( '/assets/js/settings.js', __FILE__ ), array(), $this->plugin_version, false );
+			wp_enqueue_script( $this->plugin_slug . '-settings', plugins_url( '/assets/js/settings' . $suffix . '.js', __FILE__ ), array(), $this->plugin_version, false );
 			wp_localize_script( $this->plugin_slug . '-settings', 'logo',
 				array(
 					'title'  => __( 'Upload or choose a logo', $this->plugin_slug ), // This will be used as the default title
@@ -189,7 +191,7 @@ class Flowplayer5_Admin {
 
 		// Only run on new and edit post screens
 		if ( $screen->base == 'post' ) {
-			wp_enqueue_script( 'jquery-colorbox', plugins_url( '/assets/jquery-colorbox/jquery.colorbox-min.js', __FILE__ ), 'jquery', '1.4.27', false );
+			wp_enqueue_script( 'jquery-colorbox', plugins_url( '/assets/jquery-colorbox/jquery.colorbox' . $suffix . '.js', __FILE__ ), 'jquery', '1.4.27', false );
 		}
 
 	}
