@@ -40,7 +40,7 @@ class Flowplayer5 {
 	 *
 	 * @var     string
 	 */
-	protected $player_version = '5.4.4';
+	protected $player_version = '5.4.6';
 
 	/**
 	 * Unique identifier for your plugin.
