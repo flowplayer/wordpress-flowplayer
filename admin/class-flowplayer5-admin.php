@@ -103,12 +103,7 @@ class Flowplayer5_Admin {
 		$screen = get_current_screen();
 		$suffix  = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-		// Enqueue differnt stylesheet if WordPress version is greater then 3.8-alpha
-		if ( version_compare( $GLOBALS['wp_version'], '3.8-alpha', '>' ) ) {
-			wp_enqueue_style( $this->plugin_slug .'-admin-styles', plugins_url( '/assets/css/+3.8-admin' . $suffix . '.css', __FILE__ ), $this->plugin_version );
-		} else {
-			wp_enqueue_style( $this->plugin_slug .'-admin-styles', plugins_url( '/assets/css/-3.8-admin' . $suffix . '.css', __FILE__ ), $this->plugin_version );
-		}
+		wp_enqueue_style( $this->plugin_slug .'-admin-styles', plugins_url( '/assets/css/admin' . $suffix . '.css', __FILE__ ), $this->plugin_version );
 
 		// Only run in new post and edit screens
 		if ( $screen->base == 'post' ) {

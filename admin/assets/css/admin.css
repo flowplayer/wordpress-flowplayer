@@ -3,18 +3,34 @@
  */
 
 /* Custom Post Type Logo */
-
-.icon16.menu-icon-flowplayer5:before,
-#adminmenu .menu-icon-flowplayer5 div.wp-menu-image:before,
-.wp-media-buttons .add-video span.wp-media-buttons-icon:before{
-	content: "\f126";
+#adminmenu .menu-icon-flowplayer5 div.wp-menu-image {
+	background-position: 0 -28px;
 }
 
-.wp-media-buttons .add-video span.wp-media-buttons-icon:before {
-	font: normal 18px/1 'dashicons';
-	speak: none;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+#adminmenu .menu-icon-flowplayer5:hover div.wp-menu-image,
+#adminmenu .menu-icon-flowplayer5.wp-has-current-submenu div.wp-menu-image,
+#adminmenu .menu-icon-flowplayer5.current div.wp-menu-image {
+	background-position: 0 0;
+}
+
+.menu-icon-flowplayer5 div.wp-menu-image {
+	background-image: url(../img/28x28-sprite.png);
+}
+
+#icon-edit.icon32-posts-flowplayer5 {
+	background: url(../img/32x32.png) no-repeat;
+}
+
+.wp-media-buttons .add-video span.wp-media-buttons-icon {
+	-webkit-background-size: 25px;
+	-moz-background-size: 25px;
+	background-size: 25px;
+	background-image: url(../img/28x28-sprite.png);
+	background-position: -5px -30px;
+}
+
+#menu-posts-flowplayer5 .wp-menu-image.dashicons {
+	background: none;
 }
 
 /* Meta box */
