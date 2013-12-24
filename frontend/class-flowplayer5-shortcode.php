@@ -95,9 +95,11 @@ class Flowplayer5_Shortcode {
 			$coloring       = get_post_meta( $id, 'fp5-coloring', true );
 			$skin           = get_post_meta( $id, 'fp5-select-skin', true );
 			$splash         = get_post_meta( $id, 'fp5-splash-image', true );
-			$mp4            = get_post_meta( $id, 'fp5-mp4-video', true );
-			$webm           = get_post_meta( $id, 'fp5-webm-video', true );
-			$ogg            = get_post_meta( $id, 'fp5-ogg-video', true) ;
+			$formats        = array(
+				'mp4'       => get_post_meta( $id, 'fp5-mp4-video', true ),
+				'webm'      => get_post_meta( $id, 'fp5-webm-video', true ),
+				'ogg'       => get_post_meta( $id, 'fp5-ogg-video', true),
+			);
 			$subtitles      = get_post_meta( $id, 'fp5-vtt-subtitles', true );
 			$max_width      = get_post_meta( $id, 'fp5-max-width', true );
 			$width          = get_post_meta( $id, 'fp5-width', true );
@@ -139,6 +141,12 @@ class Flowplayer5_Shortcode {
 
 			$max_width = $width;
 
+			$formats = array(
+				'mp4'  => $mp4,
+				'webm' => $webm,
+				'ogg'  => $ogg,
+			);
+
 		}
 
 		// set the options for the shortcode - pulled from the register-settings.php
@@ -169,9 +177,9 @@ class Flowplayer5_Shortcode {
 			$return .= ob_get_contents();
 			ob_clean();
 			$return .= '<video ' . $attributes . '>';
-				$webm      != '' ? $return .= '<source type="video/webm" src="' . esc_url( $webm ) . '">' : '';
-				$mp4       != '' ? $return .= '<source type="video/mp4" src="' . esc_url( $mp4 ) . '">' : '';
-				$ogg       != '' ? $return .= '<source type="video/ogg" src="' . esc_url( $ogg ) . '">' : '';
+				foreach( $formats as $format => $src ){
+					$src != '' ? $return .= '<source type="video/' . $format . '" src="' . esc_url( apply_filters( 'fp5_filter_video_src', $src, $format, $id ) ) . '">' : '';
+				}
 				$subtitles != '' ? $return .= '<track src="' . esc_url( $subtitles ) . '"/>' : '';
 			$return .= '</video>';
 			ob_start();
@@ -186,7 +194,7 @@ class Flowplayer5_Shortcode {
 		$return .= '</script>';
 
 		// Check if a video has been added before output
-		if ( $webm || $mp4 || $ogg ) {
+		if ( $formats['webm'] || $formats['mp4'] || $formats['ogg'] ) {
 			return $return;
 		}
 
