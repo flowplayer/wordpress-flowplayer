@@ -166,7 +166,7 @@ function fp5_register_settings() {
 	}
 
 	// Creates our settings in the options table
-	register_setting( 
+	register_setting(
 		'fp5_settings_group',
 		'fp5_settings_general',
 		'fp5_settings_sanitize'

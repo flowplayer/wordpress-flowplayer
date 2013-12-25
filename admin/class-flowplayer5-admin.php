@@ -136,20 +136,26 @@ class Flowplayer5_Admin {
 			);
 			wp_localize_script( $this->plugin_slug . '-media', 'mp4_video',
 				array(
-					'title'  => __( 'Upload or choose a mp4 video file', $this->plugin_slug ), // This will be used as the default title
-					'button' => __( 'Insert mp4 Video', $this->plugin_slug )                   // This will be used as the default button text
+					'title'  => __( 'Upload or choose a MP4 video file', $this->plugin_slug ), // This will be used as the default title
+					'button' => __( 'Insert MP4 Video', $this->plugin_slug )                   // This will be used as the default button text
 				)
 			);
 			wp_localize_script( $this->plugin_slug . '-media', 'webm_video',
 				array(
-					'title'  => __( 'Upload or choose a webm video file', $this->plugin_slug ), // This will be used as the default title
-					'button' => __( 'Insert webm Video', $this->plugin_slug )                   // This will be used as the default button text
+					'title'  => __( 'Upload or choose a WEBM video file', $this->plugin_slug ), // This will be used as the default title
+					'button' => __( 'Insert WEBM Video', $this->plugin_slug )                   // This will be used as the default button text
 				)
 			);
 			wp_localize_script( $this->plugin_slug . '-media', 'ogg_video',
 				array(
-					'title'  => __( 'Upload or choose a ogg video file', $this->plugin_slug ), // This will be used as the default title
-					'button' => __( 'Insert ogg Video', $this->plugin_slug )                   // This will be used as the default button text
+					'title'  => __( 'Upload or choose a OGG video file', $this->plugin_slug ), // This will be used as the default title
+					'button' => __( 'Insert OGG Video', $this->plugin_slug )                   // This will be used as the default button text
+				)
+			);
+			wp_localize_script( $this->plugin_slug . '-media', 'flash_video',
+				array(
+					'title'  => __( 'Upload or choose a flash optimized video file', $this->plugin_slug ), // This will be used as the default title
+					'button' => __( 'Insert Flash Video', $this->plugin_slug )                             // This will be used as the default button text
 				)
 			);
 			wp_localize_script( $this->plugin_slug . '-media', 'webvtt',

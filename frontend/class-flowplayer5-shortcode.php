@@ -96,9 +96,10 @@ class Flowplayer5_Shortcode {
 			$skin           = get_post_meta( $id, 'fp5-select-skin', true );
 			$splash         = get_post_meta( $id, 'fp5-splash-image', true );
 			$formats        = array(
-				'mp4'       => get_post_meta( $id, 'fp5-mp4-video', true ),
 				'webm'      => get_post_meta( $id, 'fp5-webm-video', true ),
+				'mp4'       => get_post_meta( $id, 'fp5-mp4-video', true ),
 				'ogg'       => get_post_meta( $id, 'fp5-ogg-video', true),
+				'flash'     => get_post_meta( $id, 'fp5-flash-video', true),
 			);
 			$subtitles      = get_post_meta( $id, 'fp5-vtt-subtitles', true );
 			$max_width      = get_post_meta( $id, 'fp5-max-width', true );
@@ -106,6 +107,7 @@ class Flowplayer5_Shortcode {
 			$height         = get_post_meta( $id, 'fp5-height', true );
 			$ratio          = get_post_meta( $id, 'fp5-aspect-ratio', true );
 			$fixed          = get_post_meta( $id, 'fp5-fixed-width', true );
+			$data_rtmp      = get_post_meta( $id, 'fp5-data-rtmp', true );
 
 		} else {
 
@@ -122,6 +124,7 @@ class Flowplayer5_Shortcode {
 						'mp4'            => '',
 						'webm'           => '',
 						'ogg'            => '',
+						'flash'          => '',
 						'skin'           => 'minimalist',
 						'splash'         => '',
 						'autoplay'       => 'false',
@@ -142,9 +145,10 @@ class Flowplayer5_Shortcode {
 			$max_width = $width;
 
 			$formats = array(
-				'mp4'  => $mp4,
-				'webm' => $webm,
-				'ogg'  => $ogg,
+				'webm'   => $webm,
+				'mp4'    => $mp4,
+				'ogg'    => $ogg,
+				'flash'  => $flash,
 			);
 
 		}
@@ -165,9 +169,10 @@ class Flowplayer5_Shortcode {
 		$data_logo        = ( 0 < strlen  ( $key ) && 0 < strlen  ( $logo ) ? 'data-logo="' . esc_url( $logo ) . '" ' : '' );
 		$data_analytics   = ( 0 < strlen  ( $ga_account_id ) ? 'data-analytics="' . esc_attr( $ga_account_id ) . '" ' : '' );
 		$data_ratio       = ( $ratio != 0 ? 'data-ratio="' . esc_attr( $ratio ) . '" ' : '' );
+		$data_rtmp        = ( $ratio != 0 ? 'data-rtmp="' . esc_attr( $data_rtmp ) . '" ' : '' );
 
 		$modifier_classes = ( ( $fixed_controls == 'true' ) ? 'fixed-controls ' : '' ) . ( $coloring != 'default' ? $coloring : '' );
-		$flowplayer_data  = $data_key . $data_logo . $data_analytics . $data_ratio;
+		$flowplayer_data  = $data_key . $data_logo . $data_analytics . $data_ratio . $data_rtmp;
 		$attributes       = ( ( $autoplay == 'true' ) ? 'autoplay ' : '' ) . ( ( $loop == 'true' ) ? 'loop ' : '' ) . ( isset ( $preload ) ? 'preload="' . esc_attr( $preload ) . '" ' : '' ) . ( ( $poster == 'true' ) ? 'poster' : '' );
 
 		// Shortcode output
@@ -178,7 +183,7 @@ class Flowplayer5_Shortcode {
 			ob_clean();
 			$return .= '<video ' . $attributes . '>';
 				foreach( $formats as $format => $src ){
-					$src != '' ? $return .= '<source type="video/' . $format . '" src="' . esc_url( apply_filters( 'fp5_filter_video_src', $src, $format, $id ) ) . '">' : '';
+					$src != '' ? $return .= '<source type="video/' . $format . '" src="' . esc_attr( apply_filters( 'fp5_filter_video_src', $src, $format, $id ) ) . '">' : '';
 				}
 				$subtitles != '' ? $return .= '<track src="' . esc_url( $subtitles ) . '"/>' : '';
 			$return .= '</video>';
