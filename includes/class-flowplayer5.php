@@ -31,7 +31,7 @@ class Flowplayer5 {
 	 *
 	 * @var     string
 	 */
-	protected $plugin_version = '1.4.0';
+	protected $plugin_version = '1.5.0';
 
 	/**
 	 * Player version, used for cache-busting of style and script file references.
@@ -40,7 +40,7 @@ class Flowplayer5 {
 	 *
 	 * @var     string
 	 */
-	protected $player_version = '5.4.4';
+	protected $player_version = '5.4.6';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -203,6 +203,7 @@ class Flowplayer5 {
 			'feeds'               => true,
 		) );
 
+
 		$args = apply_filters( 'fp5_post_type_args', array(
 			'label'               => __( 'flowplayer5', $this->plugin_slug ),
 			'description'         => __( 'Flowplayer Videos', $this->plugin_slug ),
@@ -215,7 +216,7 @@ class Flowplayer5 {
 			'show_in_nav_menus'   => false,
 			'show_in_admin_bar'   => true,
 			'menu_position'       => 15,
-			'menu_icon'           => '',
+			'menu_icon'           => ( version_compare( $GLOBALS['wp_version'], '3.8-alpha', '>' ) ) ? 'dashicons-format-video' : '',
 			'can_export'          => true,
 			'has_archive'         => false,
 			'exclude_from_search' => true,

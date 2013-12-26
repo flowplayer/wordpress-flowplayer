@@ -57,6 +57,21 @@
 			</td>
 		</tr>
 
+		<tr class="fp5-flash-video hidden" valign="top">
+			<th scope="row"><label for="fp5-flash-video"><?php _e( 'Flash Video', $this->plugin_slug )?></label> <a href="http://flowplayer.org/docs/setup.html#flash-video" target="_blank">?</a></th>
+			<td>
+				<input class="media-url" type="text" name="fp5-flash-video" id="fp5-flash-video" value="<?php if ( isset ( $fp5_stored_meta['fp5-flash-video'] ) ) echo esc_attr( $fp5_stored_meta['fp5-flash-video'][0] ); ?>" />
+				<a href="#" class="fp5-add-flash button button-primary" title="<?php _e( 'Add Flash video', $this->plugin_slug )?>"><?php _e( 'Add Flash video', $this->plugin_slug )?></a>
+			</td>
+		</tr>
+
+		<tr class="fp5-data-rtmp hidden" valign="top">
+			<th scope="row"><label for="fp5-data-rtmp"><?php _e( 'RTMP URL', $this->plugin_slug )?></label> <a href="http://flowplayer.org/docs/setup.html#server-side" target="_blank">?</a></th>
+			<td>
+				<input class="media-url" type="text" name="fp5-data-rtmp" id="fp5-data-rtmp" value="<?php if ( isset ( $fp5_stored_meta['fp5-data-rtmp'] ) ) echo esc_attr( $fp5_stored_meta['fp5-data-rtmp'][0] ); ?>" />
+			</td>
+		</tr>
+
 		<tr class="fp5-vtt-subtitles" valign="top">
 			<th scope="row"><label for="fp5-vtt-subtitles"><?php _e( 'VVT file (Subtitles)', $this->plugin_slug )?></label> <a href="http://flowplayer.org/docs/subtitles.html" target="_blank">?</a></th>
 			<td>
@@ -161,5 +176,7 @@
 		<input type="text" name="fp5-user-id" id="fp5-user-id" value="<?php if ( isset ( $fp5_stored_meta['fp5-user-id'] ) ) echo esc_attr( $fp5_stored_meta['fp5-user-id'][0] ); ?>" />
 		<label for="fp5-video-id" class="fp5-row-title">Video ID</label>
 		<input type="text" name="fp5-video-id" id="fp5-video-id" value="<?php if ( isset ( $fp5_stored_meta['fp5-video-id'] ) ) echo esc_attr( $fp5_stored_meta['fp5-video-id'][0] ); ?>" />
+		<label for="fp5-video-name" class="fp5-row-title">Video Name</label>
+		<input type="text" name="fp5-video-name" id="fp5-video-name" value="<?php if ( isset ( $fp5_stored_meta['fp5-video-name'] ) ) echo esc_attr( $fp5_stored_meta['fp5-video-name'][0] ); ?>" />
 	</div>
 </p>

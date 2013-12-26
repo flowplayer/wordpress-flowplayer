@@ -208,7 +208,7 @@ class Flowplayer_Drive {
 
 		if ( wp_remote_retrieve_response_code( $response_videos ) == 200 ) {
 
-				return $json->videos;
+				return $json;
 
 		} else {
 
@@ -240,9 +240,12 @@ class Flowplayer_Drive {
 	 */
 	public function get_videos() {
 
-		$json_videos = $this->make_video_request();
+		$json        = $this->make_video_request();
+		$json_videos = $json->videos;
 
 		if ( is_array( $json_videos ) ) {
+
+			$rtmp = isset( $json->rtmpUrl ) ? $json->rtmpUrl : '';
 
 			foreach ( $json_videos as $video ) {
 
@@ -252,6 +255,7 @@ class Flowplayer_Drive {
 					}
 					if ( $encoding->status === 'done' & $encoding->format === 'mp4' ) {
 						$mp4 = $encoding->url;
+						$flash = $encoding->filename;
 					}
 					if ( $encoding->status === 'done' & $encoding->format=== 'mp4' ) {
 						$duration = gmdate( "H:i:s", $encoding->duration );
@@ -261,7 +265,7 @@ class Flowplayer_Drive {
 				}
 
 				$return = '<div class="video">';
-					$return .= '<a href="#" class="choose-video" data-user-id="' . $video->userId .'" data-video-id="' . $video->id .'" data-webm="' . $webm .'" data-mp4="' . $mp4 .'" data-img="' . $video->snapshotUrl . '">';
+					$return .= '<a href="#" class="choose-video" data-rtmp="' . $rtmp . '" data-user-id="' . $video->userId . '" data-video-id="' . $video->id . '" data-video-name="' . $video->title . '" data-webm="' . $webm .'" data-mp4="' . $mp4 . '" data-flash="mp4:' . $video->userId . '/' . $flash . '" data-img="' . $video->snapshotUrl . '">';
 						$return .= '<h2 class="video-title">' . $video->title . '</h2>';
 						$return .= '<div class="thumb" style="background-image: url(' . $video->thumbnailUrl . ');">';
 							$return .= '<em class="duration">' . $duration . '</em>';

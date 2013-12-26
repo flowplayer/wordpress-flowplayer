@@ -256,7 +256,16 @@ class Video_Meta_Box {
 				update_post_meta(
 					$post_id,
 					'fp5-ogg-video',
-					$_POST['fp5-ogg-video']
+					esc_url_raw( $_POST['fp5-ogg-video'] )
+				);
+			}
+
+			// Checks for input and saves if needed
+			if( isset( $_POST['fp5-flash-video'] ) ) {
+				update_post_meta(
+					$post_id,
+					'fp5-flash-video',
+					sanitize_text_field( $_POST['fp5-flash-video'] )
 				);
 			}
 
@@ -274,7 +283,7 @@ class Video_Meta_Box {
 				update_post_meta(
 					$post_id,
 					'fp5-max-width',
-					$_POST['fp5-max-width']
+					absint( $_POST['fp5-max-width'] )
 				);
 			}
 
@@ -341,6 +350,24 @@ class Video_Meta_Box {
 					$post_id,
 					'fp5-video-id',
 					absint( $_POST['fp5-video-id'] )
+				);
+			}
+
+			// Checks for input and saves if needed
+			if( isset( $_POST['fp5-video-name'] ) ) {
+				update_post_meta(
+					$post_id,
+					'fp5-video-name',
+					sanitize_text_field( $_POST['fp5-video-name'] )
+				);
+			}
+
+			// Checks for input and saves if needed
+			if( isset( $_POST['fp5-data-rtmp'] ) ) {
+				update_post_meta(
+					$post_id,
+					'fp5-data-rtmp',
+					sanitize_text_field( $_POST['fp5-data-rtmp'] )
 				);
 			}
 

@@ -1,7 +1,7 @@
-=== Flowplayer 5 for WordPress ===
+=== Flowplayer HTML5 for WordPress ===
 Contributors: flowplayerorg, grapplerulrich, anssi
 Donate link: http://flowplayer.org/download
-Tags: flowplayer, flowplayer5, responsive, html5, video, player
+Tags: flowplayer, flowplayer5, flowplayer HTML5, responsive, html5, video, player
 Requires at least: 3.5
 Tested up to: 3.8
 Stable tag: trunk
@@ -12,13 +12,13 @@ The video player for the web. HTML5 responsive video player. From the makers of 
 
 == Description ==
 
-Flowplayer 5 for WordPress lets you manage your self-hosted videos easily and display them with the world-famous Flowplayer video player. This is the official WordPress plugin from the makers of Flowplayer.
+Flowplayer HTML5 for WordPress lets you manage your self-hosted videos easily and display them with the world-famous Flowplayer video player. This is the official WordPress plugin from the makers of Flowplayer.
 
 = Includes Flowplayer Designer =
 
-[Video transcoding and hosting solution](http://flowplayer.org/designer/) integrated in Flowplayer 5 for WordPress.
+[Video transcoding and hosting solution](http://flowplayer.org/designer/) integrated in Flowplayer HTML5 for WordPress.
 
-* Maximum browser coverage with Flowplayer 5 using MP4 and WEBM encodings
+* Maximum browser coverage with Flowplayer HTML5 using MP4 and WEBM encodings
 * Optimal device compatibility with 640px video width
 * Rigorously optimized encoder for best results
 * Maximum streaming throughout on a global video network
@@ -26,12 +26,10 @@ Flowplayer 5 for WordPress lets you manage your self-hosted videos easily and di
 
 __The video upload in Flowplayer Designer is just the beginning…__
 
-__Stay tuned for a BIG announcement at the end of this year!__
-
 = Main features =
 
 * One central place to manage all of your videos
-* Video can be added using shortcodes e.g. [flowplayer5 id="123"]
+* Video can be added using shortcodes e.g. [flowplayer id="123"]
 * Easily display videos in a sidebar with the Video Widget
 * Skin selection with three default Flowplayer skins: Minimalist, Functional and Playful
 * Show your video in any desired player size
@@ -96,7 +94,7 @@ It is recommended to add at least two [video formats](http://flowplayer.org/docs
 
 = Why use Flowplayer when there is video support since WordPress 3.6? =
 
-Flowplayer 5 for WordPress provides a video management system where you can manage all of your video from a central place. This plugin also allows for simple customisation of the videos. We are continuously adding further features to the plugin.
+Flowplayer HTML5 for WordPress provides a video management system where you can manage all of your video from a central place. This plugin also allows for simple customisation of the videos. We are continuously adding further features to the plugin.
 
 = How do I load Flowplayer assets locally when using Flowplayer Commercial? =
 
@@ -122,18 +120,19 @@ Why would you want to do that? :-) If you do need to uninstall the plugin all of
 
 = Filters =
 
-* [fp5_filter_set_messages()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/admin/class-flowplayer5-admin.php#L246)
-* [fp5_post_type_labels()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/includes/class-flowplayer5.php#L177)
-* [fp5_post_type_supports()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/includes/class-flowplayer5.php#L193)
-* [fp5_post_type_rewrite()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/includes/class-flowplayer5.php#L197)
-* [fp5_post_type_args()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/includes/class-flowplayer5.php#L204)
-* [fp5_filter_flowplayer_data()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-shortcode.php#L168)
-* [fp5_filter_has_shortcode()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-frontend.php#L98)
+* [fp5_filter_set_messages()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/admin/class-flowplayer5-admin.php#L254)
+* [fp5_post_type_labels()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/includes/class-flowplayer5.php#L179)
+* [fp5_post_type_supports()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/includes/class-flowplayer5.php#L195)
+* [fp5_post_type_rewrite()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/includes/class-flowplayer5.php#L199)
+* [fp5_post_type_args()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/includes/class-flowplayer5.php#L207)
+* [fp5_filter_flowplayer_data()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-shortcode.php#L179)
+* [fp5_filter_video_src()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-shortcode.php#L186) * NEW *
+* [fp5_filter_has_shortcode()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-frontend.php#L105)
 
 = Actions =
 
-* [fp5_video_top()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-shortcode.php#L170)
-* [fp5_video_bottom()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-shortcode.php#L180)
+* [fp5_video_top()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-shortcode.php#L181)
+* [fp5_video_bottom()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-shortcode.php#L191)
 
 = Examples =
 
@@ -179,61 +178,70 @@ add_filter( 'fp5_post_type_args', 'fp5_post_type_arg_video_post' );`
 
 We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
 
-= 1.4.0 =
-* code improvements
+= 1.5.0 - 26 December 2013 =
+* update to [Flowplayer HTML5 5.4.6](http://flowplayer.org/news/#html5546)
+* minify all backend scripts and styles
+* reformated video format meta and add a new filter
+* started adding flash video file and rtmp support
+
+= 1.4.0 - 10 December 2013 =
 * added a video widget
 * added support for WordPress 3.8
 * added responsive design to the admin area
-
-= 1.3.0 =
 * code improvements
+
+= 1.3.0 - 24 November 2013 =
 * added a few extra filters
 * updated [FAQ](http://wordpress.org/plugins/flowplayer5/faq/) with more code documentation
+* code improvements
 
-= 1.2.0 =
+= 1.2.0 - 10 November 2013 =
 * added functionality to fetch videos from Flowplayer Designer directly in the admin area
 * added a few filters and actions
 * reorganisations of files and folders
-* update to Flowplayer 5.4.4
+* update to Flowplayer HTML5 5.4.4
 * enable subtitle after being disabled in version 1.0.0
 
-= 1.1.0 =
+= 1.1.0 - 20 September 2013 =
 * added an extra column to show the shortcode in the overview
 * added a button in the posts pages so add shortcodes easily
 * fixed typos and updated pot file
 
-= 1.0.0 =
+= 1.0.0 - 18 August 2013 =
 * complete rewrite of plugin - now you can manage all of your videos in one place
-* updated the Flowplayer code to version 5.4.3
+* updated the Flowplayer HTML5 code to version 5.4.3
 * added preload option
 * added CDN option
-* added a few more flowplayer options
+* added a few more Flowplayer options
 * added embed options
-* disable subtitles temporarily till Flowplayer version 5.5 is released
+* disable subtitles temporarily till Flowplayer version 5.4.4 is released
 
-= 0.5.0 =
-* updated the Flowplayer code to version 5.3.2
+= 0.5.0 - 3 March 2013 =
+* updated the Flowplayer HTML5 code to version 5.3.2
 * fixed splash image sizing
 
-= 0.4.0 =
+= 0.4.0 - 16 January 2013 =
 * fixed the new "show logo on origin site" checkbox that was introduced in version 0.3
 * now possible to add several players with different skins in one post/page
 * fixed: the "Send to Editor" button became non-functional if the media library window was closed without choosing media
 
-= 0.3.0 =
+= 0.3.0 - 16 January 2013 =
 * now in the posting UI the height of the player is calculated based on video's aspect ratio
 * added option to show the logo also in the origin site, and not just only in virally embedded players
 
-= 0.2.0 =
+= 0.2.0 - 16 January 2013 =
 * fixed to work when this plugin is symlinked in the wp-content/plugins directory
 * fixed link to plugins configuration page
 * fixed player scaling, does not use a fixed player size any more
 * added an option to make the player size fixed
 
-= 0.1.0 =
+= 0.1.0 - 4 January 2013 =
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.5.0 =
+* update to Flowplayer HTML5 5.4.6
 
 = 1.4.0 =
 * new video widget
