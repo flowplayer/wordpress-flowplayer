@@ -245,7 +245,7 @@ class Flowplayer_Drive {
 
 		if ( is_array( $json_videos ) ) {
 
-			$rtmp = $json->rtmpUrl;
+			$rtmp = isset( $json->rtmpUrl ) ? $json->rtmpUrl : '';
 
 			foreach ( $json_videos as $video ) {
 
