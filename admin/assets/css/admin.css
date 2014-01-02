@@ -73,22 +73,22 @@ select#fp5-select-skin {
 
 @media screen and ( max-width: 1335px ) {
 	/* Form Tables */
-	.form-table {
+	.fp5-video-meta-box {
 		-moz-box-sizing: border-box;
 		box-sizing: border-box;
 	}
 
-	.form-table th,
-	.form-table td {
+	.fp5-video-meta-box th,
+	.fp5-video-meta-box td {
 		display: block;
 		width: auto;
 		vertical-align: middle;
 	}
 
-	.form-table td input[type="text"],
-	.form-table td textarea,
-	.form-table span.description,
-	#profile-page .form-table textarea {
+	.fp5-video-meta-box td input[type="text"],
+	.fp5-video-meta-box td textarea,
+	.fp5-video-meta-box span.description,
+	#profile-page .fp5-video-meta-box textarea {
 		width: 100%;
 		display: block;
 		max-width: none;
@@ -100,7 +100,7 @@ select#fp5-select-skin {
 	input[type=search].small-text,
 	input[type=number].small-text,
 	input[type="number"].small-text,
-	.form-table input[type=text].small-text {
+	.fp5-video-meta-box input[type=text].small-text {
 		width: auto;
 		max-width: 55px;
 		display: inline;
@@ -108,31 +108,31 @@ select#fp5-select-skin {
 		margin: 0 3px;
 	}
 
-	.form-table span.description {
+	.fp5-video-meta-box span.description {
 		padding: 4px 0 0;
 		line-height: 1.4em;
 	}
 
-	.form-table th {
+	.fp5-video-meta-box th {
 		padding-top: 10px;
 		padding-bottom: 0;
 		border-bottom: 0;
 	}
 
-	.form-table td {
+	.fp5-video-meta-box td {
 		padding-top: 8px;
 		padding-left: 0;
 	}
 
-	.form-table input.regular-text {
+	.fp5-video-meta-box input.regular-text {
 		width: 100%;
 	}
 
-	.form-table label {
+	.fp5-video-meta-box label {
 		font-size: 14px;
 	}
 
-	.form-table fieldset label {
+	.fp5-video-meta-box fieldset label {
 		display: block;
 	}
 
