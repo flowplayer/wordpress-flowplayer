@@ -41,6 +41,12 @@ if( is_admin() ) {
 	require_once( plugin_dir_path( __FILE__ ) . 'admin/class-flowplayer5-meta-box.php' );
 	require_once( plugin_dir_path( __FILE__ ) . 'admin/insert-video-button.php' );
 	require_once( plugin_dir_path( __FILE__ ) . 'admin/class-flowplayer-drive.php' );
+	if ( ! class_exists( 'Gamajo_Dashboard_Glancer' ) ) {
+		require plugin_dir_path( __FILE__ ) . 'admin/includes/class-gamajo-dashboard-glancer.php';
+	}
+	if ( ! class_exists( 'Gamajo_Dashboard_RightNow' ) ) {
+		require plugin_dir_path( __FILE__ ) . 'admin/includes/class-gamajo-dashboard-rightnow.php';
+	}
 } else {
 	require_once( plugin_dir_path( __FILE__ ) . 'frontend/class-flowplayer5-frontend.php' );
 	require_once( plugin_dir_path( __FILE__ ) . 'frontend/class-flowplayer5-shortcode.php' );
