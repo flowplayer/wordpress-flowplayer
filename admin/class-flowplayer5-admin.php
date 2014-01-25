@@ -60,16 +60,21 @@ class Flowplayer5_Admin {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
 
-		// Add action links
+		// Add action & meta links
 		$plugin_basename = plugin_basename( plugin_dir_path( FP5_PLUGIN_FILE ) . 'flowplayer.php' );
 		add_filter( 'plugin_action_links_' . $plugin_basename, array( $this, 'add_action_links' ) );
+		add_filter( 'plugin_row_meta', array( $this, 'add_plugin_row_meta' ) );
 
 		// Edit update messages
-		add_filter( 'post_updated_messages', array( $this, 'set_messages' ) );
+		add_filter( 'post_updated_messages', array( $this, 'set_messages' ), 10, 2 );
 
 		// Add column and rows
-		add_filter( 'manage_flowplayer5_posts_columns',  array( $this, 'shortcode_column'), 5, 2 );
-		add_action( 'manage_flowplayer5_posts_custom_column',  array( $this, 'shortcode_row'), 5, 2 );
+		add_filter( 'manage_flowplayer5_posts_columns', array( $this, 'shortcode_column'), 5, 2 );
+		add_action( 'manage_flowplayer5_posts_custom_column', array( $this, 'shortcode_row'), 5, 2 );
+
+		// Add dashboard counts
+		add_action( 'dashboard_glance_items', array( $this, 'add_dashboard_counts' ) );
+		add_action( 'right_now_content_table_end', array( $this, 'add_dashboard_counts_old' ) );
 
 	}
 
@@ -243,6 +248,30 @@ class Flowplayer5_Admin {
 	}
 
 	/**
+	 * Plugin row meta links
+	 *
+	 * @since 1.6.0
+	 */
+	public function add_plugin_row_meta( $input, $file ) {
+
+		$plugin_basename = plugin_basename( plugin_dir_path( FP5_PLUGIN_FILE ) . 'flowplayer.php' );
+
+		if ( $plugin_basename == $file ) {
+			$input = array_merge(
+				$input,
+				array(
+					'<a href="http://wordpress.org/plugins/flowplayer5/faq/">' . esc_html__( 'FAQ', $this->plugin_slug ) . '</a>',
+					'<a href="http://wordpress.org/support/plugin/flowplayer5">' . esc_html__( 'Support', $this->plugin_slug ) . '</a>',
+					'<a href="http://wordpress.org/support/view/plugin-reviews/flowplayer5?filter=5">' . esc_html__( 'Rate Plugin', $this->plugin_slug ) . '</a>',
+				)
+			);
+		}
+
+		return $input;
+
+	}
+
+	/**
 	 * Edit custom post type messages.
 	 *
 	 * @since    1.0.0
@@ -302,11 +331,31 @@ class Flowplayer5_Admin {
 		switch ( $column ) {
 
 			case 'shortcode' :
-				echo '[flowplayer id="' . $post_id . '"]'; 
+				echo '[flowplayer id="' . $post_id . '"]';
 				break;
 
 		}
 
+	}
+
+	/**
+	 * Add videos to "At a Glance" dashboard widget in WP +3.8
+	 *
+	 * @since    1.6.0
+	 */
+	public function add_dashboard_counts() {
+		$glancer = new Gamajo_Dashboard_Glancer;
+		$glancer->add( 'flowplayer5' );
+	}
+
+	/**
+	 * Add videos to "Right Now" dashboard widget in WP -3.7
+	 *
+	 * @since    1.6.0
+	 */
+	public function add_dashboard_counts_old() {
+		$glancer = new Gamajo_Dashboard_RightNow;
+		$glancer->add( 'flowplayer5' );
 	}
 
 }
