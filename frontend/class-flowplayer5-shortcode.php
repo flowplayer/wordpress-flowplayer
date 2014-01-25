@@ -91,8 +91,6 @@ class Flowplayer5_Shortcode {
 			$autoplay       = get_post_meta( $id, 'fp5-autoplay', true );
 			$preload        = get_post_meta( $id, 'fp5-preload', true );
 			$poster         = '';
-			$fixed_controls = get_post_meta( $id, 'fp5-fixed-controls', true );
-			$coloring       = get_post_meta( $id, 'fp5-coloring', true );
 			$skin           = get_post_meta( $id, 'fp5-select-skin', true );
 			$splash         = get_post_meta( $id, 'fp5-splash-image', true );
 			$formats        = array(
@@ -108,6 +106,15 @@ class Flowplayer5_Shortcode {
 			$ratio          = get_post_meta( $id, 'fp5-aspect-ratio', true );
 			$fixed          = get_post_meta( $id, 'fp5-fixed-width', true );
 			$data_rtmp      = get_post_meta( $id, 'fp5-data-rtmp', true );
+			$coloring       = get_post_meta( $id, 'fp5-coloring', true );
+			$fixed_controls = get_post_meta( $id, 'fp5-fixed-controls', true );
+			$background     = get_post_meta( $id, 'fp5-no-background', true );
+			$aside_time     = get_post_meta( $id, 'fp5-aside-time', true );
+			$hover          = get_post_meta( $id, 'fp5-no-hover', true );
+			$mute           = get_post_meta( $id, 'fp5-no-mute', true );
+			$volume         = get_post_meta( $id, 'fp5-no-volume', true );
+			$embed          = get_post_meta( $id, 'fp5-no-embed', true );
+			$play_button    = get_post_meta( $id, 'fp5-play-button', true );
 
 		} else {
 
@@ -170,8 +177,18 @@ class Flowplayer5_Shortcode {
 		$data_analytics   = ( 0 < strlen  ( $ga_account_id ) ? 'data-analytics="' . esc_attr( $ga_account_id ) . '" ' : '' );
 		$data_ratio       = ( $ratio != 0 ? 'data-ratio="' . esc_attr( $ratio ) . '" ' : '' );
 		$data_rtmp        = ( $ratio != 0 ? 'data-rtmp="' . esc_attr( $data_rtmp ) . '" ' : '' );
+		$classes = array(
+			( 'default' != $coloring ? $coloring : '' ),
+			( $fixed_controls ? 'fixed-controls' : '' ),
+			( $background ? 'no-background' : '' ),
+			( $aside_time ? 'aside-time' : '' ),
+			( $hover ? 'no-hover' : '' ),
+			( $mute ? 'no-mute' : '' ),
+			( $volume ? 'no-volume' : '' ),
+			( $play_button ? 'play-button' : '' ),
+		);
 
-		$modifier_classes = ( ( $fixed_controls == 'true' ) ? 'fixed-controls ' : '' ) . ( $coloring != 'default' ? $coloring : '' );
+		$modifier_classes = trim( implode( ' ', $classes ) ); ;
 		$flowplayer_data  = $data_key . $data_logo . $data_analytics . $data_ratio . $data_rtmp;
 		$attributes       = ( ( $autoplay == 'true' ) ? 'autoplay ' : '' ) . ( ( $loop == 'true' ) ? 'loop ' : '' ) . ( isset ( $preload ) ? 'preload="' . esc_attr( $preload ) . '" ' : '' ) . ( ( $poster == 'true' ) ? 'poster' : '' );
 
@@ -195,7 +212,10 @@ class Flowplayer5_Shortcode {
 
 		// Extra options
 		$return .= '<script>';
-			$width == 0 && esc_attr( $height ) == 0 ? $return .= 'flowplayer.conf.adaptiveRatio = true;' : '';
+			$return .= 'flowplayer.conf = {';
+				$width == 0 && esc_attr( $height ) == 0 ? $return .= 'adaptiveRatio: true,' : '';
+				$embed == '' ? $return .= 'embed: false,' : '';
+			$return .= '};';
 		$return .= '</script>';
 
 		// Check if a video has been added before output

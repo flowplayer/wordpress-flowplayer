@@ -6,11 +6,15 @@
  * @license   GPL-2.0+
  * @link      http://flowplayer.org/
  * @copyright 2013 Flowplayer Ltd
- 
+
  * @since    1.0.0
  */
 
 jQuery(document).ready(function ($) {
+
+    // Meta Box tabs
+    $(".fp5-video-meta-box div.hidden").removeClass('hidden');
+    $(".fp5-video-meta-box").tabs();
 
     // Update skin image according to selection
     $('#fp5-select-skin option').each(function () {

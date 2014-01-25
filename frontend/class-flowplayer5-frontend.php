@@ -85,7 +85,7 @@ class Flowplayer5_Frontend {
 	 */
 	public function enqueue_styles() {
 
-		global $post;
+		$post = get_queried_object();
 
 		// Pull options
 		$options = get_option( 'fp5_settings_general' );
@@ -120,7 +120,7 @@ class Flowplayer5_Frontend {
 	 */
 	public function enqueue_scripts() {
 
-		global $post;
+		$post = get_queried_object();
 
 		// Pull options
 		$options = get_option( 'fp5_settings_general' );
