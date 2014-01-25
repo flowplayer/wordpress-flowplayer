@@ -3,7 +3,7 @@ Contributors: flowplayerorg, grapplerulrich, anssi
 Donate link: http://flowplayer.org/download
 Tags: flowplayer, flowplayer5, flowplayer HTML5, responsive, html5, video, player
 Requires at least: 3.5
-Tested up to: 3.8
+Tested up to: 3.8.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -120,13 +120,13 @@ Why would you want to do that? :-) If you do need to uninstall the plugin all of
 
 = Filters =
 
-* [fp5_filter_set_messages()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/admin/class-flowplayer5-admin.php#L254)
+* [fp5_filter_set_messages()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/admin/class-flowplayer5-admin.php#L283)
 * [fp5_post_type_labels()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/includes/class-flowplayer5.php#L179)
 * [fp5_post_type_supports()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/includes/class-flowplayer5.php#L195)
 * [fp5_post_type_rewrite()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/includes/class-flowplayer5.php#L199)
 * [fp5_post_type_args()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/includes/class-flowplayer5.php#L207)
 * [fp5_filter_flowplayer_data()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-shortcode.php#L179)
-* [fp5_filter_video_src()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-shortcode.php#L186) * NEW *
+* [fp5_filter_video_src()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-shortcode.php#L196)
 * [fp5_filter_has_shortcode()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-frontend.php#L105)
 
 = Actions =
@@ -173,10 +173,16 @@ add_filter( 'fp5_post_type_args', 'fp5_post_type_arg_video_post' );`
 2. Flowplayer Designer
 3. Video Widget
 4. Plugin Settings
+5. Video Frontend
 
 == Changelog ==
 
 We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
+
+= 1.6.0 - 25 January 2014 =
+* add support for all of the [modifier classes](http://flowplayer.org/docs/skinning.html#modifier-classes)
+* improve structure of video options by splitting options with tabs
+* add support for "At a Glance" dashboard widget
 
 = 1.5.0 - 26 December 2013 =
 * update to [Flowplayer HTML5 5.4.6](http://flowplayer.org/news/#html5546)
@@ -239,6 +245,9 @@ We have a lot of plans for this plugin. You can see some of the up and coming fe
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.6.0 =
+* add more customisation options
 
 = 1.5.0 =
 * update to Flowplayer HTML5 5.4.6
