@@ -33,6 +33,10 @@
 	background: none;
 }
 
+#dashboard_right_now .flowplayer5-count a:before {
+	content: '\f126';
+}
+
 /* Meta box */
 .fp5-video-meta-box select,
 .fp5-video-meta-box td {
@@ -69,6 +73,19 @@ select#fp5-select-skin {
 
 #fp5-preview video{
 	max-width: 100%
+}
+
+/* Tabs */
+.nav-tab-wrapper {
+	border-bottom: #ccc solid 1px;;
+}
+
+.ui-tabs-active,
+.ui-tabs-active:hover {
+	color: #464646;
+	background: none;
+	border-color: #ccc solid 1px;
+	border-bottom: #fff solid 1px;
 }
 
 @media screen and ( max-width: 1335px ) {
