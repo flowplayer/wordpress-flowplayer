@@ -263,6 +263,39 @@ jQuery(document).ready(function ($) {
         fp5_flash_frame.open();
     });
 
+    // Add hls video
+    var fp5_hls_frame;
+
+    $(document.body).on('click.fp5OpenMediaManager', '.fp5-add-hls', function (e) {
+
+        e.preventDefault();
+
+        if ( fp5_hls_frame ) {
+            fp5_hls_frame.open();
+            return;
+        }
+
+        fp5_hls_frame = wp.media.frames.fp5_hls_frame = wp.media({
+            className: 'media-frame fp5-media-frame',
+            frame: 'select',
+            multiple: false,
+            title: hls_video.title,
+            library: {
+                type: ['application/x-mpegurl']
+            },
+            button: {
+                text: hls_video.button
+            }
+        });
+
+        fp5_hls_frame.on('select', function () {
+            var media_attachment = fp5_hls_frame.state().get('selection').first().toJSON();
+            $('#fp5-hls-video').val(media_attachment.url);
+            CreatePreview();
+        });
+        fp5_hls_frame.open();
+    });
+
     // Add vtt subtitles
     var fp5_webvtt_frame;
 

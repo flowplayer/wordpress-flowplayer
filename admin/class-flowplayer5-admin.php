@@ -163,6 +163,12 @@ class Flowplayer5_Admin {
 					'button' => __( 'Insert Flash Video', $this->plugin_slug )                             // This will be used as the default button text
 				)
 			);
+			wp_localize_script( $this->plugin_slug . '-media', 'hls_video',
+				array(
+					'title'  => __( 'Upload or choose a HLS video file', $this->plugin_slug ), // This will be used as the default title
+					'button' => __( 'Insert HLS Video', $this->plugin_slug )                   // This will be used as the default button text
+				)
+			);
 			wp_localize_script( $this->plugin_slug . '-media', 'webvtt',
 				array(
 					'title'  => __( 'Upload or choose a webvtt file', $this->plugin_slug ), // This will be used as the default title

@@ -238,6 +238,7 @@ class Flowplayer5 {
 	public function flowplayer_custom_mimes( $mimes ){
 
 		$mimes['webm'] = 'video/webm';
+		$mimes['m3u8'] = 'application/x-mpegurl';
 		$mimes['vtt']  = 'text/vtt';
 
 		return $mimes;

@@ -75,6 +75,15 @@
 			</td>
 		</tr>
 
+		<tr class="fp5-hls-video hidden" valign="top">
+			<th scope="row"><label for="fp5-hls-video"><?php _e( 'HLS Video', $this->plugin_slug )?></label> <a href="http://flowplayer.org/docs/setup.html#flash-video" target="_blank">?</a></th>
+			<th scope="row"><label for="fp5-hls-video"><?php _e( 'HLS Video', $this->plugin_slug )?></label> <a href="http://flowplayer.org/docs/setup.html#flash-video" target="_blank">?</a></th>
+			<td>
+				<input class="media-url" type="text" name="fp5-hls-video" id="fp5-hls-video" placeholder="<?php _e( 'Add HLS video url', $this->plugin_slug )?>" value="<?php if ( isset ( $fp5_stored_meta['fp5-hls-video'] ) ) echo esc_attr( $fp5_stored_meta['fp5-hls-video'][0] ); ?>" />
+				<a href="#" class="fp5-add-hls button button-primary" title="<?php _e( 'Add HLS video', $this->plugin_slug )?>"><?php _e( 'Add HLS video', $this->plugin_slug )?></a>
+			</td>
+		</tr>
+
 		<tr class="fp5-vtt-subtitles" valign="top">
 			<th scope="row"><label for="fp5-vtt-subtitles"><?php _e( 'VVT file (Subtitles)', $this->plugin_slug )?></label> <a href="http://flowplayer.org/docs/subtitles.html" target="_blank">?</a></th>
 			<td>
