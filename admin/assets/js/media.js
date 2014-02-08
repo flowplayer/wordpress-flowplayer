@@ -16,6 +16,25 @@ jQuery(document).ready(function ($) {
     $(".fp5-video-meta-box div.hidden").removeClass('hidden');
     $(".fp5-video-meta-box").tabs();
 
+    // Media toggle
+    var mode_checkbox = $('input#fp5-toggle');
+    var advance = $('.fp5-video-meta-box .advance');
+    // On load: Hide the below option is toggle is on.
+    if ( mode_checkbox.is( ':checked' ) ) {
+        advance.show();
+    } else {
+        advance.hide();
+    }
+
+    // Hide and show on change.
+    mode_checkbox.change( function () {
+        if ( mode_checkbox.is( ':checked' ) ) {
+            advance.show();
+        } else {
+            advance.hide();
+        }
+    } );
+
     // Update skin image according to selection
     $('#fp5-select-skin option').each(function () {
         if ($(this).is(':selected')) {
