@@ -112,7 +112,7 @@ class Flowplayer5_Admin {
 
 		// Only run in new post and edit screens
 		if ( $screen->base == 'post' ) {
-			wp_enqueue_style( 'jquery-colorbox', plugins_url( '/assets/jquery-colorbox/colorbox' . $suffix . '.css', __FILE__ ), '1.4.27' );
+			wp_enqueue_style( 'jquery-colorbox', plugins_url( '/assets/jquery-colorbox/colorbox' . $suffix . '.css', __FILE__ ), $this->plugin_version );
 		}
 
 	}
@@ -203,7 +203,7 @@ class Flowplayer5_Admin {
 
 		// Only run on new and edit post screens
 		if ( $screen->base == 'post' ) {
-			wp_enqueue_script( 'jquery-colorbox', plugins_url( '/assets/jquery-colorbox/jquery.colorbox' . $suffix . '.js', __FILE__ ), 'jquery', '1.4.27', false );
+			wp_enqueue_script( 'jquery-colorbox', plugins_url( '/assets/jquery-colorbox/jquery.colorbox' . $suffix . '.js', __FILE__ ), 'jquery', '1.4.37', false );
 		}
 
 	}
