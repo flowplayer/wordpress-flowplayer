@@ -39,8 +39,9 @@ $fp5_options = fp5_get_settings();
 if( is_admin() ) {
 	require_once( plugin_dir_path( __FILE__ ) . 'admin/class-flowplayer5-admin.php' );
 	require_once( plugin_dir_path( __FILE__ ) . 'admin/class-flowplayer5-meta-box.php' );
-	require_once( plugin_dir_path( __FILE__ ) . 'admin/insert-video-button.php' );
 	require_once( plugin_dir_path( __FILE__ ) . 'admin/class-flowplayer-drive.php' );
+	require_once( plugin_dir_path( __FILE__ ) . 'admin/class-flowplayer-drive-error.php' );
+	require_once( plugin_dir_path( __FILE__ ) . 'admin/insert-video-button.php' );
 	if ( ! class_exists( 'Gamajo_Dashboard_Glancer' ) ) {
 		require plugin_dir_path( __FILE__ ) . 'admin/includes/class-gamajo-dashboard-glancer.php';
 	}
@@ -60,7 +61,8 @@ Flowplayer5::get_instance();
 if( is_admin() ) {
 	Flowplayer5_Admin::get_instance();
 	Video_Meta_Box::get_instance();
-	Flowplayer_Drive::get_instance();
+	$flowplayer_drive = new Flowplayer_Drive();
+	add_action( 'plugins_loaded', array( $flowplayer_drive, 'run' ) );
 } else {
 	Flowplayer5_Frontend::get_instance();
 	Flowplayer5_Shortcode::get_instance();
