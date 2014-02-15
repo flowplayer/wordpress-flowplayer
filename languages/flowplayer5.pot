@@ -1,189 +1,189 @@
-# Copyright (C) 2013 
+# Copyright (C) 2014
 # This file is distributed under the same license as the  package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Flowplayer for WordPress\n"
+"Project-Id-Version: Flowplayer HTML5 for WordPress\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/flowplayer5\n"
-"POT-Creation-Date: 2013-12-10 09:28+0100\n"
-"PO-Revision-Date: 2013-12-10 09:28+0100\n"
-"Last-Translator: Ulrich Pogson <grapplerulrich@gmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: en_US\n"
+"POT-Creation-Date: 2014-02-15 14:02:50+00:00\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.6.1\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Poedit-Basepath: ..\n"
-"X-Poedit-KeywordsList: __;_e;_n;_x;esc_html_e;esc_html__;esc_attr_e;"
-"esc_attr__;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_x:1,2c;_n:1,2\n"
-"X-Poedit-SearchPath-0: .\n"
 
-#: admin/class-flowplayer-drive.php:107
-msgid "Unable to connect to the Flowplayer Authentication Seed API."
-msgstr ""
-
-#: admin/class-flowplayer-drive.php:129
-#, php-format
-msgid ""
-"Please <a href=\"%1$s\">login</a> with your <a href=\"%2$s\">Flowplayer.org</"
-"a> username and password."
-msgstr ""
-
-#: admin/class-flowplayer-drive.php:167
-#, php-format
-msgid ""
-"You have enter a incorrect username and/or password. Please check your "
-"username and password in the <a href=\"%1$s\">settings</a>."
-msgstr ""
-
-#: admin/class-flowplayer-drive.php:178
+#: admin/class-flowplayer-drive-error.php:29
 msgid "Unable to connect to the Flowplayer Authentication API."
 msgstr ""
 
-#: admin/class-flowplayer-drive.php:219
-#, php-format
-msgid ""
-"You have not uploaded any videos yet. You can upload the video in <a href="
-"\"%1$s\">Flowplayer Designer</a>."
+#: admin/class-flowplayer-drive-error.php:33
+msgid "Unable to connect to the Flowplayer Authentication Seed API."
 msgstr ""
 
-#: admin/class-flowplayer-drive.php:228
+#: admin/class-flowplayer-drive-error.php:37
 msgid "Unable to connect to the Flowplayer Video API."
 msgstr ""
 
-#: admin/class-flowplayer-drive.php:294
-msgid "Upload Videos"
+#: admin/class-flowplayer-drive-error.php:44
+msgid ""
+"You have not uploaded any videos yet. You can upload the video in <a "
+"href=\"%1$s\">Flowplayer Designer</a>."
 msgstr ""
 
-#: admin/class-flowplayer-drive.php:294
-msgid "Flowplayer Drive"
+#: admin/class-flowplayer-drive-error.php:54
+msgid ""
+"You have entered an incorrect combination of username and password. Please "
+"check your username and password in the <a href=\"%1$s\">settings</a>."
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:136
+#: admin/class-flowplayer-drive-error.php:64
+msgid ""
+"Please <a href=\"%1$s\">login</a> with your <a "
+"href=\"%2$s\">Flowplayer.org</a> username and password."
+msgstr ""
+
+#: admin/class-flowplayer5-admin.php:138
 msgid "Upload or choose a splash image"
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:137
+#: admin/class-flowplayer5-admin.php:139
 msgid "Insert Splash Image"
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:142
-msgid "Upload or choose a mp4 video file"
+#: admin/class-flowplayer5-admin.php:144
+msgid "Upload or choose a MP4 video file"
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:143
-msgid "Insert mp4 Video"
+#: admin/class-flowplayer5-admin.php:145
+msgid "Insert MP4 Video"
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:148
-msgid "Upload or choose a webm video file"
+#: admin/class-flowplayer5-admin.php:150
+msgid "Upload or choose a WEBM video file"
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:149
-msgid "Insert webm Video"
+#: admin/class-flowplayer5-admin.php:151
+msgid "Insert WEBM Video"
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:154
-msgid "Upload or choose a ogg video file"
+#: admin/class-flowplayer5-admin.php:156
+msgid "Upload or choose a OGG video file"
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:155
-msgid "Insert ogg Video"
+#: admin/class-flowplayer5-admin.php:157
+msgid "Insert OGG Video"
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:160
+#: admin/class-flowplayer5-admin.php:162
+msgid "Upload or choose a flash optimized video file"
+msgstr ""
+
+#: admin/class-flowplayer5-admin.php:163
+msgid "Insert Flash Video"
+msgstr ""
+
+#: admin/class-flowplayer5-admin.php:168
+msgid "Upload or choose a HLS video file"
+msgstr ""
+
+#: admin/class-flowplayer5-admin.php:169
+msgid "Insert HLS Video"
+msgstr ""
+
+#: admin/class-flowplayer5-admin.php:174
 msgid "Upload or choose a webvtt file"
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:161
+#: admin/class-flowplayer5-admin.php:175
 msgid "Insert webvtt"
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:166 admin/class-flowplayer5-admin.php:181
+#: admin/class-flowplayer5-admin.php:180 admin/class-flowplayer5-admin.php:195
 msgid "Upload or choose a logo"
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:167 admin/class-flowplayer5-admin.php:182
+#: admin/class-flowplayer5-admin.php:181 admin/class-flowplayer5-admin.php:196
 msgid "Insert Logo"
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:206
+#: admin/class-flowplayer5-admin.php:220
 msgid "Flowplayer Settings"
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:207 admin/class-flowplayer5-admin.php:235
+#: admin/class-flowplayer5-admin.php:221 admin/class-flowplayer5-admin.php:249
 msgid "Settings"
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:254 admin/class-flowplayer5-admin.php:257
+#: admin/class-flowplayer5-admin.php:269 admin/views/display-settings.php:38
+msgid "FAQ"
+msgstr ""
+
+#: admin/class-flowplayer5-admin.php:270
+msgid "Support"
+msgstr ""
+
+#: admin/class-flowplayer5-admin.php:271
+msgid "Rate Plugin"
+msgstr ""
+
+#: admin/class-flowplayer5-admin.php:292 admin/class-flowplayer5-admin.php:295
 msgid "Video updated."
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:254 admin/class-flowplayer5-admin.php:257
-#: admin/class-flowplayer5-admin.php:259 admin/class-flowplayer5-admin.php:260
-#: admin/class-flowplayer5-admin.php:261
-#, php-format
+#: admin/class-flowplayer5-admin.php:292 admin/class-flowplayer5-admin.php:295
+#: admin/class-flowplayer5-admin.php:297 admin/class-flowplayer5-admin.php:298
+#: admin/class-flowplayer5-admin.php:299
 msgid "Shortcode: %1$s"
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:255
+#: admin/class-flowplayer5-admin.php:293
 msgid "Custom field updated."
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:256
+#: admin/class-flowplayer5-admin.php:294
 msgid "Custom field deleted."
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:258
-#, php-format
-msgid " restored to revision from %s"
-msgstr ""
-
-#: admin/class-flowplayer5-admin.php:259
+#: admin/class-flowplayer5-admin.php:297
 msgid "Video published."
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:260
+#: admin/class-flowplayer5-admin.php:298
 msgid "Video saved."
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:261
+#: admin/class-flowplayer5-admin.php:299
 msgid "Video submitted."
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:262
-#, php-format
+#: admin/class-flowplayer5-admin.php:300
 msgid "Video scheduled for: %1$s"
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:262
+#: admin/class-flowplayer5-admin.php:300
 msgid "M j, Y @ G:i"
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:263
+#: admin/class-flowplayer5-admin.php:301
 msgid "Video draft updated."
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:281
+#: admin/class-flowplayer5-admin.php:319
 msgid "Title"
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:282
+#: admin/class-flowplayer5-admin.php:320
 msgid "Author"
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:283
+#: admin/class-flowplayer5-admin.php:321
 #: admin/class-flowplayer5-meta-box.php:91
 msgid "Shortcode"
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:284
+#: admin/class-flowplayer5-admin.php:322
 msgid "Date"
 msgstr ""
 
 #: admin/class-flowplayer5-meta-box.php:108
-msgid "Copy this shortcode to a post, page or widget to show the video."
+msgid "Copy this shortcode to a post or page to show the video."
 msgstr ""
 
 #: admin/class-flowplayer5-meta-box.php:123
@@ -237,11 +237,10 @@ msgid "Show Logo on this site"
 msgstr ""
 
 #: admin/register-settings.php:51
-msgid ""
-"Show logo on this site. Uncheck to show on only externally embedded videos."
+msgid "Show logo on this site. Uncheck to show on only externally embedded videos."
 msgstr ""
 
-#: admin/register-settings.php:56 admin/views/display-video-meta-box.php:22
+#: admin/register-settings.php:56 admin/views/display-video-meta-box.php:32
 msgid "Flowplayer Designer"
 msgstr ""
 
@@ -349,8 +348,7 @@ msgid "General Settings"
 msgstr ""
 
 #: admin/register-settings.php:236
-msgid ""
-"Your passord is saved. For security reasons it will not be displayed here."
+msgid "Your passord is saved. For security reasons it will not be displayed here."
 msgstr ""
 
 #: admin/register-settings.php:264
@@ -358,9 +356,7 @@ msgid "Add Logo"
 msgstr ""
 
 #: admin/register-settings.php:299
-#, php-format
-msgid ""
-"The callback function used for the <strong>%s</strong> setting is missing."
+msgid "The callback function used for the <strong>%s</strong> setting is missing."
 msgstr ""
 
 #: admin/register-settings.php:326
@@ -368,11 +364,7 @@ msgid "Settings Updated"
 msgstr ""
 
 #: admin/views/display-settings.php:36
-msgid "About Flowplayer 5"
-msgstr ""
-
-#: admin/views/display-settings.php:38
-msgid "FAQ"
+msgid "About Flowplayer HTML5"
 msgstr ""
 
 #: admin/views/display-settings.php:39
@@ -399,134 +391,249 @@ msgstr ""
 msgid "Flowplayer Website"
 msgstr ""
 
+#: admin/views/display-video-meta-box.php:14
+msgid "Media Files"
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:15
+#: admin/views/display-video-meta-box.php:105
+msgid "Skinning"
+msgstr ""
+
 #: admin/views/display-video-meta-box.php:16
+#: admin/views/display-video-meta-box.php:191
+msgid "Configuration"
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:19
 msgid "Media files"
 msgstr ""
 
-#: admin/views/display-video-meta-box.php:17
+#: admin/views/display-video-meta-box.php:20
 msgid ""
 "It is recommended to add at least two video formats so that the video plays "
 "on as many browsers as possible. To be able to calculate the dimensions of "
-"the video the video format added needs to be compatible with the browser."
+"the video the video format added needs to be compatible with the current "
+"browser."
 msgstr ""
 
-#: admin/views/display-video-meta-box.php:17
+#: admin/views/display-video-meta-box.php:20
 msgid "About video formats."
 msgstr ""
 
 #: admin/views/display-video-meta-box.php:24
+msgid "Basic"
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:24
+msgid "Advance"
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:34
 msgid "Add from Flowplayer Designer"
 msgstr ""
 
-#: admin/views/display-video-meta-box.php:29
+#: admin/views/display-video-meta-box.php:39
 msgid "Splash Image"
 msgstr ""
 
-#: admin/views/display-video-meta-box.php:32
+#: admin/views/display-video-meta-box.php:41
+msgid "Add splash image url"
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:42
 msgid "Add splash image"
 msgstr ""
 
-#: admin/views/display-video-meta-box.php:37
+#: admin/views/display-video-meta-box.php:47
 msgid "MP4 Video"
 msgstr ""
 
-#: admin/views/display-video-meta-box.php:40
+#: admin/views/display-video-meta-box.php:49
+msgid "Add MP4 Video url"
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:50
 msgid "Add MP4 Video"
 msgstr ""
 
-#: admin/views/display-video-meta-box.php:45
+#: admin/views/display-video-meta-box.php:55
 msgid "WEBM Video"
 msgstr ""
 
-#: admin/views/display-video-meta-box.php:48
+#: admin/views/display-video-meta-box.php:57
+msgid "Add WEBM Video url"
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:58
 msgid "Add WEBM Video"
 msgstr ""
 
-#: admin/views/display-video-meta-box.php:53
+#: admin/views/display-video-meta-box.php:63
 msgid "OGG Video"
 msgstr ""
 
-#: admin/views/display-video-meta-box.php:56
+#: admin/views/display-video-meta-box.php:65
+msgid "Add OGG Video url"
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:66
 msgid "Add OGG Video"
 msgstr ""
 
-#: admin/views/display-video-meta-box.php:61
+#: admin/views/display-video-meta-box.php:71
+msgid "Flash Video"
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:73
+msgid "Add Flash video url"
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:74
+msgid "Add Flash video"
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:79
+msgid "HLS Video"
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:81
+msgid "Add HLS video url"
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:82
+msgid "Add HLS video"
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:87
 msgid "VVT file (Subtitles)"
 msgstr ""
 
-#: admin/views/display-video-meta-box.php:64
+#: admin/views/display-video-meta-box.php:89
+msgid "Add VVT file url"
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:90
 msgid "Add VVT file"
 msgstr ""
 
-#: admin/views/display-video-meta-box.php:69
+#: admin/views/display-video-meta-box.php:94
+msgid "RTMP URL"
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:96
+msgid "Add rtmp value"
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:106
+msgid "Alter the looks and/or behaviour of the skin."
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:111
 msgid "Select skin"
 msgstr ""
 
-#: admin/views/display-video-meta-box.php:85
-msgid "Video attributes"
-msgstr ""
-
-#: admin/views/display-video-meta-box.php:88
-msgid "Autoplay"
-msgstr ""
-
-#: admin/views/display-video-meta-box.php:93
-msgid "Loop"
-msgstr ""
-
-#: admin/views/display-video-meta-box.php:97
-msgid "Preload"
-msgstr ""
-
-#: admin/views/display-video-meta-box.php:107
-msgid "Flowplayer options"
-msgstr ""
-
-#: admin/views/display-video-meta-box.php:110
-msgid "Fixed Controls"
-msgstr ""
-
-#: admin/views/display-video-meta-box.php:114
+#: admin/views/display-video-meta-box.php:127
 msgid "Coloring"
 msgstr ""
 
-#: admin/views/display-video-meta-box.php:116
+#: admin/views/display-video-meta-box.php:130
 msgid "Default"
 msgstr ""
 
-#: admin/views/display-video-meta-box.php:117
+#: admin/views/display-video-meta-box.php:131
 msgid "Black & White"
 msgstr ""
 
-#: admin/views/display-video-meta-box.php:118
+#: admin/views/display-video-meta-box.php:132
 msgid "Red"
 msgstr ""
 
-#: admin/views/display-video-meta-box.php:119
+#: admin/views/display-video-meta-box.php:133
 msgid "Light"
 msgstr ""
 
-#: admin/views/display-video-meta-box.php:125
+#: admin/views/display-video-meta-box.php:139
+msgid "Player style"
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:143
+msgid "Remove background color"
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:148
+msgid "Fixed Controls"
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:153
+msgid "Display play button on the controlbar"
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:158
+msgid "All UI elements are always visible ignoring the mouse hover"
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:163
+msgid "Time in top left corner"
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:168
+msgid "Hide the time display"
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:173
+msgid "Hide the mute control"
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:178
+msgid "Hide the volume control"
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:183
+msgid "Hide the embed button"
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:192
+msgid "Configure the video attributes and player size"
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:197
+msgid "Video attributes"
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:201
+msgid "Autoplay"
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:206
+msgid "Loop"
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:209
+msgid "Preload"
+msgstr ""
+
+#: admin/views/display-video-meta-box.php:219
 msgid "Size options"
 msgstr ""
 
-#: admin/views/display-video-meta-box.php:127
+#: admin/views/display-video-meta-box.php:221
 msgid "Max Width"
 msgstr ""
 
-#: admin/views/display-video-meta-box.php:129
+#: admin/views/display-video-meta-box.php:223
 msgid "Width"
 msgstr ""
 
-#: admin/views/display-video-meta-box.php:131
+#: admin/views/display-video-meta-box.php:225
 msgid "Height"
 msgstr ""
 
-#: admin/views/display-video-meta-box.php:139
+#: admin/views/display-video-meta-box.php:233
 msgid "Change video dimensions"
 msgstr ""
 
-#: admin/views/display-video-meta-box.php:144
+#: admin/views/display-video-meta-box.php:238
 msgid "Use fixed player size"
 msgstr ""
 
@@ -540,16 +647,6 @@ msgstr ""
 
 #: includes/class-flowplayer5-widget.php:80
 msgid "Choose Video:"
-msgstr ""
-
-#: includes/class-flowplayer5.php:180
-msgctxt "Post Type General Name"
-msgid "Videos"
-msgstr ""
-
-#: includes/class-flowplayer5.php:181
-msgctxt "Post Type Singular Name"
-msgid "Video"
 msgstr ""
 
 #: includes/class-flowplayer5.php:182
@@ -600,10 +697,20 @@ msgstr ""
 msgid "video"
 msgstr ""
 
-#: includes/class-flowplayer5.php:207
+#: includes/class-flowplayer5.php:208
 msgid "flowplayer5"
 msgstr ""
 
-#: includes/class-flowplayer5.php:208
+#: includes/class-flowplayer5.php:209
 msgid "Flowplayer Videos"
+msgstr ""
+
+#: includes/class-flowplayer5.php:180
+msgctxt "Post Type General Name"
+msgid "Videos"
+msgstr ""
+
+#: includes/class-flowplayer5.php:181
+msgctxt "Post Type Singular Name"
+msgid "Video"
 msgstr ""
