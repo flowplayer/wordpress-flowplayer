@@ -59,8 +59,8 @@ function fp5_register_settings() {
 				),
 				'user_name' => array(
 					'id'   => 'user_name',
-					'name' => __( 'User name', 'flowplayer5' ),
-					'desc' => __( 'Specify your user name here.', 'flowplayer5') ,
+					'name' => __( 'Username', 'flowplayer5' ),
+					'desc' => __( 'Specify your username here.', 'flowplayer5') ,
 					'type' => 'text',
 					'size' => 'medium'
 				),

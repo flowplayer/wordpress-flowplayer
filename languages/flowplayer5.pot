@@ -264,11 +264,11 @@ msgid ""
 msgstr ""
 
 #: admin/register-settings.php:62
-msgid "User name"
+msgid "Username"
 msgstr ""
 
 #: admin/register-settings.php:63
-msgid "Specify your user name here."
+msgid "Specify your username here."
 msgstr ""
 
 #: admin/register-settings.php:69
