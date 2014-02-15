@@ -63,7 +63,7 @@ class Flowplayer5_Admin {
 		// Add action & meta links
 		$plugin_basename = plugin_basename( plugin_dir_path( FP5_PLUGIN_FILE ) . 'flowplayer.php' );
 		add_filter( 'plugin_action_links_' . $plugin_basename, array( $this, 'add_action_links' ) );
-		add_filter( 'plugin_row_meta', array( $this, 'add_plugin_row_meta' ) );
+		add_filter( 'plugin_row_meta', array( $this, 'add_plugin_row_meta' ), 10, 2 );
 
 		// Edit update messages
 		add_filter( 'post_updated_messages', array( $this, 'set_messages' ), 10, 2 );
