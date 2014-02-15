@@ -124,6 +124,12 @@ class Flowplayer_Drive {
 	 */
 	protected function make_video_request() {
 
+		$json_cache = get_transient( 'flowplayer_drive_json_cache' );
+
+		if ( false !== $json_cache ) {
+			return $json_cache;
+		}
+
 		$authcode = $this->make_auth_request();
 
 		$query_args = array(
@@ -138,6 +144,9 @@ class Flowplayer_Drive {
 		$json = $this->json_decode_body( $response );
 
 		if ( 200 == wp_remote_retrieve_response_code( $response ) ) {
+
+			set_transient( 'flowplayer_drive_json_cache', $json, 15 * MINUTE_IN_SECONDS );
+
 			return $json;
 		}
 
