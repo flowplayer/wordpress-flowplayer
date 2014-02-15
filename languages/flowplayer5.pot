@@ -405,6 +405,7 @@ msgid "Flowplayer Website"
 msgstr ""
 
 #: admin/views/display-video-meta-box.php:14
+#: admin/views/display-video-meta-box.php:19
 msgid "Media Files"
 msgstr ""
 
@@ -416,10 +417,6 @@ msgstr ""
 #: admin/views/display-video-meta-box.php:16
 #: admin/views/display-video-meta-box.php:191
 msgid "Configuration"
-msgstr ""
-
-#: admin/views/display-video-meta-box.php:19
-msgid "Media files"
 msgstr ""
 
 #: admin/views/display-video-meta-box.php:20

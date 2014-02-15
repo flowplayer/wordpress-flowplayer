@@ -16,7 +16,7 @@
 	<li class="nav-tab"><a href="#config"><?php _e( 'Configuration', $this->plugin_slug ) ?></a></li>
 </ul>
 <div id="media">
-<h3><?php _e( 'Media files', $this->plugin_slug )?></h3>
+<h3><?php _e( 'Media Files', $this->plugin_slug )?></h3>
 <p><?php _e( 'It is recommended to add at least two video formats so that the video plays on as many browsers as possible. To be able to calculate the dimensions of the video the video format added needs to be compatible with the current browser.', $this->plugin_slug ) ?> <a href="http://flowplayer.org/docs/setup.html#video-formats" target="_blank"><?php _e( 'About video formats.', $this->plugin_slug ) ?></a>
 <label class="switch-light switch-android" onclick="">
 	<input type="checkbox" name="fp5-toggle" id="fp5-toggle" value="flase"/>
