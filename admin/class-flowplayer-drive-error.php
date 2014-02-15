@@ -41,8 +41,9 @@ class Flowplayer_Drive_Error {
 		Flowplayer_Drive_Error::show(
 			'new-user',
 			sprintf(
-				__( 'You have not uploaded any videos yet. You can upload the video in <a href="%1$s">Flowplayer Designer</a>.', 'flowplayer5' ),
-				esc_url( 'http://flowplayer.org/designer/' )
+				/* Translators: You have not uploaded any videos yet. You can upload the video in Flowplayer Designer. */
+				__( 'You have not uploaded any videos yet. You can upload the video in %1$s.', 'flowplayer5' ),
+				'<a href="' . esc_url( 'http://flowplayer.org/designer/' ) . '">' . __( 'Flowplayer Designer', 'flowplayer5' ) . '</a>'
 			)
 		);
 	}
@@ -51,19 +52,23 @@ class Flowplayer_Drive_Error {
 		Flowplayer_Drive_Error::show(
 			'login',
 			sprintf(
-				__( 'You have entered an incorrect combination of username and password. Please check your username and password in the <a href="%1$s">settings</a>.', 'flowplayer5' ),
-				esc_url( admin_url( 'edit.php?post_type=flowplayer5&page=flowplayer5_settings' ) )
+				/* Translators: You have entered an incorrect combination of username and password. Please check your username and password in the settings. */
+				__( 'You have entered an incorrect combination of username and password. Please check your username and password in the %1$s.', 'flowplayer5' ),
+				'<a href="' . esc_url( admin_url( 'edit.php?post_type=flowplayer5&page=flowplayer5_settings' ) ) . '">' . __( 'settings', 'flowplayer5' ) . '</a>'
+				
 			)
 		);
 	}
 
 	public static function showLoginError() {
+
 		Flowplayer_Drive_Error::show(
 			'login',
 			sprintf(
-				__( 'Please <a href="%1$s">login</a> with your <a href="%2$s">Flowplayer.org</a> username and password.', 'flowplayer5' ),
-				esc_url( admin_url( 'edit.php?post_type=flowplayer5&page=flowplayer5_settings' ) ),
-				esc_url( 'http://flowplayer.org/' )
+				/* Translators: Please login with your Flowplayer.org username and password. */
+				__( 'Please %1$s with your %2$s username and password.', 'flowplayer5' ),
+				'<a href="' . esc_url( admin_url( 'edit.php?post_type=flowplayer5&page=flowplayer5_settings' ) ) . '">' . __( 'login', 'flowplayer5' ) . '</a>',
+				'<a href="' . esc_url( 'http://flowplayer.org/' ) . '">' . __( 'Flowplayer.org', 'flowplayer5' ) . '</a>'
 			)
 		);
 	}
