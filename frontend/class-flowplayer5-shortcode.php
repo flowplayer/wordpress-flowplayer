@@ -94,10 +94,11 @@ class Flowplayer5_Shortcode {
 			$skin           = get_post_meta( $id, 'fp5-select-skin', true );
 			$splash         = get_post_meta( $id, 'fp5-splash-image', true );
 			$formats        = array(
-				'webm'      => get_post_meta( $id, 'fp5-webm-video', true ),
-				'mp4'       => get_post_meta( $id, 'fp5-mp4-video', true ),
-				'ogg'       => get_post_meta( $id, 'fp5-ogg-video', true),
-				'flash'     => get_post_meta( $id, 'fp5-flash-video', true),
+				'application/x-mpegurl' => get_post_meta( $id, 'fp5-hls-video', true ),
+				'video/webm'            => get_post_meta( $id, 'fp5-webm-video', true ),
+				'video/mp4'             => get_post_meta( $id, 'fp5-mp4-video', true ),
+				'video/ogg'             => get_post_meta( $id, 'fp5-ogg-video', true),
+				'video/flash'           => get_post_meta( $id, 'fp5-flash-video', true),
 			);
 			$subtitles      = get_post_meta( $id, 'fp5-vtt-subtitles', true );
 			$max_width      = get_post_meta( $id, 'fp5-max-width', true );
@@ -152,10 +153,11 @@ class Flowplayer5_Shortcode {
 			$max_width = $width;
 
 			$formats = array(
-				'webm'   => $webm,
-				'mp4'    => $mp4,
-				'ogg'    => $ogg,
-				'flash'  => $flash,
+				'application/x-mpegurl' => $hls,
+				'video/webm'            => $webm,
+				'video/mp4'             => $mp4,
+				'video/ogg'             => $ogg,
+				'video/flash'           => $flash,
 			);
 
 		}
@@ -200,7 +202,7 @@ class Flowplayer5_Shortcode {
 			ob_clean();
 			$return .= '<video ' . $attributes . '>';
 				foreach( $formats as $format => $src ){
-					$src != '' ? $return .= '<source type="video/' . $format . '" src="' . esc_attr( apply_filters( 'fp5_filter_video_src', $src, $format, $id ) ) . '">' : '';
+					$src != '' ? $return .= '<source type="' . $format . '" src="' . esc_attr( apply_filters( 'fp5_filter_video_src', $src, $format, $id ) ) . '">' : '';
 				}
 				$subtitles != '' ? $return .= '<track src="' . esc_url( $subtitles ) . '"/>' : '';
 			$return .= '</video>';
@@ -219,7 +221,7 @@ class Flowplayer5_Shortcode {
 		$return .= '</script>';
 
 		// Check if a video has been added before output
-		if ( $formats['webm'] || $formats['mp4'] || $formats['ogg'] ) {
+		if ( $formats['video/webm'] || $formats['video/mp4'] || $formats['video/ogg'] ) {
 			return $return;
 		}
 

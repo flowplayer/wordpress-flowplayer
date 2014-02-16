@@ -29,7 +29,7 @@ class Flowplayer_Drive {
 	 *
 	 * @var      string
 	 */
-	private $account_api_url = 'http://account.api.flowplayer.org/auth?_format=json';
+	protected $account_api_url = 'http://account.api.flowplayer.org/auth?_format=json';
 
 	/**
 	 * Flowplayer Video API URL
@@ -38,51 +38,16 @@ class Flowplayer_Drive {
 	 *
 	 * @var      string
 	 */
-	private $video_api_url = 'http://videos.api.flowplayer.org/account';
-
-	/**
-	 * Instance of this class.
-	 *
-	 * @since    1.2.0
-	 *
-	 * @var      object
-	 */
-	protected static $instance = null;
+	protected $video_api_url = 'http://videos.api.flowplayer.org/account';
 
 	/**
 	 * Initialize Flowplayer Drive
 	 *
 	 * @since    1.2.0
 	 */
-	private function __construct() {
-
-		/*
-		 * Call $plugin_slug from public plugin class.
-		 *
-		 */
-		$plugin = Flowplayer5::get_instance();
-		$this->plugin_slug = $plugin->get_plugin_slug();
-
+	public function run() {
 		// Add content to footer bottom
 		add_action( 'admin_footer', array( $this, 'fp5_drive_content' ) );
-
-	}
-
-	/**
-	 * Return an instance of this class.
-	 *
-	 * @since    1.2.0
-	 *
-	 * @return   object    A single instance of this class.
-	 */
-	public static function get_instance() {
-
-		// If the single instance hasn't been set, set it now.
-		if ( null == self::$instance ) {
-			self::$instance = new self;
-		}
-
-		return self::$instance;
 	}
 
 	/**
@@ -90,24 +55,18 @@ class Flowplayer_Drive {
 	 *
 	 * @since    1.2.0
 	 */
-	private function make_auth_seed_request() {
+	protected function make_auth_seed_request() {
 
-		$response_account = wp_remote_get( esc_url_raw( $this->account_api_url ) );
+		$response = wp_remote_get( esc_url_raw( $this->account_api_url ) );
 
-		if ( wp_remote_retrieve_response_code( $response_account ) == 200 ) {
-
-			$body_account = wp_remote_retrieve_body( $response_account );
-
-			$json = json_decode( $body_account );
-
-			return $json->result;
-
-		} else {
-
-			echo '<div class="api-error"><p>' . __( 'Unable to connect to the Flowplayer Authentication Seed API.', 'flowplayer5' ) . '</p></div>';
-
+		if ( 200 != wp_remote_retrieve_response_code( $response ) ) {
+			Flowplayer_Drive_Error::showAuthenticationSeedApiError();
+			return;
 		}
 
+		$seed = $this->json_decode_body( $response );
+
+		return $seed->result;
 	}
 
 	/**
@@ -115,30 +74,22 @@ class Flowplayer_Drive {
 	 *
 	 * @since    1.2.0
 	 */
-	private function make_auth_request() {
+	protected function make_auth_request() {
 
 		// get the login info
-		$options   = get_option('fp5_settings_general');
+		$options   = get_option( 'fp5_settings_general' );
 		$user_name = ( isset( $options['user_name'] ) ) ? $options['user_name'] : '';
 		$password  = ( isset( $options['password'] ) ) ? $options['password'] : '';
 
-		if ( $user_name == '' || $password == '' ) {
+		if ( ! $user_name || ! $password ) {
+			Flowplayer_Drive_Error::showLoginError();
+			return;
+		}
 
-			$return = '<div class="login-error"><p>';
-			$return .= sprintf(
-				__( 'Please <a href="%1$s">login</a> with your <a href="%2$s">Flowplayer.org</a> username and password.', $this->plugin_slug ),
-				esc_url( admin_url( 'edit.php?post_type=flowplayer5&page=flowplayer5_settings' ) ),
-				esc_url( 'http://flowplayer.org/' )
-			);
-			$return .= '</p></div>';
+		$seed = $this->make_auth_seed_request();
 
-			echo $return;
-
-		} else {
-
-			$seed = $this->make_auth_seed_request();
-
-			$auth_api_url = esc_url_raw( add_query_arg(
+		$auth_api_url = esc_url_raw(
+			add_query_arg(
 				array(
 					'callback' => '?',
 					'username' => $user_name,
@@ -146,41 +97,24 @@ class Flowplayer_Drive {
 					'seed'     => $seed
 				),
 				esc_url_raw( $this->account_api_url )
-			) );
+			)
+		);
 
-			$response_auth = wp_remote_get( $auth_api_url );
+		$response = wp_remote_get( $auth_api_url );
 
-			if ( wp_remote_retrieve_response_code( $response_auth ) == 200 ) {
-
-				$body = wp_remote_retrieve_body( $response_auth );
-
-				$auth = json_decode( $body );
-
-				if ( $auth->success == true ) {
-
-					return $auth->result->authcode;
-
-				} else {
-
-					$return = '<div class="login-error"><p>';
-					$return .= sprintf(
-						__( 'You have enter a incorrect username and/or password. Please check your username and password in the <a href="%1$s">settings</a>.', $this->plugin_slug ),
-						esc_url( admin_url( 'edit.php?post_type=flowplayer5&page=flowplayer5_settings' ) )
-					);
-					$return .= '</p></div>';
-
-					echo $return;
-
-				}
-
-			} else {
-
-				echo '<div class="api-error"><p>' . __( 'Unable to connect to the Flowplayer Authentication API.', $this->plugin_slug ) . '</p></div>';
-
-			}
-
+		if ( 200 != wp_remote_retrieve_response_code( $response ) ) {
+			Flowplayer_Drive_Error::showAuthenticationApiError();
+			return;
 		}
 
+		$auth = $this->json_decode_body( $response );
+
+		if ( ! $auth->success ) {
+			Flowplayer_Drive_Error::showUsernamePasswordError();
+			return;
+		}
+
+		return $auth->result->authcode;
 	}
 
 	/**
@@ -188,49 +122,43 @@ class Flowplayer_Drive {
 	 *
 	 * @since    1.2.0
 	 */
-	private function make_video_request() {
+	protected function make_video_request() {
+
+		$json_cache = get_transient( 'flowplayer_drive_json_cache' );
+
+		if ( false !== $json_cache ) {
+			return $json_cache;
+		}
 
 		$authcode = $this->make_auth_request();
 
-		$verified_video_api_url = esc_url_raw( add_query_arg(
-			array(
-				'videos'   => 'true',
-				'authcode' => $authcode
-			),
-			esc_url_raw( $this->video_api_url )
-		) );
+		$query_args = array(
+			'videos'   => 'true',
+			'authcode' => $authcode
+		);
 
-		$response_videos = wp_remote_get( $verified_video_api_url );
+		$verified_video_api_url = add_query_arg( $query_args, $this->video_api_url );
 
-		$body = wp_remote_retrieve_body( $response_videos );
+		$response = wp_remote_get( esc_url_raw( $verified_video_api_url ) );
 
-		$json = json_decode( $body );
+		$json = $this->json_decode_body( $response );
 
-		if ( wp_remote_retrieve_response_code( $response_videos ) == 200 ) {
+		if ( 200 == wp_remote_retrieve_response_code( $response ) ) {
 
-				return $json;
+			set_transient( 'flowplayer_drive_json_cache', $json, 15 * MINUTE_IN_SECONDS );
 
-		} else {
-
-			if ( $json == 'Cannot find account' ) {
-
-				$return = '<div class="new-user-error"><p>';
-				$return .= sprintf(
-					__( 'You have not uploaded any videos yet. You can upload the video in <a href="%1$s">Flowplayer Designer</a>.', $this->plugin_slug ),
-					esc_url( 'http://flowplayer.org/designer/' )
-				);
-				$return .= '</p></div>';
-
-				echo $return;
-
-			} elseif ( $json != 'authcode missing' ) {
-
-				echo '<div class="api-error"><p>' . __( 'Unable to connect to the Flowplayer Video API.', $this->plugin_slug ) . '</p></div>';
-
-			}
-
+			return $json;
 		}
 
+		if ( 'Cannot find account' == $json ) {
+			Flowplayer_Drive_Error::showNewUserError();
+			return;
+		}
+
+		if ( $json != 'authcode missing' ) {
+			Flowplayer_Drive_Error::showVideoApiError();
+			return;
+		}
 	}
 
 	/**
@@ -243,39 +171,41 @@ class Flowplayer_Drive {
 		$json        = $this->make_video_request();
 		$json_videos = $json->videos;
 
-		if ( is_array( $json_videos ) ) {
+		if ( ! is_array( $json_videos ) ) {
+			return;
+		}
 
-			$rtmp = isset( $json->rtmpUrl ) ? $json->rtmpUrl : '';
+		$rtmp = isset( $json->rtmpUrl ) ? $json->rtmpUrl : '';
 
-			foreach ( $json_videos as $video ) {
+		foreach ( $json_videos as $video ) {
 
-				foreach ( $video->encodings as $encoding ) {
-					if ( $encoding->status === 'done' & $encoding->format === 'webm' ) {
-						$webm = $encoding->url;
-					}
-					if ( $encoding->status === 'done' & $encoding->format === 'mp4' ) {
-						$mp4 = $encoding->url;
-						$flash = $encoding->filename;
-					}
-					if ( $encoding->status === 'done' & $encoding->format=== 'mp4' ) {
-						$duration = gmdate( "H:i:s", $encoding->duration );
-					} elseif ( $encoding->status === 'done' & $encoding->format === 'webm' ) {
-						$duration = gmdate( "H:i:s", $encoding->duration );
-					}
+			foreach ( $video->encodings as $encoding ) {
+				if ( 'done' !== $encoding->status ) {
+					continue;
 				}
 
-				$return = '<div class="video">';
-					$return .= '<a href="#" class="choose-video" data-rtmp="' . $rtmp . '" data-user-id="' . $video->userId . '" data-video-id="' . $video->id . '" data-video-name="' . $video->title . '" data-webm="' . $webm .'" data-mp4="' . $mp4 . '" data-flash="mp4:' . $video->userId . '/' . $flash . '" data-img="' . $video->snapshotUrl . '">';
-						$return .= '<h2 class="video-title">' . $video->title . '</h2>';
-						$return .= '<div class="thumb" style="background-image: url(' . $video->thumbnailUrl . ');">';
-							$return .= '<em class="duration">' . $duration . '</em>';
-						$return .= '</div>';
-					$return .= '</a>';
-				$return .= '</div>';
+				if ( 'webm' === $encoding->format ) {
+					$webm  = $encoding->url;
+				} elseif ( 'mp4' === $encoding->format) {
+					$mp4   = $encoding->url;
+					$flash = $encoding->filename;
+				}
 
-				echo $return;
-
+				if ( in_array( $encoding->format, array( 'mp4', 'webm' ) ) ) {
+					$duration = gmdate( "H:i:s", $encoding->duration );
+				}
 			}
+
+			$return = '<div class="video">';
+				$return .= '<a href="#" class="choose-video" data-rtmp="' . $rtmp . '" data-user-id="' . $video->userId . '" data-video-id="' . $video->id . '" data-video-name="' . $video->title . '" data-webm="' . $webm .'" data-mp4="' . $mp4 . '" data-flash="mp4:' . $video->userId . '/' . $flash . '" data-img="' . $video->snapshotUrl . '">';
+					$return .= '<h2 class="video-title">' . $video->title . '</h2>';
+					$return .= '<div class="thumb" style="background-image: url(' . $video->thumbnailUrl . ');">';
+						$return .= '<em class="duration">' . $duration . '</em>';
+					$return .= '</div>';
+				$return .= '</a>';
+			$return .= '</div>';
+
+			echo $return;
 
 		}
 
@@ -291,18 +221,28 @@ class Flowplayer_Drive {
 		$screen = get_current_screen();
 
 		// Only run in post/page creation and edit screens
-		if ( $screen->base == 'post' && $screen->post_type == 'flowplayer5' ) {
-			?>
-			<div style="display: none;">
-				<div class="media-frame-router">
-					<div class="media-router"><a href="#" class="media-menu-item"><?php __( 'Upload Videos', $this->plugin_slug ) ?></a><a href="#" class="media-menu-item active"><?php __( 'Flowplayer Drive', $this->plugin_slug ) ?></a></div>
-				</div>
-				<div id="flowplayer-drive">
-					<?php $this->get_videos(); ?>
-				</div>
-			</div>
-			<?php
+		if ( 'post' != $screen->base || 'flowplayer5' != $screen->post_type  ) {
+			return;
 		}
+		// @todo Use a <button> or two, not links with # hrefs.
+		?>
+		<div style="display: none;">
+			<div id="flowplayer-drive">
+				<?php $this->get_videos(); ?>
+			</div>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Retrieve body from json
+	 *
+	 * @since    1.7.0
+	 */
+	public function json_decode_body( $response ) {
+		$body = wp_remote_retrieve_body( $response );
+
+		return json_decode( $body );
 	}
 
 }

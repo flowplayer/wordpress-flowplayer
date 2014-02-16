@@ -210,6 +210,7 @@ class Video_Meta_Box {
 				'fp5-mp4-video',
 				'fp5-webm-video',
 				'fp5-ogg-video',
+				'fp5-hls-video',
 				'fp5-vtt-subtitles'
 			);
 

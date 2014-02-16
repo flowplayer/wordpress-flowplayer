@@ -63,7 +63,7 @@ class Flowplayer5_Admin {
 		// Add action & meta links
 		$plugin_basename = plugin_basename( plugin_dir_path( FP5_PLUGIN_FILE ) . 'flowplayer.php' );
 		add_filter( 'plugin_action_links_' . $plugin_basename, array( $this, 'add_action_links' ) );
-		add_filter( 'plugin_row_meta', array( $this, 'add_plugin_row_meta' ) );
+		add_filter( 'plugin_row_meta', array( $this, 'add_plugin_row_meta' ), 10, 2 );
 
 		// Edit update messages
 		add_filter( 'post_updated_messages', array( $this, 'set_messages' ), 10, 2 );
@@ -112,7 +112,7 @@ class Flowplayer5_Admin {
 
 		// Only run in new post and edit screens
 		if ( $screen->base == 'post' ) {
-			wp_enqueue_style( 'jquery-colorbox', plugins_url( '/assets/jquery-colorbox/colorbox' . $suffix . '.css', __FILE__ ), '1.4.27' );
+			wp_enqueue_style( 'jquery-colorbox', plugins_url( '/assets/jquery-colorbox/colorbox' . $suffix . '.css', __FILE__ ), $this->plugin_version );
 		}
 
 	}
@@ -163,6 +163,12 @@ class Flowplayer5_Admin {
 					'button' => __( 'Insert Flash Video', $this->plugin_slug )                             // This will be used as the default button text
 				)
 			);
+			wp_localize_script( $this->plugin_slug . '-media', 'hls_video',
+				array(
+					'title'  => __( 'Upload or choose a HLS video file', $this->plugin_slug ), // This will be used as the default title
+					'button' => __( 'Insert HLS Video', $this->plugin_slug )                   // This will be used as the default button text
+				)
+			);
 			wp_localize_script( $this->plugin_slug . '-media', 'webvtt',
 				array(
 					'title'  => __( 'Upload or choose a webvtt file', $this->plugin_slug ), // This will be used as the default title
@@ -197,7 +203,7 @@ class Flowplayer5_Admin {
 
 		// Only run on new and edit post screens
 		if ( $screen->base == 'post' ) {
-			wp_enqueue_script( 'jquery-colorbox', plugins_url( '/assets/jquery-colorbox/jquery.colorbox' . $suffix . '.js', __FILE__ ), 'jquery', '1.4.27', false );
+			wp_enqueue_script( 'jquery-colorbox', plugins_url( '/assets/jquery-colorbox/jquery.colorbox' . $suffix . '.js', __FILE__ ), 'jquery', '1.4.37', false );
 		}
 
 	}

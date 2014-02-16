@@ -44,7 +44,13 @@ __The video upload in Flowplayer Designer is just the beginning…__
 
 The commercial version is free of Flowplayer branding and you can use your logo. The commercial Flowplayer version can be enabled by supplying a [license key](http://flowplayer.org/download).
 
-== Credits ==
+== Other Notes ==
+
+= Translation =
+
+[Join the Translation Team](https://webtranslateit.com/en/projects/8343-Flowplayer-HTML5-for-WordPress)
+
+= Credits =
 
 The plugin can also be found on [GitHub](https://github.com/flowplayer/wordpress-flowplayer).
 
@@ -96,6 +102,10 @@ It is recommended to add at least two [video formats](http://flowplayer.org/docs
 
 Flowplayer HTML5 for WordPress provides a video management system where you can manage all of your video from a central place. This plugin also allows for simple customisation of the videos. We are continuously adding further features to the plugin.
 
+= Why can I not see the video that I just uplaoded to Flowplayer Designer? =
+
+It takes some time for the video to be processed. The plugin fetches the video links from Flowplayer.org and the results are cached. The cache is refreshed every 15 minutes.
+
 = How do I load Flowplayer assets locally when using Flowplayer Commercial? =
 
 If you want to load the Flowplayer assets (JS, CSS and SWF) for your site then you can download the files from [your account](http://flowplayer.org/account/). Create a new folder `flowplayer-commercial` in `wp-content`. Place the files in this new folder. The option in the settings to use Flowplayer CDN should be disabled.
@@ -125,14 +135,14 @@ Why would you want to do that? :-) If you do need to uninstall the plugin all of
 * [fp5_post_type_supports()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/includes/class-flowplayer5.php#L195)
 * [fp5_post_type_rewrite()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/includes/class-flowplayer5.php#L199)
 * [fp5_post_type_args()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/includes/class-flowplayer5.php#L207)
-* [fp5_filter_flowplayer_data()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-shortcode.php#L179)
-* [fp5_filter_video_src()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-shortcode.php#L196)
+* [fp5_filter_flowplayer_data()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-shortcode.php#L198)
+* [fp5_filter_video_src()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-shortcode.php#L205)
 * [fp5_filter_has_shortcode()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-frontend.php#L105)
 
 = Actions =
 
-* [fp5_video_top()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-shortcode.php#L181)
-* [fp5_video_bottom()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-shortcode.php#L191)
+* [fp5_video_top()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-shortcode.php#L200)
+* [fp5_video_bottom()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-shortcode.php#L210)
 
 = Examples =
 
@@ -178,6 +188,13 @@ add_filter( 'fp5_post_type_args', 'fp5_post_type_arg_video_post' );`
 == Changelog ==
 
 We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
+
+= 1.7.0 - 16 Febuary 2014 =
+* add full support for flash video file, rtmp and hls
+* cache Flowplayer designer video results
+* allow all data to be deleted from all sites when uninstalling on a multisite
+* update pot file
+* update to colorbox v1.4.37
 
 = 1.6.0 - 25 January 2014 =
 * add support for all of the [modifier classes](http://flowplayer.org/docs/skinning.html#modifier-classes)
@@ -245,6 +262,9 @@ We have a lot of plans for this plugin. You can see some of the up and coming fe
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.7.0 =
+* add full support for flash video file, rtmp and hls
 
 = 1.6.0 =
 * add more customisation options

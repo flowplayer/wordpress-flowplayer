@@ -31,7 +31,7 @@ class Flowplayer5 {
 	 *
 	 * @var     string
 	 */
-	protected $plugin_version = '1.6.0';
+	protected $plugin_version = '1.7.0';
 
 	/**
 	 * Player version, used for cache-busting of style and script file references.
@@ -238,6 +238,7 @@ class Flowplayer5 {
 	public function flowplayer_custom_mimes( $mimes ){
 
 		$mimes['webm'] = 'video/webm';
+		$mimes['m3u8'] = 'application/x-mpegurl';
 		$mimes['vtt']  = 'text/vtt';
 
 		return $mimes;
