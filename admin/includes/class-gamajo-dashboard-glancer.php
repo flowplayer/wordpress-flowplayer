@@ -51,7 +51,7 @@ class Gamajo_Dashboard_Glancer {
 	public function add( $post_types, $statuses = 'publish' ) {
 		// If relevant output action hook has already passed, then no point in proceeding.
 		if ( did_action( 'dashboard_glance_items' ) ) {
-			_doing_it_wrong( __CLASS__, __( 'Trying to add At a Glance items to dashboard widget afterhook already fired', 'gamajo-dashboard-glancer' ), '1.0.0' );
+			_doing_it_wrong( __CLASS__, 'Trying to add At a Glance items to dashboard widget afterhook already fired', '1.0.0' );
 			return;
 		}
 
@@ -119,7 +119,7 @@ class Gamajo_Dashboard_Glancer {
 	 */
 	protected function get_single_item( array $item ) {
 		$num_posts = wp_count_posts( $item['type'] );
-		$count = $num_posts->$item['status'];
+		$count = (int) $num_posts->$item['status'];
 
 		if ( ! $count ) {
 			return '';
@@ -144,11 +144,7 @@ class Gamajo_Dashboard_Glancer {
 	 */
 	protected function get_label( array $item, $count ) {
 		$post_type_object = get_post_type_object( $item['type'] );
-		if ( 1 === $count ) {
-		    $label = $post_type_object->labels->singular_name;	
-		} else {
-		    $label = $post_type_object->labels->name;
-		}
+		$label = 1 === $count ? $post_type_object->labels->singular_name : $post_type_object->labels->name;
 
 		// Append status for non-publish statuses for disambiguation
 		if ( 'publish' !== $item['status'] ) {
