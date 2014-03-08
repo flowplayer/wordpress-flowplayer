@@ -14,6 +14,7 @@
 	<li class="nav-tab"><a href="#media"><?php _e( 'Media Files', $this->plugin_slug ) ?></a></li>
 	<li class="nav-tab"><a href="#skinning"><?php _e( 'Skinning', $this->plugin_slug ) ?></a></li>
 	<li class="nav-tab"><a href="#config"><?php _e( 'Configuration', $this->plugin_slug ) ?></a></li>
+	<li class="nav-tab"><a href="#asf"><?php _e( 'Google AdSense', $this->plugin_slug ) ?></a></li>
 </ul>
 <div id="media">
 <h3><?php _e( 'Media Files', $this->plugin_slug )?></h3>
@@ -29,9 +30,9 @@
 	<tbody>
 
 		<tr class="flowplayer-drive" valign="top">
-			<th scope="row"><?php _e( 'Flowplayer Designer', $this->plugin_slug )?> <a href="http://flowplayer.org/designer/" target="_blank">?</a></th>
+			<th scope="row"><?php _e( 'Flowplayer Drive', $this->plugin_slug )?> <a href="http://flowplayer.org/" target="_blank">?</a></th>
 			<td>
-				<a href="#flowplayer-drive" class="fp5-add-drive button button-primary cboxElement" title="<?php _e( 'Add from Flowplayer Designer', $this->plugin_slug )?>"><?php _e( 'Add from Flowplayer Designer', $this->plugin_slug )?></a>
+				<a href="#flowplayer-drive" class="fp5-add-drive button button-primary cboxElement" title="<?php _e( 'Add from Flowplayer Drive', $this->plugin_slug )?>"><?php _e( 'Add from Flowplayer Drive', $this->plugin_slug )?></a>
 			</td>
 		</tr>
 
@@ -237,6 +238,35 @@
 					<input type="checkbox" name="fp5-fixed-width" id="fp5-fixed-width" value="true" <?php if ( isset ( $fp5_stored_meta['fp5-fixed-width'] ) ) checked( $fp5_stored_meta['fp5-fixed-width'][0], 'true' ); ?> />
 					<?php _e( 'Use fixed player size', $this->plugin_slug ) ?>
 				</label>
+			</td>
+		</tr>
+
+	</tbody>
+</table>
+</div>
+<div class="hidden" id="asf">
+<h3><?php _e( 'Google AdSense', $this->plugin_slug )?></h3>
+<p><?php _e( 'Enable and configure ad.', $this->plugin_slug ); ?> <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=flowplayer5&page=flowplayer5_settings' ) ); ?>"><?php _e( 'Set up Google AdSense', 'flowplayer5' ); ?></a></p>
+<table class="form-table">
+	<tbody>
+
+		<tr class="fp5-ad-type" valign="top">
+			<th scope="row"><label for="fp5-ad-type" class="fp5-row-title"><?php _e( 'Ad Type', $this->plugin_slug )?></label></th>
+			<td>
+				<select name="fp5-ad-type" id="fp5-ad-type">
+					<option value="image_text" <?php if ( isset ( $fp5_stored_meta['fp5-ad-type'] ) ) selected( $fp5_stored_meta['fp5-ad-type'][0], 'image_text' ); ?>><?php _e( 'Image & Text', $this->plugin_slug ); ?></option>
+					<option value="video" <?php if ( isset ( $fp5_stored_meta['fp5-ad-type'] ) ) selected( $fp5_stored_meta['fp5-ad-type'][0], 'video' ); ?>><?php _e( 'Video', $this->plugin_slug )?></option>
+					<option value="skippablevideo" <?php if ( isset ( $fp5_stored_meta['fp5-ad-type'] ) ) selected( $fp5_stored_meta['fp5-ad-type'][0], 'skippablevideo' ); ?>><?php _e( 'Skippable Video', $this->plugin_slug ); ?></option>
+				</select>
+				<?php _e( 'Type of ads', $this->plugin_slug ); ?>
+			</td>
+		</tr>
+
+		<tr class="fp5-ads-time" valign="top">
+			<th scope="row" rowspan="2"><label for="fp5-ads-time" class="fp5-row-title"><?php _e( 'Ads Time', $this->plugin_slug )?></label></th>
+			<td>
+				<input type="text" name="fp5-ads-time" id="fp5-ads-time" value="<?php if ( isset ( $fp5_stored_meta['fp5-ads-time'] ) ) echo esc_attr( $fp5_stored_meta['fp5-ads-time'][0] ); ?>" />
+				<?php _e( 'Time in seconds into the video', $this->plugin_slug ); ?>
 			</td>
 		</tr>
 

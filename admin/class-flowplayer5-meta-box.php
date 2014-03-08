@@ -191,7 +191,7 @@ class Video_Meta_Box {
 				'fp5-select-skin',
 				'fp5-preload',
 				'fp5-coloring',
-
+				'fp5-ad-type'
 			);
 
 			foreach ( $keys as $key ) {
@@ -230,7 +230,8 @@ class Video_Meta_Box {
 				'fp5-width',
 				'fp5-height',
 				'fp5-user-id',
-				'fp5-video-id'
+				'fp5-video-id',
+				'fp5-ads-time'
 			);
 
 			foreach ( $numbers as $number ) {
