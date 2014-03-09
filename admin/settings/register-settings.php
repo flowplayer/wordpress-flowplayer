@@ -27,7 +27,7 @@ function fp5_register_settings() {
 				'commercial_version' => array(
 					'id'   => 'commercial_version',
 					'name' => '<strong>' . __('Commercial Version', 'flowplayer5') . '</strong>',
-					'desc' => __( 'The commercial version removes the Flowplayer logo and allows you to use your own logo image.', 'flowplayer5' ) . ' <a href="http://flowplayer.org/download/">' . __( 'Purchase license', 'flowplayer5' ) . '</a>',
+					'desc' => __( 'The commercial version removes the Flowplayer logo and allows you to use your own logo image.', 'flowplayer5' ) . ' <a href="http://flowplayer.org/pricing/">' . __( 'Purchase license', 'flowplayer5' ) . '</a>',
 					'type' => 'header'
 				),
 				'key' => array(
@@ -129,6 +129,25 @@ function fp5_register_settings() {
 					'desc' => __( 'URL of SWF file for embedding', 'flowplayer5' ),
 					'type' => 'text',
 					'size' => 'regular'
+				),
+				'asf' => array(
+					'id' => 'asf',
+					'name' => '<strong>' . __( 'Google AdSense', 'flowplayer5' ) . '</strong> <a href="http://flowplayer.org/asf/">?</a>',
+					'desc' => __( 'Sign up for Google AdSense for Flowplayer to be able to monetize your videos ', 'flowplayer5' ). '</strong> <a href="http://flowplayer.org/asf/">' . __( 'Sign up now', 'flowplayer5' ) . '</a>',
+					'type' => 'header'
+				),
+				'asf_js' => array(
+					'id'   => 'asf_js',
+					'name' => __( 'AdSense plugin js', 'flowplayer5' ),
+					'type' => 'upload',
+					'size' => 'regular',
+					'desc' => __( 'Add your custom AdSense plugin javascript file', 'flowplayer5' )
+				),
+				'asf_test' => array(
+					'id'   => 'asf_test',
+					'name' => __( 'Test Mode', 'flowplayer5' ),
+					'type' => 'checkbox',
+					'desc' => __( 'Enable test mode', 'flowplayer5' )
 				)
 			)
 		)

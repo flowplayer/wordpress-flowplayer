@@ -11,7 +11,7 @@
  * Plugin Name: Flowplayer HTML5 for WordPress
  * Plugin URI:  http://wordpress.org/plugins/flowplayer5/
  * Description: A HTML5 responsive video player plugin. From the makers of Flowplayer. Supports all three default Flowplayer skins, subtitles, tracking with Google Analytics, splash images. You can use your own watermark logo if you own a Commercial Flowplayer license.
- * Version:     1.7.0
+ * Version:     1.8.0
  * Author:      Flowplayer ltd.
  * Author URI:  http://flowplayer.org/
  * Text Domain: flowplayer5
@@ -33,14 +33,14 @@ if ( ! defined( 'FP5_PLUGIN_FILE' ) )
 
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-flowplayer5.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-flowplayer5-widget.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'admin/register-settings.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'admin/settings/register-settings.php' );
 $fp5_options = fp5_get_settings();
 
 if( is_admin() ) {
 	require_once( plugin_dir_path( __FILE__ ) . 'admin/class-flowplayer5-admin.php' );
 	require_once( plugin_dir_path( __FILE__ ) . 'admin/class-flowplayer5-meta-box.php' );
-	require_once( plugin_dir_path( __FILE__ ) . 'admin/class-flowplayer-drive.php' );
-	require_once( plugin_dir_path( __FILE__ ) . 'admin/class-flowplayer-drive-error.php' );
+	require_once( plugin_dir_path( __FILE__ ) . 'admin/flowplayer-drive/class-flowplayer-drive.php' );
+	require_once( plugin_dir_path( __FILE__ ) . 'admin/flowplayer-drive/class-flowplayer-drive-error.php' );
 	require_once( plugin_dir_path( __FILE__ ) . 'admin/insert-video-button.php' );
 	if ( ! class_exists( 'Gamajo_Dashboard_Glancer' ) ) {
 		require plugin_dir_path( __FILE__ ) . 'admin/includes/class-gamajo-dashboard-glancer.php';

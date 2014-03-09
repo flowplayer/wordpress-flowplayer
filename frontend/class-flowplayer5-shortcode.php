@@ -116,6 +116,8 @@ class Flowplayer5_Shortcode {
 			$volume         = get_post_meta( $id, 'fp5-no-volume', true );
 			$embed          = get_post_meta( $id, 'fp5-no-embed', true );
 			$play_button    = get_post_meta( $id, 'fp5-play-button', true );
+			$ads_time       = get_post_meta( $id, 'fp5-ads-time', true );
+			$ad_type        = get_post_meta( $id, 'fp5-ad-type', true );
 
 		} else {
 
@@ -168,6 +170,8 @@ class Flowplayer5_Shortcode {
 		$logo          = ( isset( $options['logo'] ) ) ? $options['logo'] : '';
 		$ga_account_id = ( isset( $options['ga_account_id'] ) ) ? $options['ga_account_id'] : '';
 		$logo_origin   = ( isset( $options['logo_origin'] ) ) ? $options['logo_origin'] : '';
+		$asf_test      = ( isset( $options['asf_test'] ) ) ? $options['asf_test'] : '';
+		$asf_js        = ( isset( $options['asf_js'] ) ) ? $options['asf_js'] : '';
 
 		// Shortcode processing
 		$ratio            = ( ( $width != 0 && $height != 0 ) ? intval( $height ) / intval( $width ) : '' );
@@ -180,6 +184,7 @@ class Flowplayer5_Shortcode {
 		$data_ratio       = ( $ratio != 0 ? 'data-ratio="' . esc_attr( $ratio ) . '" ' : '' );
 		$data_rtmp        = ( $ratio != 0 ? 'data-rtmp="' . esc_attr( $data_rtmp ) . '" ' : '' );
 		$classes = array(
+			( isset( $id ) ? 'flowplayer-' . $id : '' ),
 			( 'default' != $coloring ? $coloring : '' ),
 			( $fixed_controls ? 'fixed-controls' : '' ),
 			( $background ? 'no-background' : '' ),
@@ -194,8 +199,29 @@ class Flowplayer5_Shortcode {
 		$flowplayer_data  = $data_key . $data_logo . $data_analytics . $data_ratio . $data_rtmp;
 		$attributes       = ( ( $autoplay == 'true' ) ? 'autoplay ' : '' ) . ( ( $loop == 'true' ) ? 'loop ' : '' ) . ( isset ( $preload ) ? 'preload="' . esc_attr( $preload ) . '" ' : '' ) . ( ( $poster == 'true' ) ? 'poster' : '' );
 
+		$asf_test = ( isset ( $ads_time ) ? 'adtest: "on"' : '' );
+		$ads_time = ( isset ( $ads_time ) ? intval( $ads_time ) : '' );
+		$ad_type  = ( isset ( $ad_type ) ? esc_attr( $ad_type ) : '' );
+
 		// Shortcode output
 		$return = '<div style="' . esc_attr( $size ) . esc_attr( $splash_style ) . ' background-size: contain;" class="' . esc_attr( $class ) . esc_attr( $modifier_classes ) . '" ' . apply_filters( 'fp5_filter_flowplayer_data', $flowplayer_data ) . '>';
+			// ASF - adsense configuration
+			$asf_return = '<script>';
+				$asf_return .= 'flowplayer_ima.conf({';
+					$asf_return .= 'adsense: {';
+						$asf_return .= 'request: {';
+							$asf_return .= $asf_test;
+						$asf_return .= '}';
+					$asf_return .= '},';
+					$asf_return .= 'ads: [{';
+						$asf_return .= 'time: ' . $ads_time . ',';
+						$asf_return .= 'request: {';
+							$asf_return .= 'ad_type: "' . $ad_type . '"';
+						$asf_return .= '}';
+					$asf_return .= '}]';
+				$asf_return .= '});';
+			$asf_return .= '</script>';
+			$return .= $asf_js ? $asf_return : '';
 			ob_start();
 			$return .= do_action( 'fp5_video_top' );
 			$return .= ob_get_contents();
@@ -216,12 +242,12 @@ class Flowplayer5_Shortcode {
 		$return .= '<script>';
 			$return .= 'flowplayer.conf = {';
 				$width == 0 && esc_attr( $height ) == 0 ? $return .= 'adaptiveRatio: true,' : '';
-				$embed == '' ? $return .= 'embed: false,' : '';
+				$embed == '' ? '' : $return .= 'embed: false,';
 			$return .= '};';
 		$return .= '</script>';
 
 		// Check if a video has been added before output
-		if ( $formats['video/webm'] || $formats['video/mp4'] || $formats['video/ogg'] ) {
+		if ( $formats['video/webm'] || $formats['video/mp4'] || $formats['video/ogg'] || $formats['video/flash'] || $formats['application/x-mpegurl'] ) {
 			return $return;
 		}
 
