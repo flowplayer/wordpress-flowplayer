@@ -1,6 +1,6 @@
 === Flowplayer HTML5 for WordPress ===
 Contributors: flowplayerorg, grapplerulrich, anssi
-Donate link: http://flowplayer.org/download
+Donate link: http://flowplayer.org/pricing/
 Tags: flowplayer, flowplayer5, flowplayer HTML5, responsive, html5, video, player
 Requires at least: 3.5
 Tested up to: 3.8.1
@@ -8,41 +8,48 @@ Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-The video player for the web. HTML5 responsive video player. From the makers of Flowplayer.
+A beautiful, responsive, HTML5 video player plugin from the makers of Flowplayer.
 
 == Description ==
 
-Flowplayer HTML5 for WordPress lets you manage your self-hosted videos easily and display them with the world-famous Flowplayer video player. This is the official WordPress plugin from the makers of Flowplayer.
-
-= Includes Flowplayer Designer =
-
-[Video transcoding and hosting solution](http://flowplayer.org/designer/) integrated in Flowplayer HTML5 for WordPress.
-
-* Maximum browser coverage with Flowplayer HTML5 using MP4 and WEBM encodings
-* Optimal device compatibility with 640px video width
-* Rigorously optimized encoder for best results
-* Maximum streaming throughout on a global video network
-* Completely free with Flowplayer watermark
-
-__The video upload in Flowplayer Designer is just the beginning…__
+Flowplayer HTML5 for WordPress provides a video management system for self hosted videos where you can manage all of your video from a central place. You can easily customize the videos from the numerous settings. The videos are displayed with the world-famous Flowplayer video player using a simple shortcodes. This is the official WordPress plugin from the makers of Flowplayer.
 
 = Main features =
 
-* One central place to manage all of your videos
-* Video can be added using shortcodes e.g. [flowplayer id="123"]
-* Easily display videos in a sidebar with the Video Widget
-* Skin selection with three default Flowplayer skins: Minimalist, Functional and Playful
-* Show your video in any desired player size
-* [Subtitles support](http://flowplayer.org/docs/subtitles.html)
-* [Google Analytics](http://flowplayer.org/docs/analytics.html) support for tracking video audience and traffic
-* Playback options: autoplay, loop
-* Include a [splash image](http://flowplayer.org/docs/setup.html#splash) for your video
-* Video selection using the WordPress 3.5 Media Library
-* Detects the video dimensions for configuring the correct player size
+* Easily manage all of your videos in a central place
+* Insert videos in posts, pages and custom post types using the shortcode e.g. [flowplayer id="123"]
+* Display videos in the sidebar with the "Video Widget"
+* Manage files with WordPress 3.5 Media Library
+* Style the video player with the three default Flowplayer skins: Minimalist, Functional and Playful
+* [Supports subtitles](http://flowplayer.org/docs/subtitles.html)
+* Track your video video audience and traffic with [Google Analytics](http://flowplayer.org/docs/analytics.html)
+* Video adverts with [Google AdSense](http://flowplayer.org/asf/)
+* Supports WEBM, MP4, OGG, FLV(flash), RTMP and HLS video formats.
+* Show your video in any desired player size. Detects the video dimensions for configuring the correct player size
+* Fully internationalized
 
-= Commercial Flowplayer =
+= Branding free with Flowplayer Commercial =
 
-The commercial version is free of Flowplayer branding and you can use your logo. The commercial Flowplayer version can be enabled by supplying a [license key](http://flowplayer.org/download).
+The commercial version is free of Flowplayer branding and you can use your logo. The commercial Flowplayer version can be enabled by supplying a [license key](http://flowplayer.org/pricing/).
+
+= Let Flowplayer Drive host your videos =
+
+[Flowplayer Drive](http://flowplayer.org/) is an all-round solution for online video sharing and publishing. It makes the task of uploading, managing, sharing, and publishing videos extremely simple without sacrificing on quality and speed, and utilizing the latest web video technologies.
+
+* Maximum browser coverage
+* Optimal device compatibility with 640px video width
+* Videos optimized for best results
+* Maximum streaming throughout on a global video network
+* Free with Flowplayer watermark
+
+[Flowplayer Drive details](http://flowplayer.org/docs/drive.html)
+
+= Monetize your videos =
+
+Google AdSense for Flowplayer (ASF) allows publishers to monetize their videos by adding advertisements. While AdSense is normally restricted to sites with more than 10 million streams per month, Flowplayer makes it available for everyone.
+
+[Sign up for Google AdSense for Flowplayer (ASF)](http://flowplayer.org/asf/)
+
 
 == Other Notes ==
 
@@ -84,7 +91,7 @@ The plugin can also be found on [GitHub](https://github.com/flowplayer/wordpress
 
 = Configuration =
 
-You can configure Google Analytics, a Commercial Flowplayer license key and a custom watermark logo in the plugin's global options. You can purchase a commercial license at [flowplayer.org](http://flowplayer.org/download).
+You can configure Google Analytics, a Commercial Flowplayer license key and a custom watermark logo in the plugin's global options. You can purchase a commercial license at [flowplayer.org](http://flowplayer.org/pricing/).
 
 == Frequently Asked Questions ==
 
@@ -92,7 +99,7 @@ You can configure Google Analytics, a Commercial Flowplayer license key and a cu
 There are three ways you add add a video
 
 1. You can use the WordPress media manager and upload the videos there.
-2. You can use [Flowplayer Designer](http://flowplayer.org/designer/) to upload a video and let Flowplayer.org host you video.
+2. You can use [Flowplayer Drive](http://flowplayer.org/) to upload a video and let Flowplayer.org host you video.
 3. You can store your videos on Amazon S3 or any other cloud host and add the links manually.
 
 = What video format do I need? =
@@ -100,23 +107,27 @@ It is recommended to add at least two [video formats](http://flowplayer.org/docs
 
 = Why use Flowplayer when there is video support since WordPress 3.6? =
 
-Flowplayer HTML5 for WordPress provides a video management system where you can manage all of your video from a central place. This plugin also allows for simple customisation of the videos. We are continuously adding further features to the plugin.
+Flowplayer HTML5 for WordPress provides a video management system where you can manage all of your video from a central place. You do not need to remember all of the shortcode configuration attributes, you can simply configure the videos form within the options. We are continuously adding further features to the plugin.
 
-= Why can I not see the video that I just uplaoded to Flowplayer Designer? =
+= Why can I not see the video that I just uploaded to Flowplayer Drive? =
 
 It takes some time for the video to be processed. The plugin fetches the video links from Flowplayer.org and the results are cached. The cache is refreshed every 15 minutes.
 
 = How do I load Flowplayer assets locally when using Flowplayer Commercial? =
 
-If you want to load the Flowplayer assets (JS, CSS and SWF) for your site then you can download the files from [your account](http://flowplayer.org/account/). Create a new folder `flowplayer-commercial` in `wp-content`. Place the files in this new folder. The option in the settings to use Flowplayer CDN should be disabled.
+If you want to load the Flowplayer assets (JS, CSS and SWF) for your site then you can download the files from [your account](https://flowplayer.org/account/). Create a new folder `flowplayer-commercial` in `wp-content`. Place the files in this new folder. The option in the settings to use Flowplayer CDN should be disabled
 
-= Flowplayer Designer API Issues? =
+= How do I add Ads to my videos? =
 
-If you are unable to connect to the Flowplayer Designer API, make sure you are connected to the internet and that you are logged in. You can login in the Settings page.
+After [Signing up](http://flowplayer.org/asf/) you will get your own custom advertising plugin that you upload and paste the link in the settings.
 
-= Known Flowplayer Issues? =
+= Flowplayer Drive issues? =
 
-If you are having a issue please check the [Flowplayer Known Issues page](http://flowplayer.org/docs/known-issues.html).
+If you are unable to connect to the Flowplayer Drive API, make sure you are connected to the internet and that you are logged in. You can login in the Settings page.
+
+= Flowplayer issues? =
+
+If you are having a issue please check the [Flowplayer known issues page](http://flowplayer.org/docs/known-issues.html).
 
 = What happens when I disable the plugin? =
 
@@ -180,7 +191,7 @@ add_filter( 'fp5_post_type_args', 'fp5_post_type_arg_video_post' );`
 == Screenshots ==
 
 1. Posting a video
-2. Flowplayer Designer
+2. Flowplayer Drive
 3. Video Widget
 4. Plugin Settings
 5. Video Frontend
@@ -189,7 +200,11 @@ add_filter( 'fp5_post_type_args', 'fp5_post_type_arg_video_post' );`
 
 We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
 
-= 1.7.0 - 16 Febuary 2014 =
+= 1.8.0 - 9 March 2014 =
+* introducing Flowplayer Drive to replace Flowplayer Designer
+* add support for Google AdSense for Flowplayer
+
+= 1.7.0 - 16 February 2014 =
 * add full support for flash video file, rtmp and hls
 * cache Flowplayer designer video results
 * allow all data to be deleted from all sites when uninstalling on a multisite
@@ -204,7 +219,7 @@ We have a lot of plans for this plugin. You can see some of the up and coming fe
 = 1.5.0 - 26 December 2013 =
 * update to [Flowplayer HTML5 5.4.6](http://flowplayer.org/news/#html5546)
 * minify all backend scripts and styles
-* reformated video format meta and add a new filter
+* reformatted video format meta and add a new filter
 * started adding flash video file and rtmp support
 
 = 1.4.0 - 10 December 2013 =
@@ -262,6 +277,9 @@ We have a lot of plans for this plugin. You can see some of the up and coming fe
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.7.0 =
+* introducing Flowplayer Drive and Google AdSense support
 
 = 1.7.0 =
 * add full support for flash video file, rtmp and hls
