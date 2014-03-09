@@ -33,7 +33,7 @@ if ( ! defined( 'FP5_PLUGIN_FILE' ) )
 
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-flowplayer5.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-flowplayer5-widget.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'admin/register-settings.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'admin/settings/register-settings.php' );
 $fp5_options = fp5_get_settings();
 
 if( is_admin() ) {
