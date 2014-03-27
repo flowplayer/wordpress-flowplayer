@@ -89,7 +89,7 @@ function fp5_modal_content() {
 					$posts = $query->posts;
 
 					foreach ( $posts as $post ) { ?>
-						<option value="<? echo esc_attr( $post->ID ) ?>"><? echo esc_attr( $post->post_title ) ?></option>
+						<option value="<?php echo esc_attr( $post->ID ) ?>"><?php echo esc_attr( $post->post_title ) ?></option>
 					<?php } ?>
 				</select>
 			</div>
