@@ -13,7 +13,7 @@
 	background-position: 0 0;
 }
 
-.menu-icon-flowplayer5 div.wp-menu-image {
+li.menu-icon-flowplayer5 > div.wp-menu-image {
 	background-image: url(../img/28x28-sprite.png);
 }
 
