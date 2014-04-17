@@ -3,7 +3,7 @@ Contributors: flowplayerorg, grapplerulrich, anssi
 Donate link: http://flowplayer.org/pricing/
 Tags: flowplayer, flowplayer5, flowplayer HTML5, responsive, html5, video, player
 Requires at least: 3.5
-Tested up to: 3.8.1
+Tested up to: 3.9
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -199,6 +199,10 @@ add_filter( 'fp5_post_type_args', 'fp5_post_type_arg_video_post' );`
 == Changelog ==
 
 We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
+
+= 1.8.1 - 17 April 2014 =
+* replace php short tags with full tags
+* fix icon for WordPress 3.9
 
 = 1.8.0 - 9 March 2014 =
 * introducing Flowplayer Drive to replace Flowplayer Designer
