@@ -75,10 +75,8 @@ class Flowplayer5_Shortcode {
 	public function create_fp5_video_output( $atts ) {
 
 		if ( isset( $atts['id'] ) ) {
-			$id = $atts['id'];
-		}
 
-		if ( isset( $id ) ) {
+			$id = $atts['id'];
 
 			/**
 			 * New flowplayer shortcode
@@ -87,37 +85,39 @@ class Flowplayer5_Shortcode {
 			 */
 
 			// get the meta from the post type
-			$loop           = get_post_meta( $id, 'fp5-loop', true );
-			$autoplay       = get_post_meta( $id, 'fp5-autoplay', true );
-			$preload        = get_post_meta( $id, 'fp5-preload', true );
+			$custom_fields  = get_post_custom( $id );
+			$loop           = $this->get_custom_fields( $custom_fields, 'fp5-loop' );
+			$loop           = $this->get_custom_fields( $custom_fields, 'fp5-loop' );
+			$autoplay       = $this->get_custom_fields( $custom_fields, 'fp5-autoplay' );
+			$preload        = $this->get_custom_fields( $custom_fields, 'fp5-preload' );
 			$poster         = '';
-			$skin           = get_post_meta( $id, 'fp5-select-skin', true );
-			$splash         = get_post_meta( $id, 'fp5-splash-image', true );
+			$skin           = $this->get_custom_fields( $custom_fields, 'fp5-select-skin' );
+			$splash         = $this->get_custom_fields( $custom_fields, 'fp5-splash-image' );
 			$formats        = array(
-				'application/x-mpegurl' => get_post_meta( $id, 'fp5-hls-video', true ),
-				'video/webm'            => get_post_meta( $id, 'fp5-webm-video', true ),
-				'video/mp4'             => get_post_meta( $id, 'fp5-mp4-video', true ),
-				'video/ogg'             => get_post_meta( $id, 'fp5-ogg-video', true),
-				'video/flash'           => get_post_meta( $id, 'fp5-flash-video', true),
+				'application/x-mpegurl' => $this->get_custom_fields( $custom_fields, 'fp5-hls-video' ),
+				'video/webm'            => $this->get_custom_fields( $custom_fields, 'fp5-webm-video' ),
+				'video/mp4'             => $this->get_custom_fields( $custom_fields, 'fp5-mp4-video' ),
+				'video/ogg'             => $this->get_custom_fields( $custom_fields, 'fp5-ogg-video' ),
+				'video/flash'           => $this->get_custom_fields( $custom_fields, 'fp5-flash-video' ),
 			);
-			$subtitles      = get_post_meta( $id, 'fp5-vtt-subtitles', true );
-			$max_width      = get_post_meta( $id, 'fp5-max-width', true );
-			$width          = get_post_meta( $id, 'fp5-width', true );
-			$height         = get_post_meta( $id, 'fp5-height', true );
-			$ratio          = get_post_meta( $id, 'fp5-aspect-ratio', true );
-			$fixed          = get_post_meta( $id, 'fp5-fixed-width', true );
-			$data_rtmp      = get_post_meta( $id, 'fp5-data-rtmp', true );
-			$coloring       = get_post_meta( $id, 'fp5-coloring', true );
-			$fixed_controls = get_post_meta( $id, 'fp5-fixed-controls', true );
-			$background     = get_post_meta( $id, 'fp5-no-background', true );
-			$aside_time     = get_post_meta( $id, 'fp5-aside-time', true );
-			$hover          = get_post_meta( $id, 'fp5-no-hover', true );
-			$mute           = get_post_meta( $id, 'fp5-no-mute', true );
-			$volume         = get_post_meta( $id, 'fp5-no-volume', true );
-			$embed          = get_post_meta( $id, 'fp5-no-embed', true );
-			$play_button    = get_post_meta( $id, 'fp5-play-button', true );
-			$ads_time       = get_post_meta( $id, 'fp5-ads-time', true );
-			$ad_type        = get_post_meta( $id, 'fp5-ad-type', true );
+			$subtitles      = $this->get_custom_fields( $custom_fields, 'fp5-vtt-subtitles' );
+			$max_width      = $this->get_custom_fields( $custom_fields, 'fp5-max-width' );
+			$width          = $this->get_custom_fields( $custom_fields, 'fp5-width' );
+			$height         = $this->get_custom_fields( $custom_fields, 'fp5-height' );
+			$ratio          = $this->get_custom_fields( $custom_fields, 'fp5-aspect-ratio' );
+			$fixed          = $this->get_custom_fields( $custom_fields, 'fp5-fixed-width' );
+			$data_rtmp      = $this->get_custom_fields( $custom_fields, 'fp5-data-rtmp' );
+			$coloring       = $this->get_custom_fields( $custom_fields, 'fp5-coloring' );
+			$fixed_controls = $this->get_custom_fields( $custom_fields, 'fp5-fixed-controls' );
+			$background     = $this->get_custom_fields( $custom_fields, 'fp5-no-background' );
+			$aside_time     = $this->get_custom_fields( $custom_fields, 'fp5-aside-time' );
+			$no_hover       = $this->get_custom_fields( $custom_fields, 'fp5-no-hover' );
+			$no_mute        = $this->get_custom_fields( $custom_fields, 'fp5-no-mute' );
+			$no_volume      = $this->get_custom_fields( $custom_fields, 'fp5-no-volume' );
+			$no_embed       = $this->get_custom_fields( $custom_fields, 'fp5-no-embed' );
+			$play_button    = $this->get_custom_fields( $custom_fields, 'fp5-play-button' );
+			$ads_time       = $this->get_custom_fields( $custom_fields, 'fp5-ads-time' );
+			$ad_type        = $this->get_custom_fields( $custom_fields, 'fp5-ad-type' );
 
 		} else {
 
@@ -175,82 +175,90 @@ class Flowplayer5_Shortcode {
 
 		// Shortcode processing
 		$ratio            = ( ( $width != 0 && $height != 0 ) ? intval( $height ) / intval( $width ) : '' );
-		$size             = ( $fixed == 'true' && $width != '' && $height != '' ? 'width:' . $width . 'px; height:' . $height . 'px; ' : ( ( $max_width != 0 ) ?  'max-width:' . $max_width . 'px; ' : '' ) );
-		$splash_style     = 'background: #777 url(' . esc_url( $splash ) . ') no-repeat;';
-		$class            = 'flowplayer ' . $skin . ' ' . ( ! empty ( $splash ) ? 'is-splash ' : '' ) . ( ! empty ( $logo_origin ) ? 'commercial ' : '' );
-		$data_key         = ( 0 < strlen ( $key ) ? 'data-key="' . esc_attr( $key ) . '" ' : '');
-		$data_logo        = ( 0 < strlen  ( $key ) && 0 < strlen  ( $logo ) ? 'data-logo="' . esc_url( $logo ) . '" ' : '' );
-		$data_analytics   = ( 0 < strlen  ( $ga_account_id ) ? 'data-analytics="' . esc_attr( $ga_account_id ) . '" ' : '' );
-		$data_ratio       = ( $ratio != 0 ? 'data-ratio="' . esc_attr( $ratio ) . '" ' : '' );
-		$data_rtmp        = ( $ratio != 0 ? 'data-rtmp="' . esc_attr( $data_rtmp ) . '" ' : '' );
+
+		$style = array(
+			( $fixed == 'true' && $width != '' && $height != '' ? 'width:' . $width . 'px; height:' . $height . 'px; ' : ( ( $max_width != 0 ) ?  'max-width:' . $max_width . 'px;' : '' ) ),
+			'background: #777 url(' . esc_url( $splash ) . ') no-repeat; background-size: contain;',
+		);
+
+		$data = array(
+			( 0 < strlen ( $key ) ? 'data-key="' . esc_attr( $key ) . '"' : ''),
+			( 0 < strlen  ( $key ) && 0 < strlen  ( $logo ) ? 'data-logo="' . esc_url( $logo ) . '"' : '' ),
+			( 0 < strlen  ( $ga_account_id ) ? 'data-analytics="' . esc_attr( $ga_account_id ) . '"' : '' ),
+			( $ratio != 0 ? 'data-ratio="' . esc_attr( $ratio ) . '"' : '' ),
+			( $ratio != 0 ? 'data-rtmp="' . esc_attr( $data_rtmp ) . '"' : '' ),
+		);
+
 		$classes = array(
+			'flowplayer',
+			$skin,
+			( ! empty ( $splash ) ? 'is-splash' : '' ),
+			( ! empty ( $logo_origin ) ? 'commercial' : '' ),
 			( isset( $id ) ? 'flowplayer-' . $id : '' ),
 			( 'default' != $coloring ? $coloring : '' ),
 			( $fixed_controls ? 'fixed-controls' : '' ),
 			( $background ? 'no-background' : '' ),
 			( $aside_time ? 'aside-time' : '' ),
-			( $hover ? 'no-hover' : '' ),
-			( $mute ? 'no-mute' : '' ),
-			( $volume ? 'no-volume' : '' ),
+			( $no_hover ? 'no-hover' : '' ),
+			( $no_mute ? 'no-mute' : '' ),
+			( $no_volume ? 'no-volume' : '' ),
 			( $play_button ? 'play-button' : '' ),
 		);
 
-		$modifier_classes = trim( implode( ' ', $classes ) ); ;
-		$flowplayer_data  = $data_key . $data_logo . $data_analytics . $data_ratio . $data_rtmp;
-		$attributes       = ( ( $autoplay == 'true' ) ? 'autoplay ' : '' ) . ( ( $loop == 'true' ) ? 'loop ' : '' ) . ( isset ( $preload ) ? 'preload="' . esc_attr( $preload ) . '" ' : '' ) . ( ( $poster == 'true' ) ? 'poster' : '' );
+		$attributes = array(
+			( ( $autoplay == 'true' ) ? 'autoplay' : '' ),
+			( ( $loop == 'true' ) ? 'loop' : '' ),
+			( isset ( $preload ) ? 'preload="' . esc_attr( $preload ) . '"' : '' ),
+			( ( $poster == 'true' ) ? 'poster' : '' ),
+		);
 
-		$asf_test = ( isset ( $ads_time ) ? 'adtest: "on"' : '' );
+		$asf_test = ( isset ( $ads_time ) ? 'on' : '' );
 		$ads_time = ( isset ( $ads_time ) ? intval( $ads_time ) : '' );
 		$ad_type  = ( isset ( $ad_type ) ? esc_attr( $ad_type ) : '' );
 
-		// Shortcode output
-		$return = '<div style="' . esc_attr( $size ) . esc_attr( $splash_style ) . ' background-size: contain;" class="' . esc_attr( $class ) . esc_attr( $modifier_classes ) . '" ' . apply_filters( 'fp5_filter_flowplayer_data', $flowplayer_data ) . '>';
-			// ASF - adsense configuration
-			$asf_return = '<script>';
-				$asf_return .= 'flowplayer_ima.conf({';
-					$asf_return .= 'adsense: {';
-						$asf_return .= 'request: {';
-							$asf_return .= $asf_test;
-						$asf_return .= '}';
-					$asf_return .= '},';
-					$asf_return .= 'ads: [{';
-						$asf_return .= 'time: ' . $ads_time . ',';
-						$asf_return .= 'request: {';
-							$asf_return .= 'ad_type: "' . $ad_type . '"';
-						$asf_return .= '}';
-					$asf_return .= '}]';
-				$asf_return .= '});';
-			$asf_return .= '</script>';
-			$return .= $asf_js ? $asf_return : '';
-			ob_start();
-			$return .= do_action( 'fp5_video_top' );
-			$return .= ob_get_contents();
-			ob_clean();
-			$return .= '<video ' . $attributes . '>';
-				foreach( $formats as $format => $src ){
-					$src != '' ? $return .= '<source type="' . $format . '" src="' . esc_attr( apply_filters( 'fp5_filter_video_src', $src, $format, $id ) ) . '">' : '';
-				}
-				$subtitles != '' ? $return .= '<track src="' . esc_url( $subtitles ) . '"/>' : '';
-			$return .= '</video>';
-			ob_start();
-			$return .= do_action( 'fp5_video_bottom' );
-			$return .= ob_get_contents();
-			ob_clean();
-		$return .= '</div>';
+		$source = array();
+		foreach( $formats as $format => $src ){
+			if ( !empty( $src ) ) {
+				$source[ $format ] = '<source type="' . $format . '" src="' . esc_attr( apply_filters( 'fp5_filter_video_src', $src, $format, $id ) ) . '">';
+			}
+		}
 
-		// Extra options
-		$return .= '<script>';
-			$return .= 'flowplayer.conf = {';
-				$width == 0 && esc_attr( $height ) == 0 ? $return .= 'adaptiveRatio: true,' : '';
-				$embed == '' ? '' : $return .= 'embed: false,';
-			$return .= '};';
-		$return .= '</script>';
+		if ( '' != $subtitles ) {
+			$track = '<track src="' . esc_url( $subtitles ) . '"/>';
+		} else {
+			$track = '';
+		}
+
+		if ( 0 == $width && 0 == $height ) {
+			$adaptive_ratio = 'adaptiveRatio: true,';
+		} else {
+			$adaptive_ratio = '';
+		}
+
+		if ( '' != $no_embed ) {
+			$embed = 'embed: false,';
+		} else {
+			$embed = '';
+		}
 
 		// Check if a video has been added before output
 		if ( $formats['video/webm'] || $formats['video/mp4'] || $formats['video/ogg'] || $formats['video/flash'] || $formats['application/x-mpegurl'] ) {
-			return $return;
+			include_once( 'views/display-shortcode.php' );
 		}
 
+	}
+
+	/**
+	 * Check if option exists
+	 *
+	 * @since    1.9.0
+	 */
+	public function get_custom_fields( $custom_fields, $key ) {
+		if ( isset( $custom_fields[ $key ][0] ) ) {
+			return $custom_fields[ $key ][0];
+		} else {
+			return '';
+		}
 	}
 
 }
