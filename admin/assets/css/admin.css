@@ -164,13 +164,13 @@ select#fp5-select-skin {
 }
 
 /* Flowplayer Drive */
-.video {
+#flowplayer-drive .video {
 	float: left;
 	margin: 10px;
 	width: 240px;
 }
 
-.video .thumb {
+#flowplayer-drive .video .thumb {
 	width: 240px;
 	height: 130px;
 	background-repeat: no-repeat;
@@ -179,7 +179,7 @@ select#fp5-select-skin {
 	background-size: cover;
 }
 
-.video .thumb .duration {
+#flowplayer-drive .video .thumb .duration {
 	background-color: rgba(0,32,38,0.8);
 	padding: 2px;
 	display: block;
@@ -189,7 +189,7 @@ select#fp5-select-skin {
 	text-align: right;
 }
 
-.video-title {
+#flowplayer-drive .video-title {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
