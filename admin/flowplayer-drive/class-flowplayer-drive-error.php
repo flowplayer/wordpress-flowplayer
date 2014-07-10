@@ -43,7 +43,7 @@ class Flowplayer_Drive_Error {
 			sprintf(
 				/* Translators: You have not uploaded any videos yet. You can upload the video in Flowplayer Designer. */
 				__( 'You have not uploaded any videos yet. You can upload the video in %1$s.', 'flowplayer5' ),
-				'<a href="' . esc_url( 'http://flowplayer.org/designer/' ) . '">' . __( 'Flowplayer Designer', 'flowplayer5' ) . '</a>'
+				'<a href="' . esc_url( 'https://flowplayer.org/' ) . '">' . __( 'Flowplayer Drive', 'flowplayer5' ) . '</a>'
 			)
 		);
 	}
