@@ -62,6 +62,7 @@ jQuery(document).ready(function ($) {
         preview.bind("loadeddata", function () {
             $("#fp5-width").val(this.videoWidth);
             $("#fp5-height").val(this.videoHeight);
+            $("#fp5-duration").val(this.duration);
         });
 
     });
