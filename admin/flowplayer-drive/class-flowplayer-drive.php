@@ -169,7 +169,7 @@ class Flowplayer_Drive {
 	public function get_videos() {
 
 		$json        = $this->make_video_request();
-		$json_videos = $json->videos;
+		$json_videos = array_reverse ( $json->videos );
 
 		if ( ! is_array( $json_videos ) ) {
 			return;
