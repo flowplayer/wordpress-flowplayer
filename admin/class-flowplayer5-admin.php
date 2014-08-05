@@ -206,6 +206,11 @@ class Flowplayer5_Admin {
 			wp_enqueue_script( 'jquery-colorbox', plugins_url( '/assets/jquery-colorbox/jquery.colorbox' . $suffix . '.js', __FILE__ ), 'jquery', '1.4.37', false );
 		}
 
+		// Only run on new and edit post screens
+		if ( $screen->base == 'edit-tags' ) {
+			wp_enqueue_script( 'jquery-ui-sortable' );
+		}
+
 	}
 
 	/**
@@ -313,15 +318,11 @@ class Flowplayer5_Admin {
 	 */
 	public function shortcode_column( $columns ){
 
-		$columns = array(
-
-			'cb'        => '<input type="checkbox" />',
-			'title'     => __( 'Title' ),
-			'author'    => __( 'Author' ),
+		$shortcode = array(
 			'shortcode' => __( 'Shortcode', $this->plugin_slug ),
-			'date'      => __( 'Date' )
-
 		);
+
+		$columns = array_slice( $columns, 0, 4, true ) + $shortcode + array_slice( $columns, 4, NULL, true );
 
 		return $columns;
 

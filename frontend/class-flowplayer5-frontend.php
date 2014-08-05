@@ -25,21 +25,12 @@ if ( ! defined( 'WPINC' ) ) {
 class Flowplayer5_Frontend {
 
 	/**
-	 * Instance of this class.
-	 *
-	 * @since    1.0.0
-	 *
-	 * @var      object
-	 */
-	protected static $instance = null;
-
-	/**
 	 * Initialize the plugin by setting localization, filters, and administration functions.
 	 *
 	 * @since    1.0.0
 	 */
-	private function __construct() {
-
+	public function __construct() {
+		global $flowplayer5_shortcode;
 		$plugin = Flowplayer5::get_instance();
 		// Call $plugin_version from public plugin class.
 		$this->plugin_version = $plugin->get_plugin_version();
@@ -57,24 +48,6 @@ class Flowplayer5_Frontend {
 
 		// Load script for Flowplayer global configuration
 		add_action( 'wp_head', array( $this, 'global_config_script' ) );
-
-	}
-
-	/**
-	 * Return an instance of this class.
-	 *
-	 * @since    1.0.0
-	 *
-	 * @return   object    A single instance of this class.
-	 */
-	public static function get_instance() {
-
-		// If the single instance hasn't been set, set it now.
-		if ( null == self::$instance ) {
-			self::$instance = new self;
-		}
-
-		return self::$instance;
 
 	}
 
@@ -174,16 +147,17 @@ class Flowplayer5_Frontend {
 	}
 
 	/**
-	 * Add video to post
+	 * Add video to Video post
 	 *
 	 * Add video html to flowplayer video posts
 	 *
 	 * @since    1.3.0
 	 */
 	public function get_video_output( $content ) {
-		if( is_singular( 'flowplayer5') || is_post_type_archive( 'flowplayer5') && is_main_query() ) {
+
+		if( is_singular( 'flowplayer5') || is_post_type_archive( 'flowplayer5') || is_tax( 'playlist' ) && is_main_query() ) {
 			$atts['id'] = get_the_ID();
-			$content .= Flowplayer5_Shortcode::create_fp5_video_output( $atts );
+			$content .= fp5_video_output( $atts );
 		}
 		return $content;
 	}

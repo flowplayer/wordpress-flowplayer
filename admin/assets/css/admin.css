@@ -227,6 +227,28 @@ select#fp5-select-skin {
 }
 
 /*
+ * Sortable videos
+*/
+.taxonomy-playlist .fp5-product-order li {
+	cursor: move;
+	float: left;
+	margin: 0 10px 10px 0;
+	padding: 5px;
+	font-size: 11px;
+	background: #fff;
+	border: 1px solid #ccc;
+	width: 95%;
+}
+
+.taxonomy-playlist .fp5-product-order-title {
+	margin: 20px 0 0 230px;
+}
+
+.taxonomy-playlist p.submit {
+	clear: both
+}
+
+/*
  * CSS TOGGLE SWITCHES
  * Unlicense
  *
