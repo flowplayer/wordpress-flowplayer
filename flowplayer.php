@@ -33,12 +33,16 @@ if ( ! defined( 'FP5_PLUGIN_FILE' ) )
 
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-flowplayer5.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-flowplayer5-widget.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/class-register-post-type.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/class-register-taxonomy.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/functions.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'admin/settings/register-settings.php' );
 $fp5_options = fp5_get_settings();
 
 if( is_admin() ) {
 	require_once( plugin_dir_path( __FILE__ ) . 'admin/class-flowplayer5-admin.php' );
 	require_once( plugin_dir_path( __FILE__ ) . 'admin/class-flowplayer5-meta-box.php' );
+	require_once( plugin_dir_path( __FILE__ ) . 'admin/class-flowplayer5-taxonomy-meta.php' );
 	require_once( plugin_dir_path( __FILE__ ) . 'admin/flowplayer-drive/class-flowplayer-drive.php' );
 	require_once( plugin_dir_path( __FILE__ ) . 'admin/flowplayer-drive/class-flowplayer-drive-error.php' );
 	require_once( plugin_dir_path( __FILE__ ) . 'admin/insert-video-button.php' );
@@ -50,6 +54,7 @@ if( is_admin() ) {
 	}
 } else {
 	require_once( plugin_dir_path( __FILE__ ) . 'frontend/class-flowplayer5-frontend.php' );
+	require_once( plugin_dir_path( __FILE__ ) . 'frontend/class-flowplayer5-output.php' );
 	require_once( plugin_dir_path( __FILE__ ) . 'frontend/class-flowplayer5-shortcode.php' );
 }
 
@@ -58,12 +63,15 @@ register_activation_hook( __FILE__, array( 'Flowplayer5', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'Flowplayer5', 'deactivate' ) );
 
 Flowplayer5::get_instance();
+Flowplayer5_Post_Type::get_instance();
+Flowplayer5_Taxonomy::get_instance();
 if( is_admin() ) {
 	Flowplayer5_Admin::get_instance();
 	Video_Meta_Box::get_instance();
 	$flowplayer_drive = new Flowplayer_Drive();
 	add_action( 'plugins_loaded', array( $flowplayer_drive, 'run' ) );
+	new Taxonomy_Meta();
 } else {
-	Flowplayer5_Frontend::get_instance();
-	Flowplayer5_Shortcode::get_instance();
+	new Flowplayer5_Frontend();
+	new Flowplayer5_Shortcode();
 }
