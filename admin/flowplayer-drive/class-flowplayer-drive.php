@@ -168,12 +168,13 @@ class Flowplayer_Drive {
 	 */
 	public function get_videos() {
 
-		$json        = $this->make_video_request();
-		$json_videos = array_reverse ( $json->videos );
+		$json = $this->make_video_request();
 
-		if ( ! is_array( $json_videos ) ) {
+		if ( ! is_array( $json ) ) {
 			return;
 		}
+
+		$json_videos = array_reverse ( $json->videos );
 
 		$rtmp = isset( $json->rtmpUrl ) ? $json->rtmpUrl : '';
 
@@ -186,7 +187,7 @@ class Flowplayer_Drive {
 
 				if ( 'webm' === $encoding->format ) {
 					$webm  = $encoding->url;
-				} elseif ( 'mp4' === $encoding->format) {
+				} elseif ( 'mp4' === $encoding->format ) {
 					$mp4   = $encoding->url;
 					$flash = $encoding->filename;
 				}
