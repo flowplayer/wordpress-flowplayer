@@ -34,6 +34,7 @@ class Taxonomy_Meta {
 		add_action( 'edited_playlist', array( $this, 'save_taxonomy_custom_meta' ), 10, 2 );
 		add_action( 'create_playlist', array( $this, 'save_taxonomy_custom_meta' ), 10, 2 );
 		add_action( 'playlist_add_form_fields', array( $this, 'taxonomy_add_new_meta_field' ), 10, 2 );
+		add_action( 'delete_playlist', array( $this, 'taxonomy_delete_meta_field' ), 10, 2 );
 		add_action( 'playlist_edit_form_fields', array( $this, 'taxonomy_edit_meta_field' ), 10, 2 );
 		add_filter( 'manage_edit-playlist_columns', array( $this, 'add_playlist_columns' ) );
 		add_filter( 'manage_playlist_custom_column', array( $this, 'add_playlist_column_content' ), 10, 3 );
@@ -120,9 +121,9 @@ class Taxonomy_Meta {
 			<p class="description"><?php _e( 'Select a skin for the playlist', 'flowplayer5' ); ?></p>
 		</div>
 		<div class="form-field fp5-rtmp-url">
-			<label for="term_meta[fp5-rtmp-url]"><?php _e( 'Add rtmp URL', 'flowplayer5' ); ?></label>
+			<label for="term_meta[fp5-rtmp-url]"><?php _e( 'Add RTMP net connection URL', 'flowplayer5' ); ?></label>
 			<input class="media-url" type="text" name="term_meta[fp5-rtmp-url]" id="term_meta[fp5-rtmp-url]" value="<?php if ( isset ( $term_meta['fp5-rtmp-url'] ) ) echo esc_attr( $term_meta['fp5-rtmp-url'] ); ?>" />
-			<p class="description"><?php _e( 'Optional rtmp URL for all of the videos in the playlist', 'flowplayer5' ); ?></p>
+			<p class="description"><?php _e( 'Optional RTMP net connection URL for all of the videos in the playlist', 'flowplayer5' ); ?></p>
 		</div>
 	<?php
 	}
@@ -151,10 +152,10 @@ class Taxonomy_Meta {
 			</td>
 		</tr>
 		<tr class="form-field fp5-rtmp-url">
-			<th scope="row" valign="top"><label for="term_meta[fp5-rtmp-url]"><?php _e( 'Add rtmp URL', 'flowplayer5' ); ?></label></th>
+			<th scope="row" valign="top"><label for="term_meta[fp5-rtmp-url]"><?php _e( 'Add RTMP net connection URL', 'flowplayer5' ); ?></label></th>
 			<td>
 				<input class="media-url" type="text" name="term_meta[fp5-rtmp-url]" id="term_meta[fp5-rtmp-url]" value="<?php if ( isset ( $term_meta['fp5-rtmp-url'] ) ) echo esc_attr( $term_meta['fp5-rtmp-url'] ); ?>" />
-				<p class="description"><?php _e( 'Optional rtmp URL for all of the videos in the playlist', 'flowplayer5' ); ?></p>
+				<p class="description"><?php _e( 'Optional RTMP net connection URL for all of the videos in the playlist', 'flowplayer5' ); ?></p>
 			</td>
 
 		</tr>
@@ -175,7 +176,7 @@ class Taxonomy_Meta {
 
 		// The Query
 		$products = new WP_Query( $args );
-		//var_dump($products);
+
 		if ( $products ) { ?>
 			<tr class="form-field">
 			<th scope="row" valign="top"><label id="<?php echo $taxonomy . '_order_' . $t_id; ?>"><?php _e( 'Order Videos', 'flowplayer5' ); ?></label></th>
@@ -258,6 +259,15 @@ class Taxonomy_Meta {
 				);
 			}
 		}
+	}
+
+	/**
+	 * Delete the options when deleting a playlist
+	 *
+	 * @since     1.9.0
+	 */
+	public function taxonomy_delete_meta_field( $term, $tt_id, $deleted_term ) {
+		delete_option( 'playlist_' . $tt_id );
 	}
 
 }
