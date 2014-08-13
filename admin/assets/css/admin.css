@@ -75,6 +75,14 @@ select#fp5-select-skin {
 	max-width: 100%
 }
 
+#newplaylist_parent {
+	display: none;
+}
+
+.post-type-flowplayer5 #normal-sortables {
+	padding-top: 20px;
+}
+
 /* Tabs */
 .nav-tab-wrapper {
 	border-bottom: #ccc solid 1px;;
