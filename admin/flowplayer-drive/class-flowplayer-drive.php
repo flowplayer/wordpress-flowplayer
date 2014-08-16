@@ -170,7 +170,7 @@ class Flowplayer_Drive {
 
 		$json = $this->make_video_request();
 
-		if ( ! is_array( $json ) ) {
+		if ( empty( $json ) ) {
 			return;
 		}
 
