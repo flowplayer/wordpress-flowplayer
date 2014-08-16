@@ -60,8 +60,10 @@ jQuery(document).ready(function ($) {
         var preview = $("#preview");
 
         preview.bind("loadeddata", function () {
-            $("#fp5-width").val(this.videoWidth);
-            $("#fp5-height").val(this.videoHeight);
+            if ( ! mode_checkbox.is( ':checked' ) ) {
+                $("#fp5-width").val(this.videoWidth);
+                $("#fp5-height").val(this.videoHeight);
+            }
             $("#fp5-duration").val(this.duration);
         });
 
