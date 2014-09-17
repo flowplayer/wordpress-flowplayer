@@ -41,6 +41,7 @@ function fp5_register_settings() {
 					'id'   => 'logo',
 					'name' => __( 'Logo', 'flowplayer5' ),
 					'type' => 'upload',
+					'button' => __( 'Add Logo', 'flowplayer5' ),
 					'size' => 'regular',
 					'desc' => '',
 					'preview' => 'true'
@@ -53,8 +54,8 @@ function fp5_register_settings() {
 				),
 				'flowplayer_drive' => array(
 					'id'   => 'flowplayer_drive',
-					'name' => '<strong>' . __( 'Flowplayer Designer', 'flowplayer5' ) . '</strong> <a href="http://flowplayer.org/designer/">?</a>',
-					'desc' => __( 'Flowplayer Designer is a new feature that will hosts your video in all of the formats that you need.', 'flowplayer5' ),
+					'name' => '<strong>' . __( 'Flowplayer Drive', 'flowplayer5' ) . '</strong> <a href="https://flowplayer.org/docs/drive.html">?</a>',
+					'desc' => __( 'Flowplayer Drive is a new feature that will hosts your video in all of the formats that you need.', 'flowplayer5' ),
 					'type' => 'header'
 				),
 				'user_name' => array(
@@ -140,6 +141,7 @@ function fp5_register_settings() {
 					'id'   => 'asf_js',
 					'name' => __( 'AdSense plugin js', 'flowplayer5' ),
 					'type' => 'upload',
+					'button' => __( 'Add js file', 'flowplayer5' ),
 					'size' => 'regular',
 					'desc' => __( 'Add your custom AdSense plugin javascript file', 'flowplayer5' )
 				),
@@ -178,6 +180,7 @@ function fp5_register_settings() {
 				'section' => 'general',
 				'preview' => isset( $option['preview'] ) ? $option['preview'] : null,
 				'size'    => isset( $option['size'] ) ? $option['size'] : null,
+				'button'  => isset( $option['button'] ) ? $option['button'] : __( 'Upload', 'flowplayer5' ),
 				'options' => isset( $option['options'] ) ? $option['options'] : '',
 				'std'     => isset( $option['std'] ) ? $option['std'] : ''
 			)
@@ -280,7 +283,7 @@ function fp5_upload_callback($args) {
 	$size = isset( $args['size'] ) && !is_null( $args['size'] ) ? $args['size'] : 'regular';
 
 	$html = '<input type="text" class="' . $args['size'] . '-text fp5_upload_field" id="fp5_settings_' . $args['section'] . '[' . $args['id'] . ']" name="fp5_settings_' . $args['section'] . '[' . $args['id'] . ']" value="' . esc_attr( $value ) . '"/>';
-	$html .= '<a href="#" type="button" class="fp5_settings_upload_button button-secondary" title="' . __( 'Add Logo', 'fp5' ) . '"/>' . __( 'Add Logo', 'fp5' ) . '</a>';
+	$html .= '<a href="#" type="button" class="fp5_settings_upload_button button-secondary" title="' . $args['button'] . '"/>' . $args['button'] . '</a>';
 	$html .= '<label for="fp5_settings_' . $args['section'] . '[' . $args['id'] . ']"> ' . $args['desc'] . '</label>';
 	$html .= isset( $args['preview'] ) && !is_null( $args['preview'] ) ? '<img style="max-width: 300px; display:block" src="' . esc_attr( $value ) . '" class="fp5_settings_upload_preview"/>' : '';
 
