@@ -231,7 +231,8 @@ class Video_Meta_Box {
 				'fp5-height',
 				'fp5-user-id',
 				'fp5-video-id',
-				'fp5-ads-time'
+				'fp5-ads-time',
+				'fp5-duration'
 			);
 
 			foreach ( $numbers as $number ) {

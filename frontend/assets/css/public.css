@@ -20,3 +20,30 @@
 .functional.fixed-controls {
 	margin-bottom: 30px;
 }
+
+#jsplaylist {
+	margin-bottom: 50px;
+}
+
+#jsplaylist .fp-prev,
+#jsplaylist .fp-next {
+	bottom: -40px;
+}
+
+#jsplaylist .fp-prev {
+	left: 0;
+}
+
+#jsplaylist .fp-next {
+	right: 0;
+}
+
+#jsplaylist .fp-prev,
+#jsplaylist .fp-next {
+	position: absolute;
+	z-index: 99;
+	cursor: pointer;
+	color: #333;
+	font-size: 14px;
+	text-decoration: none;
+}

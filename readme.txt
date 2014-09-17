@@ -1,9 +1,9 @@
 === Flowplayer HTML5 for WordPress ===
 Contributors: flowplayerorg, grapplerulrich, anssi
-Donate link: http://flowplayer.org/pricing/
+Donate link: http://flowplayer.org/pricing/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin
 Tags: flowplayer, flowplayer5, flowplayer HTML5, responsive, html5, video, player
 Requires at least: 3.5
-Tested up to: 3.9
+Tested up to: 3.9.3
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -14,27 +14,30 @@ A beautiful, responsive, HTML5 video player plugin from the makers of Flowplayer
 
 Flowplayer HTML5 for WordPress provides a video management system for self hosted videos where you can manage all of your video from a central place. You can easily customize the videos from the numerous settings. The videos are displayed with the world-famous Flowplayer video player using a simple shortcodes. This is the official WordPress plugin from the makers of Flowplayer.
 
+[youtube https://www.youtube.com/watch?v=XpYr4qZ-qt8]
+
 = Main features =
 
 * Easily manage all of your videos in a central place
-* Insert videos in posts, pages and custom post types using the shortcode e.g. [flowplayer id="123"]
+* Insert videos in posts, pages and custom post types using the shortcode e.g. [flowplayer id="123"] , [flowplayer playlist="123"]
 * Display videos in the sidebar with the "Video Widget"
+* Setup playlists
 * Manage files with WordPress 3.5 Media Library
 * Style the video player with the three default Flowplayer skins: Minimalist, Functional and Playful
-* [Supports subtitles](http://flowplayer.org/docs/subtitles.html)
-* Track your video video audience and traffic with [Google Analytics](http://flowplayer.org/docs/analytics.html)
-* Video adverts with [Google AdSense](http://flowplayer.org/asf/)
+* [Supports subtitles](http://flowplayer.org/docs/subtitles.html?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin)
+* Track your video video audience and traffic with [Google Analytics](http://flowplayer.org/docs/analytics.html?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin)
+* Video adverts with [Google AdSense](http://flowplayer.org/asf/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin)
 * Supports WEBM, MP4, OGG, FLV(flash), RTMP and HLS video formats.
 * Show your video in any desired player size. Detects the video dimensions for configuring the correct player size
-* Fully internationalized
+* Fully internationalized - [Help Translate](https://webtranslateit.com/en/projects/8343-Flowplayer-HTML5-for-WordPress)
 
 = Branding free with Flowplayer Commercial =
 
-The commercial version is free of Flowplayer branding and you can use your logo. The commercial Flowplayer version can be enabled by supplying a [license key](http://flowplayer.org/pricing/).
+The commercial version is free of Flowplayer branding and you can use your logo. The commercial Flowplayer version can be enabled by supplying a [license key](http://flowplayer.org/pricing/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin).
 
 = Let Flowplayer Drive host your videos =
 
-[Flowplayer Drive](http://flowplayer.org/) is an all-round solution for online video sharing and publishing. It makes the task of uploading, managing, sharing, and publishing videos extremely simple without sacrificing on quality and speed, and utilizing the latest web video technologies.
+[Flowplayer Drive](http://flowplayer.org/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin) is an all-round solution for online video sharing and publishing. It makes the task of uploading, managing, sharing, and publishing videos extremely simple without sacrificing on quality and speed, and utilizing the latest web video technologies.
 
 * Maximum browser coverage
 * Optimal device compatibility with 640px video width
@@ -42,13 +45,13 @@ The commercial version is free of Flowplayer branding and you can use your logo.
 * Maximum streaming throughout on a global video network
 * Free with Flowplayer watermark
 
-[Flowplayer Drive details](http://flowplayer.org/docs/drive.html)
+[Flowplayer Drive details](http://flowplayer.org/docs/drive.html?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin)
 
 = Monetize your videos =
 
 Google AdSense for Flowplayer (ASF) allows publishers to monetize their videos by adding advertisements. While AdSense is normally restricted to sites with more than 10 million streams per month, Flowplayer makes it available for everyone.
 
-[Sign up for Google AdSense for Flowplayer (ASF)](http://flowplayer.org/asf/)
+[Sign up for Google AdSense for Flowplayer (ASF)](http://flowplayer.org/asf/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin)
 
 
 == Other Notes ==
@@ -64,6 +67,9 @@ The plugin can also be found on [GitHub](https://github.com/flowplayer/wordpress
 * Thank you [Tom McFarlin](http://tommcfarlin.com/) for the [WordPress Plugin Boilerplate](https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate)
 * The settings code was adapted from [Easy Digital Downloads](https://github.com/easydigitaldownloads/Easy-Digital-Downloads) by [Pippin Williamson](http://pippinsplugins.com/)
 * The meta box settings was adapted from [Theme Foundation](http://themefoundation.com/wordpress-meta-boxes-guide/) by [Alex Mansfield](http://sackclothstudios.com/)
+* Thank you [Brady Vercher](http://www.blazersix.com/) for help with the playlist
+* Thank you [Pippin Williamson](https://pippinsplugins.com/) for the great tutorials
+
 
 == Installation ==
 
@@ -91,7 +97,7 @@ The plugin can also be found on [GitHub](https://github.com/flowplayer/wordpress
 
 = Configuration =
 
-You can configure Google Analytics, a Commercial Flowplayer license key and a custom watermark logo in the plugin's global options. You can purchase a commercial license at [flowplayer.org](http://flowplayer.org/pricing/).
+You can configure Google Analytics, a Commercial Flowplayer license key and a custom watermark logo in the plugin's global options. You can purchase a commercial license at [flowplayer.org](http://flowplayer.org/pricing/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin).
 
 == Frequently Asked Questions ==
 
@@ -99,11 +105,11 @@ You can configure Google Analytics, a Commercial Flowplayer license key and a cu
 There are three ways you add add a video
 
 1. You can use the WordPress media manager and upload the videos there.
-2. You can use [Flowplayer Drive](http://flowplayer.org/) to upload a video and let Flowplayer.org host you video.
+2. You can use [Flowplayer Drive](http://flowplayer.org/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin) to upload a video and let Flowplayer.org host you video.
 3. You can store your videos on Amazon S3 or any other cloud host and add the links manually.
 
 = What video format do I need? =
-It is recommended to add at least two [video formats](http://flowplayer.org/docs/setup.html#video-formats) so that the video plays on as many browsers as possible. By default Flowplayer attempts to use HTML5 video, and if it's not supported then Flash (9.0+) and MP4 is used. MP4 is enough for complete browser support, but providing WebM and/or OGG video gives you broader support for HTML5 video which is the preferred technology.
+It is recommended to add at least two [video formats](http://flowplayer.org/docs/setup.html?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin#video-formats) so that the video plays on as many browsers as possible. By default Flowplayer attempts to use HTML5 video, and if it's not supported then Flash (9.0+) and MP4 is used. MP4 is enough for complete browser support, but providing WebM and/or OGG video gives you broader support for HTML5 video which is the preferred technology.
 
 = Why use Flowplayer when there is video support since WordPress 3.6? =
 
@@ -115,11 +121,22 @@ It takes some time for the video to be processed. The plugin fetches the video l
 
 = How do I load Flowplayer assets locally when using Flowplayer Commercial? =
 
-If you want to load the Flowplayer assets (JS, CSS and SWF) for your site then you can download the files from [your account](https://flowplayer.org/account/). Create a new folder `flowplayer-commercial` in `wp-content`. Place the files in this new folder. The option in the settings to use Flowplayer CDN should be disabled
+If you want to load the Flowplayer assets (JS, CSS and SWF) for your site then you can download the files from [your account](https://flowplayer.org/account/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin). Create a new folder `flowplayer-commercial` in `wp-content`. Place the files in this new folder. The option in the settings to use Flowplayer CDN should be disabled
 
 = How do I add Ads to my videos? =
 
-After [Signing up](http://flowplayer.org/asf/) you will get your own custom advertising plugin that you upload and paste the link in the settings.
+After [Signing up](http://flowplayer.org/asf/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin) you will get your own custom advertising plugin that you upload and paste the link in the settings.
+
+= How do I create a playlist? =
+
+Edit the video you want to add to a playlits and there should be a playlist box. You can choose an existing playlist or create a new one there. You can add the playlist to a post via the "Add Video" button under the post title.
+
+= Can I test the commercial version? =
+
+Yes, we have some sample keys for the specfic urls
+
+localhost  $289122895653393
+127.0.0.1  $130388743137804
 
 = Flowplayer Drive issues? =
 
@@ -127,7 +144,7 @@ If you are unable to connect to the Flowplayer Drive API, make sure you are conn
 
 = Flowplayer issues? =
 
-If you are having a issue please check the [Flowplayer known issues page](http://flowplayer.org/docs/known-issues.html).
+If you are having a issue please check the [Flowplayer known issues page](http://flowplayer.org/docs/known-issues.html?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin).
 
 = What happens when I disable the plugin? =
 
@@ -199,6 +216,14 @@ add_filter( 'fp5_post_type_args', 'fp5_post_type_arg_video_post' );`
 == Changelog ==
 
 We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
+
+= 1.9.0 - 2 September 2014 =
+* add [Playlist](https://flowplayer.org/docs/playlist.html?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin) support
+* update to [Flowplayer HTML5 5.5.0](https://flowplayer.org/news/releases/html5/v5.5.0.html)
+* fix CSS issue with Yoast Video SEO
+* update upload button text in the settings
+* add hidden field with duration for Yoast Video SEO
+* stop video width and height calulation when custom width or height are defined
 
 = 1.8.1 - 17 April 2014 =
 * replace php short tags with full tags
@@ -282,7 +307,10 @@ We have a lot of plans for this plugin. You can see some of the up and coming fe
 
 == Upgrade Notice ==
 
-= 1.7.0 =
+= 1.9.0 =
+* adding playlist support & Flowplayer HTML5 5.5.0
+
+= 1.8.0 =
 * introducing Flowplayer Drive and Google AdSense support
 
 = 1.7.0 =

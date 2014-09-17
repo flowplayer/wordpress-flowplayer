@@ -75,6 +75,14 @@ select#fp5-select-skin {
 	max-width: 100%
 }
 
+#newplaylist_parent {
+	display: none;
+}
+
+/*.post-type-flowplayer5 #normal-sortables {
+	padding-top: 20px;
+}*/
+
 /* Tabs */
 .nav-tab-wrapper {
 	border-bottom: #ccc solid 1px;;
@@ -224,6 +232,28 @@ select#fp5-select-skin {
 
 #fp5_about .hndle {
 	cursor: default;
+}
+
+/*
+ * Sortable videos
+*/
+.taxonomy-playlist .fp5-product-order li {
+	cursor: move;
+	float: left;
+	margin: 0 10px 10px 0;
+	padding: 5px;
+	font-size: 11px;
+	background: #fff;
+	border: 1px solid #ccc;
+	width: 95%;
+}
+
+.taxonomy-playlist .fp5-product-order-title {
+	margin: 20px 0 0 230px;
+}
+
+.taxonomy-playlist p.submit {
+	clear: both
 }
 
 /*

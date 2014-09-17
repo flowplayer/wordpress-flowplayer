@@ -118,7 +118,7 @@ class Flowplayer5_Widget extends WP_Widget {
 
 		echo $before_widget;
 		echo '<h3 class="widget-title">' . esc_attr( $title ) . '</h3>';
-		echo Flowplayer5_Shortcode::create_fp5_video_output( $instance );
+		echo fp5_video_output( $instance );
 		echo $after_widget;
 
 	}

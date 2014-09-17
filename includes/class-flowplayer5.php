@@ -31,7 +31,7 @@ class Flowplayer5 {
 	 *
 	 * @var     string
 	 */
-	protected $plugin_version = '1.8.1';
+	protected $plugin_version = '1.9.0';
 
 	/**
 	 * Player version, used for cache-busting of style and script file references.
@@ -40,7 +40,7 @@ class Flowplayer5 {
 	 *
 	 * @var     string
 	 */
-	protected $player_version = '5.4.6';
+	protected $player_version = '5.5.0';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -72,9 +72,6 @@ class Flowplayer5 {
 
 		// Load plugin text domain
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
-
-		// Add custom post type
-		add_action( 'init', array( $this, 'add_fp5_videos' ) );
 
 		// Add file support
 		add_filter( 'upload_mimes', array( $this, 'flowplayer_custom_mimes' ) );
@@ -141,6 +138,7 @@ class Flowplayer5 {
 	 */
 	public static function activate( $network_wide ) {
 		require_once( plugin_dir_path( __FILE__ ) . 'update.php' );
+		flush_rewrite_rules();
 	}
 
 	/**
@@ -151,7 +149,7 @@ class Flowplayer5 {
 	 * @param    boolean    $network_wide    True if WPMU superadmin uses "Network Deactivate" action, false if WPMU is disabled or plugin is deactivated on an individual blog.
 	 */
 	public static function deactivate( $network_wide ) {
-		// TODO: Define deactivation functionality here
+		flush_rewrite_rules();
 	}
 
 	/**
@@ -166,67 +164,6 @@ class Flowplayer5 {
 
 		load_textdomain( $domain, trailingslashit( WP_LANG_DIR ) . $domain . '/' . $domain . '-' . $locale . '.mo' );
 		load_plugin_textdomain( $domain, FALSE, basename( dirname( FP5_PLUGIN_FILE ) ) . '/languages/' );
-
-	}
-
-	/**
-	 * Add video Custom Post Type for flowplayer5
-	 *
-	 * @since    1.0.0
-	 */
-	public function add_fp5_videos() {
-
-		$labels = apply_filters( 'fp5_post_type_labels', array(
-			'name'                => _x( 'Videos', 'Post Type General Name', $this->plugin_slug ),
-			'singular_name'       => _x( 'Video', 'Post Type Singular Name', $this->plugin_slug ),
-			'menu_name'           => __( 'Videos', $this->plugin_slug ),
-			'parent_item_colon'   => __( 'Parent Video', $this->plugin_slug ),
-			'all_items'           => __( 'All Videos', $this->plugin_slug ),
-			'view_item'           => __( 'View Video', $this->plugin_slug ),
-			'add_new_item'        => __( 'Add New Video', $this->plugin_slug ),
-			'add_new'             => __( 'New Video', $this->plugin_slug ),
-			'edit_item'           => __( 'Edit Video', $this->plugin_slug ),
-			'update_item'         => __( 'Update Video', $this->plugin_slug ),
-			'search_items'        => __( 'Search Videos', $this->plugin_slug ),
-			'not_found'           => __( 'No videos found', $this->plugin_slug ),
-			'not_found_in_trash'  => __( 'No videos found in Trash', $this->plugin_slug ),
-		) );
-
-		$supports = apply_filters( 'fp5_post_type_supports', array(
-			'title',
-		) );
-
-		$rewrite = apply_filters( 'fp5_post_type_rewrite', array(
-			'slug'                => __( 'video', $this->plugin_slug ),
-			'with_front'          => true,
-			'pages'               => true,
-			'feeds'               => true,
-		) );
-
-
-		$args = apply_filters( 'fp5_post_type_args', array(
-			'label'               => __( 'flowplayer5', $this->plugin_slug ),
-			'description'         => __( 'Flowplayer Videos', $this->plugin_slug ),
-			'labels'              => $labels,
-			'supports'            => $supports,
-			'hierarchical'        => false,
-			'public'              => false,
-			'show_ui'             => true,
-			'show_in_menu'        => true,
-			'show_in_nav_menus'   => false,
-			'show_in_admin_bar'   => true,
-			'menu_position'       => 15,
-			'menu_icon'           => ( version_compare( $GLOBALS['wp_version'], '3.8-alpha', '>' ) ) ? 'dashicons-format-video' : '',
-			'can_export'          => true,
-			'has_archive'         => false,
-			'exclude_from_search' => true,
-			'publicly_queryable'  => true,
-			'rewrite'             => $rewrite,
-			'query_var'           => 'video',
-			'capability_type'     => 'page',
-		) );
-
-		register_post_type( 'flowplayer5', $args );
 
 	}
 

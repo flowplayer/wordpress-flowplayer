@@ -71,6 +71,21 @@ function fp5_modal_content() {
 				jQuery.colorbox.close();
 			};
 
+			function insertPlaylist() {
+				var id = jQuery( '#flowplayer5_playlist' ).val();
+
+				// Return early if no download is selected
+				if ( '' === id ) {
+					alert('<?php _e( 'You must choose a Playlist', 'flowplayer5' ); ?>');
+					return;
+				}
+
+				// Send the shortcode to the editor
+				window.send_to_editor( '[flowplayer playlist="' + id + '"]' );
+				// Close modal
+				jQuery.colorbox.close();
+			};
+
 		</script>
 
 	<div style="display: none;">
@@ -83,7 +98,7 @@ function fp5_modal_content() {
 					$args = array (
 						'post_type' => 'flowplayer5'
 					);
-			
+
 					// The Query
 					$query = new WP_Query( $args );
 					$posts = $query->posts;
@@ -95,6 +110,28 @@ function fp5_modal_content() {
 			</div>
 			<p class="submit">
 				<input type="button" id="flowplayer5-insert-video" class="button-primary" value="<?php echo __( 'Insert Video', 'flowplayer5' ); ?>" onclick="insertVideo();" />
+				<a id="fp5-cancel-video-insert" class="button-secondary" onclick="jQuery.colorbox.close();" title="<?php _e( 'Cancel', 'flowplayer5' ); ?>"><?php _e( 'Cancel', 'flowplayer5' ); ?></a>
+			</p>
+			<p><?php echo __( 'Choose a playlist from the dropdown to insert as a shortcode', 'flowplayer5' ); ?></p>
+			<div>
+				<?php _e( 'Playlist', 'flowplayer5' )?>
+				<select name="flowplayer5_playlist" id="flowplayer5_playlist">
+					<?php
+
+					$args = array (
+						'post'     => 'flowplayer5',
+						'taxonomy' => 'playlist',
+					);
+
+					$categories = get_categories( $args );
+
+					foreach ( $categories as $category ) { ?>
+						<option value="<?php echo esc_attr( $category->term_id ) ?>"><?php echo esc_attr( $category->name ) ?></option>
+					<?php } ?>
+				</select>
+			</div>
+			<p class="submit">
+				<input type="button" id="flowplayer5-insert-playlist" class="button-primary" value="<?php echo __( 'Insert Playlist', 'flowplayer5' ); ?>" onclick="insertPlaylist();" />
 				<a id="fp5-cancel-video-insert" class="button-secondary" onclick="jQuery.colorbox.close();" title="<?php _e( 'Cancel', 'flowplayer5' ); ?>"><?php _e( 'Cancel', 'flowplayer5' ); ?></a>
 			</p>
 		</div>

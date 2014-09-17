@@ -22,7 +22,7 @@
 <label class="switch-light switch-android" onclick="">
 	<input type="checkbox" name="fp5-toggle" id="fp5-toggle" value="flase"/>
 	<span>
-		<span><?php _e( 'Basic', $this->plugin_slug ) ?></span> / <span><?php _e( 'Advance', $this->plugin_slug ) ?></span>
+		<span><?php _e( 'Basic', $this->plugin_slug ) ?></span> / <span><?php _e( 'Advanced', $this->plugin_slug ) ?></span>
 	</span>
 	<a></a>
 </label></p>
@@ -289,5 +289,7 @@
 		<input type="text" name="fp5-video-id" id="fp5-video-id" value="<?php if ( isset ( $fp5_stored_meta['fp5-video-id'] ) ) echo esc_attr( $fp5_stored_meta['fp5-video-id'][0] ); ?>" />
 		<label for="fp5-video-name" class="fp5-row-title">Video Name</label>
 		<input type="text" name="fp5-video-name" id="fp5-video-name" value="<?php if ( isset ( $fp5_stored_meta['fp5-video-name'] ) ) echo esc_attr( $fp5_stored_meta['fp5-video-name'][0] ); ?>" />
+		<label for="fp5-duration" class="fp5-row-title">Duration</label>
+		<input type="text" name="fp5-duration" id="fp5-duration" value="<?php if ( isset ( $fp5_stored_meta['fp5-duration'] ) ) echo esc_attr( $fp5_stored_meta['fp5-duration'][0] ); ?>" />
 	</div>
 </p>
