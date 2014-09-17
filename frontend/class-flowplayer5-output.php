@@ -43,7 +43,7 @@ class Flowplayer5_Output {
 			}
 			require( 'views/display-playlist.php' );
 		} elseif ( isset( $atts['id'] ) ) {
-			self::single_video_output( $atts );
+			return self::single_video_output( $atts );
 		}
 	}
 
@@ -227,7 +227,9 @@ class Flowplayer5_Output {
 
 		// Check if a video has been added before output
 		if ( $formats['video/webm'] || $formats['video/mp4'] || $formats['video/ogg'] || $formats['video/flash'] || $formats['application/x-mpegurl'] ) {
-			$html = require( 'views/display-single-video.php' );
+			ob_start();
+			require( 'views/display-single-video.php' );
+			$html = ob_get_clean();
 			return $html;
 		}
 
