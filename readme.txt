@@ -3,7 +3,7 @@ Contributors: flowplayerorg, grapplerulrich, anssi
 Donate link: http://flowplayer.org/pricing/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin
 Tags: flowplayer, flowplayer5, flowplayer HTML5, responsive, html5, video, player
 Requires at least: 3.5
-Tested up to: 3.9.3
+Tested up to: 4.0
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -14,7 +14,7 @@ A beautiful, responsive, HTML5 video player plugin from the makers of Flowplayer
 
 Flowplayer HTML5 for WordPress provides a video management system for self hosted videos where you can manage all of your video from a central place. You can easily customize the videos from the numerous settings. The videos are displayed with the world-famous Flowplayer video player using a simple shortcodes. This is the official WordPress plugin from the makers of Flowplayer.
 
-[youtube https://www.youtube.com/watch?v=XpYr4qZ-qt8]
+[youtube https://www.youtube.com/watch?v=G43QiDe1gDc]
 
 = Main features =
 
@@ -217,7 +217,10 @@ add_filter( 'fp5_post_type_args', 'fp5_post_type_arg_video_post' );`
 
 We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
 
-= 1.9.0 - 2 September 2014 =
+= 1.9.1 - 5 September 2014 =
+* fix bug: shortcode loading at the top content - the shortcode was printed and not returned
+
+= 1.9.0 - 4 September 2014 =
 * add [Playlist](https://flowplayer.org/docs/playlist.html?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin) support
 * update to [Flowplayer HTML5 5.5.0](https://flowplayer.org/news/releases/html5/v5.5.0.html)
 * fix CSS issue with Yoast Video SEO
