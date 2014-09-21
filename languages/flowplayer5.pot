@@ -1,13 +1,26 @@
-# Copyright (C) 2014
-# This file is distributed under the same license as the  package.
+# Copyright (C) 2014 Flowplayer ltd.
+# This file is distributed under the GPL-2.0+.
 msgid ""
 msgstr ""
-"Project-Id-Version: Flowplayer HTML5 for WordPress\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/flowplayer5\n"
-"POT-Creation-Date: 2014-03-09 00:14:35+00:00\n"
+"Project-Id-Version: Flowplayer HTML5 for WordPress 1.9.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/flowplayer5\n"
+"POT-Creation-Date: 2014-09-18 21:47:08+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Ulrich Pogson <ulrich@pogson.com>\n"
+"Language-Team: Ulrich Pogson <ulrich@pogson.com>\n"
+"X-Generator: grunt-wp-i18n 0.4.8\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED STATES\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: "
+"__;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_"
+"x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Textdomain-Support: yes\n"
 
 #: admin/class-flowplayer5-admin.php:138
 msgid "Upload or choose a splash image"
@@ -73,83 +86,72 @@ msgstr ""
 msgid "Insert Logo"
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:220
+#: admin/class-flowplayer5-admin.php:225
 msgid "Flowplayer Settings"
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:221 admin/class-flowplayer5-admin.php:249
+#: admin/class-flowplayer5-admin.php:226 admin/class-flowplayer5-admin.php:254
 msgid "Settings"
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:269 admin/views/display-settings.php:38
+#: admin/class-flowplayer5-admin.php:274 admin/views/display-settings.php:38
 msgid "FAQ"
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:270
+#: admin/class-flowplayer5-admin.php:275
 msgid "Support"
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:271
+#: admin/class-flowplayer5-admin.php:276
 msgid "Rate Plugin"
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:292 admin/class-flowplayer5-admin.php:295
+#: admin/class-flowplayer5-admin.php:297 admin/class-flowplayer5-admin.php:300
 msgid "Video updated."
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:292 admin/class-flowplayer5-admin.php:295
-#: admin/class-flowplayer5-admin.php:297 admin/class-flowplayer5-admin.php:298
-#: admin/class-flowplayer5-admin.php:299
+#: admin/class-flowplayer5-admin.php:297 admin/class-flowplayer5-admin.php:300
+#: admin/class-flowplayer5-admin.php:302 admin/class-flowplayer5-admin.php:303
+#: admin/class-flowplayer5-admin.php:304
 msgid "Shortcode: %1$s"
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:293
+#: admin/class-flowplayer5-admin.php:298
 msgid "Custom field updated."
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:294
+#: admin/class-flowplayer5-admin.php:299
 msgid "Custom field deleted."
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:297
+#: admin/class-flowplayer5-admin.php:302
 msgid "Video published."
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:298
+#: admin/class-flowplayer5-admin.php:303
 msgid "Video saved."
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:299
+#: admin/class-flowplayer5-admin.php:304
 msgid "Video submitted."
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:300
+#: admin/class-flowplayer5-admin.php:305
 msgid "Video scheduled for: %1$s"
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:300
+#: admin/class-flowplayer5-admin.php:305
 msgid "M j, Y @ G:i"
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:301
+#: admin/class-flowplayer5-admin.php:306
 msgid "Video draft updated."
 msgstr ""
 
-#: admin/class-flowplayer5-admin.php:319
-msgid "Title"
-msgstr ""
-
-#: admin/class-flowplayer5-admin.php:320
-msgid "Author"
-msgstr ""
-
-#: admin/class-flowplayer5-admin.php:321
-#: admin/class-flowplayer5-meta-box.php:91
-msgid "Shortcode"
-msgstr ""
-
 #: admin/class-flowplayer5-admin.php:322
-msgid "Date"
+#: admin/class-flowplayer5-meta-box.php:91
+#: admin/class-flowplayer5-taxonomy-meta.php:86
+msgid "Shortcode"
 msgstr ""
 
 #: admin/class-flowplayer5-meta-box.php:108
@@ -158,6 +160,31 @@ msgstr ""
 
 #: admin/class-flowplayer5-meta-box.php:123
 msgid "Flowplayer Video"
+msgstr ""
+
+#: admin/class-flowplayer5-taxonomy-meta.php:115
+#: admin/class-flowplayer5-taxonomy-meta.php:144
+#: admin/views/display-video-meta-box.php:112
+msgid "Select skin"
+msgstr ""
+
+#: admin/class-flowplayer5-taxonomy-meta.php:121
+#: admin/class-flowplayer5-taxonomy-meta.php:151
+msgid "Select a skin for the playlist"
+msgstr ""
+
+#: admin/class-flowplayer5-taxonomy-meta.php:124
+#: admin/class-flowplayer5-taxonomy-meta.php:155
+msgid "Add RTMP net connection URL"
+msgstr ""
+
+#: admin/class-flowplayer5-taxonomy-meta.php:126
+#: admin/class-flowplayer5-taxonomy-meta.php:158
+msgid "Optional RTMP net connection URL for all of the videos in the playlist"
+msgstr ""
+
+#: admin/class-flowplayer5-taxonomy-meta.php:182
+msgid "Order Videos"
 msgstr ""
 
 #: admin/flowplayer-drive/class-flowplayer-drive-error.php:29
@@ -179,8 +206,9 @@ msgid "You have not uploaded any videos yet. You can upload the video in %1$s."
 msgstr ""
 
 #: admin/flowplayer-drive/class-flowplayer-drive-error.php:46
-#: admin/settings/register-settings.php:56
-msgid "Flowplayer Designer"
+#: admin/settings/register-settings.php:57
+#: admin/views/display-video-meta-box.php:33
+msgid "Flowplayer Drive"
 msgstr ""
 
 #: admin/flowplayer-drive/class-flowplayer-drive-error.php:56
@@ -208,7 +236,7 @@ msgstr ""
 msgid "Flowplayer.org"
 msgstr ""
 
-#: admin/insert-video-button.php:30 admin/insert-video-button.php:97
+#: admin/insert-video-button.php:30 admin/insert-video-button.php:112
 msgid "Insert Video"
 msgstr ""
 
@@ -216,12 +244,28 @@ msgstr ""
 msgid "You must choose a Video"
 msgstr ""
 
-#: admin/insert-video-button.php:78
+#: admin/insert-video-button.php:79
+msgid "You must choose a Playlist"
+msgstr ""
+
+#: admin/insert-video-button.php:93
 msgid "Choose a video from the dropdown to insert as a shortcode"
 msgstr ""
 
-#: admin/insert-video-button.php:98
+#: admin/insert-video-button.php:113 admin/insert-video-button.php:135
 msgid "Cancel"
+msgstr ""
+
+#: admin/insert-video-button.php:115
+msgid "Choose a playlist from the dropdown to insert as a shortcode"
+msgstr ""
+
+#: admin/insert-video-button.php:117
+msgid "Playlist"
+msgstr ""
+
+#: admin/insert-video-button.php:134
+msgid "Insert Playlist"
 msgstr ""
 
 #: admin/settings/register-settings.php:29
@@ -250,162 +294,170 @@ msgstr ""
 msgid "Logo"
 msgstr ""
 
-#: admin/settings/register-settings.php:50
-msgid "Show Logo on this site"
+#: admin/settings/register-settings.php:44
+msgid "Add Logo"
 msgstr ""
 
 #: admin/settings/register-settings.php:51
+msgid "Show Logo on this site"
+msgstr ""
+
+#: admin/settings/register-settings.php:52
 msgid "Show logo on this site. Uncheck to show on only externally embedded videos."
 msgstr ""
 
-#: admin/settings/register-settings.php:57
+#: admin/settings/register-settings.php:58
 msgid ""
-"Flowplayer Designer is a new feature that will hosts your video in all of "
-"the formats that you need."
-msgstr ""
-
-#: admin/settings/register-settings.php:62
-msgid "Username"
+"Flowplayer Drive is a new feature that will hosts your video in all of the "
+"formats that you need."
 msgstr ""
 
 #: admin/settings/register-settings.php:63
+msgid "Username"
+msgstr ""
+
+#: admin/settings/register-settings.php:64
 msgid "Specify your username here."
 msgstr ""
 
-#: admin/settings/register-settings.php:69
+#: admin/settings/register-settings.php:70
 msgid "Password"
 msgstr ""
 
-#: admin/settings/register-settings.php:70
+#: admin/settings/register-settings.php:71
 msgid "Specify your password here."
 msgstr ""
 
-#: admin/settings/register-settings.php:76
+#: admin/settings/register-settings.php:77
 msgid "Video Tracking"
 msgstr ""
 
-#: admin/settings/register-settings.php:77
+#: admin/settings/register-settings.php:78
 msgid "You can track video traffic using Google Analytics (GA)."
 msgstr ""
 
-#: admin/settings/register-settings.php:82
+#: admin/settings/register-settings.php:83
 msgid "Google Analytics account ID"
 msgstr ""
 
-#: admin/settings/register-settings.php:83
+#: admin/settings/register-settings.php:84
 msgid "Specify your GA account ID here."
 msgstr ""
 
-#: admin/settings/register-settings.php:89
+#: admin/settings/register-settings.php:90
 msgid "CDN Option"
 msgstr ""
 
-#: admin/settings/register-settings.php:90
+#: admin/settings/register-settings.php:91
 msgid ""
 "By default the Flowplayer assets (JS, CSS and SWF) are served from this "
 "domain. Use this option to have the assets served from Flowplayer's CDN."
 msgstr ""
 
-#: admin/settings/register-settings.php:95
+#: admin/settings/register-settings.php:96
 msgid "CDN hosted files"
 msgstr ""
 
-#: admin/settings/register-settings.php:96
+#: admin/settings/register-settings.php:97
 msgid "Use Flowplayer's CDN"
 msgstr ""
 
-#: admin/settings/register-settings.php:101
+#: admin/settings/register-settings.php:102
 msgid "Embed Options"
 msgstr ""
 
-#: admin/settings/register-settings.php:102
+#: admin/settings/register-settings.php:103
 msgid ""
 "By default the embed feature loads the embed script and Flowplayer assets "
 "from our CDN. You can use the fields below to change the locations of these "
 "assets."
 msgstr ""
 
-#: admin/settings/register-settings.php:107
+#: admin/settings/register-settings.php:108
 msgid "Library"
 msgstr ""
 
-#: admin/settings/register-settings.php:108
+#: admin/settings/register-settings.php:109
 msgid "URL of the Flowplayer API library script"
 msgstr ""
 
-#: admin/settings/register-settings.php:114
+#: admin/settings/register-settings.php:115
 msgid "Script"
 msgstr ""
 
-#: admin/settings/register-settings.php:115
+#: admin/settings/register-settings.php:116
 msgid "URL of the embed script"
 msgstr ""
 
-#: admin/settings/register-settings.php:121
+#: admin/settings/register-settings.php:122
 msgid "Skin"
 msgstr ""
 
-#: admin/settings/register-settings.php:122
+#: admin/settings/register-settings.php:123
 msgid "URL of skin for embedding"
 msgstr ""
 
-#: admin/settings/register-settings.php:128
+#: admin/settings/register-settings.php:129
 msgid "SWF file"
 msgstr ""
 
-#: admin/settings/register-settings.php:129
+#: admin/settings/register-settings.php:130
 msgid "URL of SWF file for embedding"
 msgstr ""
 
-#: admin/settings/register-settings.php:135
+#: admin/settings/register-settings.php:136
 #: admin/views/display-video-meta-box.php:17
 #: admin/views/display-video-meta-box.php:248
 msgid "Google AdSense"
 msgstr ""
 
-#: admin/settings/register-settings.php:136
+#: admin/settings/register-settings.php:137
 msgid ""
 "Sign up for Google AdSense for Flowplayer to be able to monetize your "
 "videos "
 msgstr ""
 
-#: admin/settings/register-settings.php:136
+#: admin/settings/register-settings.php:137
 msgid "Sign up now"
 msgstr ""
 
-#: admin/settings/register-settings.php:141
+#: admin/settings/register-settings.php:142
 msgid "AdSense plugin js"
 msgstr ""
 
 #: admin/settings/register-settings.php:144
+msgid "Add js file"
+msgstr ""
+
+#: admin/settings/register-settings.php:146
 msgid "Add your custom AdSense plugin javascript file"
 msgstr ""
 
-#: admin/settings/register-settings.php:148
+#: admin/settings/register-settings.php:150
 msgid "Test Mode"
 msgstr ""
 
-#: admin/settings/register-settings.php:150
+#: admin/settings/register-settings.php:152
 msgid "Enable test mode"
 msgstr ""
 
-#: admin/settings/register-settings.php:162
+#: admin/settings/register-settings.php:164
 msgid "General Settings"
 msgstr ""
 
-#: admin/settings/register-settings.php:255
+#: admin/settings/register-settings.php:183
+msgid "Upload"
+msgstr ""
+
+#: admin/settings/register-settings.php:258
 msgid "Your passord is saved. For security reasons it will not be displayed here."
 msgstr ""
 
-#: admin/settings/register-settings.php:283
-msgid "Add Logo"
-msgstr ""
-
-#: admin/settings/register-settings.php:318
+#: admin/settings/register-settings.php:321
 msgid "The callback function used for the <strong>%s</strong> setting is missing."
 msgstr ""
 
-#: admin/settings/register-settings.php:345
+#: admin/settings/register-settings.php:348
 msgid "Settings Updated"
 msgstr ""
 
@@ -469,11 +521,7 @@ msgid "Basic"
 msgstr ""
 
 #: admin/views/display-video-meta-box.php:25
-msgid "Advance"
-msgstr ""
-
-#: admin/views/display-video-meta-box.php:33
-msgid "Flowplayer Drive"
+msgid "Advanced"
 msgstr ""
 
 #: admin/views/display-video-meta-box.php:35
@@ -574,10 +622,6 @@ msgstr ""
 
 #: admin/views/display-video-meta-box.php:107
 msgid "Alter the looks and/or behaviour of the skin."
-msgstr ""
-
-#: admin/views/display-video-meta-box.php:112
-msgid "Select skin"
 msgstr ""
 
 #: admin/views/display-video-meta-box.php:128
@@ -720,6 +764,14 @@ msgstr ""
 msgid "Time in seconds into the video"
 msgstr ""
 
+#: frontend/views/display-playlist.php:2
+msgid "&lt; Prev"
+msgstr ""
+
+#: frontend/views/display-playlist.php:3
+msgid "Next &gt;"
+msgstr ""
+
 #: includes/class-flowplayer5-widget.php:45
 msgid "Display your Flowplayer Videos in a Widget."
 msgstr ""
@@ -732,72 +784,154 @@ msgstr ""
 msgid "Choose Video:"
 msgstr ""
 
-#: includes/class-flowplayer5.php:182
+#: includes/class-register-post-type.php:75
 msgid "Videos"
 msgstr ""
 
-#: includes/class-flowplayer5.php:183
+#: includes/class-register-post-type.php:76
 msgid "Parent Video"
 msgstr ""
 
-#: includes/class-flowplayer5.php:184
+#: includes/class-register-post-type.php:77
 msgid "All Videos"
 msgstr ""
 
-#: includes/class-flowplayer5.php:185
+#: includes/class-register-post-type.php:78
 msgid "View Video"
 msgstr ""
 
-#: includes/class-flowplayer5.php:186
+#: includes/class-register-post-type.php:79
 msgid "Add New Video"
 msgstr ""
 
-#: includes/class-flowplayer5.php:187
+#: includes/class-register-post-type.php:80
 msgid "New Video"
 msgstr ""
 
-#: includes/class-flowplayer5.php:188
+#: includes/class-register-post-type.php:81
 msgid "Edit Video"
 msgstr ""
 
-#: includes/class-flowplayer5.php:189
+#: includes/class-register-post-type.php:82
 msgid "Update Video"
 msgstr ""
 
-#: includes/class-flowplayer5.php:190
+#: includes/class-register-post-type.php:83
 msgid "Search Videos"
 msgstr ""
 
-#: includes/class-flowplayer5.php:191
+#: includes/class-register-post-type.php:84
 msgid "No videos found"
 msgstr ""
 
-#: includes/class-flowplayer5.php:192
+#: includes/class-register-post-type.php:85
 msgid "No videos found in Trash"
 msgstr ""
 
-#: includes/class-flowplayer5.php:200
+#: includes/class-register-post-type.php:94
 msgid "video"
 msgstr ""
 
-#: includes/class-flowplayer5.php:208
+#: includes/class-register-post-type.php:101
 msgid "flowplayer5"
 msgstr ""
 
-#: includes/class-flowplayer5.php:209
+#: includes/class-register-post-type.php:102
 msgid "Flowplayer Videos"
 msgstr ""
 
-#: node_modules/grunt-wp-i18n/test/fixtures/basic-theme/exclude/file.php:3
-msgid "Exclude"
+#: includes/class-register-taxonomy.php:75
+msgid "Playlists"
 msgstr ""
 
-#: includes/class-flowplayer5.php:180
+#: includes/class-register-taxonomy.php:76
+msgid "All Playlists"
+msgstr ""
+
+#: includes/class-register-taxonomy.php:77
+msgid "Parent Playlist"
+msgstr ""
+
+#: includes/class-register-taxonomy.php:78
+msgid "Parent Playlist:"
+msgstr ""
+
+#: includes/class-register-taxonomy.php:79
+msgid "New Playlist Name"
+msgstr ""
+
+#: includes/class-register-taxonomy.php:80
+msgid "Add New Playlist"
+msgstr ""
+
+#: includes/class-register-taxonomy.php:81
+msgid "Edit Playlist"
+msgstr ""
+
+#: includes/class-register-taxonomy.php:82
+msgid "Update Playlist"
+msgstr ""
+
+#: includes/class-register-taxonomy.php:83
+msgid "Separate playlists with commas"
+msgstr ""
+
+#: includes/class-register-taxonomy.php:84
+msgid "Search Playlists"
+msgstr ""
+
+#: includes/class-register-taxonomy.php:85
+msgid "Add or remove playlists"
+msgstr ""
+
+#: includes/class-register-taxonomy.php:86
+msgid "Choose from the most used playlists"
+msgstr ""
+
+#: includes/class-register-taxonomy.php:87
+msgid "Not Found"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Flowplayer HTML5 for WordPress"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://wordpress.org/plugins/flowplayer5/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"A HTML5 responsive video player plugin. From the makers of Flowplayer. "
+"Supports all three default Flowplayer skins, subtitles, tracking with "
+"Google Analytics, splash images. You can use your own watermark logo if you "
+"own a Commercial Flowplayer license."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Flowplayer ltd."
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://flowplayer.org/"
+msgstr ""
+
+#: includes/class-register-post-type.php:73
 msgctxt "Post Type General Name"
 msgid "Videos"
 msgstr ""
 
-#: includes/class-flowplayer5.php:181
+#: includes/class-register-post-type.php:74
 msgctxt "Post Type Singular Name"
 msgid "Video"
+msgstr ""
+
+#: includes/class-register-taxonomy.php:73
+msgctxt "Taxonomy General Name"
+msgid "Playlists"
+msgstr ""
+
+#: includes/class-register-taxonomy.php:74
+msgctxt "Taxonomy Singular Name"
+msgid "Playlist"
 msgstr ""
