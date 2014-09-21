@@ -136,6 +136,7 @@ Edit the video you want to add to a playlits and there should be a playlist box.
 Yes, we have some sample keys for the specfic urls
 
 localhost  $289122895653393
+
 127.0.0.1  $130388743137804
 
 = Flowplayer Drive issues? =
@@ -158,19 +159,17 @@ Why would you want to do that? :-) If you do need to uninstall the plugin all of
 
 = Filters =
 
-* [fp5_filter_set_messages()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/admin/class-flowplayer5-admin.php#L283)
-* [fp5_post_type_labels()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/includes/class-flowplayer5.php#L179)
-* [fp5_post_type_supports()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/includes/class-flowplayer5.php#L195)
-* [fp5_post_type_rewrite()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/includes/class-flowplayer5.php#L199)
-* [fp5_post_type_args()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/includes/class-flowplayer5.php#L207)
-* [fp5_filter_flowplayer_data()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-shortcode.php#L198)
-* [fp5_filter_video_src()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-shortcode.php#L205)
-* [fp5_filter_has_shortcode()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-frontend.php#L105)
+* [fp5_filter_set_messages()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/admin/class-flowplayer5-admin.php#L294)
+* [fp5_post_type_args()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/includes/class-register-post-type.php#L123)
+* [fp5_filter_flowplayer_data()](https://github.com/flowplayer/wordpress-flowplayer/blob/develop/frontend/views/display-single-video.php#L1)
+* [fp5_filter_video_src()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-output.php#L206)
+* [fp5_filter_has_shortcode()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-frontend.php#L83)
 
 = Actions =
 
-* [fp5_video_top()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-shortcode.php#L200)
-* [fp5_video_bottom()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-shortcode.php#L210)
+* [fp5_video_top()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/views/display-single-video.php#L22)
+* [fp5_video_bottom()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/views/display-single-video.php#L29)
+* [fp5_video_config()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/views/display-single-video.php)
 
 = Examples =
 
@@ -216,6 +215,13 @@ add_filter( 'fp5_post_type_args', 'fp5_post_type_arg_video_post' );`
 == Changelog ==
 
 We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
+
+= 1.9.2 - 21 September 2014 =
+* fix bug: remove spurious comma
+* fix bug: rtmp and flash videos
+* add video unique class
+* add German translation
+* prepare for mult-reselution support for Flowplayer Drive
 
 = 1.9.1 - 5 September 2014 =
 * fix bug: shortcode loading at the top content - the shortcode was printed and not returned
@@ -309,6 +315,12 @@ We have a lot of plans for this plugin. You can see some of the up and coming fe
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.9.2 =
+* bug fixes and small improvements
+
+= 1.9.1 =
+* bug fix
 
 = 1.9.0 =
 * adding playlist support & Flowplayer HTML5 5.5.0
