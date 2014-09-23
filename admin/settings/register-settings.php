@@ -282,8 +282,8 @@ function fp5_upload_callback($args) {
 
 	$size = isset( $args['size'] ) && !is_null( $args['size'] ) ? $args['size'] : 'regular';
 
-	$html = '<input type="text" class="' . $args['size'] . '-text fp5_upload_field" id="fp5_settings_' . $args['section'] . '[' . $args['id'] . ']" name="fp5_settings_' . $args['section'] . '[' . $args['id'] . ']" value="' . esc_attr( $value ) . '"/>';
-	$html .= '<a href="#" type="button" class="fp5_settings_upload_button button-secondary" title="' . $args['button'] . '"/>' . $args['button'] . '</a>';
+	$html = '<input type="text" class="' . $args['size'] . '-text fp5_' . $args['id'] . '_upload_field" id="fp5_settings_' . $args['section'] . '[' . $args['id'] . ']" name="fp5_settings_' . $args['section'] . '[' . $args['id'] . ']" value="' . esc_attr( $value ) . '"/>';
+	$html .= '<a href="#" type="button" class="fp5_settings_' . $args['id'] . '_upload_button button-secondary" title="' . $args['button'] . '"/>' . $args['button'] . '</a>';
 	$html .= '<label for="fp5_settings_' . $args['section'] . '[' . $args['id'] . ']"> ' . $args['desc'] . '</label>';
 	$html .= isset( $args['preview'] ) && !is_null( $args['preview'] ) ? '<img style="max-width: 300px; display:block" src="' . esc_attr( $value ) . '" class="fp5_settings_upload_preview"/>' : '';
 
