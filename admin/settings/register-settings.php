@@ -137,6 +137,14 @@ function fp5_register_settings() {
 					'desc' => __( 'Sign up for Google AdSense for Flowplayer to be able to monetize your videos ', 'flowplayer5' ). '</strong> <a href="http://flowplayer.org/asf/">' . __( 'Sign up now', 'flowplayer5' ) . '</a>',
 					'type' => 'header'
 				),
+				'asf_css' => array(
+					'id'   => 'asf_css',
+					'name' => __( 'AdSense plugin CSS', 'flowplayer5' ),
+					'type' => 'upload',
+					'button' => __( 'Add CSS file', 'flowplayer5' ),
+					'size' => 'regular',
+					'desc' => __( 'Add your custom AdSense plugin CSS file', 'flowplayer5' )
+				),
 				'asf_js' => array(
 					'id'   => 'asf_js',
 					'name' => __( 'AdSense plugin js', 'flowplayer5' ),

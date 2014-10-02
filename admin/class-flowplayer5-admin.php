@@ -196,6 +196,12 @@ class Flowplayer5_Admin {
 					'button' => __( 'Insert Logo', $this->plugin_slug )              // This will be used as the default button text
 				)
 			);
+			wp_localize_script( $this->plugin_slug . '-settings', 'asf_css',
+				array(
+					'title'  => __( 'Upload or choose a CSS file', $this->plugin_slug ), // This will be used as the default title
+					'button' => __( 'Insert CSS file', $this->plugin_slug )              // This will be used as the default button text
+				)
+			);
 			wp_localize_script( $this->plugin_slug . '-settings', 'asf_js',
 				array(
 					'title'  => __( 'Upload or choose a JS file', $this->plugin_slug ), // This will be used as the default title

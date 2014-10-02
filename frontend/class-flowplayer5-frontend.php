@@ -63,7 +63,7 @@ class Flowplayer5_Frontend {
 		// Pull options
 		$options = get_option( 'fp5_settings_general' );
 		$cdn     = isset( $options['cdn_option'] );
-		$asf_js  = ( ! empty ( $options['asf_js'] ) ? $options['asf_js'] : false );
+		$asf_css  = ( ! empty ( $options['asf_css'] ) ? $options['asf_css'] : false );
 		$suffix  = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 		if( $cdn ) {
@@ -74,7 +74,7 @@ class Flowplayer5_Frontend {
 
 		wp_register_style( $this->plugin_slug . '-skins', trailingslashit( $flowplayer5_directory ) . 'all-skins.css', array(), $this->player_version );
 		wp_register_style( $this->plugin_slug . '-logo-origin', plugins_url( '/assets/css/public' . $suffix . '.css', __FILE__ ), array(), $this->plugin_version );
-		wp_register_style( $this->plugin_slug . '-asf', '//releases.flowplayer.org/asf/1.0.2/asf.min.css', array(), null );
+		wp_register_style( $this->plugin_slug . '-asf', esc_url( $asf_css ), array(), null );
 
 		// Register stylesheets
 		if( function_exists( 'has_shortcode' ) ) {
@@ -83,14 +83,14 @@ class Flowplayer5_Frontend {
 			if( has_shortcode( $post_content, 'flowplayer' ) || 'flowplayer5' == get_post_type() || is_active_widget( false, false, 'flowplayer5-video-widget', true ) || apply_filters( 'fp5_filter_has_shortcode', $has_shortcode ) ) {
 				wp_enqueue_style( $this->plugin_slug . '-skins' );
 				wp_enqueue_style( $this->plugin_slug . '-logo-origin' );
-				if ( $asf_js ) {
+				if ( $asf_css ) {
 					wp_enqueue_style( $this->plugin_slug . '-asf' );
 				}
 			}
 		} else {
 			wp_enqueue_style( $this->plugin_slug . '-skins' );
 			wp_enqueue_style( $this->plugin_slug . '-logo-origin' );
-			if ( $asf_js ) {
+			if ( $asf_css ) {
 				wp_enqueue_style( $this->plugin_slug . '-asf' );
 			}
 		}
