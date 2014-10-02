@@ -84,14 +84,10 @@ module.exports = function(grunt) {
 				files: [
 					{
 						expand: true,     // Enable dynamic expansion.
-						cwd: 'admin/assests/js/',
-						src: ['*.js', '!*.min.js'],
-						dest: 'admin/assets/js',
-						rename: function (dest, src) {
-							var filename = src.substring(src.lastIndexOf('/'), src.length);
-							filename = filename.substring(0, filename.lastIndexOf('.'));
-							return dest + filename + '.min.js';
-						}
+						cwd: 'admin/assets/js/',      // Src matches are relative to this path.
+						src: ['*.js', '!*.min.js'], // Actual pattern(s) to match.
+						dest: 'admin/assets/js/',   // Destination path prefix.
+						ext: '.min.js',   // Dest filepaths will have this extension.
 					},
 				]
 			},
@@ -99,14 +95,10 @@ module.exports = function(grunt) {
 				files: [
 					{
 						expand: true,     // Enable dynamic expansion.
-						cwd: 'frontend/assests/js/',
-						src: ['*.js', '!*.min.js'],
-						dest: 'frontend/assets/js',
-						rename: function (dest, src) {
-							var filename = src.substring(src.lastIndexOf('/'), src.length);
-							filename = filename.substring(0, filename.lastIndexOf('.'));
-							return dest + filename + '.min.js';
-						}
+						cwd: 'frontend/assets/js/',      // Src matches are relative to this path.
+						src: ['*.js', '!*.min.js'], // Actual pattern(s) to match.
+						dest: 'frontend/assets/js/',   // Destination path prefix.
+						ext: '.min.js',   // Dest filepaths will have this extension.
 					},
 				]
 			}
