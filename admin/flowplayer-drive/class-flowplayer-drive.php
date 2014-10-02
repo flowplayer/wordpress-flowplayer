@@ -181,7 +181,8 @@ class Flowplayer_Drive {
 		foreach ( $json_videos as $video ) {
 
 			foreach ( $video->encodings as $encoding ) {
-				if ( 360 !== $encoding->height ) {
+				$quality = '-' . $encoding->height . 'p';
+				if ( strpos( $encoding->filename, $quality ) !== false ) {
 					continue;
 				}
 
