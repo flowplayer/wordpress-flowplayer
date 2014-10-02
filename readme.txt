@@ -21,9 +21,9 @@ Flowplayer HTML5 for WordPress provides a video management system for self hoste
 * Easily manage all of your videos in a central place
 * Insert videos in posts, pages and custom post types using the shortcode e.g. [flowplayer id="123"] , [flowplayer playlist="123"]
 * Display videos in the sidebar with the "Video Widget"
-* Setup playlists
+* Setup [playlists](https://flowplayer.org/docs/playlist.html?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin)
 * Manage files with WordPress 3.5 Media Library
-* Style the video player with the three default Flowplayer skins: Minimalist, Functional and Playful
+* Style the video player with the three default Flowplayer skins: [Minimalist](https://flowplayer.org/demos/#minimalist?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin), [Functional](https://flowplayer.org/demos/#functional?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin) and [Playful](https://flowplayer.org/demos/#playful?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin)
 * [Supports subtitles](http://flowplayer.org/docs/subtitles.html?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin)
 * Track your video video audience and traffic with [Google Analytics](http://flowplayer.org/docs/analytics.html?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin)
 * Video adverts with [Google AdSense](http://flowplayer.org/asf/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin)
@@ -51,7 +51,7 @@ The commercial version is free of Flowplayer branding and you can use your logo.
 
 Google AdSense for Flowplayer (ASF) allows publishers to monetize their videos by adding advertisements. While AdSense is normally restricted to sites with more than 10 million streams per month, Flowplayer makes it available for everyone.
 
-[Sign up for Google AdSense for Flowplayer (ASF)](http://flowplayer.org/asf/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin)
+[Sign up for Google AdSense for Flowplayer (ASF)](http://flowplayer.org/asf/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin)
 
 
 == Other Notes ==
@@ -135,9 +135,8 @@ Edit the video you want to add to a playlits and there should be a playlist box.
 
 Yes, we have some sample keys for the specfic urls
 
-localhost  $289122895653393
-
-127.0.0.1  $130388743137804
+`localhost  $289122895653393`
+`127.0.0.1  $130388743137804`
 
 = Flowplayer Drive issues? =
 
@@ -169,7 +168,7 @@ Why would you want to do that? :-) If you do need to uninstall the plugin all of
 
 * [fp5_video_top()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/views/display-single-video.php#L22)
 * [fp5_video_bottom()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/views/display-single-video.php#L29)
-* [fp5_video_config()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/views/display-single-video.php)
+* [fp5_video_config()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/views/display-single-video.php#L39)
 
 = Examples =
 
@@ -215,6 +214,10 @@ add_filter( 'fp5_post_type_args', 'fp5_post_type_arg_video_post' );`
 == Changelog ==
 
 We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
+
+= 1.9.3 - 2 October 2014 =
+* fix bug: adding asf js and css files
+* fix bug: fetching the correct resolution video from Flowplayer Drive
 
 = 1.9.2 - 21 September 2014 =
 * fix bug: remove spurious comma
@@ -315,6 +318,9 @@ We have a lot of plans for this plugin. You can see some of the up and coming fe
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.9.3 =
+* bug fixes
 
 = 1.9.2 =
 * bug fixes and small improvements
