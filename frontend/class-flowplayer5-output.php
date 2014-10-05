@@ -197,7 +197,7 @@ class Flowplayer5_Output {
 		);
 
 		$asf_test = ( ! empty( $asf_test ) ? 'on' : 'off' );
-		$ads_time = ( ! empty( $ads_time ) ? intval( $ads_time ) : '' );
+		$ads_time = ( isset( $ads_time ) ? intval( $ads_time ) : '' );
 		$ad_type  = ( ! empty( $ad_type ) ? esc_attr( $ad_type ) : '' );
 
 		$source = array();
