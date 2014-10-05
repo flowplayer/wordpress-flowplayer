@@ -32,11 +32,11 @@
 
 <!-- Flowplayer Single Config -->
 <script>
-jQuery(document).ready(function(){
-	jQuery(".flowplayer-video-<?php echo esc_attr( $id ); ?>").flowplayer({
-		adaptiveRatio: <?php echo esc_attr( $adaptive_ratio ); ?>,
-		embed: <?php echo esc_attr( $embed ); ?>,
+jQuery(function($) {
+	$(".flowplayer-video-<?php echo esc_attr( $id ); ?>").flowplayer({
 		<?php do_action( 'fp5_video_config' ); ?>
+		adaptiveRatio: <?php echo esc_attr( $adaptive_ratio ); ?>,
+		embed: <?php echo esc_attr( $embed ); ?>
 	});
 });
 </script>
