@@ -174,7 +174,7 @@ class Flowplayer5_Output {
 		);
 
 		$classes = array(
-			'flowplayer-video-' . $id,
+			'flowplayer-video flowplayer-video-' . $id,
 			$skin,
 			( ! empty ( $splash ) ? 'is-splash' : '' ),
 			( ! empty ( $logo_origin ) ? 'commercial' : '' ),
