@@ -31,7 +31,7 @@ class Flowplayer5 {
 	 *
 	 * @var     string
 	 */
-	protected $plugin_version = '1.9.3';
+	protected $plugin_version = '1.9.4';
 
 	/**
 	 * Player version, used for cache-busting of style and script file references.

@@ -168,7 +168,7 @@ Why would you want to do that? :-) If you do need to uninstall the plugin all of
 
 * [fp5_video_top()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/views/display-single-video.php#L22)
 * [fp5_video_bottom()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/views/display-single-video.php#L29)
-* [fp5_video_config()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/views/display-single-video.php#L39)
+* [fp5_video_config()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/views/display-single-video.php#L37)
 
 = Examples =
 
@@ -203,6 +203,19 @@ function fp5_post_type_arg_video_post( $args ) {
 }
 add_filter( 'fp5_post_type_args', 'fp5_post_type_arg_video_post' );`
 
+
+`/**
+ * Disable `Help Tooltip` - Add additional configuration options.
+ */
+function fp5_video_config() {
+
+	$config = 'tooltip: false,';
+
+	echo $config;
+}
+add_action( 'fp5_video_config', 'fp5_video_config' );`
+
+
 == Screenshots ==
 
 1. Posting a video
@@ -214,6 +227,11 @@ add_filter( 'fp5_post_type_args', 'fp5_post_type_arg_video_post' );`
 == Changelog ==
 
 We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
+
+= 1.9.4 - 9 October 2014 =
+* fix bug: change class from `.flowplayer` to `.flowplayer-video`
+* fix bug: letting 0 be a valid number for ads time
+* fix bug: removed trailing coma in JS and moved action `fp5_video_config` to the start of the JS
 
 = 1.9.3 - 2 October 2014 =
 * fix bug: adding asf js and css files
@@ -318,6 +336,9 @@ We have a lot of plans for this plugin. You can see some of the up and coming fe
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.9.4 =
+* bug fixes: IMPORTANT!: changed class from `.flowplayer` to `.flowplayer-video`
 
 = 1.9.3 =
 * bug fixes
