@@ -28,13 +28,15 @@
 
 	<?php do_action( 'fp5_video_bottom' ); ?>
 
-	<!-- Flowplayer Config -->
-	<script>
-		flowplayer.conf = {
-			adaptiveRatio: "<?php echo esc_attr( $adaptive_ratio ); ?>",
-			embed: "<?php echo esc_attr( $embed ); ?>",
-			<?php do_action( 'fp5_video_config' ); ?>
-		};
-	</script>
-
 </div>
+
+<!-- Flowplayer Single Config -->
+<script>
+jQuery(function($) {
+	$(".flowplayer-video-<?php echo esc_attr( $id ); ?>").flowplayer({
+		<?php do_action( 'fp5_video_config' ); ?>
+		adaptiveRatio: <?php echo esc_attr( $adaptive_ratio ); ?>,
+		embed: <?php echo esc_attr( $embed ); ?>
+	});
+});
+</script>

@@ -137,6 +137,14 @@ function fp5_register_settings() {
 					'desc' => __( 'Sign up for Google AdSense for Flowplayer to be able to monetize your videos ', 'flowplayer5' ). '</strong> <a href="http://flowplayer.org/asf/">' . __( 'Sign up now', 'flowplayer5' ) . '</a>',
 					'type' => 'header'
 				),
+				'asf_css' => array(
+					'id'   => 'asf_css',
+					'name' => __( 'AdSense plugin CSS', 'flowplayer5' ),
+					'type' => 'upload',
+					'button' => __( 'Add CSS file', 'flowplayer5' ),
+					'size' => 'regular',
+					'desc' => __( 'Add your custom AdSense plugin CSS file', 'flowplayer5' )
+				),
 				'asf_js' => array(
 					'id'   => 'asf_js',
 					'name' => __( 'AdSense plugin js', 'flowplayer5' ),
@@ -282,8 +290,8 @@ function fp5_upload_callback($args) {
 
 	$size = isset( $args['size'] ) && !is_null( $args['size'] ) ? $args['size'] : 'regular';
 
-	$html = '<input type="text" class="' . $args['size'] . '-text fp5_upload_field" id="fp5_settings_' . $args['section'] . '[' . $args['id'] . ']" name="fp5_settings_' . $args['section'] . '[' . $args['id'] . ']" value="' . esc_attr( $value ) . '"/>';
-	$html .= '<a href="#" type="button" class="fp5_settings_upload_button button-secondary" title="' . $args['button'] . '"/>' . $args['button'] . '</a>';
+	$html = '<input type="text" class="' . $args['size'] . '-text fp5_' . $args['id'] . '_upload_field" id="fp5_settings_' . $args['section'] . '[' . $args['id'] . ']" name="fp5_settings_' . $args['section'] . '[' . $args['id'] . ']" value="' . esc_attr( $value ) . '"/>';
+	$html .= '<a href="#" type="button" class="fp5_settings_' . $args['id'] . '_upload_button button-secondary" title="' . $args['button'] . '"/>' . $args['button'] . '</a>';
 	$html .= '<label for="fp5_settings_' . $args['section'] . '[' . $args['id'] . ']"> ' . $args['desc'] . '</label>';
 	$html .= isset( $args['preview'] ) && !is_null( $args['preview'] ) ? '<img style="max-width: 300px; display:block" src="' . esc_attr( $value ) . '" class="fp5_settings_upload_preview"/>' : '';
 

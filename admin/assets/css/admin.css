@@ -187,14 +187,16 @@ select#fp5-select-skin {
 	background-size: cover;
 }
 
-#flowplayer-drive .video .thumb .duration {
+#flowplayer-drive .video .thumb .bar {
 	background-color: rgba(0,32,38,0.8);
 	padding: 2px;
-	display: block;
 	color: #fff;
 	font-size: 1.2em;
 	font-weight: 600;
-	text-align: right;
+}
+
+#flowplayer-drive .video .thumb .duration {
+	float: right;
 }
 
 #flowplayer-drive .video-title {

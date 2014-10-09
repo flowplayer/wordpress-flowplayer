@@ -43,7 +43,7 @@ class Flowplayer5_Output {
 			}
 			require( 'views/display-playlist.php' );
 		} elseif ( isset( $atts['id'] ) ) {
-			self::single_video_output( $atts );
+			return self::single_video_output( $atts );
 		}
 	}
 
@@ -158,7 +158,7 @@ class Flowplayer5_Output {
 		$asf_js        = ( isset( $options['asf_js'] ) ) ? $options['asf_js'] : '';
 
 		// Shortcode processing
-		$ratio            = ( ( $width != 0 && $height != 0 ) ? intval( $height ) / intval( $width ) : '' );
+		$ratio         = ( ( $width != 0 && $height != 0 ) ? intval( $height ) / intval( $width ) : '' );
 
 		$style = array(
 			( $fixed == 'true' && $width != '' && $height != '' ? 'width:' . $width . 'px; height:' . $height . 'px; ' : ( ( $max_width != 0 ) ?  'max-width:' . $max_width . 'px;' : '' ) ),
@@ -170,11 +170,11 @@ class Flowplayer5_Output {
 			( 0 < strlen  ( $key ) && 0 < strlen  ( $logo ) ? 'data-logo="' . esc_url( $logo ) . '"' : '' ),
 			( 0 < strlen  ( $ga_account_id ) ? 'data-analytics="' . esc_attr( $ga_account_id ) . '"' : '' ),
 			( $ratio != 0 ? 'data-ratio="' . esc_attr( $ratio ) . '"' : '' ),
-			( $ratio != 0 ? 'data-rtmp="' . esc_attr( $data_rtmp ) . '"' : '' ),
+			( ! empty ( $data_rtmp ) ? 'data-rtmp="' . esc_attr( $data_rtmp ) . '"' : '' ),
 		);
 
 		$classes = array(
-			'flowplayer',
+			'flowplayer-video flowplayer-video-' . $id,
 			$skin,
 			( ! empty ( $splash ) ? 'is-splash' : '' ),
 			( ! empty ( $logo_origin ) ? 'commercial' : '' ),
@@ -197,7 +197,8 @@ class Flowplayer5_Output {
 		);
 
 		$asf_test = ( ! empty( $asf_test ) ? 'on' : 'off' );
-		$ads_time = ( ! empty( $ads_time ) ? intval( $ads_time ) : '' );
+		$ads_time = ( isset( $ads_time ) ? $ads_time : '' );
+		$ads_time = ( 0 == $ads_time ? 0.01 : $ads_time );
 		$ad_type  = ( ! empty( $ad_type ) ? esc_attr( $ad_type ) : '' );
 
 		$source = array();
@@ -214,20 +215,22 @@ class Flowplayer5_Output {
 		}
 
 		if ( 0 == $width && 0 == $height ) {
-			$adaptive_ratio = 'true,';
+			$adaptive_ratio = 'true';
 		} else {
 			$adaptive_ratio = 'false';
 		}
 
-		if ( '' != $no_embed ) {
-			$embed = 'false';
-		} else {
+		if ( 'true' == $no_embed ) {
 			$embed = 'true';
+		} else {
+			$embed = 'false';
 		}
 
 		// Check if a video has been added before output
 		if ( $formats['video/webm'] || $formats['video/mp4'] || $formats['video/ogg'] || $formats['video/flash'] || $formats['application/x-mpegurl'] ) {
-			$html = require( 'views/display-single-video.php' );
+			ob_start();
+			require( 'views/display-single-video.php' );
+			$html = ob_get_clean();
 			return $html;
 		}
 

@@ -181,7 +181,8 @@ class Flowplayer_Drive {
 		foreach ( $json_videos as $video ) {
 
 			foreach ( $video->encodings as $encoding ) {
-				if ( 'done' !== $encoding->status ) {
+				$quality = '-' . $encoding->height . 'p';
+				if ( strpos( $encoding->filename, $quality ) !== false ) {
 					continue;
 				}
 
@@ -197,11 +198,24 @@ class Flowplayer_Drive {
 				}
 			}
 
+			if ( 'done' !== $encoding->status ) {
+				continue;
+			}
+
+			$multi_res = '<span class="dashicons"></span>';
+
+			if ( 1 < $video->hlsResolutions ) {
+				$multi_res = '<span class="dashicons dashicons-desktop"></span><span class="dashicons dashicons-tablet"></span><span class="dashicons dashicons-smartphone"></span>';
+			}
+
 			$return = '<div class="video">';
 				$return .= '<a href="#" class="choose-video" data-rtmp="' . $rtmp . '" data-user-id="' . $video->userId . '" data-video-id="' . $video->id . '" data-video-name="' . $video->title . '" data-webm="' . $webm .'" data-mp4="' . $mp4 . '" data-flash="mp4:' . $video->userId . '/' . $flash . '" data-img="' . $video->snapshotUrl . '">';
 					$return .= '<h2 class="video-title">' . $video->title . '</h2>';
 					$return .= '<div class="thumb" style="background-image: url(' . $video->thumbnailUrl . ');">';
-						$return .= '<em class="duration">' . $duration . '</em>';
+						$return .= '<div class="bar">';
+							$return .= $multi_res;
+							$return .= '<span class="duration">' . $duration . '</span>';
+						$return .= '</div>';
 					$return .= '</div>';
 				$return .= '</a>';
 			$return .= '</div>';

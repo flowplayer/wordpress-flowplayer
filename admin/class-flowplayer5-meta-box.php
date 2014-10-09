@@ -240,7 +240,7 @@ class Video_Meta_Box {
 					update_post_meta(
 						$post_id,
 						$number,
-						absint( $_POST[ $number ] )
+						$this->sanitize_postive_number_including_zero( $_POST[ $number ] )
 					);
 				}
 			}
@@ -264,6 +264,14 @@ class Video_Meta_Box {
 
 		}
 
+	}
+
+	function sanitize_postive_number_including_zero( $number ) {
+		if( '' !== $number ) {
+			return absint( $number );
+		} else {
+			return '';
+		}
 	}
 
 	/**
