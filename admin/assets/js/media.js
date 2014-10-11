@@ -105,6 +105,7 @@ jQuery(document).ready(function ($) {
         var that = $(this);
         $('input#fp5-splash-image').val(that.attr('data-img'));
         $('input#fp5-mp4-video').val(that.attr('data-mp4'));
+        $('input#fp5-hls-video').val(that.attr('data-hls'));
         $('input#fp5-webm-video').val(that.attr('data-webm'));
         $('input#fp5-flash-video').val(that.attr('data-flash'));
         $('input#fp5-user-id').val(that.attr('data-user-id'));

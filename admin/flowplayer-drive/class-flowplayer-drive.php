@@ -197,6 +197,10 @@ class Flowplayer_Drive {
 					$flash  = $encoding->filename;
 					$height = $encoding->height;
 					$width  = $encoding->width;
+				} elseif ( 'hls' === $encoding->format ) {
+					$hls = $encoding->url;
+				} else {
+					$hls = '';
 				}
 
 				if ( in_array( $encoding->format, array( 'mp4', 'webm' ) ) ) {
@@ -216,6 +220,7 @@ class Flowplayer_Drive {
 				'hlsResolutions' => $video->hlsResolutions,
 				'webm'           => $webm,
 				'mp4'            => $mp4,
+				'hls'            => $hls,
 				'flash'          => 'mp4:' . $video->userId . '/' . $flash,
 				'snapshotUrl'    => $video->snapshotUrl,
 				'thumbnailUrl'   => $video->thumbnailUrl,
@@ -242,7 +247,7 @@ class Flowplayer_Drive {
 			}
 
 			$return = '<div class="video">';
-				$return .= '<a href="#" class="choose-video" data-rtmp="' . $video['rtm'] . '" data-user-id="' . $video['userId'] . '" data-video-id="' . $video['id'] . '" data-video-name="' . $video['title'] . '" data-webm="' . $video['webm'] .'" data-mp4="' . $video['mp4'] . '" data-flash="' . $video['flash'] . '" data-img="' . $video['snapshotUrl'] . '">';
+				$return .= '<a href="#" class="choose-video" data-rtmp="' . $video['rtmp'] . '" data-user-id="' . $video['userId'] . '" data-video-id="' . $video['id'] . '" data-video-name="' . $video['title'] . '" data-webm="' . $video['webm'] .'" data-mp4="' . $video['mp4'] . '" data-hls="' . $video['hls'] . '" data-flash="' . $video['flash'] . '" data-img="' . $video['snapshotUrl'] . '">';
 					$return .= '<h2 class="video-title">' . $video['title'] . '</h2>';
 					$return .= '<div class="thumb" style="background-image: url(' . $video['thumbnailUrl'] . ');">';
 						$return .= '<div class="bar">';
