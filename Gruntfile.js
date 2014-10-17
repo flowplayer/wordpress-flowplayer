@@ -95,13 +95,23 @@ module.exports = function(grunt) {
 				files: [
 					{
 						expand: true,     // Enable dynamic expansion.
-						cwd: 'frontend/assets/js/',      // Src matches are relative to this path.
+						cwd: 'frontend/assets/drive/',      // Src matches are relative to this path.
 						src: ['*.js', '!*.min.js'], // Actual pattern(s) to match.
-						dest: 'frontend/assets/js/',   // Destination path prefix.
+						dest: 'frontend/assets/drive/',   // Destination path prefix.
 						ext: '.min.js',   // Dest filepaths will have this extension.
 					},
 				]
 			}
+		},
+
+		concat_css: {
+			options: {
+				// Task-specific options go here.
+			},
+			all: {
+				src: ['frontend/assets/css/public.css', 'frontend/assets/drive/*.css'],
+				dest: 'frontend/assets/css/public-concat.css'
+			},
 		},
 
 		cssmin: {

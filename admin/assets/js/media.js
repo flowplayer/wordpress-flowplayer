@@ -112,6 +112,8 @@ jQuery(document).ready(function ($) {
         $('input#fp5-video-id').val(that.attr('data-video-id'));
         $('input#fp5-video-name').val(that.attr('data-video-name'));
         $('input#fp5-data-rtmp').val(that.attr('data-rtmp'));
+        $('input#fp5-qualities').val(that.attr('data-qualities'));
+        $('input#fp5-default-quality').val(that.attr('data-default-quality'));
         $.colorbox.close();
         CreatePreview();
     });

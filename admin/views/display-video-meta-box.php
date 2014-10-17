@@ -195,7 +195,7 @@
 	<tbody>
 
 		<tr class="fp5-video-attributes" valign="top">
-			<th scope="row"><?php _e( 'Video attributes', $this->plugin_slug )?> <a href="ttp://flowplayer.org/docs/setup.html#video-attributes" target="_blank">?</a></th>
+			<th scope="row"><?php _e( 'Video attributes', $this->plugin_slug )?> <a href="http://flowplayer.org/docs/setup.html#video-attributes" target="_blank">?</a></th>
 			<td>
 				<label for="fp5-autoplay">
 					<input type="checkbox" name="fp5-autoplay" id="fp5-autoplay" value="true" <?php if ( isset ( $fp5_stored_meta['fp5-autoplay'] ) ) checked( $fp5_stored_meta['fp5-autoplay'][0], 'true' ); ?> />
@@ -238,6 +238,17 @@
 					<input type="checkbox" name="fp5-fixed-width" id="fp5-fixed-width" value="true" <?php if ( isset ( $fp5_stored_meta['fp5-fixed-width'] ) ) checked( $fp5_stored_meta['fp5-fixed-width'][0], 'true' ); ?> />
 					<?php _e( 'Use fixed player size', $this->plugin_slug ) ?>
 				</label>
+			</td>
+		</tr>
+
+		<tr class="fp5-quality" valign="top">
+			<th scope="row"><?php _e( 'Video quality', $this->plugin_slug )?> <a href="https://flowplayer.org/demos/qsel/" target="_blank">?</a></th>
+			<td>
+				<label for="fp5-default-quality" class="fp5-row-title"><?php _e( 'Default quality', $this->plugin_slug )?></label>
+				<input type="text" name="fp5-default-quality" id="fp5-default-quality" placeholder="<?php _e( '360p', $this->plugin_slug )?>" value="<?php if ( isset ( $fp5_stored_meta['fp5-default-quality'] ) ) echo esc_attr( $fp5_stored_meta['fp5-default-quality'][0] ); ?>" />
+				|
+				<label for="fp5-qualities" class="fp5-row-title"><?php _e( 'Video qualities', $this->plugin_slug )?></label>
+				<input type="text" name="fp5-qualities" id="fp5-qualities" placeholder="<?php _e( '216p,360p,720p,1080p', $this->plugin_slug )?>" value="<?php if ( isset ( $fp5_stored_meta['fp5-qualities'] ) ) echo esc_attr( $fp5_stored_meta['fp5-qualities'][0] ); ?>" />
 			</td>
 		</tr>
 

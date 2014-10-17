@@ -73,7 +73,7 @@ class Flowplayer5_Frontend {
 		}
 
 		wp_register_style( $this->plugin_slug . '-skins', trailingslashit( $flowplayer5_directory ) . 'all-skins.css', array(), $this->player_version );
-		wp_register_style( $this->plugin_slug . '-logo-origin', plugins_url( '/assets/css/public' . $suffix . '.css', __FILE__ ), array(), $this->plugin_version );
+		wp_register_style( $this->plugin_slug . '-logo-origin', plugins_url( '/assets/css/public-concat' . $suffix . '.css', __FILE__ ), array(), $this->plugin_version );
 		wp_register_style( $this->plugin_slug . '-asf', esc_url( $asf_css ), array(), null );
 
 		// Register stylesheets
@@ -111,6 +111,7 @@ class Flowplayer5_Frontend {
 		$key     = ( ! empty ( $options['key'] ) ? $options['key'] : '' );
 		$cdn     = isset( $options['cdn_option'] );
 		$asf_js  = ( ! empty ( $options['asf_js'] ) ? $options['asf_js'] : false );
+		$qualities = get_post_meta( $post->ID, 'fp5-qualities', true );
 		$suffix  = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 		$flowplayer5_commercial = trailingslashit( WP_CONTENT_DIR ) . 'flowplayer-commercial/flowplayer' . $suffix . '.js';
@@ -126,6 +127,7 @@ class Flowplayer5_Frontend {
 		wp_register_script( $this->plugin_slug . '-script', trailingslashit( $flowplayer5_directory ) . 'flowplayer' . $suffix . '.js', array( 'jquery' ), $this->player_version, false );
 		wp_register_script( $this->plugin_slug . '-ima3', '//s0.2mdn.net/instream/html5/ima3.js', array(), null, false );
 		wp_register_script( $this->plugin_slug . '-asf', esc_url( $asf_js ), array( $this->plugin_slug . '-ima3' ), null, false );
+		wp_register_script( $this->plugin_slug . '-quality-selector', plugins_url( '/assets/drive/quality-selector' . $suffix . '.js', __FILE__ ), array( $this->plugin_slug . '-script' ), $this->player_version, false );
 
 		// Register JavaScript
 		if( function_exists( 'has_shortcode' ) ) {
@@ -136,11 +138,17 @@ class Flowplayer5_Frontend {
 				if ( $asf_js ) {
 					wp_enqueue_script( $this->plugin_slug . '-asf' );
 				}
+				if ( $qualities ) {
+					wp_enqueue_script( $this->plugin_slug . '-quality-selector' );
+				}
 			}
 		} else {
 			wp_enqueue_script( $this->plugin_slug . '-script' );
 			if ( $asf_js ) {
 				wp_enqueue_script( $this->plugin_slug . '-asf' );
+			}
+			if ( $qualities ) {
+				wp_enqueue_script( $this->plugin_slug . '-quality-selector' );
 			}
 		}
 

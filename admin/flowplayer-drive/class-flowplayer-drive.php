@@ -180,12 +180,21 @@ class Flowplayer_Drive {
 
 		foreach ( $json_videos as $video ) {
 
+			$qualities = array();
+
 			foreach ( $video->encodings as $encoding ) {
 
-				$quality = '-' . $encoding->height . 'p';
+				$quality = $encoding->height . 'p';
 
-				if ( strpos( $encoding->filename, $quality ) !== false ) {
+				if ( strpos( $encoding->filename, ( '-' . $quality ) ) !== false ) {
+					if ( 'mp4' === $encoding->format && 1 < $video->hlsResolutions ) {
+						$qualities[] = $quality;
+					}
 					continue;
+				} else {
+					if ( 'mp4' === $encoding->format && 1 < $video->hlsResolutions ) {
+						$qualities[] = $quality;
+					}
 				}
 
 				if ( 'webm' === $encoding->format ) {
@@ -226,7 +235,9 @@ class Flowplayer_Drive {
 				'thumbnailUrl'   => $video->thumbnailUrl,
 				'width'          => $width,
 				'height'         => $height,
-				'duration'       => $duration
+				'duration'       => $duration,
+				'quality'        => $height . 'p',
+				'qualities'      => $qualities,
 			);
 
 		}
@@ -247,7 +258,7 @@ class Flowplayer_Drive {
 			}
 
 			$return = '<div class="video">';
-				$return .= '<a href="#" class="choose-video" data-rtmp="' . $video['rtmp'] . '" data-user-id="' . $video['userId'] . '" data-video-id="' . $video['id'] . '" data-video-name="' . $video['title'] . '" data-webm="' . $video['webm'] .'" data-mp4="' . $video['mp4'] . '" data-hls="' . $video['hls'] . '" data-flash="' . $video['flash'] . '" data-img="' . $video['snapshotUrl'] . '">';
+				$return .= '<a href="#" class="choose-video" data-rtmp="' . $video['rtmp'] . '" data-user-id="' . $video['userId'] . '" data-video-id="' . $video['id'] . '" data-video-name="' . $video['title'] . '" data-webm="' . $video['webm'] .'" data-mp4="' . $video['mp4'] . '" data-hls="' . $video['hls'] . '" data-flash="' . $video['flash'] . '" data-img="' . $video['snapshotUrl'] . '" data-qualities="' . implode( ',', $video['qualities'] ) . '" data-default-quality="' . $video['quality'] . '">';
 					$return .= '<h2 class="video-title">' . $video['title'] . '</h2>';
 					$return .= '<div class="thumb" style="background-image: url(' . $video['thumbnailUrl'] . ');">';
 						$return .= '<div class="bar">';

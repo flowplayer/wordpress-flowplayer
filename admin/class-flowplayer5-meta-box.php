@@ -249,7 +249,9 @@ class Video_Meta_Box {
 			$text_fields = array(
 				'fp5-flash-video',
 				'fp5-video-name',
-				'fp5-data-rtmp'
+				'fp5-data-rtmp',
+				'fp5-qualities',
+				'fp5-default-quality'
 			);
 
 			foreach ( $text_fields as $text_field ) {
