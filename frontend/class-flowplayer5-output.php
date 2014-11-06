@@ -225,9 +225,9 @@ class Flowplayer5_Output {
 		}
 
 		if ( 'true' == $no_embed ) {
-			$embed = 'true';
-		} else {
 			$embed = 'false';
+		} else {
+			$embed = 'true';
 		}
 
 		// Check if a video has been added before output
