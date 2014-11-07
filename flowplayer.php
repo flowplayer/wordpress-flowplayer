@@ -67,10 +67,10 @@ Flowplayer5_Post_Type::get_instance();
 Flowplayer5_Taxonomy::get_instance();
 if( is_admin() ) {
 	Flowplayer5_Admin::get_instance();
-	Video_Meta_Box::get_instance();
+	Flowplayer5_Video_Meta_Box::get_instance();
 	$flowplayer_drive = new Flowplayer_Drive();
 	add_action( 'plugins_loaded', array( $flowplayer_drive, 'run' ) );
-	new Taxonomy_Meta();
+	new Flowplayer5_Taxonomy_Meta();
 } else {
 	new Flowplayer5_Frontend();
 	new Flowplayer5_Shortcode();
