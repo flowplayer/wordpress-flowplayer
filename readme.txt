@@ -129,11 +129,19 @@ After [Signing up](http://flowplayer.org/asf/?utm_source=wordpress.org&utm_mediu
 
 = How do I create a playlist? =
 
-Edit the video you want to add to a playlits and there should be a playlist box. You can choose an existing playlist or create a new one there. You can add the playlist to a post via the "Add Video" button under the post title.
+Edit the video you want to add to a playlist and there should be a playlist box. You can choose an existing playlist or create a new one there. You can add the playlist to a post via the "Add Video" button under the post title.
+
+= How do I set multi-resolution videos? =
+
+With Flowplayer HTML5 for WordPress v1.10.0 we have included [multi-resolution videos support](https://flowplayer.org/docs/drive.html#quality-selector-plugin?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin).
+
+- The easy way is to use [Flowplayer Drive](http://flowplayer.org/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin) paid version where everything is done for you.
+
+- The second way requires creating the multiple resolution files and naming them using the [predefined naming structure](https://flowplayer.org/docs/drive.html#quality-selector-plugin?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin). In the configuration tab you need to define the default video resolution and the other resolutions.
 
 = Can I test the commercial version? =
 
-Yes, we have some sample keys for the specfic urls
+Yes, we have some sample keys for the specific urls
 
 `localhost  $289122895653393`
 `127.0.0.1  $130388743137804`
@@ -205,7 +213,7 @@ add_filter( 'fp5_post_type_args', 'fp5_post_type_arg_video_post' );`
 
 
 `/**
- * Disable `Help Tooltip` - Add additional configuration options.
+ * Disable "Help Tooltip" - Add additional configuration options.
  */
 function fp5_video_config() {
 
@@ -228,6 +236,12 @@ add_action( 'fp5_video_config', 'fp5_video_config' );`
 
 We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
 
+= 1.10.0 - 9 November 2014 =
+* add complete multi-resolution support
+* add an option to define Flowplayer assets directory e.g. CDN
+* fix bug: embed options
+* prefix two classes
+
 = 1.9.4 - 9 October 2014 =
 * fix bug: change class from `.flowplayer` to `.flowplayer-video`
 * fix bug: letting 0 be a valid number for ads time
@@ -242,7 +256,7 @@ We have a lot of plans for this plugin. You can see some of the up and coming fe
 * fix bug: rtmp and flash videos
 * add video unique class
 * add German translation
-* prepare for mult-reselution support for Flowplayer Drive
+* prepare for multi-resolution support for Flowplayer Drive
 
 = 1.9.1 - 5 September 2014 =
 * fix bug: shortcode loading at the top content - the shortcode was printed and not returned
@@ -253,7 +267,7 @@ We have a lot of plans for this plugin. You can see some of the up and coming fe
 * fix CSS issue with Yoast Video SEO
 * update upload button text in the settings
 * add hidden field with duration for Yoast Video SEO
-* stop video width and height calulation when custom width or height are defined
+* stop video width and height calculation when custom width or height are defined
 
 = 1.8.1 - 17 April 2014 =
 * replace php short tags with full tags
@@ -277,7 +291,7 @@ We have a lot of plans for this plugin. You can see some of the up and coming fe
 
 = 1.5.0 - 26 December 2013 =
 * update to [Flowplayer HTML5 5.4.6](http://flowplayer.org/news/#html5546)
-* minify all backend scripts and styles
+* minify all back-end scripts and styles
 * reformatted video format meta and add a new filter
 * started adding flash video file and rtmp support
 
@@ -336,6 +350,9 @@ We have a lot of plans for this plugin. You can see some of the up and coming fe
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.10.0 =
+* add complete multi-resolution support and fixed bug
 
 = 1.9.4 =
 * bug fixes: IMPORTANT!: changed class from `.flowplayer` to `.flowplayer-video`
