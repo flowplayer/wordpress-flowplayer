@@ -37,7 +37,7 @@ class Flowplayer5_Widget extends WP_Widget {
 
 		// Default widget option values.
 		$this->defaults = array(
-			'id' => ''
+			'id' => '',
 		);
 
 		$widget_ops = array(
@@ -69,8 +69,8 @@ class Flowplayer5_Widget extends WP_Widget {
 		$id = isset( $instance['id'] ) ? absint( $instance['id'] ) : '';
 
 		// WP_Query arguments
-		$args = array (
-			'post_type' => 'flowplayer5'
+		$args = array(
+			'post_type' => 'flowplayer5',
 		);
 
 		// The Query

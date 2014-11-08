@@ -95,8 +95,8 @@ function fp5_modal_content() {
 				<select name="flowplayer5_videos" id="flowplayer5_videos">
 					<?php
 					// WP_Query arguments
-					$args = array (
-						'post_type' => 'flowplayer5'
+					$args = array(
+						'post_type' => 'flowplayer5',
 					);
 
 					// The Query
@@ -118,7 +118,7 @@ function fp5_modal_content() {
 				<select name="flowplayer5_playlist" id="flowplayer5_playlist">
 					<?php
 
-					$args = array (
+					$args = array(
 						'post'     => 'flowplayer5',
 						'taxonomy' => 'playlist',
 					);

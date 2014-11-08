@@ -28,13 +28,13 @@ function flowplayer5_delete_data() {
 			array(
 				'post_type'   => $post_type,
 				'numberposts' => -1,
-				'fields'      => 'ids'
+				'fields'      => 'ids',
 			)
 		);
 
 		if ( $items ) {
 			foreach ( $items as $item ) {
-				wp_delete_post( $item, true);
+				wp_delete_post( $item, true );
 			}
 		}
 	}
@@ -49,13 +49,12 @@ if ( is_multisite() ) {
 	$blogs = $wpdb->get_results( "SELECT blog_id FROM {$wpdb->blogs}", ARRAY_A );
 
 	if ( $blogs ) {
-		foreach( $blogs as $blog ) {
+		foreach ( $blogs as $blog ) {
 			switch_to_blog( $blog['blog_id'] );
 			flowplayer5_delete_data();
 		}
 		restore_current_blog();
 	}
-
 } else {
 
 	flowplayer5_delete_data();

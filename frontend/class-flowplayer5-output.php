@@ -114,28 +114,26 @@ class Flowplayer5_Output {
 			 */
 
 			// Attributes
-			extract(
-				shortcode_atts(
-					array(
-						'mp4'            => '',
-						'webm'           => '',
-						'ogg'            => '',
-						'flash'          => '',
-						'skin'           => 'minimalist',
-						'splash'         => '',
-						'autoplay'       => 'false',
-						'loop'           => 'false',
-						'subtitles'      => '',
-						'width'          => '',
-						'height'         => '',
-						'fixed'          => 'false',
-						'fixed_controls' => '',
-						'coloring'       => 'default',
-						'preload'        => 'auto',
-						'poster'         => ''
-					),
-					$atts
-				)
+			shortcode_atts(
+				array(
+					'mp4'            => '',
+					'webm'           => '',
+					'ogg'            => '',
+					'flash'          => '',
+					'skin'           => 'minimalist',
+					'splash'         => '',
+					'autoplay'       => 'false',
+					'loop'           => 'false',
+					'subtitles'      => '',
+					'width'          => '',
+					'height'         => '',
+					'fixed'          => 'false',
+					'fixed_controls' => '',
+					'coloring'       => 'default',
+					'preload'        => 'auto',
+					'poster'         => '',
+				),
+				$atts
 			);
 
 			$max_width = $width;
@@ -151,7 +149,7 @@ class Flowplayer5_Output {
 		}
 
 		// set the options for the shortcode - pulled from the register-settings.php
-		$options       = get_option('fp5_settings_general');
+		$options       = get_option( 'fp5_settings_general' );
 		$key           = ( isset( $options['key'] ) ) ? $options['key'] : '';
 		$logo          = ( isset( $options['logo'] ) ) ? $options['logo'] : '';
 		$ga_account_id = ( isset( $options['ga_account_id'] ) ) ? $options['ga_account_id'] : '';
@@ -168,9 +166,9 @@ class Flowplayer5_Output {
 		);
 
 		$data = array(
-			( 0 < strlen ( $key ) ? 'data-key="' . esc_attr( $key ) . '"' : ''),
-			( 0 < strlen  ( $key ) && 0 < strlen  ( $logo ) ? 'data-logo="' . esc_url( $logo ) . '"' : '' ),
-			( 0 < strlen  ( $ga_account_id ) ? 'data-analytics="' . esc_attr( $ga_account_id ) . '"' : '' ),
+			( 0 < strlen( $key ) ? 'data-key="' . esc_attr( $key ) . '"' : ''),
+			( 0 < strlen( $key ) && 0 < strlen( $logo ) ? 'data-logo="' . esc_url( $logo ) . '"' : '' ),
+			( 0 < strlen( $ga_account_id ) ? 'data-analytics="' . esc_attr( $ga_account_id ) . '"' : '' ),
 			( $ratio != 0 ? 'data-ratio="' . esc_attr( $ratio ) . '"' : '' ),
 			( ! empty ( $data_rtmp ) ? 'data-rtmp="' . esc_attr( $data_rtmp ) . '"' : '' ),
 			( ! empty ( $quality ) ? 'data-default-quality="' . esc_attr( $quality ) . '"' : '' ),
@@ -206,8 +204,8 @@ class Flowplayer5_Output {
 		$ad_type  = ( ! empty( $ad_type ) ? esc_attr( $ad_type ) : '' );
 
 		$source = array();
-		foreach( $formats as $format => $src ){
-			if ( !empty( $src ) ) {
+		foreach ( $formats as $format => $src ) {
+			if ( ! empty( $src ) ) {
 				$source[ $format ] = '<source type="' . $format . '" src="' . esc_attr( apply_filters( 'fp5_filter_video_src', $src, $format, $id ) ) . '">';
 			}
 		}

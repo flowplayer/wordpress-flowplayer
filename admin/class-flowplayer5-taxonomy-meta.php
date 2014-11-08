@@ -161,7 +161,7 @@ class Flowplayer5_Taxonomy_Meta {
 		</tr>
 	<?php
 		// WP_Query arguments
-		$args = array (
+		$args = array(
 			'post_type' => 'flowplayer5',
 			'orderby'   => 'meta_value_num',
 			'meta_key'  => $taxonomy . '_order_' . $t_id,
@@ -224,7 +224,6 @@ class Flowplayer5_Taxonomy_Meta {
 					);
 				}
 			}
-
 		}
 	}
 
@@ -240,8 +239,8 @@ class Flowplayer5_Taxonomy_Meta {
 			$cat_keys = array_keys( $_POST['term_meta'] );
 
 			foreach ( $cat_keys as $key ) {
-				if ( isset ( $_POST['term_meta'][$key] ) ) {
-					$term_meta[$key] = sanitize_text_field( $_POST['term_meta'][$key] );
+				if ( isset ( $_POST['term_meta'][ $key ] ) ) {
+					$term_meta[ $key ] = sanitize_text_field( $_POST['term_meta'][ $key ] );
 				}
 			}
 			// Save the option array.
