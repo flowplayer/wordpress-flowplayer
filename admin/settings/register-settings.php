@@ -37,6 +37,13 @@ function fp5_register_settings() {
 					'type' => 'text',
 					'size' => 'medium'
 				),
+				'directory' => array(
+					'id'   => 'directory',
+					'name' => __( 'Remote Assests Directory', 'flowplayer5' ),
+					'type' => 'text',
+					'size' => 'regular',
+					'desc' => __( 'Add the link to the directory with all of the Flowplayer assests', 'flowplayer5' ) . ' e.g. example.com/flowplayer5/'
+				),
 				'logo' => array(
 					'id'   => 'logo',
 					'name' => __( 'Logo', 'flowplayer5' ),
