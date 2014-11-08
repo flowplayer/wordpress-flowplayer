@@ -2,7 +2,7 @@
 /**
  * Flowplayer 5 for WordPress
  *
- * @package   Taxonomy_Meta
+ * @package   Flowplayer5_Taxonomy_Meta
  * @author    Ulrich Pogson <ulrich@pogson.ch>
  * @license   GPL-2.0+
  * @link      http://flowplayer.org/
@@ -17,10 +17,10 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Custom Taxonomy Meta class.
  *
- * @package Taxonomy_Meta
+ * @package Flowplayer5_Taxonomy_Meta
  * @author  Ulrich Pogson <ulrich@pogson.ch>
  */
-class Taxonomy_Meta {
+class Flowplayer5_Taxonomy_Meta {
 
 	/**
 	 * Initializes the differnt functions

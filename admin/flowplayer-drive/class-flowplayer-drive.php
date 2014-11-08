@@ -180,17 +180,36 @@ class Flowplayer_Drive {
 
 		foreach ( $json_videos as $video ) {
 
+			$qualities = array();
+
 			foreach ( $video->encodings as $encoding ) {
-				$quality = '-' . $encoding->height . 'p';
-				if ( strpos( $encoding->filename, $quality ) !== false ) {
+
+				$quality = $encoding->height . 'p';
+
+				if ( strpos( $encoding->filename, ( '-' . $quality ) ) !== false ) {
+					if ( 'mp4' === $encoding->format && 1 < $video->hlsResolutions ) {
+						$qualities[] = $quality;
+					}
 					continue;
+				} else {
+					if ( 'mp4' === $encoding->format && 1 < $video->hlsResolutions ) {
+						$qualities[] = $quality;
+					}
 				}
 
 				if ( 'webm' === $encoding->format ) {
-					$webm  = $encoding->url;
+					$webm   = $encoding->url;
+					$height = $encoding->height;
+					$width  = $encoding->width;
 				} elseif ( 'mp4' === $encoding->format ) {
-					$mp4   = $encoding->url;
-					$flash = $encoding->filename;
+					$mp4    = $encoding->url;
+					$flash  = $encoding->filename;
+					$height = $encoding->height;
+					$width  = $encoding->width;
+				} elseif ( 'hls' === $encoding->format ) {
+					$hls = $encoding->url;
+				} else {
+					$hls = '';
 				}
 
 				if ( in_array( $encoding->format, array( 'mp4', 'webm' ) ) ) {
@@ -202,26 +221,55 @@ class Flowplayer_Drive {
 				continue;
 			}
 
+			$videos[] = array(
+				'id'             => $video->id,
+				'title'          => $video->title,
+				'userId'         => $video->userId,
+				'rtmp'           => $rtmp,
+				'hlsResolutions' => $video->hlsResolutions,
+				'webm'           => $webm,
+				'mp4'            => $mp4,
+				'hls'            => $hls,
+				'flash'          => 'mp4:' . $video->userId . '/' . $flash,
+				'snapshotUrl'    => $video->snapshotUrl,
+				'thumbnailUrl'   => $video->thumbnailUrl,
+				'width'          => $width,
+				'height'         => $height,
+				'duration'       => $duration,
+				'quality'        => $height . 'p',
+				'qualities'      => $qualities,
+			);
+
+		}
+
+		return $videos;
+
+	}
+
+	public function get_video_html() {
+
+		$videos = $this->get_videos();
+
+		foreach ( $videos as $video ) {
 			$multi_res = '<span class="dashicons"></span>';
 
-			if ( 1 < $video->hlsResolutions ) {
+			if ( 1 < $video['hlsResolutions'] ) {
 				$multi_res = '<span class="dashicons dashicons-desktop"></span><span class="dashicons dashicons-tablet"></span><span class="dashicons dashicons-smartphone"></span>';
 			}
 
 			$return = '<div class="video">';
-				$return .= '<a href="#" class="choose-video" data-rtmp="' . $rtmp . '" data-user-id="' . $video->userId . '" data-video-id="' . $video->id . '" data-video-name="' . $video->title . '" data-webm="' . $webm .'" data-mp4="' . $mp4 . '" data-flash="mp4:' . $video->userId . '/' . $flash . '" data-img="' . $video->snapshotUrl . '">';
-					$return .= '<h2 class="video-title">' . $video->title . '</h2>';
-					$return .= '<div class="thumb" style="background-image: url(' . $video->thumbnailUrl . ');">';
+				$return .= '<a href="#" class="choose-video" data-rtmp="' . $video['rtmp'] . '" data-user-id="' . $video['userId'] . '" data-video-id="' . $video['id'] . '" data-video-name="' . $video['title'] . '" data-webm="' . $video['webm'] .'" data-mp4="' . $video['mp4'] . '" data-hls="' . $video['hls'] . '" data-flash="' . $video['flash'] . '" data-img="' . $video['snapshotUrl'] . '" data-qualities="' . implode( ',', $video['qualities'] ) . '" data-default-quality="' . $video['quality'] . '">';
+					$return .= '<h2 class="video-title">' . $video['title'] . '</h2>';
+					$return .= '<div class="thumb" style="background-image: url(' . $video['thumbnailUrl'] . ');">';
 						$return .= '<div class="bar">';
 							$return .= $multi_res;
-							$return .= '<span class="duration">' . $duration . '</span>';
+							$return .= '<span class="duration">' . $video['duration'] . '</span>';
 						$return .= '</div>';
 					$return .= '</div>';
 				$return .= '</a>';
 			$return .= '</div>';
 
 			echo $return;
-
 		}
 
 	}
@@ -243,7 +291,7 @@ class Flowplayer_Drive {
 		?>
 		<div style="display: none;">
 			<div id="flowplayer-drive">
-				<?php $this->get_videos(); ?>
+				<?php $this->get_video_html(); ?>
 			</div>
 		</div>
 		<?php

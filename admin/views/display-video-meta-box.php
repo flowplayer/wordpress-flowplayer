@@ -17,15 +17,18 @@
 	<li class="nav-tab"><a href="#asf"><?php _e( 'Google AdSense', $this->plugin_slug ) ?></a></li>
 </ul>
 <div id="media">
-<h3><?php _e( 'Media Files', $this->plugin_slug )?></h3>
-<p><?php _e( 'It is recommended to add at least two video formats so that the video plays on as many browsers as possible. To be able to calculate the dimensions of the video the video format added needs to be compatible with the current browser.', $this->plugin_slug ) ?> <a href="http://flowplayer.org/docs/setup.html#video-formats" target="_blank"><?php _e( 'About video formats.', $this->plugin_slug ) ?></a>
-<label class="switch-light switch-android" onclick="">
-	<input type="checkbox" name="fp5-toggle" id="fp5-toggle" value="flase"/>
-	<span>
-		<span><?php _e( 'Basic', $this->plugin_slug ) ?></span> / <span><?php _e( 'Advanced', $this->plugin_slug ) ?></span>
-	</span>
-	<a></a>
-</label></p>
+	<p style="width:70%;float:left;">
+		<?php _e( 'Add at least two video formats so that the video plays on as many browsers as possible. To be able to calculate the dimensions of the video the video format added needs to be compatible with the current browser.', $this->plugin_slug ) ?> <a href="http://flowplayer.org/docs/setup.html#video-formats" target="_blank"><?php _e( 'About video formats.', $this->plugin_slug ) ?></a>
+	</p>
+	<p style="width:30%;float:right;">
+		<label class="switch-light switch-android" onclick="">
+			<input type="checkbox" name="fp5-toggle" id="fp5-toggle" value="flase"/>
+			<span>
+				<span><?php _e( 'Basic', $this->plugin_slug ) ?></span> / <span><?php _e( 'Advanced', $this->plugin_slug ) ?></span>
+			</span>
+			<a></a>
+		</label>
+	</p>
 <table class="form-table">
 	<tbody>
 
@@ -103,8 +106,7 @@
 </table>
 </div>
 <div class="hidden" id="skinning">
-<h3><?php _e( 'Skinning', $this->plugin_slug )?></h3>
-<p><?php _e( 'Alter the looks and/or behaviour of the skin.', $this->plugin_slug ) ?></p>
+<p><?php _e( 'Customize the looks and behavoir of the video player.', $this->plugin_slug ) ?></p>
 <table class="form-table">
 	<tbody>
 
@@ -189,13 +191,12 @@
 </table>
 </div>
 <div class="hidden" id="config">
-<h3><?php _e( 'Configuration', $this->plugin_slug )?></h3>
-<p><?php _e( 'Configure the video attributes and player size', $this->plugin_slug ) ?></p>
+<p><?php _e( 'Configure the video size, quality and attributes.', $this->plugin_slug ) ?></p>
 <table class="form-table">
 	<tbody>
 
 		<tr class="fp5-video-attributes" valign="top">
-			<th scope="row"><?php _e( 'Video attributes', $this->plugin_slug )?> <a href="ttp://flowplayer.org/docs/setup.html#video-attributes" target="_blank">?</a></th>
+			<th scope="row"><?php _e( 'Video attributes', $this->plugin_slug )?> <a href="http://flowplayer.org/docs/setup.html#video-attributes" target="_blank">?</a></th>
 			<td>
 				<label for="fp5-autoplay">
 					<input type="checkbox" name="fp5-autoplay" id="fp5-autoplay" value="true" <?php if ( isset ( $fp5_stored_meta['fp5-autoplay'] ) ) checked( $fp5_stored_meta['fp5-autoplay'][0], 'true' ); ?> />
@@ -241,12 +242,22 @@
 			</td>
 		</tr>
 
+		<tr class="fp5-quality" valign="top">
+			<th scope="row"><?php _e( 'Video quality', $this->plugin_slug )?> <a href="https://flowplayer.org/demos/qsel/" target="_blank">?</a></th>
+			<td>
+				<label for="fp5-default-quality" class="fp5-row-title"><?php _e( 'Default quality', $this->plugin_slug )?></label>
+				<input type="text" name="fp5-default-quality" id="fp5-default-quality" placeholder="<?php _e( '360p', $this->plugin_slug )?>" value="<?php if ( isset ( $fp5_stored_meta['fp5-default-quality'] ) ) echo esc_attr( $fp5_stored_meta['fp5-default-quality'][0] ); ?>" />
+				|
+				<label for="fp5-qualities" class="fp5-row-title"><?php _e( 'Video qualities', $this->plugin_slug )?></label>
+				<input type="text" name="fp5-qualities" id="fp5-qualities" placeholder="<?php _e( '216p,360p,720p,1080p', $this->plugin_slug )?>" value="<?php if ( isset ( $fp5_stored_meta['fp5-qualities'] ) ) echo esc_attr( $fp5_stored_meta['fp5-qualities'][0] ); ?>" />
+			</td>
+		</tr>
+
 	</tbody>
 </table>
 </div>
 <div class="hidden" id="asf">
-<h3><?php _e( 'Google AdSense', $this->plugin_slug )?></h3>
-<p><?php _e( 'Enable and configure ad.', $this->plugin_slug ); ?> <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=flowplayer5&page=flowplayer5_settings' ) ); ?>"><?php _e( 'Set up Google AdSense', 'flowplayer5' ); ?></a></p>
+<p><?php _e( 'Enable and configure the video ad.', $this->plugin_slug ); ?> <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=flowplayer5&page=flowplayer5_settings' ) ); ?>"><?php _e( 'Set up Google AdSense', 'flowplayer5' ); ?></a></p>
 <table class="form-table">
 	<tbody>
 

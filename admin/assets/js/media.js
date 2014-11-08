@@ -105,12 +105,15 @@ jQuery(document).ready(function ($) {
         var that = $(this);
         $('input#fp5-splash-image').val(that.attr('data-img'));
         $('input#fp5-mp4-video').val(that.attr('data-mp4'));
+        $('input#fp5-hls-video').val(that.attr('data-hls'));
         $('input#fp5-webm-video').val(that.attr('data-webm'));
         $('input#fp5-flash-video').val(that.attr('data-flash'));
         $('input#fp5-user-id').val(that.attr('data-user-id'));
         $('input#fp5-video-id').val(that.attr('data-video-id'));
         $('input#fp5-video-name').val(that.attr('data-video-name'));
         $('input#fp5-data-rtmp').val(that.attr('data-rtmp'));
+        $('input#fp5-qualities').val(that.attr('data-qualities'));
+        $('input#fp5-default-quality').val(that.attr('data-default-quality'));
         $.colorbox.close();
         CreatePreview();
     });

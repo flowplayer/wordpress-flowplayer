@@ -2,7 +2,7 @@
 /**
  * Flowplayer 5 for WordPress
  *
- * @package   Video_Meta_Box
+ * @package   Flowplayer5_Video_Meta_Box
  * @author    Ulrich Pogson <ulrich@pogson.ch>
  * @license   GPL-2.0+
  * @link      http://flowplayer.org/
@@ -17,10 +17,10 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Video Meta box class.
  *
- * @package Video_Meta_Box
+ * @package Flowplayer5_Video_Meta_Box
  * @author  Ulrich Pogson <ulrich@pogson.ch>
  */
-class Video_Meta_Box {
+class Flowplayer5_Video_Meta_Box {
 
 	/**
 	 * Unique identifier for your plugin.
@@ -249,7 +249,9 @@ class Video_Meta_Box {
 			$text_fields = array(
 				'fp5-flash-video',
 				'fp5-video-name',
-				'fp5-data-rtmp'
+				'fp5-data-rtmp',
+				'fp5-qualities',
+				'fp5-default-quality'
 			);
 
 			foreach ( $text_fields as $text_field ) {

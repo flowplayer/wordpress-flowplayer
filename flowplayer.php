@@ -10,8 +10,8 @@
  * @wordpress-plugin
  * Plugin Name: Flowplayer HTML5 for WordPress
  * Plugin URI:  http://wordpress.org/plugins/flowplayer5/
- * Description: A HTML5 responsive video player plugin. From the makers of Flowplayer. Supports all three default Flowplayer skins, subtitles, tracking with Google Analytics, splash images. You can use your own watermark logo if you own a Commercial Flowplayer license.
- * Version:     1.9.4
+ * Description: A HTML5 responsive video player plugin. From the makers of Flowplayer. Includes player skins, tracking with Google Analytics, splash images and support for subtitles and multi-resolution videos. You can use your own watermark logo if you own a Commercial Flowplayer license.
+ * Version:     1.10.0
  * Author:      Flowplayer ltd.
  * Author URI:  http://flowplayer.org/
  * Text Domain: flowplayer5
@@ -67,10 +67,10 @@ Flowplayer5_Post_Type::get_instance();
 Flowplayer5_Taxonomy::get_instance();
 if( is_admin() ) {
 	Flowplayer5_Admin::get_instance();
-	Video_Meta_Box::get_instance();
+	Flowplayer5_Video_Meta_Box::get_instance();
 	$flowplayer_drive = new Flowplayer_Drive();
 	add_action( 'plugins_loaded', array( $flowplayer_drive, 'run' ) );
-	new Taxonomy_Meta();
+	new Flowplayer5_Taxonomy_Meta();
 } else {
 	new Flowplayer5_Frontend();
 	new Flowplayer5_Shortcode();

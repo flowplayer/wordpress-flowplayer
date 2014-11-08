@@ -91,6 +91,8 @@ class Flowplayer5_Output {
 			$ratio          = self::get_custom_fields( $custom_fields, 'fp5-aspect-ratio' );
 			$fixed          = self::get_custom_fields( $custom_fields, 'fp5-fixed-width' );
 			$data_rtmp      = self::get_custom_fields( $custom_fields, 'fp5-data-rtmp' );
+			$quality        = self::get_custom_fields( $custom_fields, 'fp5-default-quality' );
+			$qualities      = self::get_custom_fields( $custom_fields, 'fp5-qualities' );
 			$coloring       = self::get_custom_fields( $custom_fields, 'fp5-coloring' );
 			$fixed_controls = self::get_custom_fields( $custom_fields, 'fp5-fixed-controls' );
 			$background     = self::get_custom_fields( $custom_fields, 'fp5-no-background' );
@@ -171,6 +173,8 @@ class Flowplayer5_Output {
 			( 0 < strlen  ( $ga_account_id ) ? 'data-analytics="' . esc_attr( $ga_account_id ) . '"' : '' ),
 			( $ratio != 0 ? 'data-ratio="' . esc_attr( $ratio ) . '"' : '' ),
 			( ! empty ( $data_rtmp ) ? 'data-rtmp="' . esc_attr( $data_rtmp ) . '"' : '' ),
+			( ! empty ( $quality ) ? 'data-default-quality="' . esc_attr( $quality ) . '"' : '' ),
+			( ! empty ( $qualities ) ? 'data-qualities="' . esc_attr( $qualities ) . '"' : '' ),
 		);
 
 		$classes = array(
@@ -221,9 +225,9 @@ class Flowplayer5_Output {
 		}
 
 		if ( 'true' == $no_embed ) {
-			$embed = 'true';
-		} else {
 			$embed = 'false';
+		} else {
+			$embed = 'true';
 		}
 
 		// Check if a video has been added before output

@@ -1,0 +1,6 @@
+.flowplayer .fp-quality-selector{transition:.2s ease-in;box-sizing:border-box;-moz-box-sizing:border-box;position:absolute;right:10px;bottom:40px;width:0;overflow:hidden;font-size:12px;font-weight:bold;}
+.flowplayer .fp-quality-selector li{display:block;list-style:none;background-color:#333;background-color:rgba(51,51,51,0.6);margin:5px;padding:5px;border-radius:3px;color:#fff;text-shadow:0 0 2px #000;overflow:hidden;text-align:center;}
+.flowplayer .fp-quality-selector li.active{background-color:#00a7c8;background-color:rgba(0,167,200,0.6);}
+.flowplayer .fp-quality-selector li.active:hover{background-color:#00a7c8;background-color:rgba(0,167,200,0.6)}
+.flowplayer .fp-quality-selector li:hover{background-color:#444;background-color:rgba(51,51,51,0.8)}
+.flowplayer.is-mouseover .fp-quality-selector{width:80px}
