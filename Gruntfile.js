@@ -128,6 +128,13 @@ module.exports = function(grunt) {
 				src: ['*.css', '!*.min.css'],
 				dest: 'frontend/assets/css/',
 				ext: '.min.css'
+			},
+			flowplayer: {
+				expand: true,
+				cwd: 'frontend/assets/css/',
+				src: ['*.css', '!*.min.css'],
+				dest: 'frontend/assets/css/',
+				ext: '.min.css'
 			}
 		},
 
