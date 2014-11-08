@@ -70,6 +70,7 @@ module.exports = function(grunt) {
 					'!.gitmodules',
 					'!**/.wti',
 					'!*.xml',
+					'!*.yml',
 					'!**/*~'
 				],
 				dest: 'build/'
