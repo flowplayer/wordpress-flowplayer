@@ -94,7 +94,7 @@ class Flowplayer_Drive {
 					'callback' => '?',
 					'username' => $user_name,
 					'hash'     => sha1( $user_name . $seed . $password ),
-					'seed'     => $seed
+					'seed'     => $seed,
 				),
 				esc_url_raw( $this->account_api_url )
 			)
@@ -134,7 +134,7 @@ class Flowplayer_Drive {
 
 		$query_args = array(
 			'videos'   => 'true',
-			'authcode' => $authcode
+			'authcode' => $authcode,
 		);
 
 		$verified_video_api_url = add_query_arg( $query_args, $this->video_api_url );
@@ -174,7 +174,7 @@ class Flowplayer_Drive {
 			return;
 		}
 
-		$json_videos = array_reverse ( $json->videos );
+		$json_videos = array_reverse( $json->videos );
 
 		$rtmp = isset( $json->rtmpUrl ) ? $json->rtmpUrl : '';
 
@@ -213,7 +213,7 @@ class Flowplayer_Drive {
 				}
 
 				if ( in_array( $encoding->format, array( 'mp4', 'webm' ) ) ) {
-					$duration = gmdate( "H:i:s", $encoding->duration );
+					$duration = gmdate( 'H:i:s', $encoding->duration );
 				}
 			}
 

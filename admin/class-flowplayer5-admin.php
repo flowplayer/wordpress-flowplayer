@@ -69,8 +69,8 @@ class Flowplayer5_Admin {
 		add_filter( 'post_updated_messages', array( $this, 'set_messages' ), 10, 2 );
 
 		// Add column and rows
-		add_filter( 'manage_flowplayer5_posts_columns', array( $this, 'shortcode_column'), 5, 2 );
-		add_action( 'manage_flowplayer5_posts_custom_column', array( $this, 'shortcode_row'), 5, 2 );
+		add_filter( 'manage_flowplayer5_posts_columns', array( $this, 'shortcode_column' ), 5, 2 );
+		add_action( 'manage_flowplayer5_posts_custom_column', array( $this, 'shortcode_row' ), 5, 2 );
 
 		// Add dashboard counts
 		add_action( 'dashboard_glance_items', array( $this, 'add_dashboard_counts' ) );
@@ -303,7 +303,7 @@ class Flowplayer5_Admin {
 
 		global $post;
 
-		$messages[$this->plugin_slug] = apply_filters( 'fp5_filter_set_messages', array(
+		$messages[ $this->plugin_slug ] = apply_filters( 'fp5_filter_set_messages', array(
 
 			0  => '', // Unused. Messages start at index 1.
 			1  => __( 'Video updated.', $this->plugin_slug ) . ' ' . sprintf( __( 'Shortcode: %1$s', $this->plugin_slug ), '[flowplayer id="' . get_the_ID() . '"]' ),

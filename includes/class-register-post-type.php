@@ -87,7 +87,7 @@ class Flowplayer5_Post_Type {
 
 		$supports = array(
 			'title',
-			'author'
+			'author',
 		);
 
 		$rewrite = array(
