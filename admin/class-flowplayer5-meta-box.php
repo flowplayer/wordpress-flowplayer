@@ -167,6 +167,7 @@ class Flowplayer5_Video_Meta_Box {
 				'fp5-no-time',
 				'fp5-no-volume',
 				'fp5-no-embed',
+				'fp5-live',
 				'fp5-play-button',
 			);
 

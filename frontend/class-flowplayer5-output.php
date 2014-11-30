@@ -101,6 +101,7 @@ class Flowplayer5_Output {
 			$no_mute        = self::get_custom_fields( $custom_fields, 'fp5-no-mute' );
 			$no_volume      = self::get_custom_fields( $custom_fields, 'fp5-no-volume' );
 			$no_embed       = self::get_custom_fields( $custom_fields, 'fp5-no-embed' );
+			$live           = self::get_custom_fields( $custom_fields, 'fp5-live' );
 			$play_button    = self::get_custom_fields( $custom_fields, 'fp5-play-button' );
 			$ads_time       = self::get_custom_fields( $custom_fields, 'fp5-ads-time' );
 			$ad_type        = self::get_custom_fields( $custom_fields, 'fp5-ad-type' );
@@ -226,6 +227,10 @@ class Flowplayer5_Output {
 			$embed = 'false';
 		} else {
 			$embed = 'true';
+		}
+
+		if ( 'true' != $live ) {
+			$live = 'false';
 		}
 
 		// Check if a video has been added before output
