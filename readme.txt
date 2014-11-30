@@ -3,7 +3,7 @@ Contributors: flowplayerorg, grapplerulrich, anssi
 Donate link: http://flowplayer.org/pricing/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin
 Tags: flowplayer, flowplayer5, flowplayer HTML5, responsive, html5, video, player
 Requires at least: 3.5
-Tested up to: 4.0
+Tested up to: 4.0.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -28,6 +28,7 @@ Flowplayer HTML5 for WordPress provides a video management system for self hoste
 * Track your video video audience and traffic with [Google Analytics](http://flowplayer.org/docs/analytics.html?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin)
 * Video adverts with [Google AdSense](http://flowplayer.org/asf/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin)
 * Supports WEBM, MP4, OGG, FLV(flash), RTMP and HLS video formats.
+* Use Flowplayer to play your live streams
 * Show your video in any desired player size. Detects the video dimensions for configuring the correct player size
 * Fully internationalized - [Help Translate](https://webtranslateit.com/en/projects/8343-Flowplayer-HTML5-for-WordPress)
 
@@ -40,7 +41,7 @@ The commercial version is free of Flowplayer branding and you can use your logo.
 [Flowplayer Drive](http://flowplayer.org/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin) is an all-round solution for online video sharing and publishing. It makes the task of uploading, managing, sharing, and publishing videos extremely simple without sacrificing on quality and speed, and utilizing the latest web video technologies.
 
 * Maximum browser coverage
-* Optimal device compatibility with 640px video width
+* Multiresolution videos with quality switching
 * Videos optimized for best results
 * Maximum streaming throughout on a global video network
 * Free with Flowplayer watermark
@@ -185,7 +186,9 @@ Here are a few code examples of things that have been asked.
  * Allow flowplayer files should be loaded on the home page.
  */
 function fp5_has_shortcode( $has_shortcode ) {
-	$has_shortcode = is_front_page();
+	if ( is_front_page() ) {
+		$has_shortcode = is_front_page();
+	}
 	return $has_shortcode;
 }
 add_filter( 'fp5_filter_has_shortcode', 'fp5_has_shortcode' );`
@@ -235,6 +238,11 @@ add_action( 'fp5_video_config', 'fp5_video_config' );`
 == Changelog ==
 
 We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
+
+= 1.10.1 - 7 December 2014 =
+* add live streaming option
+* update to [Flowplayer 5.5.2](https://flowplayer.org/news/releases/html5/v5.5.1.html)
+* improve security and coding styles
 
 = 1.10.0 - 9 November 2014 =
 * add complete multi-resolution support
@@ -350,6 +358,9 @@ We have a lot of plans for this plugin. You can see some of the up and coming fe
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.10.1 =
+* update to Flowplayer 5.5.2, add live streaming support & code improvements
 
 = 1.10.0 =
 * add complete multi-resolution support and fixed bug
