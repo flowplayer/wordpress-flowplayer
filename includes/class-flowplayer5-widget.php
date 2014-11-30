@@ -110,16 +110,13 @@ class Flowplayer5_Widget extends WP_Widget {
 	 */
 	public function widget( $args, $instance ) {
 
-		// outputs the content of the widget
-		extract( $args, EXTR_SKIP );
-
 		$id    = $instance['id'];
 		$title = get_the_title( $id );
 
-		echo $before_widget;
+		echo $args['before_widget'];
 		echo '<h3 class="widget-title">' . esc_attr( $title ) . '</h3>';
 		echo fp5_video_output( $instance );
-		echo $after_widget;
+		echo $args['after_widget'];
 
 	}
 
