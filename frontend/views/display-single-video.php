@@ -36,6 +36,7 @@ jQuery(function($) {
 	$(".flowplayer-video-<?php echo esc_attr( $id ); ?>").flowplayer({
 		<?php do_action( 'fp5_video_config' ); ?>
 		adaptiveRatio: <?php echo esc_attr( $adaptive_ratio ); ?>,
+		live: <?php echo esc_attr( $live ); ?>,
 		embed: <?php echo esc_attr( $embed ); ?>
 	});
 });
