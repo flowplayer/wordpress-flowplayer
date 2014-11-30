@@ -1,6 +1,6 @@
 /*!
 
-   Flowplayer v5.5.0 (Tuesday, 26. August 2014 10:09AM) | flowplayer.org/license
+   Flowplayer v5.5.2 (Thursday, 27. November 2014 10:32AM) | flowplayer.org/license
 
 */
 !function($) { 
@@ -72,9 +72,13 @@ try {
   }
 } catch (ignored) {}
 
+var isSafari = /Safari/.exec(navigator.userAgent) && !/Chrome/.exec(navigator.userAgent);
+    m = /(\d+\.\d+) Safari/.exec(navigator.userAgent),
+    safariVersion = m ? Number(m[1]) : 100;
+
 $.extend(flowplayer, {
 
-   version: '5.5.0',
+   version: '5.5.2',
 
    engine: {},
 
@@ -111,7 +115,7 @@ $.extend(flowplayer, {
 
       live: false,
 
-      swf: "//releases.flowplayer.org/5.5.0/flowplayer.swf",
+      swf: "//releases.flowplayer.org/5.5.2/flowplayer.swf",
 
       speeds: [0.25, 0.5, 1, 1.5, 2],
 
@@ -141,7 +145,9 @@ $.extend(flowplayer, {
       errorUrls: ['','','','','','','','','','',
          'http://get.adobe.com/flashplayer/'
       ],
-      playlist: []
+      playlist: [],
+      
+      hlsFix: isSafari && safariVersion < 8
 
    }
 
@@ -282,7 +288,7 @@ $.fn.flowplayer = function(opts, callback) {
             seek(false) -> 10% backward
          */
          seek: function(time, callback) {
-            if (api.ready) {
+            if (api.ready && !api.live) {
 
                if (typeof time == "boolean") {
                   var delta = api.video.duration * 0.1;
@@ -500,6 +506,10 @@ $.fn.flowplayer = function(opts, callback) {
             if (api.muted) api.mute(true);
             else api.volume(api.volumeLevel);
 
+            // see https://github.com/flowplayer/flowplayer/issues/479
+
+            var hlsFix = api.conf.hlsFix && /mpegurl/i.exec(video.type);
+            root.toggleClass('hls-fix', !!hlsFix);
 
          }).bind("unload", function(e) {
             if (conf.splash) videoTag.remove();
@@ -590,6 +600,8 @@ $.fn.flowplayer = function(opts, callback) {
       IS_ANDROID_FIREFOX = /Android/.test(UA) && /Firefox/.test(UA),
       IS_SILK = /Silk/.test(UA),
       IS_WP = /IEMobile/.test(UA),
+      WP_VER = IS_WP ? parseFloat(/Windows\ Phone\ (\d+\.\d+)/.exec(UA)[1], 10) : 0,
+      IE_MOBILE_VER = IS_WP ? parseFloat(/IEMobile\/(\d+\.\d+)/.exec(UA)[1], 10) : 0,
       IPAD_VER = IS_IPAD ? parseIpadVersion(UA) : 0,
       ANDROID_VER = IS_ANDROID ? parseFloat(/Android\ (\d\.\d)/.exec(UA)[1], 10) : 0;
    $.extend(s, {
@@ -605,7 +617,7 @@ $.fn.flowplayer = function(opts, callback) {
       volume: !IS_IPAD && !IS_ANDROID && !IS_IPHONE && !IS_SILK && !IS_IPAD_CHROME,
       cachedVideoTag: !IS_IPAD && !IS_IPHONE && !IS_IPAD_CHROME && !IS_WP,
       firstframe: !IS_IPHONE && !IS_IPAD && !IS_ANDROID && !IS_SILK && !IS_IPAD_CHROME && !IS_WP && !IS_ANDROID_FIREFOX,
-      inlineVideo: !IS_IPHONE && !IS_WP && (!IS_ANDROID || ANDROID_VER >= 3),
+      inlineVideo: !IS_IPHONE && (!IS_WP || (WP_VER >= 8.1 && IE_MOBILE_VER >= 11)) && (!IS_ANDROID || ANDROID_VER >= 3),
       hlsDuration: !IS_ANDROID && (!browser.safari || IS_IPAD || IS_IPHONE || IS_IPAD_CHROME),
       seekable: !IS_IPAD && !IS_IPAD_CHROME
    });
@@ -648,7 +660,8 @@ $.fn.flowplayer = function(opts, callback) {
 /* The most minimal Flash embedding */
 
 // movie required in opts
-function embed(swf, flashvars) {
+function embed(swf, flashvars, wmode) {
+   wmode = wmode || "transparent";
 
    var id = "obj" + ("" + Math.random()).slice(2, 15),
       tag = '<object class="fp-engine" id="' + id+ '" name="' + id + '" ';
@@ -660,7 +673,7 @@ function embed(swf, flashvars) {
       width: "100%",
       height: "100%",
       allowscriptaccess: "always",
-      wmode: "transparent",
+      wmode: wmode,
       quality: "high",
       flashvars: "",
 
@@ -830,20 +843,21 @@ flowplayer.engine.flash = function(player, root) {
             if (is_absolute) delete conf.rtmp;
 
             // optional conf
-            $.each(['key', 'autoplay', 'preload', 'rtmp', 'subscribe', 'live', 'loop', 'debug', 'splash'], function(i, key) {
-               if (conf[key]) opts[key] = conf[key];
+            $.each(['key', 'autoplay', 'preload', 'rtmp', 'subscribe', 'live', 'loop', 'debug', 'splash', 'poster', 'rtmpt'], function(i, key) {
+               if (conf.hasOwnProperty(key)) opts[key] = conf[key];
             });
             // bufferTime might be 0
             if (conf.bufferTime !== undefined) opts.bufferTime = conf.bufferTime;
 
-            // issues #376, #509
+            // issues #376
             if (opts.rtmp) {
                opts.rtmp = escapeURL(opts.rtmp);
-
-               if (opts.live) opts.preload = "none";
             }
 
-            objectTag = embed(conf.swf, opts);
+            // issues #387
+            opts.initialVolume = player.volumeLevel;
+
+            objectTag = embed(conf.swf, opts, conf.wmode);
 
             objectTag.prependTo(root);
 
@@ -865,10 +879,27 @@ flowplayer.engine.flash = function(player, root) {
               }
             }, 1000);
 
+            api.pollInterval = setInterval(function () {
+               if (!api) return;
+               var status = api.__status ? api.__status() : null;
+               if (!status) return;
+
+               player.trigger("progress", status.time);
+
+               video.buffer = status.buffer / video.bytes * video.duration;
+               player.trigger("buffer", video.buffer);
+
+               if (!video.buffered && status.time > 0) {
+                  video.buffered = true;
+                  player.trigger("buffered");
+               }
+
+            }, 250);
+
             // listen
             $[callbackId] = function(type, arg) {
 
-               if (conf.debug && type != "status") console.log("--", type, arg);
+               if (conf.debug) console.log("--", type, arg);
 
                var event = $.Event(type);
 
@@ -880,20 +911,6 @@ flowplayer.engine.flash = function(player, root) {
                   case "click": event.flash = true; break;
                   case "keydown": event.which = arg; break;
                   case "seek": video.time = arg; break;
-
-                  case "status":
-                     player.trigger("progress", arg.time);
-
-                     if (arg.buffer < video.bytes && !video.buffered) {
-                        video.buffer = arg.buffer / video.bytes * video.duration;
-                        player.trigger("buffer", video.buffer);
-                     } else if (!video.buffered) {
-                        video.buffered = true;
-                        player.trigger("buffered");
-                     }
-
-                     break;
-
                }
 
                if (type != 'buffered') {
@@ -917,6 +934,7 @@ flowplayer.engine.flash = function(player, root) {
          $("object", root).remove();
          api = 0;
          player.unbind('ready', readyCallback).unbind('ready fullscreen fullscreen-exit', fullscreenCallback);
+         clearInterval(api.pollInterval);
       }
 
    };
@@ -1019,7 +1037,7 @@ var createVideoTag = function(video) {
                'autoplay': 'autoplay',
                preload: 'none',
                'x-webkit-airplay': 'allow'
-            }));
+          }));
 }
 
 flowplayer.engine.html5 = function(player, root) {
@@ -1060,7 +1078,7 @@ flowplayer.engine.html5 = function(player, root) {
                });
             }
 
-            if (track.length) videoTag.append(track.attr("default", ""));
+            //if (track.length) videoTag.append(track.prop("default", true));
 
             if (conf.loop) videoTag.attr("loop", "loop");
 
@@ -1194,8 +1212,7 @@ flowplayer.engine.html5 = function(player, root) {
                   });
 
                   try {
-                     vtype = getType($("video", root).attr("type"));
-                     arg.seekable = !conf.live && /mpegurl/i.test(vtype) && api.duration || api.seekable && api.seekable.end(null);
+                     arg.seekable = !conf.live && /mpegurl/i.test(video ? (video.type || '') : '') && api.duration || api.seekable && api.seekable.end(null);
 
                   } catch (ignored) {}
 
@@ -1241,7 +1258,7 @@ flowplayer.engine.html5 = function(player, root) {
 
                   var dur = player.video.duration
 
-                  if (api.currentTime > 0) {
+                  if (api.currentTime > 0 || player.live) {
                      arg = Math.max(api.currentTime, 0);
                      break;
 
@@ -1416,7 +1433,7 @@ $.fn.slider2 = function(rtl) {
             var to = (Math.round(value * 1000) / 10) + "%";
 
             if (!maxValue || value <= maxValue) {
-               if (!IS_IPAD) progress.stop(); // stop() broken on iPad
+               if (!IS_IPAD && !skipAnimation) progress.stop(); // stop() broken on iPad
                if (skipAnimation) {
                   progress.css('width', to);
                } else {
@@ -1449,8 +1466,9 @@ $.fn.slider2 = function(rtl) {
             },
 
             // Should animation be handled via css
-            disableAnimation: function(value) {
+            disableAnimation: function(value, alsoCssAnimations) {
                skipAnimation = value !== false;
+               root.toggleClass('no-animation', !! alsoCssAnimations);
             }
 
          };
@@ -1613,6 +1631,8 @@ flowplayer(function(api, root) {
       // do we need additional space for showing hour
       ((duration >= 3600) && root.addClass('is-long')) || root.removeClass('is-long');
       volumeApi.slide(api.volumeLevel);
+
+      if (api.engine === 'flash') timelineApi.disableAnimation(true, true);
 
 
    }).bind("unload", function() {
@@ -2009,15 +2029,18 @@ flowplayer(function(player, root) {
    }).bind("ready", function () {
       if (fsResume.apply) {
          var fsreset = function () {
-            if (!fsResume.play && !player.conf.live)
+            if (!fsResume.play && !player.conf.live) {
                player.pause();
+            } else {
+               player.resume();
+            }
             $.extend(fsResume, {pos: 0, play: false});
          };
 
          if (player.conf.live) {
-            player.resume();
             fsreset();
          } else if (player.conf.rtmp && fsResume.pos && !isNaN(fsResume.pos)) {
+            player.resume();
             player.seek(fsResume.pos, fsreset);
          } else {
             fsreset();
@@ -2083,7 +2106,7 @@ flowplayer(function(player, root) {
       root.unbind("finish.pl").bind("finish.pl", function(e, player) {
 
          // next clip is found or loop
-         var next = player.video.index + 1;
+         var next = player.video.index >= 0 ? player.video.index + 1 : undefined;
          if (next < player.conf.playlist.length || conf.loop) {
             next = next === player.conf.playlist.length ? 0 : next;
             root.removeClass('is-finished');
@@ -2274,8 +2297,29 @@ flowplayer(function(player, root, engine) {
 
       player.subtitles = track.length && track[0].track;
 
-      // use native when supported
-      if (conf.nativesubtitles && conf.engine == 'html5') return;
+      if (conf.nativesubtitles && conf.engine == 'html5') {
+        if (!player.subtitles) return;
+        var setMode = function(mode) {
+          var tracks = $('video', root)[0].textTracks;
+          if (!tracks.length) return;
+          tracks[0].mode = mode;
+        };
+        setMode('disabled');
+        player.one('ready', function() {
+          if (player.conf.splash) { // see https://github.com/flowplayer/flowplayer/issues/717
+            $('video.fp-engine', root).append($('<track />').attr({
+              kind: 'subtitles',
+              srclang: player.subtitles.language || 'en',
+              label: player.subtitles.language || 'en',
+              src: track.attr('src'),
+              default: 'default'
+            }));
+          }
+          setMode('disabled');
+          setMode('showing');
+        });
+        return;
+      }
    }
 
    // avoid duplicate loads
@@ -2435,6 +2479,31 @@ if (flowplayer.support.touch || isIeMobile) {
                return ret;
             };
          }
+         var timer, currentTime = 0;
+         var resumeTimer = function(api) {
+           timer = setInterval(function() {
+             api.video.time = ++currentTime;
+             api.trigger('progress', currentTime);
+           }, 1000);
+         };
+         player.bind('ready pause unload', function() {
+           if (timer) {
+             clearInterval(timer);
+             timer = null;
+           }
+         });
+         player.bind('ready', function() {
+           currentTime = 0;
+         });
+         player.bind('resume', function(ev, api) {
+           if (!api.live) return;
+           if (currentTime) { return resumeTimer(api); }
+           player.one('progress', function(ev, api, t) {
+             if (t === 0) { // https://github.com/flowplayer/flowplayer/issues/727
+               resumeTimer(api);
+             }
+           });
+         });
       }
 
       // hide volume
@@ -2443,6 +2512,8 @@ if (flowplayer.support.touch || isIeMobile) {
       }
       root.addClass("is-touch");
       root.find('.fp-timeline').data('api').disableAnimation();
+
+      if (!flowplayer.support.inlineVideo || player.conf.native_fullscreen) player.conf.nativesubtitles = true;
 
       // fake mouseover effect with click
       var hasMoved = false;
@@ -2549,7 +2620,7 @@ flowplayer(function(player, root) {
                { type: src.type != "mpegurl" ? "video/" + src.type : "application/x-mpegurl", src: path }));
       });
 
-      var scriptAttrs = { src: "//embed.flowplayer.org/5.5.0/embed.min.js" };
+      var scriptAttrs = { src: "//embed.flowplayer.org/5.5.2/embed.min.js" };
       if ($.isPlainObject(conf.embed)) {
          scriptAttrs['data-swf'] = conf.embed.swf;
          scriptAttrs['data-library'] = conf.embed.library;
