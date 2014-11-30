@@ -25,8 +25,8 @@ function fp5_media_button() {
 	$output = '';
 
 	/** Only run in post/page creation and edit screens */
-	if ( $screen->base == 'post' && $screen->post_type != 'flowplayer5' ) {
-		$img = '<span class="wp-media-buttons-icon" ></span>';
+	if ( 'post' == $screen->base && 'flowplayer5' != $screen->post_type ) {
+		$img = '<span class="wp-media-buttons-icon"></span>';
 		$output = '<a href="#choose-video" class="button add-video" title="' . __( 'Insert Video', 'flowplayer5' ) . '" style="padding-left: .4em;">' . $img . __( 'Insert Video', 'flowplayer5' ) . '</a>';
 	}
 	echo $output;
