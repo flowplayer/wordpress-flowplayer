@@ -87,7 +87,6 @@ function fp5_has_shortcode_arg( $content, $tag ) {
 				return $shortcode;
 			}
 		}
-
 	}
 	return false;
 }

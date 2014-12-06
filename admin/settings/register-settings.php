@@ -26,16 +26,16 @@ function fp5_register_settings() {
 			array(
 				'commercial_version' => array(
 					'id'   => 'commercial_version',
-					'name' => '<strong>' . __('Commercial Version', 'flowplayer5') . '</strong>',
+					'name' => '<strong>' . __( 'Commercial Version', 'flowplayer5' ) . '</strong>',
 					'desc' => __( 'The commercial version removes the Flowplayer logo and allows you to use your own logo image.', 'flowplayer5' ) . ' <a href="http://flowplayer.org/pricing/">' . __( 'Purchase license', 'flowplayer5' ) . '</a>',
-					'type' => 'header'
+					'type' => 'header',
 				),
 				'key' => array(
 					'id'   => 'key',
 					'name' => __( 'License Key', 'flowplayer5' ) . ' <a href="http://flowplayer.org/docs/setup.html#commercial-configuration">?</a>',
 					'desc' => __( 'Specify your License Key here.', 'flowplayer5' ),
 					'type' => 'text',
-					'size' => 'medium'
+					'size' => 'medium',
 				),
 				'directory' => array(
 					'id'   => 'directory',
@@ -51,98 +51,98 @@ function fp5_register_settings() {
 					'button' => __( 'Add Logo', 'flowplayer5' ),
 					'size' => 'regular',
 					'desc' => '',
-					'preview' => 'true'
+					'preview' => 'true',
 				),
 				'logo_origin' => array(
 					'id'   => 'logo_origin',
 					'name' => __( 'Show Logo on this site', 'flowplayer5' ),
 					'desc' => __( 'Show logo on this site. Uncheck to show on only externally embedded videos.', 'flowplayer5' ),
-					'type' => 'checkbox'
+					'type' => 'checkbox',
 				),
 				'flowplayer_drive' => array(
 					'id'   => 'flowplayer_drive',
 					'name' => '<strong>' . __( 'Flowplayer Drive', 'flowplayer5' ) . '</strong> <a href="https://flowplayer.org/docs/drive.html">?</a>',
 					'desc' => __( 'Flowplayer Drive is a new feature that will hosts your video in all of the formats that you need.', 'flowplayer5' ),
-					'type' => 'header'
+					'type' => 'header',
 				),
 				'user_name' => array(
 					'id'   => 'user_name',
 					'name' => __( 'Username', 'flowplayer5' ),
-					'desc' => __( 'Specify your username here.', 'flowplayer5') ,
+					'desc' => __( 'Specify your username here.', 'flowplayer5' ) ,
 					'type' => 'text',
-					'size' => 'medium'
+					'size' => 'medium',
 				),
 				'password' => array(
 					'id'   => 'password',
 					'name' => __( 'Password', 'flowplayer5' ),
 					'desc' => __( 'Specify your password here.', 'flowplayer5' ),
 					'type' => 'password',
-					'size' => 'medium'
+					'size' => 'medium',
 				),
 				'video_tracking' => array(
 					'id'   => 'video_tracking',
 					'name' => '<strong>' . __( 'Video Tracking', 'flowplayer5' ) . '</strong> <a href="http://flowplayer.org/docs/analytics.html">?</a>',
 					'desc' => __( 'You can track video traffic using Google Analytics (GA).', 'flowplayer5' ),
-					'type' => 'header'
+					'type' => 'header',
 				),
 				'ga_account_id' => array(
 					'id'   => 'ga_account_id',
 					'name' => __( 'Google Analytics account ID', 'flowplayer5' ),
 					'desc' => __( 'Specify your GA account ID here.', 'flowplayer5' ),
 					'type' => 'text',
-					'size' => 'medium'
+					'size' => 'medium',
 				),
 				'cdn_options' => array(
 					'id'   => 'cdn_options',
 					'name' => '<strong>' . __( 'CDN Option', 'flowplayer5' ) . '</strong>',
 					'desc' => __( 'By default the Flowplayer assets (JS, CSS and SWF) are served from this domain. Use this option to have the assets served from Flowplayer\'s CDN.', 'flowplayer5' ),
-					'type' => 'header'
+					'type' => 'header',
 				),
 				'cdn_option' => array(
 					'id'   => 'cdn_option',
 					'name' => __( 'CDN hosted files', 'flowplayer5' ),
 					'desc' => __( 'Use Flowplayer\'s CDN', 'flowplayer5' ),
-					'type' => 'checkbox'
+					'type' => 'checkbox',
 				),
 				'embed_options' => array(
 					'id' => 'embed_options',
 					'name' => '<strong>' . __( 'Embed Options', 'flowplayer5' ) . '</strong> <a href="http://flowplayer.org/docs/embedding.html#configuration">?</a>',
 					'desc' => __( 'By default the embed feature loads the embed script and Flowplayer assets from our CDN. You can use the fields below to change the locations of these assets.', 'flowplayer5' ),
-					'type' => 'header'
+					'type' => 'header',
 				),
 				'library' => array(
 					'id' => 'library',
-					'name' => __( 'Library', 'flowplayer5'),
+					'name' => __( 'Library', 'flowplayer5' ),
 					'desc' => __( 'URL of the Flowplayer API library script', 'flowplayer5' ),
 					'type' => 'text',
-					'size' => 'regular'
+					'size' => 'regular',
 				),
 				'script' => array(
 					'id'   => 'script',
 					'name' => __( 'Script', 'flowplayer5' ),
 					'desc' => __( 'URL of the embed script', 'flowplayer5' ),
 					'type' => 'text',
-					'size' => 'regular'
+					'size' => 'regular',
 				),
 				'skin' => array(
 					'id'   => 'skin',
 					'name' => __( 'Skin', 'flowplayer5' ),
 					'desc' => __( 'URL of skin for embedding', 'flowplayer5' ),
 					'type' => 'text',
-					'size' => 'regular'
+					'size' => 'regular',
 				),
 				'swf' => array(
 					'id'   => 'swf',
-					'name' => __( 'SWF file', 'flowplayer5'),
+					'name' => __( 'SWF file', 'flowplayer5' ),
 					'desc' => __( 'URL of SWF file for embedding', 'flowplayer5' ),
 					'type' => 'text',
-					'size' => 'regular'
+					'size' => 'regular',
 				),
 				'asf' => array(
 					'id' => 'asf',
 					'name' => '<strong>' . __( 'Google AdSense', 'flowplayer5' ) . '</strong> <a href="http://flowplayer.org/asf/">?</a>',
 					'desc' => __( 'Sign up for Google AdSense for Flowplayer to be able to monetize your videos ', 'flowplayer5' ). '</strong> <a href="http://flowplayer.org/asf/">' . __( 'Sign up now', 'flowplayer5' ) . '</a>',
-					'type' => 'header'
+					'type' => 'header',
 				),
 				'asf_css' => array(
 					'id'   => 'asf_css',
@@ -150,7 +150,7 @@ function fp5_register_settings() {
 					'type' => 'upload',
 					'button' => __( 'Add CSS file', 'flowplayer5' ),
 					'size' => 'regular',
-					'desc' => __( 'Add your custom AdSense plugin CSS file', 'flowplayer5' )
+					'desc' => __( 'Add your custom AdSense plugin CSS file', 'flowplayer5' ),
 				),
 				'asf_js' => array(
 					'id'   => 'asf_js',
@@ -158,13 +158,13 @@ function fp5_register_settings() {
 					'type' => 'upload',
 					'button' => __( 'Add js file', 'flowplayer5' ),
 					'size' => 'regular',
-					'desc' => __( 'Add your custom AdSense plugin javascript file', 'flowplayer5' )
+					'desc' => __( 'Add your custom AdSense plugin javascript file', 'flowplayer5' ),
 				),
 				'asf_test' => array(
 					'id'   => 'asf_test',
 					'name' => __( 'Test Mode', 'flowplayer5' ),
 					'type' => 'checkbox',
-					'desc' => __( 'Enable test mode', 'flowplayer5' )
+					'desc' => __( 'Enable test mode', 'flowplayer5' ),
 				)
 			)
 		)
@@ -242,7 +242,7 @@ function fp5_text_callback( $args ) {
 	else
 		$value = isset( $args['std'] ) ? $args['std'] : '';
 
-	$size = isset( $args['size'] ) && !is_null($args['size']) ? $args['size'] : 'regular';
+	$size = isset( $args['size'] ) && ! is_null( $args['size'] ) ? $args['size'] : 'regular';
 	$html = '<input type="text" class="' . $args['size'] . '-text" id="fp5_settings_' . $args['section'] . '[' . $args['id'] . ']" name="fp5_settings_' . $args['section'] . '[' . $args['id'] . ']" value="' . esc_attr( $value ) . '"/>';
 	$html .= '<label for="fp5_settings_' . $args['section'] . '[' . $args['id'] . ']"> ' . $args['desc'] . '</label>';
 
@@ -262,14 +262,14 @@ function fp5_password_callback( $args ) {
 	global $fp5_options;
 
 	// get the settings
-	$options = get_option('fp5_settings_general');
+	$options = get_option( 'fp5_settings_general' );
 
 	if ( isset( $fp5_options[ $args['id'] ] ) )
 		$value = $fp5_options[ $args['id'] ];
 	else
 		$value = isset( $args['std'] ) ? $args['std'] : '';
 
-	$size = isset( $args['size'] ) && !is_null($args['size']) ? $args['size'] : 'regular';
+	$size = isset( $args['size'] ) && ! is_null( $args['size'] ) ? $args['size'] : 'regular';
 	$desc = empty( $options['password'] ) ? $args['desc'] : __( 'Your passord is saved. For security reasons it will not be displayed here.', 'flowplayer5' );
 
 	$html = '<input type="password" class="' . $args['size'] . '-text" id="fp5_settings_' . $args['section'] . '[' . $args['id'] . ']" name="fp5_settings_' . $args['section'] . '[' . $args['id'] . ']"/>';
@@ -287,7 +287,7 @@ function fp5_password_callback( $args ) {
  * @param    array $args Arguments passed by the setting
  * @global   $fp5_options Array of all the fp5 Options
  */
-function fp5_upload_callback($args) {
+function fp5_upload_callback( $args ) {
 	global $fp5_options;
 
 	if ( isset( $fp5_options[ $args['id'] ] ) )
@@ -295,12 +295,12 @@ function fp5_upload_callback($args) {
 	else
 		$value = isset( $args['std'] ) ? $args['std'] : '';
 
-	$size = isset( $args['size'] ) && !is_null( $args['size'] ) ? $args['size'] : 'regular';
+	$size = isset( $args['size'] ) && ! is_null( $args['size'] ) ? $args['size'] : 'regular';
 
 	$html = '<input type="text" class="' . $args['size'] . '-text fp5_' . $args['id'] . '_upload_field" id="fp5_settings_' . $args['section'] . '[' . $args['id'] . ']" name="fp5_settings_' . $args['section'] . '[' . $args['id'] . ']" value="' . esc_attr( $value ) . '"/>';
 	$html .= '<a href="#" type="button" class="fp5_settings_' . $args['id'] . '_upload_button button-secondary" title="' . $args['button'] . '"/>' . $args['button'] . '</a>';
 	$html .= '<label for="fp5_settings_' . $args['section'] . '[' . $args['id'] . ']"> ' . $args['desc'] . '</label>';
-	$html .= isset( $args['preview'] ) && !is_null( $args['preview'] ) ? '<img style="max-width: 300px; display:block" src="' . esc_attr( $value ) . '" class="fp5_settings_upload_preview"/>' : '';
+	$html .= isset( $args['preview'] ) && ! is_null( $args['preview'] ) ? '<img style="max-width: 300px; display:block" src="' . esc_attr( $value ) . '" class="fp5_settings_upload_preview"/>' : '';
 
 	echo $html;
 }
@@ -317,7 +317,7 @@ function fp5_upload_callback($args) {
 function fp5_checkbox_callback( $args ) {
 	global $fp5_options;
 
-	$checked = isset($fp5_options[$args['id']]) ? checked(1, $fp5_options[$args['id']], false) : '';
+	$checked = isset( $fp5_options[ $args['id'] ] ) ? checked( 1, $fp5_options[ $args['id'] ], false ) : '';
 	$html = '<input type="checkbox" id="fp5_settings_' . $args['section'] . '[' . $args['id'] . ']" name="fp5_settings_' . $args['section'] . '[' . $args['id'] . ']" value="1" ' . $checked . '/>';
 	$html .= '<label for="fp5_settings_' . $args['section'] . '[' . $args['id'] . ']"> ' . $args['desc'] . '</label>';
 
@@ -332,7 +332,7 @@ function fp5_checkbox_callback( $args ) {
  * @since    1.0.0
  * @param    array $args Arguments passed by the setting
  */
-function fp5_missing_callback($args) {
+function fp5_missing_callback( $args ) {
 	printf( __( 'The callback function used for the <strong>%s</strong> setting is missing.', 'flowplayer5' ), $args['id'] );
 }
 
@@ -349,7 +349,7 @@ function fp5_missing_callback($args) {
 function fp5_settings_sanitize( $input ) {
 
 	// get the settings
-	$options   = get_option('fp5_settings_general');
+	$options   = get_option( 'fp5_settings_general' );
 	// protect password by hashing it immediately
 	if ( ! empty( $input['password'] ) ) {
 		$input['password'] = sha1( $input['password'] );
@@ -360,7 +360,7 @@ function fp5_settings_sanitize( $input ) {
 	add_settings_error(
 		'fp5-notices',
 		'',
-		__('Settings Updated', 'flowplayer5'),
+		__( 'Settings Updated', 'flowplayer5' ),
 		'updated'
 	);
 

@@ -10,7 +10,7 @@
 		var allVideos = [
 			<?php
 			// WP_Query arguments
-			$args = array (
+			$args = array(
 				'post_type'   => 'flowplayer5',
 				'post_status' => 'publish',
 				'orderby'     => 'meta_value_num',
@@ -20,13 +20,12 @@
 						'taxonomy' => 'playlist',
 						'field'    => 'id',
 						'terms'    => esc_attr( $playlist ),
-					)
+					),
 				),
 				'cache_results'          => true,
 				'update_post_meta_cache' => true,
 				'update_post_term_cache' => true,
 			);
-
 
 			// The Query
 			$query = new WP_Query( $args );

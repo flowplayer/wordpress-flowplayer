@@ -214,6 +214,11 @@
 					<option value="metadata" <?php if ( isset ( $fp5_stored_meta['fp5-preload'] ) ) selected( $fp5_stored_meta['fp5-preload'][0], 'metadata' ); ?>>metadata</option>
 					<option value="auto" <?php if ( isset ( $fp5_stored_meta['fp5-preload'] ) ) selected( $fp5_stored_meta['fp5-preload'][0], 'auto' ); ?>>auto</option>
 				</select>
+				|
+				<label for="fp5-live">
+					<input type="checkbox" name="fp5-live" id="fp5-live" value="true" <?php if ( isset ( $fp5_stored_meta['fp5-live'] ) ) checked( $fp5_stored_meta['fp5-live'][0], 'true' ); ?> />
+					<?php _e( 'Live streaming', $this->plugin_slug )?>
+				</label>
 			</td>
 		</tr>
 

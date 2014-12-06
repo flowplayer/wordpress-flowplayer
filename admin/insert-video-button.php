@@ -25,8 +25,8 @@ function fp5_media_button() {
 	$output = '';
 
 	/** Only run in post/page creation and edit screens */
-	if ( $screen->base == 'post' && $screen->post_type != 'flowplayer5' ) {
-		$img = '<span class="wp-media-buttons-icon" ></span>';
+	if ( 'post' == $screen->base && 'flowplayer5' != $screen->post_type ) {
+		$img = '<span class="wp-media-buttons-icon"></span>';
 		$output = '<a href="#choose-video" class="button add-video" title="' . __( 'Insert Video', 'flowplayer5' ) . '" style="padding-left: .4em;">' . $img . __( 'Insert Video', 'flowplayer5' ) . '</a>';
 	}
 	echo $output;
@@ -95,8 +95,8 @@ function fp5_modal_content() {
 				<select name="flowplayer5_videos" id="flowplayer5_videos">
 					<?php
 					// WP_Query arguments
-					$args = array (
-						'post_type' => 'flowplayer5'
+					$args = array(
+						'post_type' => 'flowplayer5',
 					);
 
 					// The Query
@@ -118,7 +118,7 @@ function fp5_modal_content() {
 				<select name="flowplayer5_playlist" id="flowplayer5_playlist">
 					<?php
 
-					$args = array (
+					$args = array(
 						'post'     => 'flowplayer5',
 						'taxonomy' => 'playlist',
 					);

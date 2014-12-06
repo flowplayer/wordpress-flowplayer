@@ -167,11 +167,12 @@ class Flowplayer5_Video_Meta_Box {
 				'fp5-no-time',
 				'fp5-no-volume',
 				'fp5-no-embed',
-				'fp5-play-button'
+				'fp5-live',
+				'fp5-play-button',
 			);
 
 			foreach ( $checkboxes as $checkbox ) {
-				if( isset( $_POST[ $checkbox ] ) ) {
+				if ( isset( $_POST[ $checkbox ] ) ) {
 					update_post_meta(
 						$post_id,
 						$checkbox,
@@ -191,11 +192,11 @@ class Flowplayer5_Video_Meta_Box {
 				'fp5-select-skin',
 				'fp5-preload',
 				'fp5-coloring',
-				'fp5-ad-type'
+				'fp5-ad-type',
 			);
 
 			foreach ( $keys as $key ) {
-				if( isset( $_POST[ $key ] ) ) {
+				if ( isset( $_POST[ $key ] ) ) {
 					update_post_meta(
 						$post_id,
 						$key,
@@ -211,11 +212,11 @@ class Flowplayer5_Video_Meta_Box {
 				'fp5-webm-video',
 				'fp5-ogg-video',
 				'fp5-hls-video',
-				'fp5-vtt-subtitles'
+				'fp5-vtt-subtitles',
 			);
 
 			foreach ( $urls as $url ) {
-				if( isset( $_POST[ $url ] ) ) {
+				if ( isset( $_POST[ $url ] ) ) {
 					update_post_meta(
 						$post_id,
 						$url,
@@ -232,11 +233,11 @@ class Flowplayer5_Video_Meta_Box {
 				'fp5-user-id',
 				'fp5-video-id',
 				'fp5-ads-time',
-				'fp5-duration'
+				'fp5-duration',
 			);
 
 			foreach ( $numbers as $number ) {
-				if( isset( $_POST[ $number ] ) ) {
+				if ( isset( $_POST[ $number ] ) ) {
 					update_post_meta(
 						$post_id,
 						$number,
@@ -251,11 +252,11 @@ class Flowplayer5_Video_Meta_Box {
 				'fp5-video-name',
 				'fp5-data-rtmp',
 				'fp5-qualities',
-				'fp5-default-quality'
+				'fp5-default-quality',
 			);
 
 			foreach ( $text_fields as $text_field ) {
-				if( isset( $_POST[ $text_field ] ) ) {
+				if ( isset( $_POST[ $text_field ] ) ) {
 					update_post_meta(
 						$post_id,
 						$text_field,
@@ -263,13 +264,12 @@ class Flowplayer5_Video_Meta_Box {
 					);
 				}
 			}
-
 		}
 
 	}
 
 	function sanitize_postive_number_including_zero( $number ) {
-		if( '' !== $number ) {
+		if ( '' !== $number ) {
 			return absint( $number );
 		} else {
 			return '';
