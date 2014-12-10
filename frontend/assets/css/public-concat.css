@@ -9,6 +9,10 @@
 	opacity: 1;
 }
 
+.flowplayer-video {
+	background-color: #777;
+}
+
 .playful.fixed-controls {
 	margin-bottom: 35px;
 }
