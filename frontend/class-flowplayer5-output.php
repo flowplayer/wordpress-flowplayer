@@ -163,7 +163,7 @@ class Flowplayer5_Output {
 
 		$style = array(
 			( $fixed == 'true' && $width != '' && $height != '' ? 'width:' . $width . 'px; height:' . $height . 'px; ' : ( ( $max_width != 0 ) ?  'max-width:' . $max_width . 'px;' : '' ) ),
-			'background: #777 url(' . esc_url( $splash ) . ') no-repeat; background-size: contain;',
+			'background-image: url(' . esc_url( $splash ) . ');',
 		);
 
 		$data = array(
