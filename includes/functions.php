@@ -41,7 +41,6 @@ if ( ! function_exists( 'has_shortcode' ) ) {
 		if ( false === strpos( $content, '[' ) ) {
 			return false;
 		}
-
 		if ( shortcode_exists( $tag ) ) {
 			preg_match_all( '/' . get_shortcode_regex() . '/s', $content, $matches, PREG_SET_ORDER );
 			if ( empty( $matches ) )
@@ -84,7 +83,7 @@ function fp5_has_shortcode_arg( $content, $tag ) {
 			if ( $tag === $shortcode[2] ) {
 				return shortcode_parse_atts( $shortcode[3] );
 			} elseif ( ! empty( $shortcode[5] ) && has_shortcode( $shortcode[5], $tag ) ) {
-				return $shortcode;
+				return fp5_has_shortcode_arg( $shortcode[5], $tag );
 			}
 		}
 	}
