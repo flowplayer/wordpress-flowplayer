@@ -155,7 +155,7 @@ class Flowplayer_Drive {
 			return;
 		}
 
-		if ( $json != 'authcode missing' ) {
+		if ( 'authcode missing' != $json ) {
 			Flowplayer_Drive_Error::showVideoApiError();
 			return;
 		}
@@ -249,6 +249,10 @@ class Flowplayer_Drive {
 	public function get_video_html() {
 
 		$videos = $this->get_videos();
+
+		if ( ! $videos ) {
+			return;
+		}
 
 		foreach ( $videos as $video ) {
 			$multi_res = '<span class="dashicons"></span>';
