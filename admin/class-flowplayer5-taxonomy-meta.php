@@ -162,10 +162,11 @@ class Flowplayer5_Taxonomy_Meta {
 	<?php
 		// WP_Query arguments
 		$args = array(
-			'post_type' => 'flowplayer5',
-			'orderby'   => 'meta_value_num',
-			'meta_key'  => $taxonomy . '_order_' . $t_id,
-			'tax_query' => array(
+			'post_type'      => 'flowplayer5',
+			'orderby'        => 'meta_value_num',
+			'posts_per_page' => '-1',
+			'meta_key'       => $taxonomy . '_order_' . $t_id,
+			'tax_query'       => array(
 				array(
 					'taxonomy' => 'playlist',
 					'field'    => 'id',
