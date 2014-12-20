@@ -3,7 +3,6 @@
 */
 
 /* Display logo on own site */
-
 .flowplayer.commercial .fp-logo {
 	display: block;
 	opacity: 1;
@@ -11,6 +10,11 @@
 
 .flowplayer-video {
 	background-color: #777;
+}
+
+/* Fix for TwentyFifteen */
+.flowplayer .fp-ui a {
+	border-bottom: none;
 }
 
 .playful.fixed-controls {
