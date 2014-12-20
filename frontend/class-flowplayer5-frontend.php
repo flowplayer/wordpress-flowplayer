@@ -117,7 +117,7 @@ class Flowplayer5_Frontend {
 		$has_shortcode = has_shortcode( $post_content, 'flowplayer' ) || 'flowplayer5' == get_post_type() || is_active_widget( false, false, 'flowplayer5-video-widget', true );
 		$shortcode_atts = fp5_has_shortcode_arg( $post_content, 'flowplayer' );
 		$post_id = '';
-		if ( $shortcode_atts ) {
+		if ( isset( $shortcode_atts['id'] ) ) {
 			$post_id = $shortcode_atts['id'];
 		} elseif ( isset ( $post->ID ) ) {
 			$post_id = $post->ID;
