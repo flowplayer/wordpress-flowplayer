@@ -1,4 +1,4 @@
-<div id="jsplaylist" class="<?php echo esc_attr( $playlist_options['fp5-select-skin'] ); ?>">
+<div id="jsplaylist" class="flowplayer-playlist flowplayer-playlist-<?php echo esc_attr( $playlist_id . ' ' . $playlist_options['fp5-select-skin'] ); ?>">
 	<a class="fp-prev"><?php _e( '&lt; Prev', 'flowplayer5' ); ?></a>
 	<a class="fp-next"><?php _e( 'Next &gt;', 'flowplayer5' ); ?></a>
 </div>
@@ -7,7 +7,7 @@
 
 	jQuery(function() {
 
-		var allVideos = [
+		var Playlist<?php echo esc_attr( $playlist_id ); ?> = [
 			<?php
 			// WP_Query arguments
 			$args = array(
@@ -15,12 +15,12 @@
 				'post_status'    => 'publish',
 				'orderby'        => 'meta_value_num',
 				'posts_per_page' => '-1',
-				'meta_key'       => 'playlist_order_' . esc_attr( $playlist ),
+				'meta_key'       => 'playlist_order_' . esc_attr( $playlist_id ),
 				'tax_query'      => array(
 					array(
 						'taxonomy' => 'playlist',
 						'field'    => 'id',
-						'terms'    => esc_attr( $playlist ),
+						'terms'    => esc_attr( $playlist_id ),
 					),
 				),
 				'cache_results'          => true,
@@ -54,7 +54,7 @@
 		jQuery("#jsplaylist").flowplayer({
 			rtmp: "<?php echo esc_attr( $playlist_options['fp5-rtmp-url'] ); ?>",
 			//ratio: 9/16,
-			playlist: allVideos,
+			playlist: Playlist<?php echo esc_attr( $playlist_id ); ?>,
 		});
 	});
 </script>

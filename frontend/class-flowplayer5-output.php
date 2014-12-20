@@ -36,8 +36,8 @@ class Flowplayer5_Output {
 	public function video_output( $atts ) {
 
 		if ( isset( $atts['playlist'] ) ) {
-			$playlist = $atts['playlist'];
-			$playlist_options = get_option( 'playlist_' . absint( $playlist ) );
+			$playlist_id = $atts['playlist'];
+			$playlist_options = get_option( 'playlist_' . absint( $playlist_id ) );
 			if ( ! $playlist_options ) {
 				return;
 			}
