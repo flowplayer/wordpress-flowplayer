@@ -28,6 +28,12 @@
 					submit_button();
 					?>
 				</form>
+<?php
+if( isset( $_GET['parameter'] ) && $_GET['parameter'] == true ) {
+	generate_videos();
+	wp_redirect( admin_url( 'edit.php?post_type=flowplayer5&page=flowplayer5_settings' ) ); // redirect to specified WP page after the script is run
+}
+?>
 			</div>
 
 			<div id="postbox-container-1" class="postbox-container-1 fp5-sidebar">
@@ -52,3 +58,4 @@
 	</div>
 
 </div>
+
