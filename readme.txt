@@ -1,9 +1,9 @@
 === Flowplayer HTML5 for WordPress ===
 Contributors: flowplayerorg, grapplerulrich, anssi
 Donate link: http://flowplayer.org/pricing/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin
-Tags: flowplayer, flowplayer5, flowplayer HTML5, responsive, html5, video, player
+Tags: flowplayer, flowplayer5, Flowplayer HTML5, responsive, html5, video, player, rtmp, hls, flash, live-streaming, Flowplayer Drive, Adsense, video-widget
 Requires at least: 3.5
-Tested up to: 4.0.1
+Tested up to: 4.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -32,6 +32,9 @@ Flowplayer HTML5 for WordPress provides a video management system for self hoste
 * Show your video in any desired player size. Detects the video dimensions for configuring the correct player size
 * Fully internationalized - [Help Translate](https://webtranslateit.com/en/projects/8343-Flowplayer-HTML5-for-WordPress)
 
+
+[Demos](https://flowplayer.org/demos/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin) | [Documentation](https://wordpress.org/plugins/flowplayer5/faq/) | [Support](http://wordpress.org/support/plugin/flowplayer5)
+
 = Branding free with Flowplayer Commercial =
 
 The commercial version is free of Flowplayer branding and you can use your logo. The commercial Flowplayer version can be enabled by supplying a [license key](http://flowplayer.org/pricing/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin).
@@ -41,7 +44,7 @@ The commercial version is free of Flowplayer branding and you can use your logo.
 [Flowplayer Drive](http://flowplayer.org/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin) is an all-round solution for online video sharing and publishing. It makes the task of uploading, managing, sharing, and publishing videos extremely simple without sacrificing on quality and speed, and utilizing the latest web video technologies.
 
 * Maximum browser coverage
-* Multiresolution videos with quality switching
+* Multi-resolution videos with quality switching
 * Videos optimized for best results
 * Maximum streaming throughout on a global video network
 * Free with Flowplayer watermark
@@ -50,7 +53,7 @@ The commercial version is free of Flowplayer branding and you can use your logo.
 
 = Monetize your videos =
 
-Google AdSense for Flowplayer (ASF) allows publishers to monetize their videos by adding advertisements. While AdSense is normally restricted to sites with more than 10 million streams per month, Flowplayer makes it available for everyone.
+[Google AdSense for Flowplayer (ASF)](http://flowplayer.org/asf/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin) allows publishers to monetize their videos by adding advertisements. While AdSense is normally restricted to sites with more than 10 million streams per month, Flowplayer makes it available for everyone.
 
 [Sign up for Google AdSense for Flowplayer (ASF)](http://flowplayer.org/asf/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin)
 
@@ -239,6 +242,15 @@ add_action( 'fp5_video_config', 'fp5_video_config' );`
 
 We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
 
+= 1.10.2 - 23 December 2014 =
+* move background inline css to stylesheet
+* support nested shortcodes when fetching shortcode args
+* add css fix for Twenty Fifteen
+* additional classes for playlists
+* fix bug: allow more then 10 videos in a playlist
+* fix bug: allow multiple playlists on a single page
+* fix saving video order for playlists
+
 = 1.10.1 - 7 December 2014 =
 * add live streaming option
 * update to [Flowplayer 5.5.2](https://flowplayer.org/news/releases/html5/v5.5.1.html)
@@ -253,7 +265,7 @@ We have a lot of plans for this plugin. You can see some of the up and coming fe
 = 1.9.4 - 9 October 2014 =
 * fix bug: change class from `.flowplayer` to `.flowplayer-video`
 * fix bug: letting 0 be a valid number for ads time
-* fix bug: removed trailing coma in JS and moved action `fp5_video_config` to the start of the JS
+* fix bug: removed trailing comma in JS and moved action `fp5_video_config` to the start of the JS
 
 = 1.9.3 - 2 October 2014 =
 * fix bug: adding asf js and css files
@@ -358,6 +370,9 @@ We have a lot of plans for this plugin. You can see some of the up and coming fe
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.10.2 =
+* fix numerous bugs with playlists
 
 = 1.10.1 =
 * update to Flowplayer 5.5.2, add live streaming support & code improvements
