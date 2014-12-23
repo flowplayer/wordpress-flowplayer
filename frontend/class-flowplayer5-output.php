@@ -41,7 +41,10 @@ class Flowplayer5_Output {
 			if ( ! $playlist_options ) {
 				return;
 			}
+			ob_start();
 			require( 'views/display-playlist.php' );
+			$html = ob_get_clean();
+			return $html;
 		} elseif ( isset( $atts['id'] ) ) {
 			return self::single_video_output( $atts );
 		}
