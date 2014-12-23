@@ -3,10 +3,18 @@
 */
 
 /* Display logo on own site */
-
 .flowplayer.commercial .fp-logo {
 	display: block;
 	opacity: 1;
+}
+
+.flowplayer-video {
+	background-color: #777;
+}
+
+/* Fix for TwentyFifteen */
+.flowplayer .fp-ui a {
+	border-bottom: none;
 }
 
 .playful.fixed-controls {
@@ -21,25 +29,25 @@
 	margin-bottom: 30px;
 }
 
-#jsplaylist {
+.flowplayer-playlist {
 	margin-bottom: 50px;
 }
 
-#jsplaylist .fp-prev,
-#jsplaylist .fp-next {
+.flowplayer-playlist .fp-prev,
+.flowplayer-playlist .fp-next {
 	bottom: -40px;
 }
 
-#jsplaylist .fp-prev {
+.flowplayer-playlist .fp-prev {
 	left: 0;
 }
 
-#jsplaylist .fp-next {
+.flowplayer-playlist .fp-next {
 	right: 0;
 }
 
-#jsplaylist .fp-prev,
-#jsplaylist .fp-next {
+.flowplayer-playlist .fp-prev,
+.flowplayer-playlist .fp-next {
 	position: absolute;
 	z-index: 99;
 	cursor: pointer;
