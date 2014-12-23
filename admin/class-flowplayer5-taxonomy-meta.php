@@ -166,7 +166,7 @@ class Flowplayer5_Taxonomy_Meta {
 			'orderby'        => 'meta_value_num',
 			'posts_per_page' => '-1',
 			'meta_key'       => $taxonomy . '_order_' . $t_id,
-			'tax_query'       => array(
+			'tax_query'      => array(
 				array(
 					'taxonomy' => 'playlist',
 					'field'    => 'id',
@@ -253,8 +253,8 @@ class Flowplayer5_Taxonomy_Meta {
 		if ( is_array( $_POST['post_order'] ) ) {
 			foreach ( $_POST['post_order'] as $key => $id ) {
 				update_post_meta(
-					$id,
-					'playlist_order_' . $tt_id,
+					absint( $id ),
+					'playlist_order_' . absint( $term_id ),
 					absint( count( $_POST['post_order'] ) - $key )
 				);
 			}
@@ -267,7 +267,7 @@ class Flowplayer5_Taxonomy_Meta {
 	 * @since     1.9.0
 	 */
 	public function taxonomy_delete_meta_field( $term, $tt_id, $deleted_term ) {
-		delete_option( 'playlist_' . $tt_id );
+		delete_option( 'playlist_' . $term );
 	}
 
 }
