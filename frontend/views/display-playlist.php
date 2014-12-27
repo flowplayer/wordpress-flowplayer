@@ -2,7 +2,7 @@
 	<a class="fp-prev"><?php _e( '&lt; Prev', 'flowplayer5' ); ?></a><a class="fp-next"><?php _e( 'Next &gt;', 'flowplayer5' ); ?></a>
 </div>
 <script>
-jQuery(function() {
+(function($) {
 	var Playlist<?php echo esc_attr( $playlist_id ); ?> = [
 		<?php
 		// WP_Query arguments
@@ -44,9 +44,9 @@ jQuery(function() {
 		wp_reset_postdata();
 		?>
 	];
-	jQuery("#jsplaylist<?php echo esc_attr( $playlist_id ); ?>").flowplayer({
+	$("#jsplaylist<?php echo esc_attr( $playlist_id ); ?>").flowplayer({
 		rtmp: "<?php echo esc_attr( $playlist_options['fp5-rtmp-url'] ); ?>",
-		playlist: Playlist<?php echo esc_attr( $playlist_id ); ?>,
+		playlist: Playlist<?php echo esc_attr( $playlist_id ); ?>
 	});
-});
+})(jQuery);
 </script>
