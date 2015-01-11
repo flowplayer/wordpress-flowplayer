@@ -43,6 +43,7 @@ class Flowplayer5_Output {
 			}
 			ob_start();
 			require( 'views/display-playlist.php' );
+			fp5_enqueue_scripts_styles( '', absint( $playlist_id ) );
 			$html = ob_get_clean();
 			return $html;
 		} elseif ( isset( $atts['id'] ) ) {
@@ -241,6 +242,7 @@ class Flowplayer5_Output {
 			ob_start();
 			require( 'views/display-single-video.php' );
 			$html = ob_get_clean();
+			fp5_enqueue_scripts_styles( absint( $id ), '' );
 			return $html;
 		}
 

@@ -89,3 +89,33 @@ function fp5_has_shortcode_arg( $content, $tag ) {
 	}
 	return false;
 }
+
+/**
+ * Enqueue public-facing stylesheets & JavaScript files.
+ *
+ * @since    1.0.0
+ */
+function fp5_enqueue_scripts_styles( $video_id = '', $playlist_id = '' ) {
+
+	// Pull options
+	$options   = get_option( 'fp5_settings_general' );
+	$asf_js    = ( ! empty ( $options['asf_js'] ) ? $options['asf_js'] : false );
+	$asf_css   = ( ! empty ( $options['asf_css'] ) ? $options['asf_css'] : false );
+	$qualities = isset( $video_id ) ? get_post_meta( $video_id, 'fp5-qualities', true ) : false;
+
+	// Enqueue stylesheets
+	wp_enqueue_style( 'flowplayer5-skins' );
+	wp_enqueue_style( 'flowplayer5-logo-origin' );
+	if ( $asf_css ) {
+		wp_enqueue_style( 'flowplayer5-asf' );
+	}
+
+	// Enqueue scripts
+	wp_enqueue_script( 'flowplayer5-script' );
+	if ( $asf_js ) {
+		wp_enqueue_script( 'flowplayer5-asf' );
+	}
+	if ( $qualities ) {
+		wp_enqueue_script( 'flowplayer5-quality-selector' );
+	}
+}
