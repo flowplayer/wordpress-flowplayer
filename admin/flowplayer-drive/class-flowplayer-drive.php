@@ -145,9 +145,9 @@ class Flowplayer_Drive {
 
 		if ( 200 == wp_remote_retrieve_response_code( $response ) ) {
 
-			set_transient( 'flowplayer_drive_json_cache', $json, 15 * MINUTE_IN_SECONDS );
+			set_transient( 'flowplayer_drive_json_cache', $json->account, 15 * MINUTE_IN_SECONDS );
 
-			return $json;
+			return $json->account;
 		}
 
 		if ( 'Cannot find account' == $json ) {
