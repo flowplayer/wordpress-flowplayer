@@ -242,6 +242,10 @@ add_action( 'fp5_video_config', 'fp5_video_config' );`
 
 We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
 
+= 1.10.3 - 3 Febuary 2015 =
+* fix bug: fix code Flowplayer Drive API
+* fix bug: fix issue with Playlist JS
+
 = 1.10.2 - 23 December 2014 =
 * move background inline css to stylesheet
 * support nested shortcodes when fetching shortcode args
@@ -370,6 +374,9 @@ We have a lot of plans for this plugin. You can see some of the up and coming fe
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.10.3 =
+* fix bugs with Flowplayer Drive and Playlist
 
 = 1.10.2 =
 * fix numerous bugs with playlists
