@@ -174,7 +174,7 @@ class Flowplayer_Drive {
 			return;
 		}
 
-		$json_videos = array_reverse( $json->videos );
+		$json_videos = $json->videos;
 
 		$rtmp = isset( $json->rtmpUrl ) ? $json->rtmpUrl : '';
 
