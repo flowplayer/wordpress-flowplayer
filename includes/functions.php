@@ -81,11 +81,12 @@ function fp5_has_shortcode_arg( $content, $tag ) {
 
 		foreach ( $matches as $shortcode ) {
 			if ( $tag === $shortcode[2] ) {
-				return shortcode_parse_atts( $shortcode[3] );
+				$shortcode_arg[] = shortcode_parse_atts( $shortcode[3] );
 			} elseif ( ! empty( $shortcode[5] ) && has_shortcode( $shortcode[5], $tag ) ) {
-				return fp5_has_shortcode_arg( $shortcode[5], $tag );
+				$shortcode_arg[] = fp5_has_shortcode_arg( $shortcode[5], $tag );
 			}
 		}
+		return $shortcode_arg;
 	}
 	return false;
 }
