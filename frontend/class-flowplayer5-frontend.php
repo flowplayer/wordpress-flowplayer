@@ -76,21 +76,19 @@ class Flowplayer5_Frontend {
 	 */
 	public function enqueue_styles() {
 
-		$post = get_queried_object();
-
 		// Pull options
-		$options = get_option( 'fp5_settings_general' );
-		$asf_css  = ( ! empty ( $options['asf_css'] ) ? $options['asf_css'] : false );
-		$suffix  = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+		$options       = get_option( 'fp5_settings_general' );
+		$asf_css       = ( ! empty ( $options['asf_css'] ) ? $options['asf_css'] : false );
+		$has_shortcode = $this->has_flowplayer_shortcode();
+		$has_video     = isset ( $has_shortcode ) || 'flowplayer5' == get_post_type() || is_active_widget( false, false, 'flowplayer5-video-widget', true );
+		$suffix        = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 		wp_register_style( $this->plugin_slug . '-skins', trailingslashit( $this->flowplayer5_directory ) . 'skin/all-skins.css', array(), $this->player_version );
 		wp_register_style( $this->plugin_slug . '-logo-origin', plugins_url( '/assets/css/public-concat' . $suffix . '.css', __FILE__ ), array(), $this->plugin_version );
 		wp_register_style( $this->plugin_slug . '-asf', esc_url( $asf_css ), array(), null );
 
 		// Register stylesheets
-		$post_content = isset( $post->post_content ) ? $post->post_content : '';
-		$has_shortcode = has_shortcode( $post_content, 'flowplayer' ) || 'flowplayer5' == get_post_type() || is_active_widget( false, false, 'flowplayer5-video-widget', true );
-		if ( apply_filters( 'fp5_filter_has_shortcode', $has_shortcode ) ) {
+		if ( apply_filters( 'fp5_filter_has_shortcode', $has_video ) ) {
 			wp_enqueue_style( $this->plugin_slug . '-skins' );
 			wp_enqueue_style( $this->plugin_slug . '-logo-origin' );
 			if ( $asf_css ) {
@@ -107,24 +105,12 @@ class Flowplayer5_Frontend {
 	 */
 	public function enqueue_scripts() {
 
-		$post = get_queried_object();
-
-		// Pull options
-		$options = get_option( 'fp5_settings_general' );
-		$asf_js  = ( ! empty ( $options['asf_js'] ) ? $options['asf_js'] : false );
-
-		$post_content = isset( $post->post_content ) ? $post->post_content : '';
-		$has_shortcode = has_shortcode( $post_content, 'flowplayer' ) || 'flowplayer5' == get_post_type() || is_active_widget( false, false, 'flowplayer5-video-widget', true );
-		$shortcode_atts = fp5_has_shortcode_arg( $post_content, 'flowplayer' );
-		$post_id = '';
-		if ( isset( $shortcode_atts['id'] ) ) {
-			$post_id = $shortcode_atts['id'];
-		} elseif ( isset ( $post->ID ) ) {
-			$post_id = $post->ID;
-		}
-		$qualities = get_post_meta( $post_id, 'fp5-qualities', true );
-
-		$suffix  = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+		$options            = get_option( 'fp5_settings_general' );
+		$asf_js             = ( ! empty ( $options['asf_js'] ) ? $options['asf_js'] : false );
+		$has_shortcode      = $this->has_flowplayer_shortcode();
+		$has_video          = isset ( $has_shortcode ) || 'flowplayer5' == get_post_type() || is_active_widget( false, false, 'flowplayer5-video-widget', true );
+		$is_multiresolution = $this->is_multiresolution();
+		$suffix             = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 		wp_register_script( $this->plugin_slug . '-script', trailingslashit( $this->flowplayer5_directory ) . 'flowplayer' . $suffix . '.js', array( 'jquery' ), $this->player_version, false );
 		wp_register_script( $this->plugin_slug . '-ima3', '//s0.2mdn.net/instream/html5/ima3.js', array(), null, false );
@@ -132,12 +118,12 @@ class Flowplayer5_Frontend {
 		wp_register_script( $this->plugin_slug . '-quality-selector', plugins_url( '/assets/drive/quality-selector' . $suffix . '.js', __FILE__ ), array( $this->plugin_slug . '-script' ), $this->player_version, false );
 
 		// Register JavaScript
-		if ( apply_filters( 'fp5_filter_has_shortcode', $has_shortcode ) ) {
+		if ( apply_filters( 'fp5_filter_has_shortcode', $has_video ) ) {
 			wp_enqueue_script( $this->plugin_slug . '-script' );
 			if ( $asf_js ) {
 				wp_enqueue_script( $this->plugin_slug . '-asf' );
 			}
-			if ( $qualities ) {
+			if ( $is_multiresolution ) {
 				wp_enqueue_script( $this->plugin_slug . '-quality-selector' );
 			}
 		}
@@ -200,6 +186,42 @@ class Flowplayer5_Frontend {
 			</script>
 		<?php }
 
+	}
+
+	public function has_flowplayer_shortcode() {
+		$post = get_queried_object();
+		if ( null !== $post ) {
+			$post_content = isset( $post->post_content ) ? $post->post_content : '';
+			$has_shortcode[] = fp5_has_shortcode_arg( $post_content, 'flowplayer' );
+		} else {
+			global $wp_query;
+			foreach ( $wp_query->posts as $post ) {
+				$post_content = isset( $post->post_content ) ? $post->post_content : '';
+				$has_shortcode[] = fp5_has_shortcode_arg( $post_content, 'flowplayer' );
+			}
+		}
+		$has_shortcode = iterator_to_array(new RecursiveIteratorIterator(
+			new RecursiveArrayIterator($has_shortcode)), FALSE);
+
+		return array_diff( $has_shortcode, array( false ) );
+	}
+
+	public function is_multiresolution() {
+		$post_id = '';
+		$qualities = array();
+		// Check if the post is a flowplayer video
+		if ( 'flowplayer5' == get_post_type() && isset ( $post->ID ) ) {
+			$post_id = $post->ID;
+			$qualities[] = get_post_meta( $post_id, 'fp5-qualities', true );
+			return $qualities;
+		}
+
+		$shortcode_atts = $this->has_flowplayer_shortcode();
+		foreach ( $shortcode_atts as $post_id ) {
+			$qualities[] = get_post_meta( $post_id, 'fp5-qualities', true );
+		}
+
+		return $qualities;
 	}
 
 }

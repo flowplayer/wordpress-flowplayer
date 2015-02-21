@@ -145,9 +145,9 @@ class Flowplayer_Drive {
 
 		if ( 200 == wp_remote_retrieve_response_code( $response ) ) {
 
-			set_transient( 'flowplayer_drive_json_cache', $json, 15 * MINUTE_IN_SECONDS );
+			set_transient( 'flowplayer_drive_json_cache', $json->account, 15 * MINUTE_IN_SECONDS );
 
-			return $json;
+			return $json->account;
 		}
 
 		if ( 'Cannot find account' == $json ) {
@@ -174,7 +174,7 @@ class Flowplayer_Drive {
 			return;
 		}
 
-		$json_videos = array_reverse( $json->videos );
+		$json_videos = $json->videos;
 
 		$rtmp = isset( $json->rtmpUrl ) ? $json->rtmpUrl : '';
 
@@ -184,17 +184,24 @@ class Flowplayer_Drive {
 
 			foreach ( $video->encodings as $encoding ) {
 
+				if ( 'done' !== $encoding->status || 'null' === $encoding->url ) {
+					continue;
+				}
+
 				$quality = $encoding->height . 'p';
 
-				if ( strpos( $encoding->filename, ( '-' . $quality ) ) !== false ) {
-					if ( 'mp4' === $encoding->format && 1 < $video->hlsResolutions ) {
-						$qualities[] = $quality;
+				if ( 'mp4' === $encoding->format && 1 < $video->hlsResolutions ) {
+					// 'example-video-216p.mp4' - '-216p' Exclude default video size
+					if ( strpos( $encoding->filename, ( '-' . $quality ) ) === false ) {
+						$default_video = true;
+						continue;
 					}
+					$default_video = false;
+					$qualities[] = $quality;
+				}
+
+				if ( ! $default_video ) {
 					continue;
-				} else {
-					if ( 'mp4' === $encoding->format && 1 < $video->hlsResolutions ) {
-						$qualities[] = $quality;
-					}
 				}
 
 				if ( 'webm' === $encoding->format ) {
@@ -215,10 +222,6 @@ class Flowplayer_Drive {
 				if ( in_array( $encoding->format, array( 'mp4', 'webm' ) ) ) {
 					$duration = gmdate( 'H:i:s', $encoding->duration );
 				}
-			}
-
-			if ( 'done' !== $encoding->status ) {
-				continue;
 			}
 
 			$videos[] = array(
