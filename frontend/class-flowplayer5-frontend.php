@@ -208,6 +208,7 @@ class Flowplayer5_Frontend {
 
 	public function is_multiresolution() {
 		$post_id = '';
+		$qualities = array();
 		// Check if the post is a flowplayer video
 		if ( 'flowplayer5' == get_post_type() && isset ( $post->ID ) ) {
 			$post_id = $post->ID;
