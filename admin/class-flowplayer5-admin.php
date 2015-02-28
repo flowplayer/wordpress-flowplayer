@@ -350,7 +350,7 @@ class Flowplayer5_Admin {
 		switch ( $column ) {
 
 			case 'shortcode' :
-				echo '[flowplayer id="' . $post_id . '"]';
+				echo '[flowplayer id="' . absint( $post_id ) . '"]';
 				break;
 
 		}
