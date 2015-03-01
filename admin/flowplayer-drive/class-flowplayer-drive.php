@@ -266,12 +266,12 @@ class Flowplayer_Drive {
 			}
 
 			$return = '<div class="video">';
-				$return .= '<a href="#" class="choose-video" data-rtmp="' . $video['rtmp'] . '" data-user-id="' . $video['userId'] . '" data-video-id="' . $video['id'] . '" data-video-name="' . $video['title'] . '" data-webm="' . $video['webm'] .'" data-mp4="' . $video['mp4'] . '" data-hls="' . $video['hls'] . '" data-flash="' . $video['flash'] . '" data-img="' . $video['snapshotUrl'] . '" data-qualities="' . implode( ',', $video['qualities'] ) . '" data-default-quality="' . $video['quality'] . '">';
-					$return .= '<h2 class="video-title">' . $video['title'] . '</h2>';
-					$return .= '<div class="thumb" style="background-image: url(' . $video['thumbnailUrl'] . ');">';
+				$return .= '<a href="#" class="choose-video" data-rtmp="' . esc_attr( $video['rtmp'] ) . '" data-user-id="' . esc_attr( $video['userId'] ) . '" data-video-id="' . esc_attr( $video['id'] ) . '" data-video-name="' . esc_html( $video['title'] ) . '" data-webm="' . esc_url( $video['webm'] ) .'" data-mp4="' . esc_url( $video['mp4'] ) . '" data-hls="' . esc_attr( $video['hls'] ) . '" data-flash="' . esc_attr( $video['flash'] ) . '" data-img="' . esc_url( $video['snapshotUrl'] ) . '" data-qualities="' . esc_attr( implode( ',', $video['qualities'] ) ) . '" data-default-quality="' . esc_attr( $video['quality'] ) . '">';
+					$return .= '<h2 class="video-title">' . esc_html( $video['title'] ) . '</h2>';
+					$return .= '<div class="thumb" style="background-image: url(' . esc_url( $video['thumbnailUrl'] ) . ');">';
 						$return .= '<div class="bar">';
 							$return .= $multi_res;
-							$return .= '<span class="duration">' . $video['duration'] . '</span>';
+							$return .= '<span class="duration">' . esc_attr( $video['duration'] ) . '</span>';
 						$return .= '</div>';
 					$return .= '</div>';
 				$return .= '</a>';
