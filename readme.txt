@@ -230,6 +230,16 @@ function fp5_video_config() {
 add_action( 'fp5_video_config', 'fp5_video_config' );`
 
 
+`/**
+ * Define post meta defaults
+ */
+function fp5_post_meta_defaults( $defaults ) {
+	$defaults['fp5-no-embed'] = array( 'true' );
+	return $defaults;
+}
+add_filter( 'fp5_post_meta_defaults', 'fp5_post_meta_defaults' );`
+
+
 == Screenshots ==
 
 1. Posting a video
@@ -242,11 +252,16 @@ add_action( 'fp5_video_config', 'fp5_video_config' );`
 
 We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
 
-= 1.10.4 - 3 Febuary 2015 =
+= 1.10.5 - 1 March 2015 =
+* fix bug: playing videos on different pages
+* fix bug: fix issue with videos from Flowplayer Drive
+* add filter to define new video defaults
+
+= 1.10.4 - 21 February 2015 =
 * fix bug: play videos when in a blog loop
 * fix bug: fix issue with loading all of the videos from Flowplayer Drive
 
-= 1.10.3 - 3 Febuary 2015 =
+= 1.10.3 - 3 February 2015 =
 * fix bug: fix code Flowplayer Drive API
 * fix bug: fix issue with Playlist JS
 
@@ -378,6 +393,9 @@ We have a lot of plans for this plugin. You can see some of the up and coming fe
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.10.5 =
+* fix bugs with Flowplayer Drive and playing videos
 
 = 1.10.4 =
 * fix bugs with Flowplayer Drive and playing videos on the blog page
