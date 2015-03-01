@@ -188,35 +188,37 @@ class Flowplayer_Drive {
 					continue;
 				}
 
-				$quality = $encoding->height . 'p';
+				$quality       = $encoding->height . 'p';
+				$default_video = true;
+				$hls           = '';
 
 				if ( 'mp4' === $encoding->format && 1 < $video->hlsResolutions ) {
-					// 'example-video-216p.mp4' - '-216p' Exclude default video size
-					if ( strpos( $encoding->filename, ( '-' . $quality ) ) === false ) {
-						$default_video = true;
-						continue;
+					// 'example-video-216p.mp4' - '-216p' Fetch sizes from non-default sizes
+					if ( strpos( $encoding->filename, ( '-' . $quality ) ) !== false ) {
+						$default_video = false;
+						$qualities[] = $quality;
 					}
-					$default_video = false;
-					$qualities[] = $quality;
 				}
 
-				if ( ! $default_video ) {
+				if ( false === $default_video ) {
 					continue;
 				}
 
-				if ( 'webm' === $encoding->format ) {
-					$webm   = $encoding->url;
-					$height = $encoding->height;
-					$width  = $encoding->width;
-				} elseif ( 'mp4' === $encoding->format ) {
-					$mp4    = $encoding->url;
-					$flash  = $encoding->filename;
-					$height = $encoding->height;
-					$width  = $encoding->width;
-				} elseif ( 'hls' === $encoding->format ) {
-					$hls = $encoding->url;
-				} else {
-					$hls = '';
+				switch ( $encoding->format ) {
+					case 'webm':
+						$webm   = $encoding->url;
+						$height = $encoding->height;
+						$width  = $encoding->width;
+						break;
+					case 'mp4':
+						$mp4    = $encoding->url;
+						$flash  = $encoding->filename;
+						$height = $encoding->height;
+						$width  = $encoding->width;
+						break;
+					case 'hls':
+						$hls = $encoding->url;
+						break;
 				}
 
 				if ( in_array( $encoding->format, array( 'mp4', 'webm' ) ) ) {
@@ -265,12 +267,12 @@ class Flowplayer_Drive {
 			}
 
 			$return = '<div class="video">';
-				$return .= '<a href="#" class="choose-video" data-rtmp="' . $video['rtmp'] . '" data-user-id="' . $video['userId'] . '" data-video-id="' . $video['id'] . '" data-video-name="' . $video['title'] . '" data-webm="' . $video['webm'] .'" data-mp4="' . $video['mp4'] . '" data-hls="' . $video['hls'] . '" data-flash="' . $video['flash'] . '" data-img="' . $video['snapshotUrl'] . '" data-qualities="' . implode( ',', $video['qualities'] ) . '" data-default-quality="' . $video['quality'] . '">';
-					$return .= '<h2 class="video-title">' . $video['title'] . '</h2>';
-					$return .= '<div class="thumb" style="background-image: url(' . $video['thumbnailUrl'] . ');">';
+				$return .= '<a href="#" class="choose-video" data-rtmp="' . esc_attr( $video['rtmp'] ) . '" data-user-id="' . esc_attr( $video['userId'] ) . '" data-video-id="' . esc_attr( $video['id'] ) . '" data-video-name="' . esc_html( $video['title'] ) . '" data-webm="' . esc_url( $video['webm'] ) .'" data-mp4="' . esc_url( $video['mp4'] ) . '" data-hls="' . esc_attr( $video['hls'] ) . '" data-flash="' . esc_attr( $video['flash'] ) . '" data-img="' . esc_url( $video['snapshotUrl'] ) . '" data-qualities="' . esc_attr( implode( ',', $video['qualities'] ) ) . '" data-default-quality="' . esc_attr( $video['quality'] ) . '">';
+					$return .= '<h2 class="video-title">' . esc_html( $video['title'] ) . '</h2>';
+					$return .= '<div class="thumb" style="background-image: url(' . esc_url( $video['thumbnailUrl'] ) . ');">';
 						$return .= '<div class="bar">';
 							$return .= $multi_res;
-							$return .= '<span class="duration">' . $video['duration'] . '</span>';
+							$return .= '<span class="duration">' . esc_attr( $video['duration'] ) . '</span>';
 						$return .= '</div>';
 					$return .= '</div>';
 				$return .= '</a>';

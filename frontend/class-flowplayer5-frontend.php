@@ -24,6 +24,9 @@ if ( ! defined( 'WPINC' ) ) {
  */
 class Flowplayer5_Frontend {
 
+	public $has_flowplayer_video = '';
+	public $has_flowplayer_shortcode = '';
+
 	/**
 	 * Initialize the plugin by setting localization, filters, and administration functions.
 	 *
@@ -31,6 +34,7 @@ class Flowplayer5_Frontend {
 	 */
 	public function __construct() {
 		global $flowplayer5_shortcode;
+
 		$plugin = Flowplayer5::get_instance();
 		// Call $plugin_version from public plugin class.
 		$this->plugin_version = $plugin->get_plugin_version();
@@ -57,6 +61,9 @@ class Flowplayer5_Frontend {
 			$this->flowplayer5_directory = '//releases.flowplayer.org/' . $this->player_version . '/'. ( $key ? 'commercial' : '' );
 		}
 
+		// Start check if posts have videos
+		add_action( 'wp_enqueue_scripts', array( $this, 'has_flowplayer_video' ) );
+
 		// Load public-facing style sheet and JavaScript.
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
@@ -77,18 +84,16 @@ class Flowplayer5_Frontend {
 	public function enqueue_styles() {
 
 		// Pull options
-		$options       = get_option( 'fp5_settings_general' );
-		$asf_css       = ( ! empty ( $options['asf_css'] ) ? $options['asf_css'] : false );
-		$has_shortcode = $this->has_flowplayer_shortcode();
-		$has_video     = isset ( $has_shortcode ) || 'flowplayer5' == get_post_type() || is_active_widget( false, false, 'flowplayer5-video-widget', true );
-		$suffix        = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+		$options = get_option( 'fp5_settings_general' );
+		$asf_css = ( ! empty ( $options['asf_css'] ) ? $options['asf_css'] : false );
+		$suffix  = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 		wp_register_style( $this->plugin_slug . '-skins', trailingslashit( $this->flowplayer5_directory ) . 'skin/all-skins.css', array(), $this->player_version );
 		wp_register_style( $this->plugin_slug . '-logo-origin', plugins_url( '/assets/css/public-concat' . $suffix . '.css', __FILE__ ), array(), $this->plugin_version );
 		wp_register_style( $this->plugin_slug . '-asf', esc_url( $asf_css ), array(), null );
 
 		// Register stylesheets
-		if ( apply_filters( 'fp5_filter_has_shortcode', $has_video ) ) {
+		if ( $this->has_flowplayer_video ) {
 			wp_enqueue_style( $this->plugin_slug . '-skins' );
 			wp_enqueue_style( $this->plugin_slug . '-logo-origin' );
 			if ( $asf_css ) {
@@ -107,8 +112,6 @@ class Flowplayer5_Frontend {
 
 		$options            = get_option( 'fp5_settings_general' );
 		$asf_js             = ( ! empty ( $options['asf_js'] ) ? $options['asf_js'] : false );
-		$has_shortcode      = $this->has_flowplayer_shortcode();
-		$has_video          = isset ( $has_shortcode ) || 'flowplayer5' == get_post_type() || is_active_widget( false, false, 'flowplayer5-video-widget', true );
 		$is_multiresolution = $this->is_multiresolution();
 		$suffix             = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
@@ -118,7 +121,7 @@ class Flowplayer5_Frontend {
 		wp_register_script( $this->plugin_slug . '-quality-selector', plugins_url( '/assets/drive/quality-selector' . $suffix . '.js', __FILE__ ), array( $this->plugin_slug . '-script' ), $this->player_version, false );
 
 		// Register JavaScript
-		if ( apply_filters( 'fp5_filter_has_shortcode', $has_video ) ) {
+		if ( $this->has_flowplayer_video ) {
 			wp_enqueue_script( $this->plugin_slug . '-script' );
 			if ( $asf_js ) {
 				wp_enqueue_script( $this->plugin_slug . '-asf' );
@@ -166,10 +169,10 @@ class Flowplayer5_Frontend {
 			$return .= '<script>';
 			$return .= 'flowplayer.conf = {';
 				$return .= 'embed: {';
-					$return .= ( ! empty ( $embed_library ) ? 'library: "' . $embed_library . '",' : '' );
-					$return .= ( ! empty ( $embed_script ) ? 'script: "' . $embed_script . '",' : '' );
-					$return .= ( ! empty ( $embed_skin ) ? 'skin: "' . $embed_skin . '",' : '' );
-					$return .= ( ! empty ( $embed_swf ) ? 'swf: "' . $embed_swf . '"' : '' );
+					$return .= ( ! empty ( $embed_library ) ? 'library: "' . esc_js( $embed_library ) . '",' : '' );
+					$return .= ( ! empty ( $embed_script ) ? 'script: "' . esc_js( $embed_script ) . '",' : '' );
+					$return .= ( ! empty ( $embed_skin ) ? 'skin: "' . esc_js( $embed_skin ) . '",' : '' );
+					$return .= ( ! empty ( $embed_swf ) ? 'swf: "' . esc_js( $embed_swf ) . '"' : '' );
 				$return .= '}';
 			$return .= '};';
 			$return .= '</script>';
@@ -189,26 +192,63 @@ class Flowplayer5_Frontend {
 	}
 
 	public function has_flowplayer_shortcode() {
-		$post = get_queried_object();
-		if ( null !== $post ) {
+		if ( is_404() || ! empty( $this->has_flowplayer_shortcode ) ) {
+			return;
+		}
+
+		$post           = get_queried_object();
+		$has_shortcode  = array();
+		$shortcode_args = array();
+
+		if ( null !== $post && is_single() ) {
 			$post_content = isset( $post->post_content ) ? $post->post_content : '';
-			$has_shortcode[] = fp5_has_shortcode_arg( $post_content, 'flowplayer' );
+			$shortcode_args = fp5_has_shortcode_arg( $post_content, 'flowplayer' );
+			foreach ( $shortcode_args as $key => $value ) {
+				if ( isset( $value['id'] ) ) {
+					$has_shortcode[ 'id' . $value['id'] ] = $value['id'];
+				} elseif ( isset( $value['playlist'] ) ) {
+					$has_shortcode[ 'playlist' . $value['playlist'] ] = $value['playlist'];
+				}
+			}
 		} else {
 			global $wp_query;
 			foreach ( $wp_query->posts as $post ) {
 				$post_content = isset( $post->post_content ) ? $post->post_content : '';
-				$has_shortcode[] = fp5_has_shortcode_arg( $post_content, 'flowplayer' );
+				$shortcode_args = fp5_has_shortcode_arg( $post_content, 'flowplayer' );
+				if ( ! $shortcode_args ) {
+					continue;
+				}
+				foreach ( $shortcode_args as $key => $value ) {
+					if ( isset( $value['id'] ) ) {
+						$has_shortcode[ 'id' . $value['id'] ] = $value['id'];
+					} elseif ( isset( $value['playlist'] ) ) {
+						$has_shortcode[ 'playlist' . $value['playlist'] ] = $value['playlist'];
+					}
+				}
 			}
 		}
-		$has_shortcode = iterator_to_array(new RecursiveIteratorIterator(
-			new RecursiveArrayIterator($has_shortcode)), FALSE);
 
-		return array_diff( $has_shortcode, array( false ) );
+		$this->has_flowplayer_shortcode = array_filter( $has_shortcode );
+	}
+
+	public function has_flowplayer_video() {
+		if ( ! empty( $this->has_flowplayer_video ) ){
+			return;
+		}
+
+		$has_video = 'flowplayer5' == get_post_type() || is_active_widget( false, false, 'flowplayer5-video-widget', true );
+		if ( ! $has_video ) {
+			$this->has_flowplayer_shortcode();
+			$has_video = ! empty ( $this->has_flowplayer_shortcode );
+		}
+
+		$this->has_flowplayer_video = apply_filters( 'fp5_filter_has_shortcode', $has_video );
 	}
 
 	public function is_multiresolution() {
-		$post_id = '';
+		$post_id   = '';
 		$qualities = array();
+
 		// Check if the post is a flowplayer video
 		if ( 'flowplayer5' == get_post_type() && isset ( $post->ID ) ) {
 			$post_id = $post->ID;
@@ -216,9 +256,11 @@ class Flowplayer5_Frontend {
 			return $qualities;
 		}
 
-		$shortcode_atts = $this->has_flowplayer_shortcode();
-		foreach ( $shortcode_atts as $post_id ) {
-			$qualities[] = get_post_meta( $post_id, 'fp5-qualities', true );
+		$this->has_flowplayer_shortcode();
+		foreach ( $this->has_flowplayer_shortcode as $key => $value ) {
+			if ( 'id' . $value === $key ) {
+				$qualities[] = get_post_meta( $post_id, 'fp5-qualities', true );
+			}
 		}
 
 		return $qualities;
