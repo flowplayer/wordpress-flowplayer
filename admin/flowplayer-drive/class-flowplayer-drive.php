@@ -188,8 +188,9 @@ class Flowplayer_Drive {
 					continue;
 				}
 
-				$quality = $encoding->height . 'p';
+				$quality       = $encoding->height . 'p';
 				$default_video = true;
+				$hls           = '';
 
 				if ( 'mp4' === $encoding->format && 1 < $video->hlsResolutions ) {
 					// 'example-video-216p.mp4' - '-216p' Fetch sizes from non-default sizes
@@ -203,21 +204,21 @@ class Flowplayer_Drive {
 					continue;
 				}
 
-				if ( 'webm' === $encoding->format ) {
-					$webm   = $encoding->url;
-					$height = $encoding->height;
-					$width  = $encoding->width;
-				} elseif ( 'mp4' === $encoding->format ) {
-					$mp4    = $encoding->url;
-					$flash  = $encoding->filename;
-					$height = $encoding->height;
-					$width  = $encoding->width;
-				}
-
-				if ( 'hls' === $encoding->format ) {
-					$hls = $encoding->url;
-				} else {
-					$hls = '';
+				switch ( $encoding->format ) {
+					case 'webm':
+						$webm   = $encoding->url;
+						$height = $encoding->height;
+						$width  = $encoding->width;
+						break;
+					case 'mp4':
+						$mp4    = $encoding->url;
+						$flash  = $encoding->filename;
+						$height = $encoding->height;
+						$width  = $encoding->width;
+						break;
+					case 'hls':
+						$hls = $encoding->url;
+						break;
 				}
 
 				if ( in_array( $encoding->format, array( 'mp4', 'webm' ) ) ) {
