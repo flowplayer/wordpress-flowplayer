@@ -203,11 +203,13 @@ class Flowplayer5_Frontend {
 		if ( null !== $post && is_single() ) {
 			$post_content = isset( $post->post_content ) ? $post->post_content : '';
 			$shortcode_args = fp5_has_shortcode_arg( $post_content, 'flowplayer' );
-			foreach ( $shortcode_args as $key => $value ) {
-				if ( isset( $value['id'] ) ) {
-					$has_shortcode[ 'id' . $value['id'] ] = $value['id'];
-				} elseif ( isset( $value['playlist'] ) ) {
-					$has_shortcode[ 'playlist' . $value['playlist'] ] = $value['playlist'];
+			if ( is_array( $shortcode_args ) ) {
+				foreach ( $shortcode_args as $key => $value ) {
+					if ( isset( $value['id'] ) ) {
+						$has_shortcode[ 'id' . $value['id'] ] = $value['id'];
+					} elseif ( isset( $value['playlist'] ) ) {
+						$has_shortcode[ 'playlist' . $value['playlist'] ] = $value['playlist'];
+					}
 				}
 			}
 		} else {
