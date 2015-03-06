@@ -252,6 +252,10 @@ add_filter( 'fp5_post_meta_defaults', 'fp5_post_meta_defaults' );`
 
 We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
 
+= 1.10.6 - 7 March 2015 =
+* fix bug: checking video id with nested shortcodes
+* fix bug: Invalid argument supplied for foreach()
+
 = 1.10.5 - 1 March 2015 =
 * fix bug: playing videos on different pages
 * fix bug: fix issue with videos from Flowplayer Drive
@@ -393,6 +397,9 @@ We have a lot of plans for this plugin. You can see some of the up and coming fe
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.10.6 =
+* fix bugs with playing videos
 
 = 1.10.5 =
 * fix bugs with Flowplayer Drive and playing videos

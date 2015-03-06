@@ -25,7 +25,6 @@ if ( ! defined( 'WPINC' ) ) {
 class Flowplayer5_Frontend {
 
 	public $has_flowplayer_video = '';
-	public $has_flowplayer_shortcode = '';
 
 	/**
 	 * Initialize the plugin by setting localization, filters, and administration functions.
@@ -163,7 +162,7 @@ class Flowplayer5_Frontend {
 		$embed_swf     = ( ! empty ( $options['swf'] ) ? $options['swf'] : '' );
 		$asf_js        = ( ! empty ( $options['asf_js'] ) ? $options['asf_js'] : '' );
 
-		if ( $embed_library || $embed_script || $embed_skin || $embed_swf ) {
+		if ( ( $embed_library || $embed_script || $embed_skin || $embed_swf ) && $this->has_flowplayer_video ) {
 
 			$return = '<!-- flowplayer global options -->';
 			$return .= '<script>';
@@ -192,7 +191,7 @@ class Flowplayer5_Frontend {
 	}
 
 	public function has_flowplayer_shortcode() {
-		if ( is_404() || ! empty( $this->has_flowplayer_shortcode ) ) {
+		if ( is_404() || isset( $this->has_flowplayer_shortcode ) ) {
 			return;
 		}
 
@@ -200,14 +199,15 @@ class Flowplayer5_Frontend {
 		$has_shortcode  = array();
 		$shortcode_args = array();
 
-		if ( null !== $post && is_single() ) {
-			$post_content = isset( $post->post_content ) ? $post->post_content : '';
-			$shortcode_args = fp5_has_shortcode_arg( $post_content, 'flowplayer' );
-			foreach ( $shortcode_args as $key => $value ) {
-				if ( isset( $value['id'] ) ) {
-					$has_shortcode[ 'id' . $value['id'] ] = $value['id'];
-				} elseif ( isset( $value['playlist'] ) ) {
-					$has_shortcode[ 'playlist' . $value['playlist'] ] = $value['playlist'];
+		if ( isset( $post->post_content ) ) {
+			$shortcode_args = fp5_has_shortcode_arg( $post->post_content, 'flowplayer' );
+			if ( is_array( $shortcode_args ) ) {
+				foreach ( $shortcode_args as $key => $value ) {
+					if ( isset( $value['id'] ) ) {
+						$has_shortcode[ 'id' . $value['id'] ] = $value['id'];
+					} elseif ( isset( $value['playlist'] ) ) {
+						$has_shortcode[ 'playlist' . $value['playlist'] ] = $value['playlist'];
+					}
 				}
 			}
 		} else {
@@ -237,12 +237,14 @@ class Flowplayer5_Frontend {
 		}
 
 		$has_video = 'flowplayer5' == get_post_type() || is_active_widget( false, false, 'flowplayer5-video-widget', true );
+		$has_video = apply_filters( 'fp5_filter_has_shortcode', $has_video );
+
 		if ( ! $has_video ) {
 			$this->has_flowplayer_shortcode();
 			$has_video = ! empty ( $this->has_flowplayer_shortcode );
 		}
 
-		$this->has_flowplayer_video = apply_filters( 'fp5_filter_has_shortcode', $has_video );
+		$this->has_flowplayer_video = $has_video;
 	}
 
 	public function is_multiresolution() {
