@@ -24,8 +24,6 @@ if ( ! defined( 'WPINC' ) ) {
  */
 class Flowplayer5_Frontend {
 
-	public $has_flowplayer_video = '';
-
 	/**
 	 * Initialize the plugin by setting localization, filters, and administration functions.
 	 *
@@ -109,10 +107,9 @@ class Flowplayer5_Frontend {
 	 */
 	public function enqueue_scripts() {
 
-		$options            = get_option( 'fp5_settings_general' );
-		$asf_js             = ( ! empty ( $options['asf_js'] ) ? $options['asf_js'] : false );
-		$is_multiresolution = $this->is_multiresolution();
-		$suffix             = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+		$options = get_option( 'fp5_settings_general' );
+		$asf_js  = ( ! empty ( $options['asf_js'] ) ? $options['asf_js'] : false );
+		$suffix  = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 		wp_register_script( $this->plugin_slug . '-script', trailingslashit( $this->flowplayer5_directory ) . 'flowplayer' . $suffix . '.js', array( 'jquery' ), $this->player_version, false );
 		wp_register_script( $this->plugin_slug . '-ima3', '//s0.2mdn.net/instream/html5/ima3.js', array(), null, false );
@@ -125,7 +122,8 @@ class Flowplayer5_Frontend {
 			if ( $asf_js ) {
 				wp_enqueue_script( $this->plugin_slug . '-asf' );
 			}
-			if ( $is_multiresolution ) {
+			$this->video_qualities();
+			if ( $this->video_qualities ) {
 				wp_enqueue_script( $this->plugin_slug . '-quality-selector' );
 			}
 		}
@@ -232,7 +230,7 @@ class Flowplayer5_Frontend {
 	}
 
 	public function has_flowplayer_video() {
-		if ( ! empty( $this->has_flowplayer_video ) ){
+		if ( isset( $this->has_flowplayer_video ) ){
 			return;
 		}
 
@@ -247,7 +245,12 @@ class Flowplayer5_Frontend {
 		$this->has_flowplayer_video = $has_video;
 	}
 
-	public function is_multiresolution() {
+	public function video_qualities() {
+
+		if ( isset( $this->video_qualities ) ){
+			return;
+		}
+
 		$post_id   = '';
 		$qualities = array();
 
@@ -255,17 +258,21 @@ class Flowplayer5_Frontend {
 		if ( 'flowplayer5' == get_post_type() && isset ( $post->ID ) ) {
 			$post_id = $post->ID;
 			$qualities[] = get_post_meta( $post_id, 'fp5-qualities', true );
-			return $qualities;
+			$this->video_qualities = $qualities;
+			return;
 		}
 
 		$this->has_flowplayer_shortcode();
+		if ( empty( $this->has_flowplayer_shortcode ) ) {
+			return;
+		}
 		foreach ( $this->has_flowplayer_shortcode as $key => $value ) {
 			if ( 'id' . $value === $key ) {
 				$qualities[] = get_post_meta( $post_id, 'fp5-qualities', true );
 			}
 		}
 
-		return $qualities;
+		$this->video_qualities = $qualities;
 	}
 
 }
