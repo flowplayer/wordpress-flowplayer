@@ -41,7 +41,9 @@ class Flowplayer5_Frontend {
 		$this->player_version = $plugin->get_player_version();
 		// Call $plugin_slug from public plugin class.
 		$this->plugin_slug = $plugin->get_plugin_slug();
-
+		// Define an empty array for shortcodes on page
+		$this->has_flowplayer_shortcode = array();
+		
 		// Pull options
 		$options   = get_option( 'fp5_settings_general' );
 		$cdn       = isset( $options['cdn_option'] );
