@@ -123,7 +123,7 @@ class Flowplayer5_Frontend {
 				wp_enqueue_script( $this->plugin_slug . '-asf' );
 			}
 			$this->video_qualities();
-			if ( $this->video_qualities ) {
+			if ( isset( $this->video_qualities ) ) {
 				wp_enqueue_script( $this->plugin_slug . '-quality-selector' );
 			}
 		}
