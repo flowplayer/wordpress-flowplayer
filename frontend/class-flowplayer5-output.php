@@ -38,6 +38,14 @@ class Flowplayer5_Output {
 		if ( isset( $atts['playlist'] ) ) {
 			$playlist_id = $atts['playlist'];
 			$playlist_options = get_option( 'playlist_' . absint( $playlist_id ) );
+			// Check if old id is being used in the shortcode
+			if ( ! $playlist_options && function_exists( 'wp_get_split_term' ) ) {
+				$new_term_id = wp_get_split_term( absint( $playlist_id ), 'playlist' );
+				$playlist_options = get_option( 'playlist_' . absint( $new_term_id ) );
+				if ( $playlist_options ) {
+					$playlist_id = $new_term_id;
+				}
+			}
 			if ( ! $playlist_options ) {
 				return;
 			}
