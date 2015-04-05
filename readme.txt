@@ -3,7 +3,7 @@ Contributors: flowplayerorg, grapplerulrich, anssi
 Donate link: http://flowplayer.org/pricing/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin
 Tags: flowplayer, flowplayer5, Flowplayer HTML5, responsive, html5, video, player, rtmp, hls, flash, live-streaming, Flowplayer Drive, Adsense, video-widget
 Requires at least: 3.5
-Tested up to: 4.1.1
+Tested up to: 4.2
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -252,6 +252,11 @@ add_filter( 'fp5_post_meta_defaults', 'fp5_post_meta_defaults' );`
 
 We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
 
+= 1.10.7 - 5 April 2015 =
+* fix bug: foreach warning on 404 page
+* prepare for taxonomy term splitting in WP 4.2
+* Reduce cache size by chaching processed video array
+
 = 1.10.6 - 7 March 2015 =
 * fix bug: checking video id with nested shortcodes
 * fix bug: Invalid argument supplied for foreach()
@@ -397,6 +402,9 @@ We have a lot of plans for this plugin. You can see some of the up and coming fe
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.10.7 =
+* fix bugs and add support for WP 4.2
 
 = 1.10.6 =
 * fix bugs with playing videos

@@ -38,6 +38,7 @@ class Flowplayer5_Taxonomy_Meta {
 		add_action( 'playlist_edit_form_fields', array( $this, 'taxonomy_edit_meta_field' ), 10, 2 );
 		add_filter( 'manage_edit-playlist_columns', array( $this, 'add_playlist_columns' ) );
 		add_filter( 'manage_playlist_custom_column', array( $this, 'add_playlist_column_content' ), 10, 3 );
+		add_action( 'split_shared_term', array( $this, 'update_playlist_order_for_split_terms' ), 10, 4 );
 
 	}
 
@@ -268,6 +269,22 @@ class Flowplayer5_Taxonomy_Meta {
 	 */
 	public function taxonomy_delete_meta_field( $term, $tt_id, $deleted_term ) {
 		delete_option( 'playlist_' . $term );
+	}
+
+	/**
+	 * Update options after a previously shared taxonomy term is split into two separate terms.
+	 *
+	 * @since     1.10.7
+	 */
+	public function update_playlist_order_for_split_terms( $old_term_id, $new_term_id, $term_taxonomy_id, $taxonomy ) {
+		$playlist_order = get_option( 'playlist_' . $old_term_id );
+
+		// Check to see whether the stored tag ID is the one that's just been split.
+		if ( isset( $playlist_order ) && $old_term_id !== $new_term_id && 'playlist' == $taxonomy ) {
+			// We have a match, so we save a new option with the new id.
+			update_option( 'playlist_' . $new_term_id, $playlist_order );
+			delete_option( 'playlist_' . $old_term_id );
+		}
 	}
 
 }
