@@ -78,7 +78,7 @@ function fp5_has_shortcode_arg( $content, $tag ) {
 		if ( empty( $matches ) ) {
 			return false;
 		}
-
+		$shortcode_arg = false;
 		foreach ( $matches as $shortcode ) {
 			if ( $tag === $shortcode[2] ) {
 				$shortcode_arg[] = shortcode_parse_atts( $shortcode[3] );
