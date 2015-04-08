@@ -279,10 +279,18 @@
 		</tr>
 
 		<tr class="fp5-ads-time" valign="top">
-			<th scope="row" rowspan="2"><label for="fp5-ads-time" class="fp5-row-title"><?php _e( 'Ads Time', $this->plugin_slug )?></label></th>
+			<th scope="row"><label for="fp5-ads-time" class="fp5-row-title"><?php _e( 'Ads Time', $this->plugin_slug )?></label></th>
 			<td>
 				<input type="text" name="fp5-ads-time" id="fp5-ads-time" value="<?php if ( isset ( $fp5_stored_meta['fp5-ads-time'] ) ) echo esc_attr( $fp5_stored_meta['fp5-ads-time'][0] ); ?>" />
 				<?php _e( 'Time in seconds into the video. Leave the field blank to disable the ads in the video.', $this->plugin_slug ); ?>
+			</td>
+		</tr>
+
+		<tr class="fp5-description-url" valign="top">
+			<th scope="row"><label for="fp5-description-url" class="fp5-row-title"><?php _e( 'Description URL', $this->plugin_slug )?></label></th>
+			<td>
+				<input type="text" name="fp5-description-url" id="fp5-description-url" value="<?php if ( isset ( $fp5_stored_meta['fp5-description-url'] ) ) echo esc_url( $fp5_stored_meta['fp5-description-url'][0] ); ?>" />
+				<?php _e( 'It is recommended to create metadata pages for each video and supply them as the description URL. (Defaults to current URL where the video is placed.)', $this->plugin_slug ); ?> <a href="https://support.google.com/adsense/answer/1705829?hl=en&ref_topic=1706004"><?php _e( 'Best practices and optimization tips', $this->plugin_slug ); ?></a>
 			</td>
 		</tr>
 

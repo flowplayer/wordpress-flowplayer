@@ -95,27 +95,28 @@ class Flowplayer5_Output {
 				'video/ogg'             => self::get_custom_fields( $custom_fields, 'fp5-ogg-video' ),
 				'video/flash'           => self::get_custom_fields( $custom_fields, 'fp5-flash-video' ),
 			);
-			$subtitles      = self::get_custom_fields( $custom_fields, 'fp5-vtt-subtitles' );
-			$max_width      = self::get_custom_fields( $custom_fields, 'fp5-max-width' );
-			$width          = self::get_custom_fields( $custom_fields, 'fp5-width' );
-			$height         = self::get_custom_fields( $custom_fields, 'fp5-height' );
-			$ratio          = self::get_custom_fields( $custom_fields, 'fp5-aspect-ratio' );
-			$fixed          = self::get_custom_fields( $custom_fields, 'fp5-fixed-width' );
-			$data_rtmp      = self::get_custom_fields( $custom_fields, 'fp5-data-rtmp' );
-			$quality        = self::get_custom_fields( $custom_fields, 'fp5-default-quality' );
-			$qualities      = self::get_custom_fields( $custom_fields, 'fp5-qualities' );
-			$coloring       = self::get_custom_fields( $custom_fields, 'fp5-coloring' );
-			$fixed_controls = self::get_custom_fields( $custom_fields, 'fp5-fixed-controls' );
-			$background     = self::get_custom_fields( $custom_fields, 'fp5-no-background' );
-			$aside_time     = self::get_custom_fields( $custom_fields, 'fp5-aside-time' );
-			$no_hover       = self::get_custom_fields( $custom_fields, 'fp5-no-hover' );
-			$no_mute        = self::get_custom_fields( $custom_fields, 'fp5-no-mute' );
-			$no_volume      = self::get_custom_fields( $custom_fields, 'fp5-no-volume' );
-			$no_embed       = self::get_custom_fields( $custom_fields, 'fp5-no-embed' );
-			$live           = self::get_custom_fields( $custom_fields, 'fp5-live' );
-			$play_button    = self::get_custom_fields( $custom_fields, 'fp5-play-button' );
-			$ads_time       = self::get_custom_fields( $custom_fields, 'fp5-ads-time' );
-			$ad_type        = self::get_custom_fields( $custom_fields, 'fp5-ad-type' );
+			$subtitles       = self::get_custom_fields( $custom_fields, 'fp5-vtt-subtitles' );
+			$max_width       = self::get_custom_fields( $custom_fields, 'fp5-max-width' );
+			$width           = self::get_custom_fields( $custom_fields, 'fp5-width' );
+			$height          = self::get_custom_fields( $custom_fields, 'fp5-height' );
+			$ratio           = self::get_custom_fields( $custom_fields, 'fp5-aspect-ratio' );
+			$fixed           = self::get_custom_fields( $custom_fields, 'fp5-fixed-width' );
+			$data_rtmp       = self::get_custom_fields( $custom_fields, 'fp5-data-rtmp' );
+			$quality         = self::get_custom_fields( $custom_fields, 'fp5-default-quality' );
+			$qualities       = self::get_custom_fields( $custom_fields, 'fp5-qualities' );
+			$coloring        = self::get_custom_fields( $custom_fields, 'fp5-coloring' );
+			$fixed_controls  = self::get_custom_fields( $custom_fields, 'fp5-fixed-controls' );
+			$background      = self::get_custom_fields( $custom_fields, 'fp5-no-background' );
+			$aside_time      = self::get_custom_fields( $custom_fields, 'fp5-aside-time' );
+			$no_hover        = self::get_custom_fields( $custom_fields, 'fp5-no-hover' );
+			$no_mute         = self::get_custom_fields( $custom_fields, 'fp5-no-mute' );
+			$no_volume       = self::get_custom_fields( $custom_fields, 'fp5-no-volume' );
+			$no_embed        = self::get_custom_fields( $custom_fields, 'fp5-no-embed' );
+			$live            = self::get_custom_fields( $custom_fields, 'fp5-live' );
+			$play_button     = self::get_custom_fields( $custom_fields, 'fp5-play-button' );
+			$ads_time        = self::get_custom_fields( $custom_fields, 'fp5-ads-time' );
+			$ad_type         = self::get_custom_fields( $custom_fields, 'fp5-ad-type' );
+			$description_url = self::get_custom_fields( $custom_fields, 'fp5-description-url', 'location.href' );
 
 		} else {
 
@@ -259,11 +260,11 @@ class Flowplayer5_Output {
 	 *
 	 * @since    1.9.0
 	 */
-	private static function get_custom_fields( $custom_fields, $key ) {
-		if ( isset( $custom_fields[ $key ][0] ) ) {
+	private static function get_custom_fields( $custom_fields, $key, $else = '' ) {
+		if ( ! empty( $custom_fields[ $key ][0] ) ) {
 			return $custom_fields[ $key ][0];
 		} else {
-			return '';
+			return $else;
 		}
 	}
 

@@ -12,7 +12,8 @@
 				ads: [{
 					time: "<?php echo esc_attr( $ads_time ); ?>",
 					request: {
-						ad_type: "<?php echo esc_attr( $ad_type ); ?>"
+						ad_type: "<?php echo esc_attr( $ad_type ); ?>",
+						description_url: "<?php echo esc_html( $description_url ); ?>"
 					}
 				}]
 			});

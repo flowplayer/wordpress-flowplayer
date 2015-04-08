@@ -216,6 +216,7 @@ class Flowplayer5_Video_Meta_Box {
 				'fp5-ogg-video',
 				'fp5-hls-video',
 				'fp5-vtt-subtitles',
+				'fp5-description-url',
 			);
 
 			foreach ( $urls as $url ) {
