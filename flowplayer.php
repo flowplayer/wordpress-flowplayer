@@ -37,6 +37,8 @@ require_once( plugin_dir_path( __FILE__ ) . 'includes/class-register-post-type.p
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-register-taxonomy.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/functions.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'admin/settings/register-settings.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'frontend/class-flowplayer5-shortcode.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'frontend/class-flowplayer5-output.php' );
 $fp5_options = fp5_get_settings();
 
 if ( is_admin() ) {
@@ -54,8 +56,8 @@ if ( is_admin() ) {
 	}
 } else {
 	require_once( plugin_dir_path( __FILE__ ) . 'frontend/class-flowplayer5-frontend.php' );
-	require_once( plugin_dir_path( __FILE__ ) . 'frontend/class-flowplayer5-output.php' );
-	require_once( plugin_dir_path( __FILE__ ) . 'frontend/class-flowplayer5-shortcode.php' );
+//	require_once( plugin_dir_path( __FILE__ ) . 'frontend/class-flowplayer5-output.php' );
+//	require_once( plugin_dir_path( __FILE__ ) . 'frontend/class-flowplayer5-shortcode.php' );
 }
 
 // Register hooks that are fired when the plugin is activated, deactivated, and uninstalled, respectively.

@@ -90,3 +90,41 @@ function fp5_has_shortcode_arg( $content, $tag ) {
 	}
 	return false;
 }
+add_action( 'init', function() {
+	// WP_Query arguments
+	$args = array(
+		'post_type' => 'flowplayer5',
+	);
+
+	// The Query
+	$query = new WP_Query( $args );
+	$posts = $query->posts;
+
+	foreach ( $posts as $post ) {
+		$options[ $post->ID ] = $post->post_title;
+	}
+
+	shortcode_ui_register_for_shortcode(
+		'flowplayer',
+		array(
+
+			// Display label. String. Required.
+			'label' => 'Flowplayer',
+
+			// Icon/image for shortcode. Optional. src or dashicons-$icon. Defaults to carrot.
+			'listItemImage' => 'dashicons-editor-quote',
+
+			// Available shortcode attributes and default values. Required. Array.
+			// Attribute model expects 'attr', 'type' and 'label'
+			// Supported field types: text, checkbox, textarea, radio, select, email, url, number, and date.
+			'attrs' => array(
+				array(
+					'label' => 'Video ID',
+					'attr'  => 'id',
+					'type'  => 'select',
+					'options' => $options,
+				),
+			),
+		)
+	);
+} );
