@@ -46,6 +46,9 @@ class Flowplayer_Drive {
 	 * @since    1.2.0
 	 */
 	public function run() {
+		$plugin = Flowplayer5::get_instance();
+		// Call $plugin_version from public plugin class.
+		$this->plugin_version = $plugin->get_plugin_version();
 		// Add content to footer bottom
 		add_action( 'admin_footer', array( $this, 'fp5_drive_content' ) );
 	}
@@ -57,7 +60,11 @@ class Flowplayer_Drive {
 	 */
 	protected function make_auth_seed_request() {
 
-		$response = wp_remote_get( esc_url_raw( $this->account_api_url ) );
+		$args = array(
+			'user-agent' => 'wp_flowplayer5/version_' . $this->plugin_version,
+		);
+
+		$response = wp_remote_get( esc_url_raw( $this->account_api_url ), $args );
 
 		if ( 200 != wp_remote_retrieve_response_code( $response ) ) {
 			Flowplayer_Drive_Error::showAuthenticationSeedApiError();
@@ -88,19 +95,21 @@ class Flowplayer_Drive {
 
 		$seed = $this->make_auth_seed_request();
 
-		$auth_api_url = esc_url_raw(
-			add_query_arg(
-				array(
-					'callback' => '?',
-					'username' => $user_name,
-					'hash'     => sha1( $user_name . $seed . $password ),
-					'seed'     => $seed,
-				),
-				esc_url_raw( $this->account_api_url )
-			)
+		$auth_api_url = add_query_arg(
+			array(
+				'callback' => '?',
+				'username' => $user_name,
+				'hash'     => sha1( $user_name . $seed . $password ),
+				'seed'     => $seed,
+			),
+			$this->account_api_url
 		);
 
-		$response = wp_remote_get( $auth_api_url );
+		$args = array(
+			'user-agent' => 'wp_flowplayer5/version_' . $this->plugin_version,
+		);
+
+		$response = wp_remote_get( esc_url_raw( $auth_api_url ), $args );
 
 		if ( 200 != wp_remote_retrieve_response_code( $response ) ) {
 			Flowplayer_Drive_Error::showAuthenticationApiError();
@@ -133,7 +142,11 @@ class Flowplayer_Drive {
 
 		$verified_video_api_url = add_query_arg( $query_args, $this->video_api_url );
 
-		$response = wp_remote_get( esc_url_raw( $verified_video_api_url ) );
+		$args = array(
+			'user-agent' => 'wp_flowplayer5/version_' . $this->plugin_version,
+		);
+
+		$response = wp_remote_get( esc_url_raw( $verified_video_api_url ), $args );
 
 		$json = $this->json_decode_body( $response );
 
