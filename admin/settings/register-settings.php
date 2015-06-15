@@ -59,6 +59,30 @@ function fp5_register_settings() {
 					'desc' => __( 'Show logo on this site. Uncheck to show on only externally embedded videos.', 'flowplayer5' ),
 					'type' => 'checkbox',
 				),
+				'brand_text' => array(
+					'id'   => 'brand_text',
+					'name' => __( 'Brand Text', 'flowplayer5' ),
+					'type' => 'text',
+					'button' => __( 'Add brand name', 'flowplayer5' ) . ' <a href="http://flowplayer.org/news/releases/html5/v.6.0.0.html">' . __( 'Flowplayer 6 feature', 'flowplayer5' ) . '</a>',
+					'size' => 'regular',
+					'desc' => __( 'If set, the brand name will appear in the controlbar.' ),
+				),
+				'text_origin' => array(
+					'id'   => 'text_origin',
+					'name' => __( 'Show brand name on this site', 'flowplayer5' ),
+					'desc' => __( 'Show brand name on this site. Uncheck to show on only externally embedded videos.', 'flowplayer5' ) . ' <a href="http://flowplayer.org/news/releases/html5/v.6.0.0.html">' . __( 'Flowplayer 6 feature', 'flowplayer5' ) . '</a>',
+					'type' => 'checkbox',
+				),
+				'fp_version' => array(
+					'id'      => 'fp_version',
+					'name'    => '<strong>' . __( 'Flowplayer Version', 'flowplayer5' ) . '</strong>',
+					'desc'    => __( 'Choose Flowplayer script version', 'flowplayer5' ),
+					'type'    => 'select',
+					'options' => array(
+						'fp5' => __( 'Version 5', 'flowplayer5' ),
+						'fp6' => __( 'Version 6', 'flowplayer5' )
+					)
+				),
 				'flowplayer_drive' => array(
 					'id'   => 'flowplayer_drive',
 					'name' => '<strong>' . __( 'Flowplayer Drive', 'flowplayer5' ) . '</strong> <a href="https://flowplayer.org/docs/drive.html">?</a>',
@@ -170,7 +194,9 @@ function fp5_register_settings() {
 		)
 	);
 
-	if ( false == get_option( 'fp5_settings_general' ) ) {
+	$fp5_settings_general = get_option( 'fp5_settings_general' );
+
+	if ( false == $fp5_settings_general ) {
 		add_option( 'fp5_settings_general' );
 	}
 
@@ -180,6 +206,11 @@ function fp5_register_settings() {
 		'__return_false',
 		'flowplayer5_settings'
 	);
+
+	if ( isset( $fp5_settings_general['fp_version'] ) && 'fp6' !== $fp5_settings_general['fp_version'] && '' == $fp5_settings_general['key'] ) {
+		unset( $fp5_settings['general']['brand_text'] );
+		unset( $fp5_settings['general']['text_origin'] );
+	}
 
 	foreach ( $fp5_settings['general'] as $option ) {
 		add_settings_field(
@@ -320,6 +351,37 @@ function fp5_checkbox_callback( $args ) {
 	$checked = isset( $fp5_options[ $args['id'] ] ) ? checked( 1, $fp5_options[ $args['id'] ], false ) : '';
 	$html = '<input type="checkbox" id="fp5_settings_' . $args['section'] . '[' . $args['id'] . ']" name="fp5_settings_' . $args['section'] . '[' . $args['id'] . ']" value="1" ' . $checked . '/>';
 	$html .= '<label for="fp5_settings_' . $args['section'] . '[' . $args['id'] . ']"> ' . $args['desc'] . '</label>';
+
+	echo $html;
+}
+
+/**
+ * Select Callback
+ *
+ * Renders select fields.
+ *
+ * @since 1.0
+ * @param array $args Arguments passed by the setting
+ * @global $edd_options Array of all the EDD Options
+ * @return void
+ */
+function fp5_select_callback( $args ) {
+	global $fp5_options;
+
+	if ( isset( $fp5_options[ $args['id'] ] ) )
+		$value = $fp5_options[ $args['id'] ];
+	else
+		$value = isset( $args['std'] ) ? $args['std'] : '';
+
+	$html = '<select id="fp5_settings_' . $args['section'] . '[' . $args['id'] . ']" name="fp5_settings_' . $args['section'] . '[' . $args['id'] . ']" />';
+
+	foreach ( $args['options'] as $option => $name ) :
+		$selected = selected( $option, $value, false );
+		$html .= '<option value="' . $option . '" ' . $selected . '>' . $name . '</option>';
+	endforeach;
+
+	$html .= '</select>';
+	$html .= '<label for="fp5_settings_' . $args['section'] . '[' . $args['id'] . ']"> '  . $args['desc'] . '</label>';
 
 	echo $html;
 }

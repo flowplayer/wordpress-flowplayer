@@ -34,15 +34,6 @@ class Flowplayer5 {
 	protected $plugin_version = '1.10.7';
 
 	/**
-	 * Player version, used for cache-busting of style and script file references.
-	 *
-	 * @since   1.0.0
-	 *
-	 * @var     string
-	 */
-	protected $player_version = '5.5.2';
-
-	/**
 	 * Unique identifier for your plugin.
 	 *
 	 * Use this value (not the variable name) as the text domain when internationalizing strings of text. It should
@@ -97,7 +88,12 @@ class Flowplayer5 {
 	 *@return    Player version variable.
 	 */
 	public function get_player_version() {
-		return $this->player_version;
+		$options = get_option( 'fp5_settings_general' );
+		if ( isset( $options['fp_version'] ) && 'fp6' === $options['fp_version'] ) {
+			return '6.0.1';
+		} else {
+			return '5.5.2';
+		}
 	}
 
 	/**

@@ -1,4 +1,4 @@
-<div style="<?php esc_attr( self::trim_implode( $style ) ); ?>" class="<?php esc_attr( self::trim_implode( $classes ) ); ?>" <?php esc_textarea( apply_filters( 'fp5_filter_flowplayer_data', self::trim_implode( $data ) ) ); ?>>
+<div style="<?php echo esc_attr( self::trim_implode( $style ) ); ?>" class="<?php echo esc_attr( self::trim_implode( $classes ) ); ?>" <?php echo esc_textarea( fp5_deprecated_flowplayer_data( self::trim_implode( $data_config ) ) ); ?>>
 
 	<?php if ( $asf_js ) : ?>
 		<!-- Flowplayer Ads -->
@@ -22,8 +22,8 @@
 
 	<?php do_action( 'fp5_video_top' ); ?>
 
-	<video <?php esc_textarea( self::trim_implode( $attributes ) ); ?>>
-		<?php esc_textarea( self::trim_implode( $source ) ); ?>
+	<video <?php echo self::process_data_config( $video_data_config ); ?><?php echo self::trim_implode( $attributes ); ?>>
+		<?php echo self::trim_implode( $source ); ?>
 		<?php echo esc_textarea( $track ); ?>
 	</video>
 
@@ -35,10 +35,13 @@
 <script>
 jQuery( document ).ready( function( $ ) {
 	$(".flowplayer-video-<?php echo esc_attr( $id ); ?>").flowplayer({
+		<?php if ( 0 < strlen( $key ) ) { ?>
+		brand: {
+			<?php echo self::process_js_config( $js_brand_config ); ?>
+		},
+		<?php } ?>
 		<?php do_action( 'fp5_video_config' ); ?>
-		adaptiveRatio: <?php echo esc_attr( $adaptive_ratio ); ?>,
-		live: <?php echo esc_attr( $live ); ?>,
-		embed: <?php echo esc_attr( $embed ); ?>
+		<?php echo self::process_js_config( $js_config ); ?>
 	});
 });
 </script>

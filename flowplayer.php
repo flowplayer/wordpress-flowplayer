@@ -36,6 +36,7 @@ require_once( plugin_dir_path( __FILE__ ) . 'includes/class-flowplayer5-widget.p
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-register-post-type.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-register-taxonomy.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/functions.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/deprecated.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'admin/settings/register-settings.php' );
 $fp5_options = fp5_get_settings();
 

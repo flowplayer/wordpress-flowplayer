@@ -108,6 +108,7 @@ class Flowplayer5_Output {
 			$fixed_controls  = self::get_custom_fields( $custom_fields, 'fp5-fixed-controls' );
 			$background      = self::get_custom_fields( $custom_fields, 'fp5-no-background' );
 			$aside_time      = self::get_custom_fields( $custom_fields, 'fp5-aside-time' );
+			$show_title      = self::get_custom_fields( $custom_fields, 'fp5-show-title' );
 			$no_hover        = self::get_custom_fields( $custom_fields, 'fp5-no-hover' );
 			$no_mute         = self::get_custom_fields( $custom_fields, 'fp5-no-mute' );
 			$no_volume       = self::get_custom_fields( $custom_fields, 'fp5-no-volume' );
@@ -117,6 +118,7 @@ class Flowplayer5_Output {
 			$ads_time        = self::get_custom_fields( $custom_fields, 'fp5-ads-time' );
 			$ad_type         = self::get_custom_fields( $custom_fields, 'fp5-ad-type' );
 			$description_url = self::get_custom_fields( $custom_fields, 'fp5-description-url', 'location.href' );
+			$title           = get_the_title( $id );
 
 		} else {
 
@@ -161,32 +163,94 @@ class Flowplayer5_Output {
 
 		}
 
+		// Global settings
+
 		// set the options for the shortcode - pulled from the register-settings.php
 		$options       = get_option( 'fp5_settings_general' );
 		$key           = ( isset( $options['key'] ) ) ? $options['key'] : '';
-		$logo          = ( isset( $options['logo'] ) ) ? $options['logo'] : '';
 		$ga_account_id = ( isset( $options['ga_account_id'] ) ) ? $options['ga_account_id'] : '';
+		$logo          = ( isset( $options['logo'] ) ) ? $options['logo'] : '';
 		$logo_origin   = ( isset( $options['logo_origin'] ) ) ? $options['logo_origin'] : '';
+		$brand_text    = ( isset( $options['brand_text'] ) ) ? $options['brand_text'] : '';
+		$text_origin   = ( isset( $options['text_origin'] ) ) ? $options['text_origin'] : '';
 		$asf_test      = ( isset( $options['asf_test'] ) ) ? $options['asf_test'] : '';
 		$asf_js        = ( isset( $options['asf_js'] ) ) ? $options['asf_js'] : '';
+		$fp_version    = ( isset( $options['fp_version'] ) ) ? $options['fp_version'] : '';
 
 		// Shortcode processing
-		$ratio         = ( ( $width != 0 && $height != 0 ) ? intval( $height ) / intval( $width ) : '' );
-
+		$ratio = ( ( $width != 0 && $height != 0 ) ? intval( $height ) / intval( $width ) : '' );
+		if ( $fixed == 'true' && $width != '' && $height != '' ) {
+			$size = 'width:' . $width . 'px; height:' . $height . 'px; ';
+		} elseif ( $max_width != 0 ) {
+			$size = 'max-width:' . $max_width . 'px; ';
+		}
 		$style = array(
-			( $fixed == 'true' && $width != '' && $height != '' ? 'width:' . $width . 'px; height:' . $height . 'px; ' : ( ( $max_width != 0 ) ?  'max-width:' . $max_width . 'px;' : '' ) ),
+			$size,
 			'background-image: url(' . esc_url( $splash ) . ');',
 		);
 
-		$data = array(
-			( 0 < strlen( $key ) ? 'data-key="' . esc_attr( $key ) . '"' : ''),
-			( 0 < strlen( $key ) && 0 < strlen( $logo ) ? 'data-logo="' . esc_url( $logo ) . '"' : '' ),
-			( 0 < strlen( $ga_account_id ) ? 'data-analytics="' . esc_attr( $ga_account_id ) . '"' : '' ),
-			( $ratio != 0 ? 'data-ratio="' . esc_attr( $ratio ) . '"' : '' ),
-			( ! empty ( $data_rtmp ) ? 'data-rtmp="' . esc_attr( $data_rtmp ) . '"' : '' ),
-			( ! empty ( $quality ) ? 'data-default-quality="' . esc_attr( $quality ) . '"' : '' ),
-			( ! empty ( $qualities ) ? 'data-qualities="' . esc_attr( $qualities ) . '"' : '' ),
-		);
+		// Prepare div data config
+		$data_config = array();
+		if ( has_filter( 'fp5_filter_flowplayer_data' ) ) {
+			$data_config = array(
+				( 0 < strlen( $key ) ? 'data-key="' . esc_attr( $key ) . '"' : '' ),
+				( 0 < strlen( $key ) && 0 < strlen( $logo ) ? 'data-logo="' . esc_url( $logo ) . '"' : '' ),
+				( 0 < strlen( $ga_account_id ) ? 'data-analytics="' . esc_attr( $ga_account_id ) . '"' : '' ),
+				( $ratio != 0 ? 'data-ratio="' . esc_attr( $ratio ) . '"' : '' ),
+				( ! empty ( $data_rtmp ) ? 'data-rtmp="' . esc_attr( $data_rtmp ) . '"' : '' ),
+				( ! empty ( $quality ) ? 'data-default-quality="' . esc_attr( $quality ) . '"' : '' ),
+				( ! empty ( $qualities ) ? 'data-qualities="' . esc_attr( $qualities ) . '"' : '' ),
+			);
+		}
+
+		// Prepare video tag data config
+		$video_data_config = array();
+		if ( ! empty ( $title ) && ! empty ( $show_title ) ) {
+			$video_data_config['title'] = esc_attr( $title );
+		}
+		$video_data_config = apply_filters( 'fp5_video_data_config', $video_data_config );
+
+		// Prepare JS config
+		$js_config = array();
+		if ( 0 == $width && 0 == $height ) {
+			$js_config['adaptiveRatio'] = 'true';
+		}
+		if ( 'true' == $live ) {
+			$js_config['live'] = esc_attr( $live );
+		}
+		if ( 'true' == $no_embed ) {
+			$js_config['embed'] = 'false';
+		}
+		if ( 0 < strlen( $key ) ) {
+			$js_config['key'] = esc_attr( $key );
+		}
+		if ( 0 < strlen( $key ) && 0 < strlen( $logo ) ) {
+			$js_config['logo'] = esc_url( $logo );
+		}
+		if ( 0 < strlen( $ga_account_id ) ) {
+			$js_config['analytics'] = esc_attr( $ga_account_id );
+		}
+		if ( $ratio != 0 ) {
+			$js_config['ratio'] = esc_attr( $ratio );
+		}
+		if ( ! empty ( $data_rtmp ) ) {
+			$js_config['rtmp'] = esc_attr( $data_rtmp );
+		}
+		if ( ! empty ( $quality ) ) {
+			$js_config['defaultQuality'] = esc_attr( $quality );
+		}
+		if ( ! empty ( $qualities ) ) {
+			$js_config['qualities'] = esc_attr( $qualities );
+		}
+		$js_config = apply_filters( 'fp5_js_config', $js_config );
+
+		if ( ! empty ( $brand_text ) ) {
+			$js_brand_config['text'] = esc_attr( $brand_text );
+		}
+		if ( 'true' == $text_origin ) {
+			$js_brand_config['showOnOrigin'] = esc_attr( $text_origin );
+		}
+		$js_brand_config = apply_filters( 'fp5_js_brand_config', $js_brand_config );
 
 		$classes = array(
 			'flowplayer-video flowplayer-video-' . $id,
@@ -219,7 +283,7 @@ class Flowplayer5_Output {
 		$source = array();
 		foreach ( $formats as $format => $src ) {
 			if ( ! empty( $src ) ) {
-				$source[ $format ] = '<source type="' . $format . '" src="' . esc_attr( apply_filters( 'fp5_filter_video_src', $src, $format, $id ) ) . '">';
+				$source[ $format ] = '<source type="' . esc_attr( $format ) . '" src="' . esc_attr( apply_filters( 'fp5_filter_video_src', $src, $format, $id ) ) . '">';
 			}
 		}
 
@@ -227,22 +291,6 @@ class Flowplayer5_Output {
 			$track = '<track src="' . esc_url( $subtitles ) . '"/>';
 		} else {
 			$track = '';
-		}
-
-		if ( 0 == $width && 0 == $height ) {
-			$adaptive_ratio = 'true';
-		} else {
-			$adaptive_ratio = 'false';
-		}
-
-		if ( 'true' == $no_embed ) {
-			$embed = 'false';
-		} else {
-			$embed = 'true';
-		}
-
-		if ( 'true' != $live ) {
-			$live = 'false';
 		}
 
 		// Check if a video has been added before output
@@ -268,8 +316,22 @@ class Flowplayer5_Output {
 		}
 	}
 
-	private static function trim_implode( $value ) {
-		echo trim( implode( ' ', $value ) );
+	private static function trim_implode( $values ) {
+		return trim( implode( ' ', array_filter( $values ) ) );
+	}
+
+	private static function process_data_config( $values ) {
+		foreach ( $values as $key => $value ) {
+			$output[] = 'data-' . esc_html( $key ) . '="' . esc_html( $value ) . '" ';
+		}
+		return implode( ' ', $output );
+	}
+
+	private static function process_js_config( $values ) {
+		foreach ( $values as $key => $value ) {
+			$output[] = esc_html( $key ) . ':"' . esc_html( $value ) . '",';
+		}
+		return rtrim( implode( ' ', $output ), ',' );
 	}
 
 }

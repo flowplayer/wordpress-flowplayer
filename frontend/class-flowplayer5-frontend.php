@@ -41,10 +41,11 @@ class Flowplayer5_Frontend {
 		$this->plugin_slug = $plugin->get_plugin_slug();
 
 		// Pull options
-		$options   = get_option( 'fp5_settings_general' );
-		$cdn       = isset( $options['cdn_option'] );
-		$key       = ( ! empty ( $options['key'] ) ? $options['key'] : '' );
-		$directory = ( ! empty ( $options['directory'] ) ? $options['directory'] : '' );
+		$options    = get_option( 'fp5_settings_general' );
+		$cdn        = isset( $options['cdn_option'] );
+		$key        = ( ! empty ( $options['key'] ) ? $options['key'] : '' );
+		$directory  = ( ! empty ( $options['directory'] ) ? $options['directory'] : '' );
+		$fp_version = ( isset( $options['fp_version'] ) && 'fp6' === $options['fp_version'] ) ? '-6' : '';
 
 		$flowplayer5_commercial = trailingslashit( WP_CONTENT_DIR ) . 'flowplayer-commercial';
 
@@ -53,7 +54,7 @@ class Flowplayer5_Frontend {
 		} elseif ( $directory ) {
 			$this->flowplayer5_directory = $directory;
 		} elseif ( ! $cdn && ! $key ) {
-			$this->flowplayer5_directory = plugins_url( '/assets/flowplayer', __FILE__  );
+			$this->flowplayer5_directory = plugins_url( '/assets/flowplayer' . $fp_version, __FILE__  );
 		} else {
 			$this->flowplayer5_directory = '//releases.flowplayer.org/' . $this->player_version . '/'. ( $key ? 'commercial' : '' );
 		}
@@ -110,11 +111,12 @@ class Flowplayer5_Frontend {
 		$options = get_option( 'fp5_settings_general' );
 		$asf_js  = ( ! empty ( $options['asf_js'] ) ? $options['asf_js'] : false );
 		$suffix  = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+		$fp_version = ( isset( $options['fp_version'] ) && 'fp6' === $options['fp_version'] ) ? '-v6' : '';
 
 		wp_register_script( $this->plugin_slug . '-script', trailingslashit( $this->flowplayer5_directory ) . 'flowplayer' . $suffix . '.js', array( 'jquery' ), $this->player_version, false );
 		wp_register_script( $this->plugin_slug . '-ima3', '//s0.2mdn.net/instream/html5/ima3.js', array(), null, false );
 		wp_register_script( $this->plugin_slug . '-asf', esc_url( $asf_js ), array( $this->plugin_slug . '-ima3' ), null, false );
-		wp_register_script( $this->plugin_slug . '-quality-selector', plugins_url( '/assets/drive/quality-selector' . $suffix . '.js', __FILE__ ), array( $this->plugin_slug . '-script' ), $this->player_version, false );
+		wp_register_script( $this->plugin_slug . '-quality-selector', plugins_url( '/assets/drive/quality-selector' . $fp_version . $suffix . '.js', __FILE__ ), array( $this->plugin_slug . '-script' ), $this->player_version, false );
 
 		// Register JavaScript
 		if ( $this->has_flowplayer_video ) {
