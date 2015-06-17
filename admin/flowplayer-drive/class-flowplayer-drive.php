@@ -84,7 +84,7 @@ class Flowplayer_Drive {
 	protected function make_auth_request() {
 
 		// get the login info
-		$options   = get_option( 'fp5_settings_general' );
+		$options   = fp5_get_settings();
 		$user_name = ( isset( $options['user_name'] ) ) ? $options['user_name'] : '';
 		$password  = ( isset( $options['password'] ) ) ? $options['password'] : '';
 

@@ -25,8 +25,6 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-global $fp5_options;
-
 // Plugin Root File
 if ( ! defined( 'FP5_PLUGIN_FILE' ) )
 	define( 'FP5_PLUGIN_FILE', __FILE__ );
@@ -35,10 +33,10 @@ require_once( plugin_dir_path( __FILE__ ) . 'includes/class-flowplayer5.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-flowplayer5-widget.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-register-post-type.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-register-taxonomy.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'admin/settings/class-register-settings.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'admin/settings/class-sanitize-settings.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/functions.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/deprecated.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'admin/settings/register-settings.php' );
-$fp5_options = fp5_get_settings();
 
 if ( is_admin() ) {
 	require_once( plugin_dir_path( __FILE__ ) . 'admin/class-flowplayer5-admin.php' );
@@ -66,6 +64,8 @@ register_deactivation_hook( __FILE__, array( 'Flowplayer5', 'deactivate' ) );
 Flowplayer5::get_instance();
 Flowplayer5_Post_Type::get_instance();
 Flowplayer5_Taxonomy::get_instance();
+$flowplayer_settings = new Flowplayer5_Settings;
+$flowplayer_sanitize_settings = new Flowplayer5_Sanitize_Settings;
 if ( is_admin() ) {
 	Flowplayer5_Admin::get_instance();
 	Flowplayer5_Video_Meta_Box::get_instance();

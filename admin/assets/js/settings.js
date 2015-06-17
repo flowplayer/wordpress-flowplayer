@@ -15,7 +15,7 @@ jQuery(document).ready(function($){
     // Add Logo
     var fp5_logo_frame;
 
-    $(document.body).on('click.fp5OpenMediaManager', '.fp5_settings_image_upload_button', function(e){
+    $(document.body).on('click.fp5OpenMediaManager', '.fp5_settings_logo_upload_button', function(e){
         e.preventDefault();
 
         if ( fp5_logo_frame ) {

@@ -166,7 +166,7 @@ class Flowplayer5_Output {
 		// Global settings
 
 		// set the options for the shortcode - pulled from the register-settings.php
-		$options       = get_option( 'fp5_settings_general' );
+		$options       = fp5_get_settings();
 		$key           = ( isset( $options['key'] ) ) ? $options['key'] : '';
 		$ga_account_id = ( isset( $options['ga_account_id'] ) ) ? $options['ga_account_id'] : '';
 		$logo          = ( isset( $options['logo'] ) ) ? $options['logo'] : '';

@@ -41,7 +41,7 @@ class Flowplayer5_Frontend {
 		$this->plugin_slug = $plugin->get_plugin_slug();
 
 		// Pull options
-		$options    = get_option( 'fp5_settings_general' );
+		$options    = fp5_get_settings();
 		$cdn        = isset( $options['cdn_option'] );
 		$key        = ( ! empty ( $options['key'] ) ? $options['key'] : '' );
 		$directory  = ( ! empty ( $options['directory'] ) ? $options['directory'] : '' );
@@ -82,7 +82,7 @@ class Flowplayer5_Frontend {
 	public function enqueue_styles() {
 
 		// Pull options
-		$options = get_option( 'fp5_settings_general' );
+		$options = fp5_get_settings();
 		$asf_css = ( ! empty ( $options['asf_css'] ) ? $options['asf_css'] : false );
 		$suffix  = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
@@ -108,7 +108,7 @@ class Flowplayer5_Frontend {
 	 */
 	public function enqueue_scripts() {
 
-		$options = get_option( 'fp5_settings_general' );
+		$options = fp5_get_settings();
 		$asf_js  = ( ! empty ( $options['asf_js'] ) ? $options['asf_js'] : false );
 		$suffix  = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 		$fp_version = ( isset( $options['fp_version'] ) && 'fp6' === $options['fp_version'] ) ? '-v6' : '';
@@ -155,7 +155,7 @@ class Flowplayer5_Frontend {
 	public function global_config_script() {
 
 		// set the options for the shortcode - pulled from the display-settings.php
-		$options       = get_option( 'fp5_settings_general' );
+		$options       = fp5_get_settings();
 		$embed_library = ( ! empty ( $options['library'] ) ? $options['library'] : '' );
 		$embed_script  = ( ! empty ( $options['script'] ) ? $options['script'] : '' );
 		$embed_skin    = ( ! empty ( $options['skin'] ) ? $options['skin'] : '' );
