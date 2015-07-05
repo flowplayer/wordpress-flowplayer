@@ -64,8 +64,8 @@ register_deactivation_hook( __FILE__, array( 'Flowplayer5', 'deactivate' ) );
 Flowplayer5::get_instance();
 Flowplayer5_Post_Type::get_instance();
 Flowplayer5_Taxonomy::get_instance();
-$flowplayer_settings = new Flowplayer5_Settings;
-$flowplayer_sanitize_settings = new Flowplayer5_Sanitize_Settings;
+new Flowplayer5_Sanitize_Settings;
+
 if ( is_admin() ) {
 	Flowplayer5_Admin::get_instance();
 	Flowplayer5_Video_Meta_Box::get_instance();
