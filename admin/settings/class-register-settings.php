@@ -40,10 +40,9 @@ class Flowplayer5_Settings {
 	 * @return array
 	*/
 	public function get_defaults() {
-		// @TODO Change default depending on installation
-		$defaults = array(
-			'fp_version' => 'fp5',
-		);
+		if ( empty( $this->options ) ) {
+			$defaults['fp_version'] = 'fp6';
+		}
 		return apply_filters( 'fp5_option_defaults', $defaults );
 	}
 
@@ -198,7 +197,7 @@ class Flowplayer5_Settings {
 	 * @return array
 	*/
 	function get_registered_settings() {
-
+		$defaults = $this->get_defaults();
 		$settings = array(
 			/** General Settings */
 			'general' => array(
@@ -250,7 +249,8 @@ class Flowplayer5_Settings {
 					'options' => array(
 						'fp5' => __( 'Version 5', 'flowplayer5' ),
 						'fp6' => __( 'Version 6', 'flowplayer5' )
-					)
+					),
+					'std'     => $defaults['fp_version']
 				),
 				'flowplayer_drive' => array(
 					'name' => '<strong>' . __( 'Flowplayer Drive', 'flowplayer5' ) . '</strong> <a href="https://flowplayer.org/docs/drive.html">?</a>',
