@@ -90,7 +90,7 @@ class Flowplayer5 {
 	public function get_player_version() {
 		$options = fp5_get_settings();
 		if ( isset( $options['fp_version'] ) && 'fp6' === $options['fp_version'] ) {
-			return '6.0.1';
+			return '6.0.2';
 		} else {
 			return '5.5.2';
 		}
