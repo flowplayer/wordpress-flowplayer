@@ -94,10 +94,12 @@ class Flowplayer5_Settings {
 
 			foreach ( $settings as $key => $option ) {
 
+				$callback = ! empty( $option['callback'] ) ? $option['callback'] : array( $this, $option['type'] . '_callback' );
+
 				add_settings_field(
 					'fp5_settings_general[' . $key . ']',
 					isset( $option['name'] ) ? $option['name'] : '',
-					is_callable( array( $this, $option['type'] . '_callback' ) ) ? array( $this, $option['type'] . '_callback' ) : array( $this, 'missing_callback' ),
+					is_callable( $callback ) ? $callback : array( $this, 'missing_callback' ),
 					'flowplayer5_settings',
 					'fp5_settings_' . $tab,
 					array(
