@@ -69,99 +69,84 @@ class Flowplayer5_Output {
 	 */
 	private static function single_video_output( $atts ) {
 
+		/**
+		 * flowplayer shortcode
+		 *
+		 * @example [flowplayer id="123" splash="trailer_1080p.jpg" webm="trailer_1080p.webm" mp4="trailer_1080p.mp4" ogg="trailer_1080p.ogv" width="1920" height="1080" skin="functional" autoplay="true" loop="true" fixed="false" subtitles="bunny-en.vtt" fixed_controls="true" coloring="default" preload="auto"]
+		 */
+
+		$shortcode_defaults = array(
+			'id'             => '',
+			'mp4'            => '',
+			'webm'           => '',
+			'ogg'            => '',
+			'flash'          => '',
+			'skin'           => 'minimalist',
+			'splash'         => '',
+			'autoplay'       => 'false',
+			'loop'           => 'false',
+			'subtitles'      => '',
+			'width'          => '',
+			'height'         => '',
+			'fixed'          => 'false',
+			'fixed_controls' => '',
+			'coloring'       => 'default',
+			'preload'        => 'auto',
+			'poster'         => '',
+		);
+
+		$atts = shortcode_atts(
+			$shortcode_defaults,
+			$atts,
+			'flowplayer'
+		);
+
 		if ( isset( $atts['id'] ) ) {
 
 			$id = $atts['id'];
 
-			/**
-			 * New flowplayer shortcode
-			 *
-			 * @example [flowplayer id="123"]
-			 */
-
 			// get the meta from the post type
 			$custom_fields  = get_post_custom( $id );
-			$loop           = self::get_custom_fields( $custom_fields, 'fp5-loop' );
-			$loop           = self::get_custom_fields( $custom_fields, 'fp5-loop' );
-			$autoplay       = self::get_custom_fields( $custom_fields, 'fp5-autoplay' );
-			$preload        = self::get_custom_fields( $custom_fields, 'fp5-preload' );
-			$poster         = '';
-			$skin           = self::get_custom_fields( $custom_fields, 'fp5-select-skin' );
-			$splash         = self::get_custom_fields( $custom_fields, 'fp5-splash-image' );
-			$formats        = array(
-				'application/x-mpegurl' => self::get_custom_fields( $custom_fields, 'fp5-hls-video' ),
-				'video/webm'            => self::get_custom_fields( $custom_fields, 'fp5-webm-video' ),
-				'video/mp4'             => self::get_custom_fields( $custom_fields, 'fp5-mp4-video' ),
-				'video/ogg'             => self::get_custom_fields( $custom_fields, 'fp5-ogg-video' ),
-				'video/flash'           => self::get_custom_fields( $custom_fields, 'fp5-flash-video' ),
-			);
-			$subtitles       = self::get_custom_fields( $custom_fields, 'fp5-vtt-subtitles' );
-			$max_width       = self::get_custom_fields( $custom_fields, 'fp5-max-width' );
-			$width           = self::get_custom_fields( $custom_fields, 'fp5-width' );
-			$height          = self::get_custom_fields( $custom_fields, 'fp5-height' );
-			$ratio           = self::get_custom_fields( $custom_fields, 'fp5-aspect-ratio' );
-			$fixed           = self::get_custom_fields( $custom_fields, 'fp5-fixed-width' );
-			$data_rtmp       = self::get_custom_fields( $custom_fields, 'fp5-data-rtmp' );
-			$quality         = self::get_custom_fields( $custom_fields, 'fp5-default-quality' );
-			$qualities       = self::get_custom_fields( $custom_fields, 'fp5-qualities' );
-			$coloring        = self::get_custom_fields( $custom_fields, 'fp5-coloring' );
-			$fixed_controls  = self::get_custom_fields( $custom_fields, 'fp5-fixed-controls' );
-			$background      = self::get_custom_fields( $custom_fields, 'fp5-no-background' );
-			$aside_time      = self::get_custom_fields( $custom_fields, 'fp5-aside-time' );
-			$show_title      = self::get_custom_fields( $custom_fields, 'fp5-show-title' );
-			$no_hover        = self::get_custom_fields( $custom_fields, 'fp5-no-hover' );
-			$no_mute         = self::get_custom_fields( $custom_fields, 'fp5-no-mute' );
-			$no_volume       = self::get_custom_fields( $custom_fields, 'fp5-no-volume' );
-			$no_embed        = self::get_custom_fields( $custom_fields, 'fp5-no-embed' );
-			$live            = self::get_custom_fields( $custom_fields, 'fp5-live' );
-			$play_button     = self::get_custom_fields( $custom_fields, 'fp5-play-button' );
-			$ads_time        = self::get_custom_fields( $custom_fields, 'fp5-ads-time' );
-			$ad_type         = self::get_custom_fields( $custom_fields, 'fp5-ad-type' );
-			$description_url = self::get_custom_fields( $custom_fields, 'fp5-description-url', 'location.href' );
-			$title           = get_the_title( $id );
-
-		} else {
-
-			/**
-			 * Old flowplayer shortcode
-			 *
-			 * @example [flowplayer splash="trailer_1080p.jpg" webm="trailer_1080p.webm" mp4="trailer_1080p.mp4" ogg="trailer_1080p.ogv" width="1920" height="1080" skin="functional" autoplay="true" loop="true" fixed="false" subtitles="bunny-en.vtt" fixed_controls="true" coloring="default" preload="auto"]
-			 */
-
-			// Attributes
-			shortcode_atts(
-				array(
-					'mp4'            => '',
-					'webm'           => '',
-					'ogg'            => '',
-					'flash'          => '',
-					'skin'           => 'minimalist',
-					'splash'         => '',
-					'autoplay'       => 'false',
-					'loop'           => 'false',
-					'subtitles'      => '',
-					'width'          => '',
-					'height'         => '',
-					'fixed'          => 'false',
-					'fixed_controls' => '',
-					'coloring'       => 'default',
-					'preload'        => 'auto',
-					'poster'         => '',
-				),
-				$atts
-			);
-
-			$max_width = $width;
-
-			$formats = array(
-				'application/x-mpegurl' => $hls,
-				'video/webm'            => $webm,
-				'video/mp4'             => $mp4,
-				'video/ogg'             => $ogg,
-				'video/flash'           => $flash,
-			);
-
+			$title          = get_the_title( $id );
 		}
+
+		$loop           = self::get_custom_fields( $custom_fields, 'fp5-loop', $atts, 'loop' );
+		$autoplay       = self::get_custom_fields( $custom_fields, 'fp5-autoplay', $atts, 'autoplay' );
+		$preload        = self::get_custom_fields( $custom_fields, 'fp5-preload', $atts, 'preload' );
+		$poster         = self::get_custom_fields( $custom_fields, 'fp5-poster', $atts, 'poster' );
+		$skin           = self::get_custom_fields( $custom_fields, 'fp5-select-skin', $atts, 'skin' );
+		$splash         = self::get_custom_fields( $custom_fields, 'fp5-splash-image', $atts, 'splash' );
+		$formats        = array(
+			'application/x-mpegurl' => self::get_custom_fields( $custom_fields, 'fp5-hls-video', $atts, 'hls' ),
+			'video/webm'            => self::get_custom_fields( $custom_fields, 'fp5-webm-video', $atts, 'mp4' ),
+			'video/mp4'             => self::get_custom_fields( $custom_fields, 'fp5-mp4-video', $atts, 'webm' ),
+			'video/ogg'             => self::get_custom_fields( $custom_fields, 'fp5-ogg-video', $atts, 'ogg' ),
+			'video/flash'           => self::get_custom_fields( $custom_fields, 'fp5-flash-video', $atts ),
+		);
+		$subtitles       = self::get_custom_fields( $custom_fields, 'fp5-vtt-subtitles', $atts, 'subtitles' );
+		$max_width       = self::get_custom_fields( $custom_fields, 'fp5-max-width', $atts, 'max_width' );
+		$width           = self::get_custom_fields( $custom_fields, 'fp5-width', $atts, 'width' );
+		$height          = self::get_custom_fields( $custom_fields, 'fp5-height', $atts, 'height' );
+		$ratio           = self::get_custom_fields( $custom_fields, 'fp5-aspect-ratio', $atts, 'ratio' );
+		$fixed           = self::get_custom_fields( $custom_fields, 'fp5-fixed-width', $atts, 'fixed' );
+		$data_rtmp       = self::get_custom_fields( $custom_fields, 'fp5-data-rtmp', $atts, 'rtmp' );
+		$quality         = self::get_custom_fields( $custom_fields, 'fp5-default-quality', $atts, 'quanlity' );
+		$qualities       = self::get_custom_fields( $custom_fields, 'fp5-qualities', $atts, 'qualities' );
+		$coloring        = self::get_custom_fields( $custom_fields, 'fp5-coloring', $atts, 'coloring' );
+		$fixed_controls  = self::get_custom_fields( $custom_fields, 'fp5-fixed-controls', $atts, 'fixed_controls' );
+		$background      = self::get_custom_fields( $custom_fields, 'fp5-no-background', $atts, 'background' );
+		$aside_time      = self::get_custom_fields( $custom_fields, 'fp5-aside-time', $atts, 'aside_time' );
+		$show_title      = self::get_custom_fields( $custom_fields, 'fp5-show-title', $atts, 'show_title' );
+		$no_hover        = self::get_custom_fields( $custom_fields, 'fp5-no-hover', $atts, 'no_hover' );
+		$no_mute         = self::get_custom_fields( $custom_fields, 'fp5-no-mute', $atts, 'no_mute' );
+		$no_volume       = self::get_custom_fields( $custom_fields, 'fp5-no-volume', $atts, 'no_volume' );
+		$no_embed        = self::get_custom_fields( $custom_fields, 'fp5-no-embed', $atts, 'no_embed' );
+		$live            = self::get_custom_fields( $custom_fields, 'fp5-live', $atts, 'live' );
+		$play_button     = self::get_custom_fields( $custom_fields, 'fp5-play-button', $atts, 'play_button' );
+		$ads_time        = self::get_custom_fields( $custom_fields, 'fp5-ads-time', $atts, 'ads_time' );
+		$ad_type         = self::get_custom_fields( $custom_fields, 'fp5-ad-type', $atts, 'ad_type' );
+		$description_url = self::get_custom_fields( $custom_fields, 'fp5-description-url', $atts, 'description_url', 'location.href' );
+
 
 		// Global settings
 
@@ -308,9 +293,11 @@ class Flowplayer5_Output {
 	 *
 	 * @since    1.9.0
 	 */
-	private static function get_custom_fields( $custom_fields, $key, $else = '' ) {
+	private static function get_custom_fields( $custom_fields, $key, $override, $override_key, $else = '' ) {
 		if ( ! empty( $custom_fields[ $key ][0] ) ) {
 			return $custom_fields[ $key ][0];
+		} elseif ( ! empty( $override[ $override_key ] ) ) {
+			return $override[ $override_key ];
 		} else {
 			return $else;
 		}
@@ -329,7 +316,11 @@ class Flowplayer5_Output {
 
 	private static function process_js_config( $values ) {
 		foreach ( $values as $key => $value ) {
-			$output[] = esc_html( $key ) . ':"' . esc_html( $value ) . '",';
+			if ( 'embed' == $key ) {
+				$output[] = esc_html( $key ) . ':' . esc_html( $value ) . ',';
+			} else {
+				$output[] = esc_html( $key ) . ':"' . esc_html( $value ) . '",';
+			}
 		}
 		return rtrim( implode( ' ', $output ), ',' );
 	}
