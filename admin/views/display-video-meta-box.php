@@ -125,7 +125,7 @@
 				</div>
 			</td>
 		</tr>
-
+		<?php if ( version_compare( $this->player_version, '6.0.0', '<' ) ) : ?>
 		<tr class="fp5-coloring" valign="top">
 			<th scope="row"><?php _e( 'Coloring', $this->plugin_slug )?></th>
 			<td>
@@ -137,7 +137,7 @@
 				</select>
 			</td>
 		</tr>
-
+		<?php endif; ?>
 		<tr class="fp5-flowplayer-style'" valign="top">
 			<th scope="row"><?php _e( 'Player style', $this->plugin_slug )?> <a href="http://flowplayer.org/docs/skinning.html#modifier-classes" target="_blank">?</a></th>
 			<td>
