@@ -53,7 +53,7 @@ class Flowplayer5_Output {
 			require( 'views/display-playlist.php' );
 			$html = ob_get_clean();
 			return $html;
-		} elseif ( isset( $atts['id'] ) ) {
+		} else {
 			return self::single_video_output( $atts );
 		}
 	}
@@ -76,52 +76,74 @@ class Flowplayer5_Output {
 		 */
 
 		$shortcode_defaults = array(
-			'id'             => '',
-			'mp4'            => '',
-			'webm'           => '',
-			'ogg'            => '',
-			'flash'          => '',
-			'skin'           => 'minimalist',
-			'splash'         => '',
-			'autoplay'       => 'false',
-			'loop'           => 'false',
-			'subtitles'      => '',
-			'width'          => '',
-			'height'         => '',
-			'fixed'          => 'false',
-			'fixed_controls' => '',
-			'coloring'       => 'default',
-			'preload'        => 'auto',
-			'poster'         => '',
+			'id'              => '',
+			'mp4'             => '',
+			'webm'            => '',
+			'ogg'             => '',
+			'flash'           => '',
+			'hls'             => '',
+			'loop'            => '',
+			'autoplay'        => '',
+			'preload'         => '',
+			'poster'          => '',
+			'skin'            => '',
+			'splash'          => '',
+			'subtitles'       => '',
+			'max_width'       => '',
+			'width'           => '',
+			'height'          => '',
+			'ratio'           => '',
+			'fixed'           => '',
+			'rtmp'            => '',
+			'quality'         => '',
+			'qualities'       => '',
+			'coloring'        => '',
+			'fixed_controls'  => '',
+			'background'      => '',
+			'aside_time'      => '',
+			'show_title'      => '',
+			'no_hover'        => '',
+			'no_mute'         => '',
+			'no_volume'       => '',
+			'no_embed'        => '',
+			'live'            => '',
+			'play_button'     => '',
+			'ads_time'        => '',
+			'ad_type'         => '',
+			'description_url' => '',
+
 		);
 
-		$atts = shortcode_atts(
+		$atts = array_filter( shortcode_atts(
 			$shortcode_defaults,
 			$atts,
 			'flowplayer'
-		);
+		) );
 
-		if ( isset( $atts['id'] ) ) {
+		if ( ! empty( $atts['id'] ) ) {
 
 			$id = $atts['id'];
 
 			// get the meta from the post type
 			$custom_fields  = get_post_custom( $id );
 			$title          = get_the_title( $id );
+		} else {
+			$id = substr( md5( $atts['mp4'] . $atts['webm'] . $atts['ogg'] . $atts['flash'] . $atts['hls'] ), 0, 5 );
+			var_dump($id);
 		}
 
 		$loop           = self::get_custom_fields( $custom_fields, 'fp5-loop', $atts, 'loop' );
 		$autoplay       = self::get_custom_fields( $custom_fields, 'fp5-autoplay', $atts, 'autoplay' );
 		$preload        = self::get_custom_fields( $custom_fields, 'fp5-preload', $atts, 'preload' );
 		$poster         = self::get_custom_fields( $custom_fields, 'fp5-poster', $atts, 'poster' );
-		$skin           = self::get_custom_fields( $custom_fields, 'fp5-select-skin', $atts, 'skin' );
+		$skin           = self::get_custom_fields( $custom_fields, 'fp5-select-skin', $atts, 'skin', 'minimalist' );
 		$splash         = self::get_custom_fields( $custom_fields, 'fp5-splash-image', $atts, 'splash' );
 		$formats        = array(
 			'application/x-mpegurl' => self::get_custom_fields( $custom_fields, 'fp5-hls-video', $atts, 'hls' ),
 			'video/webm'            => self::get_custom_fields( $custom_fields, 'fp5-webm-video', $atts, 'mp4' ),
 			'video/mp4'             => self::get_custom_fields( $custom_fields, 'fp5-mp4-video', $atts, 'webm' ),
 			'video/ogg'             => self::get_custom_fields( $custom_fields, 'fp5-ogg-video', $atts, 'ogg' ),
-			'video/flash'           => self::get_custom_fields( $custom_fields, 'fp5-flash-video', $atts ),
+			'video/flash'           => self::get_custom_fields( $custom_fields, 'fp5-flash-video', $atts, 'flash' ),
 		);
 		$subtitles       = self::get_custom_fields( $custom_fields, 'fp5-vtt-subtitles', $atts, 'subtitles' );
 		$max_width       = self::get_custom_fields( $custom_fields, 'fp5-max-width', $atts, 'max_width' );
@@ -130,7 +152,7 @@ class Flowplayer5_Output {
 		$ratio           = self::get_custom_fields( $custom_fields, 'fp5-aspect-ratio', $atts, 'ratio' );
 		$fixed           = self::get_custom_fields( $custom_fields, 'fp5-fixed-width', $atts, 'fixed' );
 		$data_rtmp       = self::get_custom_fields( $custom_fields, 'fp5-data-rtmp', $atts, 'rtmp' );
-		$quality         = self::get_custom_fields( $custom_fields, 'fp5-default-quality', $atts, 'quanlity' );
+		$quality         = self::get_custom_fields( $custom_fields, 'fp5-default-quality', $atts, 'quality' );
 		$qualities       = self::get_custom_fields( $custom_fields, 'fp5-qualities', $atts, 'qualities' );
 		$coloring        = self::get_custom_fields( $custom_fields, 'fp5-coloring', $atts, 'coloring' );
 		$fixed_controls  = self::get_custom_fields( $custom_fields, 'fp5-fixed-controls', $atts, 'fixed_controls' );
@@ -168,6 +190,8 @@ class Flowplayer5_Output {
 			$size = 'width:' . $width . 'px; height:' . $height . 'px; ';
 		} elseif ( $max_width != 0 ) {
 			$size = 'max-width:' . $max_width . 'px; ';
+		} else {
+			$size = '';
 		}
 		$style = array(
 			$size,
@@ -229,6 +253,7 @@ class Flowplayer5_Output {
 		}
 		$js_config = apply_filters( 'fp5_js_config', $js_config );
 
+		$js_brand_config = array();
 		if ( ! empty ( $brand_text ) ) {
 			$js_brand_config['text'] = esc_attr( $brand_text );
 		}
@@ -256,7 +281,7 @@ class Flowplayer5_Output {
 		$attributes = array(
 			( ( $autoplay == 'true' ) ? 'autoplay' : '' ),
 			( ( $loop == 'true' ) ? 'loop' : '' ),
-			( isset ( $preload ) ? 'preload="' . esc_attr( $preload ) . '"' : '' ),
+			( ! empty ( $preload ) ? 'preload="' . esc_attr( $preload ) . '"' : '' ),
 			( ( $poster == 'true' ) ? 'poster' : '' ),
 		);
 
@@ -294,10 +319,10 @@ class Flowplayer5_Output {
 	 * @since    1.9.0
 	 */
 	private static function get_custom_fields( $custom_fields, $key, $override, $override_key, $else = '' ) {
-		if ( ! empty( $custom_fields[ $key ][0] ) ) {
-			return $custom_fields[ $key ][0];
-		} elseif ( ! empty( $override[ $override_key ] ) ) {
+		if ( ! empty( $override[ $override_key ] ) ) {
 			return $override[ $override_key ];
+		} elseif ( ! empty( $custom_fields[ $key ][0] ) ) {
+			return $custom_fields[ $key ][0];
 		} else {
 			return $else;
 		}
@@ -308,6 +333,9 @@ class Flowplayer5_Output {
 	}
 
 	private static function process_data_config( $values ) {
+		if ( empty( $values ) ) {
+			return;
+		}
 		foreach ( $values as $key => $value ) {
 			$output[] = 'data-' . esc_html( $key ) . '="' . esc_html( $value ) . '" ';
 		}
