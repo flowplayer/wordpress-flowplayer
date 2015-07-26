@@ -40,9 +40,13 @@ class Flowplayer5_Settings {
 	 * @return array
 	*/
 	public function get_defaults() {
+		$defaults = array();
 		if ( empty( $this->options ) ) {
 			$defaults['fp_version'] = 'fp6';
+		} else {
+			$defaults['fp_version'] = 'fp5';
 		}
+
 		return apply_filters( 'fp5_option_defaults', $defaults );
 	}
 
@@ -348,8 +352,6 @@ class Flowplayer5_Settings {
 			)
 		);
 
-		return $settings;
-
 		$settings['general'] = apply_filters( 'fp5_settings_general', $settings['general'] );
 		return apply_filters( 'fp5_register_settings', $settings );
 	}
@@ -376,6 +378,7 @@ class Flowplayer5_Settings {
 			unset( $settings['general']['text_origin'] );
 		}
 
+		return $settings;
 	}
 
 	/**
