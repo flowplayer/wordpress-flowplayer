@@ -140,7 +140,9 @@ class Flowplayer5_Video_Meta_Box {
 		wp_nonce_field( plugin_basename( __FILE__ ), 'fp5-nonce' );
 		$fp5_stored_meta = wp_parse_args(
 			get_post_meta( $post->ID ),
-			apply_filters( 'fp5_post_meta_defaults', array() )
+			apply_filters( 'fp5_post_meta_defaults', array(
+				'fp5-preload' => array( 'metadata' )
+			) )
 		);
 
 		include_once( plugin_dir_path( __FILE__ ) . 'views/display-video-meta-box.php' );
