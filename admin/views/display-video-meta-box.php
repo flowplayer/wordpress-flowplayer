@@ -125,7 +125,7 @@
 				</div>
 			</td>
 		</tr>
-
+		<?php if ( version_compare( $this->player_version, '6.0.0', '<' ) ) : ?>
 		<tr class="fp5-coloring" valign="top">
 			<th scope="row"><?php _e( 'Coloring', $this->plugin_slug )?></th>
 			<td>
@@ -137,7 +137,7 @@
 				</select>
 			</td>
 		</tr>
-
+		<?php endif; ?>
 		<tr class="fp5-flowplayer-style'" valign="top">
 			<th scope="row"><?php _e( 'Player style', $this->plugin_slug )?> <a href="http://flowplayer.org/docs/skinning.html#modifier-classes" target="_blank">?</a></th>
 			<td>
@@ -185,6 +185,13 @@
 					<input type="checkbox" name="fp5-no-embed" id="fp5-no-embed" value="true" <?php if ( isset ( $fp5_stored_meta['fp5-no-embed'] ) ) checked( $fp5_stored_meta['fp5-no-embed'][0], 'true' ); ?> />
 					<?php _e( 'Hide the embed button', $this->plugin_slug )?>
 				</label>
+				<?php if ( version_compare( $this->player_version, '6.0.0', '>=' ) ) { ?>
+				<br>
+				<label for="fp5-show-title">
+					<input type="checkbox" name="fp5-show-title" id="fp5-show-title" value="true" <?php if ( isset ( $fp5_stored_meta['fp5-show-title'] ) ) checked( $fp5_stored_meta['fp5-show-title'][0], 'true' ); ?> />
+					<?php _e( 'Show the title for this clip. Displayed in a top bar when hovering over the player', $this->plugin_slug );?>
+				</label>
+				<?php } ?>
 			</td>
 		</tr>
 	</tbody>

@@ -67,8 +67,9 @@ class Flowplayer5_Video_Meta_Box {
 	 */
 	public function __construct() {
 
-		$flowplayer5 = Flowplayer5::get_instance();
-		$this->plugin_slug = $flowplayer5->get_plugin_slug();
+		$flowplayer5          = Flowplayer5::get_instance();
+		$this->plugin_slug    = $flowplayer5->get_plugin_slug();
+		$this->player_version = $flowplayer5->get_player_version();
 
 		// Setup the meta boxes for the video and shortcode
 		add_action( 'add_meta_boxes', array( $this, 'add_shortcode_meta_box' ) );
@@ -139,7 +140,9 @@ class Flowplayer5_Video_Meta_Box {
 		wp_nonce_field( plugin_basename( __FILE__ ), 'fp5-nonce' );
 		$fp5_stored_meta = wp_parse_args(
 			get_post_meta( $post->ID ),
-			apply_filters( 'fp5_post_meta_defaults', array() )
+			apply_filters( 'fp5_post_meta_defaults', array(
+				'fp5-preload' => array( 'metadata' )
+			) )
 		);
 
 		include_once( plugin_dir_path( __FILE__ ) . 'views/display-video-meta-box.php' );
@@ -172,6 +175,7 @@ class Flowplayer5_Video_Meta_Box {
 				'fp5-no-embed',
 				'fp5-live',
 				'fp5-play-button',
+				'fp5-show-title',
 			);
 
 			foreach ( $checkboxes as $checkbox ) {

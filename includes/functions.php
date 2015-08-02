@@ -90,3 +90,15 @@ function fp5_has_shortcode_arg( $content, $tag ) {
 	}
 	return false;
 }
+
+/**
+ * Wrapper for returning all settings
+ *
+ * @since 2.0.0
+ *
+ * @return array
+ */
+function fp5_get_settings() {
+	$flowplayer_settings = new Flowplayer5_Settings;
+	return $flowplayer_settings->get_all();
+}
