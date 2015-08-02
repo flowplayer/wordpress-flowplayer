@@ -208,7 +208,7 @@ class Flowplayer5_Frontend {
 					} elseif ( isset( $value['playlist'] ) ) {
 						$has_shortcode[ 'playlist' . $value['playlist'] ] = $value['playlist'];
 					} elseif ( ! empty( $value['mp4'] ) || ! empty( $value['webm'] ) || ! empty( $value['ogg'] ) || ! empty( $value['flash'] ) || ! empty( $value['hls'] ) ) {
-						$video_id = substr( md5( $atts['mp4'] . $atts['webm'] . $atts['ogg'] . $atts['flash'] . $atts['hls'] ), 0, 5 );
+						$video_id = substr( md5( serialize( $value ) ), 0, 5 );
 						$has_shortcode[ 'video' . $video_id ] = $video_id;
 					}
 				}
@@ -227,7 +227,7 @@ class Flowplayer5_Frontend {
 					} elseif ( isset( $value['playlist'] ) ) {
 						$has_shortcode[ 'playlist' . $value['playlist'] ] = $value['playlist'];
 					} elseif ( ! empty( $value['mp4'] ) || ! empty( $value['webm'] ) || ! empty( $value['ogg'] ) || ! empty( $value['flash'] ) || ! empty( $value['hls'] ) ) {
-						$video_id = substr( md5( $atts['mp4'] . $atts['webm'] . $atts['ogg'] . $atts['flash'] . $atts['hls'] ), 0, 5 );
+						$video_id = substr( md5( serialize( $value ) ), 0, 5 );
 						$has_shortcode[ 'video' . $video_id ] = $video_id;
 					}
 				}

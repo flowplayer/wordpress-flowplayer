@@ -128,8 +128,8 @@ class Flowplayer5_Output {
 			$custom_fields  = get_post_custom( $id );
 			$title          = get_the_title( $id );
 		} else {
-			$id = substr( md5( $atts['mp4'] . $atts['webm'] . $atts['ogg'] . $atts['flash'] . $atts['hls'] ), 0, 5 );
-			var_dump($id);
+			$id = substr( md5( serialize( $atts ) ), 0, 5 );
+			$custom_fields = array();
 		}
 
 		$loop           = self::get_custom_fields( $custom_fields, 'fp5-loop', $atts, 'loop' );
@@ -343,6 +343,9 @@ class Flowplayer5_Output {
 	}
 
 	private static function process_js_config( $values ) {
+		if ( empty( $values ) ) {
+			return;
+		}
 		foreach ( $values as $key => $value ) {
 			if ( 'embed' == $key ) {
 				$output[] = esc_html( $key ) . ':' . esc_html( $value ) . ',';
