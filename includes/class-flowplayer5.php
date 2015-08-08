@@ -31,16 +31,7 @@ class Flowplayer5 {
 	 *
 	 * @var     string
 	 */
-	protected $plugin_version = '1.10.7';
-
-	/**
-	 * Player version, used for cache-busting of style and script file references.
-	 *
-	 * @since   1.0.0
-	 *
-	 * @var     string
-	 */
-	protected $player_version = '5.5.2';
+	protected $plugin_version = '1.11.0';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -97,7 +88,12 @@ class Flowplayer5 {
 	 *@return    Player version variable.
 	 */
 	public function get_player_version() {
-		return $this->player_version;
+		$options = fp5_get_settings();
+		if ( isset( $options['fp_version'] ) && 'fp6' === $options['fp_version'] ) {
+			return '6.0.3';
+		} else {
+			return '5.5.2';
+		}
 	}
 
 	/**

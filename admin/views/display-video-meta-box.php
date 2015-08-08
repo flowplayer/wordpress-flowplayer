@@ -125,7 +125,7 @@
 				</div>
 			</td>
 		</tr>
-
+		<?php if ( version_compare( $this->player_version, '6.0.0', '<' ) ) : ?>
 		<tr class="fp5-coloring" valign="top">
 			<th scope="row"><?php _e( 'Coloring', $this->plugin_slug )?></th>
 			<td>
@@ -137,7 +137,7 @@
 				</select>
 			</td>
 		</tr>
-
+		<?php endif; ?>
 		<tr class="fp5-flowplayer-style'" valign="top">
 			<th scope="row"><?php _e( 'Player style', $this->plugin_slug )?> <a href="http://flowplayer.org/docs/skinning.html#modifier-classes" target="_blank">?</a></th>
 			<td>
@@ -185,6 +185,13 @@
 					<input type="checkbox" name="fp5-no-embed" id="fp5-no-embed" value="true" <?php if ( isset ( $fp5_stored_meta['fp5-no-embed'] ) ) checked( $fp5_stored_meta['fp5-no-embed'][0], 'true' ); ?> />
 					<?php _e( 'Hide the embed button', $this->plugin_slug )?>
 				</label>
+				<?php if ( version_compare( $this->player_version, '6.0.0', '>=' ) ) { ?>
+				<br>
+				<label for="fp5-show-title">
+					<input type="checkbox" name="fp5-show-title" id="fp5-show-title" value="true" <?php if ( isset ( $fp5_stored_meta['fp5-show-title'] ) ) checked( $fp5_stored_meta['fp5-show-title'][0], 'true' ); ?> />
+					<?php _e( 'Show the title for this clip. Displayed in a top bar when hovering over the player', $this->plugin_slug );?>
+				</label>
+				<?php } ?>
 			</td>
 		</tr>
 	</tbody>
@@ -279,10 +286,18 @@
 		</tr>
 
 		<tr class="fp5-ads-time" valign="top">
-			<th scope="row" rowspan="2"><label for="fp5-ads-time" class="fp5-row-title"><?php _e( 'Ads Time', $this->plugin_slug )?></label></th>
+			<th scope="row"><label for="fp5-ads-time" class="fp5-row-title"><?php _e( 'Ads Time', $this->plugin_slug )?></label></th>
 			<td>
 				<input type="text" name="fp5-ads-time" id="fp5-ads-time" value="<?php if ( isset ( $fp5_stored_meta['fp5-ads-time'] ) ) echo esc_attr( $fp5_stored_meta['fp5-ads-time'][0] ); ?>" />
 				<?php _e( 'Time in seconds into the video. Leave the field blank to disable the ads in the video.', $this->plugin_slug ); ?>
+			</td>
+		</tr>
+
+		<tr class="fp5-description-url" valign="top">
+			<th scope="row"><label for="fp5-description-url" class="fp5-row-title"><?php _e( 'Description URL', $this->plugin_slug )?></label></th>
+			<td>
+				<input type="text" name="fp5-description-url" id="fp5-description-url" value="<?php if ( isset ( $fp5_stored_meta['fp5-description-url'] ) ) echo esc_url( $fp5_stored_meta['fp5-description-url'][0] ); ?>" />
+				<?php _e( 'It is recommended to create metadata pages for each video and supply them as the description URL. (Defaults to current URL where the video is placed.)', $this->plugin_slug ); ?> <a href="https://support.google.com/adsense/answer/1705829?hl=en&ref_topic=1706004"><?php _e( 'Best practices and optimization tips', $this->plugin_slug ); ?></a>
 			</td>
 		</tr>
 

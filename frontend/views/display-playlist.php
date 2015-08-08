@@ -26,16 +26,25 @@
 
 		// The Query
 		$query = new WP_Query( $args );
-
+		$formats = array(
+			'wemb',
+			'mp4',
+			'ogg',
+			'flash'
+		);
 		// The Loop
 		if ( $query->have_posts() ) {
 			while ( $query->have_posts() ) {
 				$query->the_post(); ?>
 				[
-					{webm: "<?php echo esc_url( get_post_meta( get_the_ID(), 'fp5-webm-video', true ) ); ?>"},
-					{mp4: "<?php echo esc_url( get_post_meta( get_the_ID(), 'fp5-mp4-video', true ) ); ?>"},
-					{ogg: "<?php echo esc_url( get_post_meta( get_the_ID(), 'fp5-ogg-video', true ) ); ?>"},
-					{flash: "<?php echo esc_html( get_post_meta( get_the_ID(), 'fp5-flash-video', true ) ); ?>"}
+					<?php foreach ( $formats as $format ) {
+						$format_url = get_post_meta( get_the_ID(), 'fp5-' . $format . '-video', true );
+						if ( ! empty( $format_url ) ) {
+							$return[] = '{' . $format . ': "' . esc_url( get_post_meta( get_the_ID(), 'fp5-' . $format . '-video', true ) ) . '"},';
+						}
+					}
+					echo implode( '', $return );
+					?>
 				],
 		<?php }
 		}

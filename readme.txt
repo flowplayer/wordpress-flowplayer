@@ -1,9 +1,9 @@
 === Flowplayer HTML5 for WordPress ===
 Contributors: flowplayerorg, grapplerulrich, anssi
 Donate link: http://flowplayer.org/pricing/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin
-Tags: flowplayer, flowplayer5, Flowplayer HTML5, responsive, html5, video, player, rtmp, hls, flash, live-streaming, Flowplayer Drive, Adsense, video-widget
+Tags: flowplayer, flowplayer5, flowplayer6, Flowplayer HTML5, responsive, html5, video, player, rtmp, hls, flash, live-streaming, Flowplayer Drive, Adsense, video ads, video-widget
 Requires at least: 3.5
-Tested up to: 4.2
+Tested up to: 4.3
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -21,16 +21,16 @@ Flowplayer HTML5 for WordPress provides a video management system for self hoste
 * Easily manage all of your videos in a central place
 * Insert videos in posts, pages and custom post types using the shortcode e.g. [flowplayer id="123"] , [flowplayer playlist="123"]
 * Display videos in the sidebar with the "Video Widget"
-* Setup [playlists](https://flowplayer.org/docs/playlist.html?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin)
-* Manage files with WordPress 3.5 Media Library
+* Create [playlists](https://flowplayer.org/docs/playlist.html?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin) using the existing videos
 * Style the video player with the three default Flowplayer skins: [Minimalist](https://flowplayer.org/demos/#minimalist?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin), [Functional](https://flowplayer.org/demos/#functional?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin) and [Playful](https://flowplayer.org/demos/#playful?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin)
-* [Supports subtitles](http://flowplayer.org/docs/subtitles.html?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin)
 * Track your video video audience and traffic with [Google Analytics](http://flowplayer.org/docs/analytics.html?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin)
 * Video adverts with [Google AdSense](http://flowplayer.org/asf/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin)
 * Supports WEBM, MP4, OGG, FLV(flash), RTMP and HLS video formats.
 * Use Flowplayer to play your live streams
 * Show your video in any desired player size. Detects the video dimensions for configuring the correct player size
+* [Supports subtitles](http://flowplayer.org/docs/subtitles.html?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin)
 * Fully internationalized - [Help Translate](https://webtranslateit.com/en/projects/8343-Flowplayer-HTML5-for-WordPress)
+* Switch easily between Flowplayer v5 and Flowplayer v6
 
 
 [Demos](https://flowplayer.org/demos/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin) | [Documentation](https://wordpress.org/plugins/flowplayer5/faq/) | [Support](http://wordpress.org/support/plugin/flowplayer5)
@@ -170,17 +170,22 @@ Why would you want to do that? :-) If you do need to uninstall the plugin all of
 
 = Filters =
 
-* [fp5_filter_set_messages()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/admin/class-flowplayer5-admin.php#L294)
-* [fp5_post_type_args()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/includes/class-register-post-type.php#L123)
-* [fp5_filter_flowplayer_data()](https://github.com/flowplayer/wordpress-flowplayer/blob/develop/frontend/views/display-single-video.php#L1)
-* [fp5_filter_video_src()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-output.php#L206)
-* [fp5_filter_has_shortcode()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-frontend.php#L83)
+* [fp5_filter_set_messages](https://github.com/flowplayer/wordpress-flowplayer/blob/master/admin/class-flowplayer5-admin.php#L306)
+* [fp5_post_type_args](https://github.com/flowplayer/wordpress-flowplayer/blob/master/includes/class-register-post-type.php#L123)
+* [fp5_video_data_config](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-output.php#L220)
+* [fp5_js_config](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-output.php#L254)
+* [fp5_js_brand_config](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-output.php#L263)
+* [fp5_filter_video_src](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-output.php#L296)
+* [fp5_filter_has_shortcode](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-flowplayer5-frontend.php#L246)
+* [fp5_option_defaults](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-register-settings.php#L50)
+* [fp5_settings](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-register-settings.php#L79)
+* [fp5_register_settings](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/class-register-settings.php#L356)
 
 = Actions =
 
-* [fp5_video_top()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/views/display-single-video.php#L22)
-* [fp5_video_bottom()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/views/display-single-video.php#L29)
-* [fp5_video_config()](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/views/display-single-video.php#L37)
+* [fp5_video_top](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/views/display-single-video.php#L23)
+* [fp5_video_bottom](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/views/display-single-video.php#L30)
+* [fp5_video_config](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/views/display-single-video.php#L43)
 
 = Examples =
 
@@ -251,6 +256,14 @@ add_filter( 'fp5_post_meta_defaults', 'fp5_post_meta_defaults' );`
 == Changelog ==
 
 We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
+
+= 1.11.0 - 8 August 2015 =
+* update to Flowplayer 6 and add support for new features in Flowplayer 6
+* add support for description_url for ads
+* allow single options to be overriden in the shortcode e.g. `[flowplayer id="123" show_title="true"]
+* fix bug: playlists with only a mp4 file would not play
+* improved the settings code
+* depricate filter `fp5_filter_flowplayer_data` to be removed in v2.0
 
 = 1.10.7 - 5 April 2015 =
 * fix bug: foreach warning on 404 page
@@ -402,6 +415,9 @@ We have a lot of plans for this plugin. You can see some of the up and coming fe
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.11.0 =
+* update to Flowplayer 6 and fix a few bugs
 
 = 1.10.7 =
 * fix bugs and add support for WP 4.2

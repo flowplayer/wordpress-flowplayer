@@ -11,7 +11,7 @@
  * Plugin Name: Flowplayer HTML5 for WordPress
  * Plugin URI:  http://wordpress.org/plugins/flowplayer5/
  * Description: A HTML5 responsive video player plugin. From the makers of Flowplayer. Includes player skins, tracking with Google Analytics, splash images and support for subtitles and multi-resolution videos. You can use your own watermark logo if you own a Commercial Flowplayer license.
- * Version:     1.10.7
+ * Version:     1.11.0
  * Author:      Flowplayer ltd.
  * Author URI:  http://flowplayer.org/
  * Text Domain: flowplayer5
@@ -25,8 +25,6 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-global $fp5_options;
-
 // Plugin Root File
 if ( ! defined( 'FP5_PLUGIN_FILE' ) )
 	define( 'FP5_PLUGIN_FILE', __FILE__ );
@@ -35,9 +33,10 @@ require_once( plugin_dir_path( __FILE__ ) . 'includes/class-flowplayer5.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-flowplayer5-widget.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-register-post-type.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/class-register-taxonomy.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'admin/settings/class-register-settings.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'admin/settings/class-sanitize-settings.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'includes/functions.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'admin/settings/register-settings.php' );
-$fp5_options = fp5_get_settings();
+require_once( plugin_dir_path( __FILE__ ) . 'includes/deprecated.php' );
 
 if ( is_admin() ) {
 	require_once( plugin_dir_path( __FILE__ ) . 'admin/class-flowplayer5-admin.php' );
@@ -65,6 +64,8 @@ register_deactivation_hook( __FILE__, array( 'Flowplayer5', 'deactivate' ) );
 Flowplayer5::get_instance();
 Flowplayer5_Post_Type::get_instance();
 Flowplayer5_Taxonomy::get_instance();
+new Flowplayer5_Sanitize_Settings;
+
 if ( is_admin() ) {
 	Flowplayer5_Admin::get_instance();
 	Flowplayer5_Video_Meta_Box::get_instance();
