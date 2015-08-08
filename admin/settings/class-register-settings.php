@@ -366,16 +366,16 @@ class Flowplayer5_Settings {
 	 * @return void
 	 */
 	function hide_commercial_options( $settings ) {
+		$setting_values = $this->get_all();
 
-		if ( isset( $settings['fp_version'] ) && $settings['general']['key'] ) {
-			return $settings;
-		}
-
-		unset( $settings['general']['logo'] );
-		unset( $settings['general']['logo_origin'] );
-		if ( isset( $settings['general']['fp_version'] ) && 'fp6' !== $settings['general']['fp_version'] ) {
+		if ( isset( $settings['general']['fp_version'] ) && 'fp6' !== $setting_values['fp_version'] ) {
 			unset( $settings['general']['brand_text'] );
 			unset( $settings['general']['text_origin'] );
+		}
+
+		if ( empty( $setting_values['key'] ) ) {
+			unset( $settings['general']['logo'] );
+			unset( $settings['general']['logo_origin'] );
 		}
 
 		return $settings;
