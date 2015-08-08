@@ -167,7 +167,7 @@ class Flowplayer5_Output {
 		$play_button     = self::get_custom_fields( $custom_fields, 'fp5-play-button', $atts, 'play_button' );
 		$ads_time        = self::get_custom_fields( $custom_fields, 'fp5-ads-time', $atts, 'ads_time' );
 		$ad_type         = self::get_custom_fields( $custom_fields, 'fp5-ad-type', $atts, 'ad_type' );
-		$description_url = self::get_custom_fields( $custom_fields, 'fp5-description-url', $atts, 'description_url', 'location.href' );
+		$description_url = self::get_custom_fields( $custom_fields, 'fp5-description-url', $atts, 'description_url', get_permalink() );
 
 
 		// Global settings
