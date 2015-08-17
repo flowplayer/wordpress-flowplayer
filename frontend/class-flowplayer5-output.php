@@ -217,7 +217,7 @@ class Flowplayer5_Output {
 		if ( ! empty ( $title ) && ! empty ( $show_title ) ) {
 			$video_data_config['title'] = esc_attr( $title );
 		}
-		$video_data_config = apply_filters( 'fp5_video_data_config', $video_data_config );
+		$video_data_config = apply_filters( 'fp5_video_data_config', $video_data_config, $id );
 
 		// Prepare JS config
 		$js_config = array();
@@ -251,7 +251,7 @@ class Flowplayer5_Output {
 		if ( ! empty ( $qualities ) ) {
 			$js_config['qualities'] = esc_attr( $qualities );
 		}
-		$js_config = apply_filters( 'fp5_js_config', $js_config );
+		$js_config = apply_filters( 'fp5_js_config', $js_config, $id );
 
 		$js_brand_config = array();
 		if ( ! empty ( $brand_text ) ) {
@@ -260,7 +260,7 @@ class Flowplayer5_Output {
 		if ( 'true' == $text_origin ) {
 			$js_brand_config['showOnOrigin'] = esc_attr( $text_origin );
 		}
-		$js_brand_config = apply_filters( 'fp5_js_brand_config', $js_brand_config );
+		$js_brand_config = apply_filters( 'fp5_js_brand_config', $js_brand_config, $id );
 
 		$classes = array(
 			'flowplayer-video flowplayer-video-' . $id,
