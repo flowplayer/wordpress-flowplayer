@@ -1,4 +1,4 @@
-<div style="<?php echo esc_attr( self::trim_implode( $style ) ); ?>" class="<?php echo esc_attr( self::trim_implode( $classes ) ); ?>" <?php echo esc_textarea( fp5_deprecated_flowplayer_data( self::trim_implode( $data_config ) ) ); ?>>
+<div style="<?php echo esc_attr( self::trim_implode( $style ) ); ?>" class="<?php echo esc_attr( self::trim_implode( $classes ) ); ?>" <?php echo  fp5_deprecated_flowplayer_data( self::trim_implode( $data_config ) ); ?>>
 
 	<?php if ( $asf_js ) : ?>
 		<!-- Flowplayer Ads -->
