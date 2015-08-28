@@ -191,6 +191,7 @@ class Flowplayer_Drive {
 		foreach ( $json_videos as $video ) {
 
 			$qualities = array();
+			$hls       = '';
 
 			foreach ( $video->encodings as $encoding ) {
 
@@ -200,7 +201,6 @@ class Flowplayer_Drive {
 
 				$quality       = $encoding->height . 'p';
 				$default_video = true;
-				$hls           = '';
 
 				if ( 'mp4' === $encoding->format && 1 < $video->hlsResolutions ) {
 					// 'example-video-216p.mp4' - '-216p' Fetch sizes from non-default sizes
