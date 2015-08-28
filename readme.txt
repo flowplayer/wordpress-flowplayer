@@ -1,7 +1,7 @@
 === Flowplayer HTML5 for WordPress ===
 Contributors: flowplayerorg, grapplerulrich, anssi
 Donate link: http://flowplayer.org/pricing/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin
-Tags: flowplayer, flowplayer5, flowplayer6, Flowplayer HTML5, responsive, html5, video, player, rtmp, hls, flash, live-streaming, Flowplayer Drive, Adsense, video ads, video-widget
+Tags: flowplayer, flowplayer5, flowplayer6, Flowplayer HTML5, responsive, html5, video, player, rtmp, hls, flash, live-streaming, Flowplayer Drive, Adsense, video ads, video-widget, playlist
 Requires at least: 3.5
 Tested up to: 4.3
 Stable tag: trunk
@@ -256,6 +256,13 @@ add_filter( 'fp5_post_meta_defaults', 'fp5_post_meta_defaults' );`
 == Changelog ==
 
 We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
+
+= 1.11.1 - 28 August 2015 =
+* Add video id to filters as an attribute
+* Fix issue with HLS URL returning blank from Flowplayer Drive
+* Remove http from URLs returned from Flowplayer Drive
+* Add default video quality to list of qualities
+* Fix issue of overescaping data config output
 
 = 1.11.0 - 8 August 2015 =
 * update to Flowplayer 6 and add support for new features in Flowplayer 6
