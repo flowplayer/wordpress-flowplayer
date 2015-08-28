@@ -213,18 +213,18 @@ class Flowplayer_Drive {
 
 				switch ( $encoding->format ) {
 					case 'webm':
-						$webm   = $encoding->url;
+						$webm   = str_replace( 'http://', '//', $encoding->url );
 						$height = $encoding->height;
 						$width  = $encoding->width;
 						break;
 					case 'mp4':
-						$mp4    = $encoding->url;
+						$mp4    = str_replace( 'http://', '//', $encoding->url );
 						$flash  = $encoding->filename;
 						$height = $encoding->height;
 						$width  = $encoding->width;
 						break;
 					case 'hls':
-						$hls = $encoding->url;
+						$hls = str_replace( 'http://', '//', $encoding->url );
 						break;
 				}
 
@@ -243,8 +243,8 @@ class Flowplayer_Drive {
 				'mp4'            => $mp4,
 				'hls'            => $hls,
 				'flash'          => 'mp4:' . $video->userId . '/' . $flash,
-				'snapshotUrl'    => $video->snapshotUrl,
-				'thumbnailUrl'   => $video->thumbnailUrl,
+				'snapshotUrl'    => str_replace( 'https://', '//', $video->snapshotUrl ),
+				'thumbnailUrl'   => str_replace( 'https://', '//', $video->thumbnailUrl ),
 				'width'          => $width,
 				'height'         => $height,
 				'duration'       => $duration,
