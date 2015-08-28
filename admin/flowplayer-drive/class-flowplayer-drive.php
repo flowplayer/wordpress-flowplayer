@@ -203,14 +203,11 @@ class Flowplayer_Drive {
 				$default_video = true;
 
 				if ( 'mp4' === $encoding->format && 1 < $video->hlsResolutions ) {
-					// 'example-video-216p.mp4' - '-216p' Fetch sizes from non-default sizes
-					if ( strpos( $encoding->filename, ( '-' . $quality ) ) !== false ) {
-						$default_video = false;
-						$qualities[] = $quality;
-					}
+					$qualities[] = $quality;
 				}
 
-				if ( false === $default_video ) {
+				// 'example-video-216p.mp4' - '-216p' / Only fetch default url
+				if ( strpos( $encoding->filename, ( '-' . $quality ) ) == false ) {
 					continue;
 				}
 
