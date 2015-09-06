@@ -191,6 +191,7 @@ class Flowplayer_Drive {
 		foreach ( $json_videos as $video ) {
 
 			$qualities = array();
+			$hls       = '';
 
 			foreach ( $video->encodings as $encoding ) {
 
@@ -200,34 +201,30 @@ class Flowplayer_Drive {
 
 				$quality       = $encoding->height . 'p';
 				$default_video = true;
-				$hls           = '';
 
 				if ( 'mp4' === $encoding->format && 1 < $video->hlsResolutions ) {
-					// 'example-video-216p.mp4' - '-216p' Fetch sizes from non-default sizes
-					if ( strpos( $encoding->filename, ( '-' . $quality ) ) !== false ) {
-						$default_video = false;
-						$qualities[] = $quality;
-					}
+					$qualities[] = $quality;
 				}
 
-				if ( false === $default_video ) {
+				// 'example-video-216p.mp4' - '-216p' / Only fetch default url
+				if ( strpos( $encoding->filename, ( '-' . $quality ) ) == false ) {
 					continue;
 				}
 
 				switch ( $encoding->format ) {
 					case 'webm':
-						$webm   = $encoding->url;
+						$webm   = str_replace( 'http://', '//', $encoding->url );
 						$height = $encoding->height;
 						$width  = $encoding->width;
 						break;
 					case 'mp4':
-						$mp4    = $encoding->url;
+						$mp4    = str_replace( 'http://', '//', $encoding->url );
 						$flash  = $encoding->filename;
 						$height = $encoding->height;
 						$width  = $encoding->width;
 						break;
 					case 'hls':
-						$hls = $encoding->url;
+						$hls = str_replace( 'http://', '//', $encoding->url );
 						break;
 				}
 
@@ -246,8 +243,8 @@ class Flowplayer_Drive {
 				'mp4'            => $mp4,
 				'hls'            => $hls,
 				'flash'          => 'mp4:' . $video->userId . '/' . $flash,
-				'snapshotUrl'    => $video->snapshotUrl,
-				'thumbnailUrl'   => $video->thumbnailUrl,
+				'snapshotUrl'    => str_replace( 'https://', '//', $video->snapshotUrl ),
+				'thumbnailUrl'   => str_replace( 'https://', '//', $video->thumbnailUrl ),
 				'width'          => $width,
 				'height'         => $height,
 				'duration'       => $duration,
