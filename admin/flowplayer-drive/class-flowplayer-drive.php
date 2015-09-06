@@ -199,15 +199,12 @@ class Flowplayer_Drive {
 					continue;
 				}
 
-				$quality       = $encoding->height . 'p';
-				$default_video = true;
-
 				if ( 'mp4' === $encoding->format && 1 < $video->hlsResolutions ) {
-					$qualities[] = $quality;
+					$qualities[] = $encoding->height . 'p';
 				}
 
 				// 'example-video-216p.mp4' - '-216p' / Only fetch default url
-				if ( strpos( $encoding->filename, ( '-' . $quality ) ) == false ) {
+				if ( strpos( $encoding->filename, ( '-' . $encoding->height . 'p' ) ) ) {
 					continue;
 				}
 
