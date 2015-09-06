@@ -140,8 +140,8 @@ class Flowplayer5_Output {
 		$splash         = self::get_custom_fields( $custom_fields, 'fp5-splash-image', $atts, 'splash' );
 		$formats        = array(
 			'application/x-mpegurl' => self::get_custom_fields( $custom_fields, 'fp5-hls-video', $atts, 'hls' ),
-			'video/webm'            => self::get_custom_fields( $custom_fields, 'fp5-webm-video', $atts, 'mp4' ),
-			'video/mp4'             => self::get_custom_fields( $custom_fields, 'fp5-mp4-video', $atts, 'webm' ),
+			'video/webm'            => self::get_custom_fields( $custom_fields, 'fp5-webm-video', $atts, 'webm' ),
+			'video/mp4'             => self::get_custom_fields( $custom_fields, 'fp5-mp4-video', $atts, 'mp4' ),
 			'video/ogg'             => self::get_custom_fields( $custom_fields, 'fp5-ogg-video', $atts, 'ogg' ),
 			'video/flash'           => self::get_custom_fields( $custom_fields, 'fp5-flash-video', $atts, 'flash' ),
 		);
