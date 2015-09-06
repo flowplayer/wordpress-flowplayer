@@ -257,6 +257,10 @@ add_filter( 'fp5_post_meta_defaults', 'fp5_post_meta_defaults' );`
 
 We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
 
+= 1.11.2 - 06 September 2015 =
+* Fix two small bugs
+* Added Italien translation. Props Maurizio Sansone
+
 = 1.11.1 - 28 August 2015 =
 * Add video id to filters as an attribute
 * Fix issue with HLS URL returning blank from Flowplayer Drive
