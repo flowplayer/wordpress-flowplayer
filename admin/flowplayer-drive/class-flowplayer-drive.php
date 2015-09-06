@@ -95,6 +95,10 @@ class Flowplayer_Drive {
 
 		$seed = $this->make_auth_seed_request();
 
+		if ( ! $seed ) {
+			return;
+		}
+
 		$auth_api_url = add_query_arg(
 			array(
 				'callback' => '?',
