@@ -257,7 +257,7 @@ class Flowplayer5_Output {
 		if ( ! empty ( $brand_text ) ) {
 			$js_brand_config['text'] = esc_attr( $brand_text );
 		}
-		if ( 'true' == $text_origin ) {
+		if ( 1 == $text_origin ) {
 			$js_brand_config['showOnOrigin'] = esc_attr( $text_origin );
 		}
 		$js_brand_config = apply_filters( 'fp5_js_brand_config', $js_brand_config, $id );
