@@ -55,3 +55,52 @@
 	font-size: 14px;
 	text-decoration: none;
 }
+
+/* Fix for Lightbox */
+.mfp-content .fp-controls {
+	bottom: 4px;
+}
+
+.mfp-content .minimalist .fp-fullscreen {
+	right: 35px;
+}
+
+.mfp-content .minimalist .fp-embed {
+	right: 70px;
+}
+
+.functional .mfp-close {
+	right: 10px;
+	top: 10px;
+	border-radius: 3px;
+}
+
+.mfp-content .functional .fp-fullscreen {
+	right: 50px;
+}
+
+.mfp-content .functional .fp-embed {
+	right: 90px;
+}
+
+.playful .mfp-close {
+	height: 35px;
+	width: 35px;
+	right: 12px;
+	top: 12px;
+	background-image: -webkit-gradient(linear,left top,left bottom,from(rgba(136,136,136,0.85)),to(rgba(0,0,0,0.85)));
+	background-image: -webkit-linear-gradient(top,rgba(136,136,136,0.85),rgba(0,0,0,0.85));
+	background-image: -moz-linear-gradient(top,rgba(136,136,136,0.85),rgba(0,0,0,0.85));
+	background-image: -o-linear-gradient(top,rgba(136,136,136,0.85),rgba(0,0,0,0.85));
+	background-image: linear-gradient(to bottom,rgba(136,136,136,0.85),rgba(0,0,0,0.85));
+	color: #eee !important;
+	border-radius: 3px;
+}
+
+.mfp-content .playful .fp-fullscreen {
+	right: 59px;
+}
+
+.mfp-content .playful .fp-embed {
+	right: 106px;
+}
