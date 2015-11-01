@@ -1,4 +1,4 @@
-<div id="jsplaylist<?php echo esc_attr( $playlist_id ); ?>" class="flowplayer-playlist flowplayer-playlist-<?php echo esc_attr( $playlist_id . ' ' . $playlist_options['fp5-select-skin'] ); ?>">
+<div id="jsplaylist<?php echo absint( $playlist_id ); ?>" class="flowplayer-playlist flowplayer-playlist-<?php echo absint( $playlist_id . ' ' . $playlist_options['fp5-select-skin'] ); ?>">
 	<a class="fp-prev"><?php _e( '&lt; Prev', 'flowplayer5' ); ?></a><a class="fp-next"><?php _e( 'Next &gt;', 'flowplayer5' ); ?></a>
 </div>
 <script>
@@ -11,12 +11,12 @@
 			'post_status'    => 'publish',
 			'orderby'        => 'meta_value_num',
 			'posts_per_page' => '-1',
-			'meta_key'       => 'playlist_order_' . esc_attr( $playlist_id ),
+			'meta_key'       => 'playlist_order_' . absint( $playlist_id ),
 			'tax_query'      => array(
 				array(
 					'taxonomy' => 'playlist',
 					'field'    => 'id',
-					'terms'    => esc_attr( $playlist_id ),
+					'terms'    => absint( $playlist_id ),
 				),
 			),
 			'cache_results'          => true,
@@ -53,9 +53,9 @@
 		wp_reset_postdata();
 		?>
 	];
-	$("#jsplaylist<?php echo esc_attr( $playlist_id ); ?>").flowplayer({
+	$("#jsplaylist<?php echo absint( $playlist_id ); ?>").flowplayer({
 		rtmp: "<?php echo esc_attr( $playlist_options['fp5-rtmp-url'] ); ?>",
-		playlist: Playlist<?php echo esc_attr( $playlist_id ); ?>
+		playlist: Playlist<?php echo absint( $playlist_id ); ?>
 	});
 })(jQuery);
 </script>

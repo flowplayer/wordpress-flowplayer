@@ -215,7 +215,7 @@ class Flowplayer5_Admin {
 
 		// Only run on new and edit post screens
 		if ( $screen->base == 'post' ) {
-			wp_enqueue_script( 'jquery-colorbox', plugins_url( '/assets/jquery-colorbox/jquery.colorbox' . $suffix . '.js', __FILE__ ), 'jquery', '1.4.37', false );
+			wp_enqueue_script( 'jquery-colorbox', plugins_url( '/assets/jquery-colorbox/jquery.colorbox' . $suffix . '.js', __FILE__ ), 'jquery', '1.6.3', false );
 		}
 
 		// Only run on new and edit post screens

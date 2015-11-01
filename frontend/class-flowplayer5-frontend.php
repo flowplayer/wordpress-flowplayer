@@ -117,6 +117,7 @@ class Flowplayer5_Frontend {
 		wp_register_script( $this->plugin_slug . '-ima3', '//s0.2mdn.net/instream/html5/ima3.js', array(), null, false );
 		wp_register_script( $this->plugin_slug . '-asf', esc_url( $asf_js ), array( $this->plugin_slug . '-ima3' ), null, false );
 		wp_register_script( $this->plugin_slug . '-quality-selector', plugins_url( '/assets/drive/quality-selector' . $fp_version . $suffix . '.js', __FILE__ ), array( $this->plugin_slug . '-script' ), $this->player_version, false );
+		wp_enqueue_script( 'magnific-popup', plugins_url( '/frontend/assets/magnific-popup/magnific-popup' . $suffix . '.js', FP5_PLUGIN_FILE ), array( 'jquery' ), '1.0.0', false );
 
 		// Register JavaScript
 		if ( $this->has_flowplayer_video ) {
@@ -127,6 +128,9 @@ class Flowplayer5_Frontend {
 			$this->video_qualities();
 			if ( isset( $this->video_qualities ) ) {
 				wp_enqueue_script( $this->plugin_slug . '-quality-selector' );
+			}
+			if ( get_post_custom_values( 'lightbox', $this->has_flowplayer_video ) ) {
+				wp_enqueue_script( 'magnific-popup' );
 			}
 		}
 	}

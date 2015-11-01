@@ -138,6 +138,16 @@
 			</td>
 		</tr>
 		<?php endif; ?>
+		<tr class="fp5-lightbox" valign="top">
+			<th scope="row"><?php _e( 'Lightbox', $this->plugin_slug )?></th>
+			<td>
+				<select name="fp5-lightbox" id="fp5-lightbox">
+					<option value=""><?php _e( 'None', $this->plugin_slug )?></option>
+					<option value="link" <?php if ( isset ( $fp5_stored_meta['fp5-lightbox'] ) ) selected( $fp5_stored_meta['fp5-lightbox'][0], 'link' ); ?>><?php _e( 'Link', $this->plugin_slug )?></option>
+					<option value="thumbnail" <?php if ( isset ( $fp5_stored_meta['fp5-lightbox'] ) ) selected( $fp5_stored_meta['fp5-lightbox'][0], 'thumbnail' ); ?>><?php _e( 'Thumbnail', $this->plugin_slug )?></option>
+				</select>
+			</td>
+		</tr>
 		<tr class="fp5-flowplayer-style'" valign="top">
 			<th scope="row"><?php _e( 'Player style', $this->plugin_slug )?> <a href="http://flowplayer.org/docs/skinning.html#modifier-classes" target="_blank">?</a></th>
 			<td>
