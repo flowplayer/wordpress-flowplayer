@@ -129,7 +129,7 @@ class Flowplayer5_Frontend {
 			if ( isset( $this->video_qualities ) ) {
 				wp_enqueue_script( $this->plugin_slug . '-quality-selector' );
 			}
-			if ( get_post_custom_values( 'lightbox', $this->has_flowplayer_video ) ) {
+			if ( get_post_custom_values( 'fp5-lightbox', current( $this->has_flowplayer_shortcode ) ) ) {
 				wp_enqueue_script( 'magnific-popup' );
 			}
 		}
