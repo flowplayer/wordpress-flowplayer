@@ -257,6 +257,13 @@ add_filter( 'fp5_post_meta_defaults', 'fp5_post_meta_defaults' );`
 
 We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
 
+= 1.12.0 - 07 November 2015 =
+* Fixed bug for the check to show brand name on own site
+* Added support for the HLS Flowplyer plugin
+* Hide the CDN option when the commercial key is added
+* Automatically add the video title from Flowplayer Drive
+* Add support for lightbox
+
 = 1.11.2 - 06 September 2015 =
 * Fix two small bugs
 * Added Italien translation. Props Maurizio Sansone
@@ -426,6 +433,9 @@ We have a lot of plans for this plugin. You can see some of the up and coming fe
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.12.0 =
+* added lightbox support, added hlsjs plugin and fixed bugs
 
 = 1.11.0 =
 * update to Flowplayer 6 and fix a few bugs
