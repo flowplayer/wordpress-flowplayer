@@ -53,7 +53,7 @@ class Flowplayer5_Frontend {
 			$this->flowplayer5_directory = $flowplayer5_commercial;
 		} elseif ( $directory ) {
 			$this->flowplayer5_directory = $directory;
-		} elseif ( ! $cdn && ! $key ) {
+		} elseif ( $cdn && ! $key ) {
 			$this->flowplayer5_directory = plugins_url( '/assets/flowplayer' . $fp_version, __FILE__  );
 		} else {
 			$this->flowplayer5_directory = '//releases.flowplayer.org/' . $this->player_version . '/'. ( $key ? 'commercial' : '' );
