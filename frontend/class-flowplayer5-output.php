@@ -111,6 +111,7 @@ class Flowplayer5_Output {
 			'ads_time'        => '',
 			'ad_type'         => '',
 			'description_url' => '',
+			'lightbox'        => '',
 
 		);
 
@@ -140,8 +141,8 @@ class Flowplayer5_Output {
 		$splash         = self::get_custom_fields( $custom_fields, 'fp5-splash-image', $atts, 'splash' );
 		$formats        = array(
 			'application/x-mpegurl' => self::get_custom_fields( $custom_fields, 'fp5-hls-video', $atts, 'hls' ),
-			'video/webm'            => self::get_custom_fields( $custom_fields, 'fp5-webm-video', $atts, 'mp4' ),
-			'video/mp4'             => self::get_custom_fields( $custom_fields, 'fp5-mp4-video', $atts, 'webm' ),
+			'video/webm'            => self::get_custom_fields( $custom_fields, 'fp5-webm-video', $atts, 'webm' ),
+			'video/mp4'             => self::get_custom_fields( $custom_fields, 'fp5-mp4-video', $atts, 'mp4' ),
 			'video/ogg'             => self::get_custom_fields( $custom_fields, 'fp5-ogg-video', $atts, 'ogg' ),
 			'video/flash'           => self::get_custom_fields( $custom_fields, 'fp5-flash-video', $atts, 'flash' ),
 		);
@@ -168,6 +169,7 @@ class Flowplayer5_Output {
 		$ads_time        = self::get_custom_fields( $custom_fields, 'fp5-ads-time', $atts, 'ads_time' );
 		$ad_type         = self::get_custom_fields( $custom_fields, 'fp5-ad-type', $atts, 'ad_type' );
 		$description_url = self::get_custom_fields( $custom_fields, 'fp5-description-url', $atts, 'description_url', get_permalink() );
+		$lightbox        = self::get_custom_fields( $custom_fields, 'fp5-lightbox', $atts, 'lightbox' );
 
 
 		// Global settings
@@ -220,6 +222,15 @@ class Flowplayer5_Output {
 		$video_data_config = apply_filters( 'fp5_video_data_config', $video_data_config, $id );
 
 		// Prepare JS config
+		$js_brand_config = array();
+		if ( ! empty ( $brand_text ) ) {
+			$js_brand_config['text'] = esc_attr( $brand_text );
+		}
+		if ( 1 == $text_origin ) {
+			$js_brand_config['showOnOrigin'] = esc_attr( $text_origin );
+		}
+		$js_brand_config = apply_filters( 'fp5_js_brand_config', $js_brand_config, $id );
+
 		$js_config = array();
 		if ( 0 == $width && 0 == $height ) {
 			$js_config['adaptiveRatio'] = 'true';
@@ -251,16 +262,10 @@ class Flowplayer5_Output {
 		if ( ! empty ( $qualities ) ) {
 			$js_config['qualities'] = esc_attr( $qualities );
 		}
+		if ( 0 < strlen( $key ) ) {
+			$js_config['brand'] = $js_brand_config;
+		}
 		$js_config = apply_filters( 'fp5_js_config', $js_config, $id );
-
-		$js_brand_config = array();
-		if ( ! empty ( $brand_text ) ) {
-			$js_brand_config['text'] = esc_attr( $brand_text );
-		}
-		if ( 'true' == $text_origin ) {
-			$js_brand_config['showOnOrigin'] = esc_attr( $text_origin );
-		}
-		$js_brand_config = apply_filters( 'fp5_js_brand_config', $js_brand_config, $id );
 
 		$classes = array(
 			'flowplayer-video flowplayer-video-' . $id,
@@ -306,7 +311,11 @@ class Flowplayer5_Output {
 		// Check if a video has been added before output
 		if ( $formats['video/webm'] || $formats['video/mp4'] || $formats['video/ogg'] || $formats['video/flash'] || $formats['application/x-mpegurl'] ) {
 			ob_start();
-			require( 'views/display-single-video.php' );
+			if ( $lightbox ) {
+				require( 'views/partials/lightbox.php' );
+			} else {
+				require( 'views/partials/video.php' );
+			}
 			$html = ob_get_clean();
 			return $html;
 		}
@@ -347,10 +356,16 @@ class Flowplayer5_Output {
 			return;
 		}
 		foreach ( $values as $key => $value ) {
-			if ( 'embed' == $key ) {
-				$output[] = esc_html( $key ) . ':' . esc_html( $value ) . ',';
-			} else {
-				$output[] = esc_html( $key ) . ':"' . esc_html( $value ) . '",';
+			switch ( $key ) {
+				case 'embed':
+					$output[] = esc_html( $key ) . ':' . esc_html( $value ) . ',';
+					break;
+				case 'brand':
+					$output[] = esc_html( $key ) . ':{' . self::process_js_config( $value ) . '},';
+					break;
+				default:
+					$output[] = esc_html( $key ) . ':"' . esc_html( $value ) . '",';
+					break;
 			}
 		}
 		return rtrim( implode( ' ', $output ), ',' );

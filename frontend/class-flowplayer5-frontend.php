@@ -53,10 +53,18 @@ class Flowplayer5_Frontend {
 			$this->flowplayer5_directory = $flowplayer5_commercial;
 		} elseif ( $directory ) {
 			$this->flowplayer5_directory = $directory;
-		} elseif ( ! $cdn && ! $key ) {
+		} elseif ( $cdn && ! $key ) {
 			$this->flowplayer5_directory = plugins_url( '/assets/flowplayer' . $fp_version, __FILE__  );
 		} else {
 			$this->flowplayer5_directory = '//releases.flowplayer.org/' . $this->player_version . '/'. ( $key ? 'commercial' : '' );
+		}
+
+		if ( $directory ) {
+			$this->plugin_directory = $directory;
+		} elseif ( $cdn ) {
+			$this->plugin_directory = plugins_url( '/assets', __FILE__ );
+		} else {
+			$this->plugin_directory = '//releases.flowplayer.org/';
 		}
 
 		// Start check if posts have videos
@@ -116,17 +124,26 @@ class Flowplayer5_Frontend {
 		wp_register_script( $this->plugin_slug . '-script', trailingslashit( $this->flowplayer5_directory ) . 'flowplayer' . $suffix . '.js', array( 'jquery' ), $this->player_version, false );
 		wp_register_script( $this->plugin_slug . '-ima3', '//s0.2mdn.net/instream/html5/ima3.js', array(), null, false );
 		wp_register_script( $this->plugin_slug . '-asf', esc_url( $asf_js ), array( $this->plugin_slug . '-ima3' ), null, false );
+		wp_register_script( $this->plugin_slug . '-hlsjs', trailingslashit( $this->plugin_directory ) . 'hlsjs/flowplayer.hlsjs' . $suffix . '.js', array( $this->plugin_slug . '-ima3' ), null, false );
 		wp_register_script( $this->plugin_slug . '-quality-selector', plugins_url( '/assets/drive/quality-selector' . $fp_version . $suffix . '.js', __FILE__ ), array( $this->plugin_slug . '-script' ), $this->player_version, false );
+		wp_register_script( 'magnific-popup', plugins_url( '/frontend/assets/magnific-popup/magnific-popup' . $suffix . '.js', FP5_PLUGIN_FILE ), array( 'jquery' ), '1.0.0', false );
 
 		// Register JavaScript
 		if ( $this->has_flowplayer_video ) {
 			wp_enqueue_script( $this->plugin_slug . '-script' );
+			$hls = get_post_custom_values( 'fp5-hls-video', current( $this->has_flowplayer_shortcode ) );
+			if ( ! empty( $hls ) ) {
+				wp_enqueue_script( $this->plugin_slug . '-hlsjs' );
+			}
 			if ( $asf_js ) {
 				wp_enqueue_script( $this->plugin_slug . '-asf' );
 			}
 			$this->video_qualities();
 			if ( isset( $this->video_qualities ) ) {
 				wp_enqueue_script( $this->plugin_slug . '-quality-selector' );
+			}
+			if ( get_post_custom_values( 'fp5-lightbox', current( $this->has_flowplayer_shortcode ) ) ) {
+				wp_enqueue_script( 'magnific-popup' );
 			}
 		}
 	}

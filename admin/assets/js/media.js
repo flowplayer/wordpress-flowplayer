@@ -114,6 +114,8 @@ jQuery(document).ready(function ($) {
         $('input#fp5-data-rtmp').val(that.attr('data-rtmp'));
         $('input#fp5-qualities').val(that.attr('data-qualities'));
         $('input#fp5-default-quality').val(that.attr('data-default-quality'));
+        $("input[name='post_title']").val(that.attr('data-video-name'));
+        $("#title-prompt-text").addClass('screen-reader-text');
         $.colorbox.close();
         CreatePreview();
     });

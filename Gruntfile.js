@@ -110,7 +110,7 @@ module.exports = function(grunt) {
 				// Task-specific options go here.
 			},
 			all: {
-				src: ['frontend/assets/css/public.css', 'frontend/assets/drive/*.css'],
+				src: ['frontend/assets/css/public.css', 'frontend/assets/drive/*.css', 'frontend/assets/magnific-popup/magnific-popup.css'],
 				dest: 'frontend/assets/css/public-concat.css'
 			},
 		},

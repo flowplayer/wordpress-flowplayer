@@ -200,6 +200,7 @@ class Flowplayer5_Video_Meta_Box {
 				'fp5-preload',
 				'fp5-coloring',
 				'fp5-ad-type',
+				'fp5-lightbox',
 			);
 
 			foreach ( $keys as $key ) {
