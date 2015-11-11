@@ -112,7 +112,6 @@ class Flowplayer5_Output {
 			'ad_type'         => '',
 			'description_url' => '',
 			'lightbox'        => '',
-
 		);
 
 		$atts = array_filter( shortcode_atts(
