@@ -378,7 +378,7 @@ class Flowplayer5_Settings {
 			unset( $settings['general']['logo_origin'] );
 		}
 
-		if ( $setting_values['key'] ) {
+		if ( isset( $setting_values['key'] ) ) {
 			unset( $settings['general']['cdn_options'] );
 			unset( $settings['general']['cdn_option'] );
 		}
