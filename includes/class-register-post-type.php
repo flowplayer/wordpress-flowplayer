@@ -39,7 +39,7 @@ class Flowplayer5_Post_Type {
 	 */
 	private function __construct() {
 
-		// Add custom post type
+		// Add custom post type.
 		add_action( 'init', array( $this, 'add_fp5_videos' ) );
 
 	}
@@ -125,5 +125,4 @@ class Flowplayer5_Post_Type {
 		register_post_type( 'flowplayer5', $args );
 
 	}
-
 }

@@ -31,7 +31,7 @@ class Flowplayer5_Shortcode {
 	 */
 	public function __construct() {
 
-		// Register shortcode
+		// Register shortcode.
 		add_shortcode( 'flowplayer', array( $this, 'shortcode_video_output' ) );
 
 	}
@@ -43,10 +43,9 @@ class Flowplayer5_Shortcode {
 	 *
 	 * @since    1.3.0
 	 *
-	 * @param    array $atts Shortcode attributes
+	 * @param    array $atts Shortcode attributes.
 	 */
 	public function shortcode_video_output( $atts ) {
 		return fp5_video_output( $atts );
 	}
-
 }
