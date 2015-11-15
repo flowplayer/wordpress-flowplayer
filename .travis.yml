@@ -8,12 +8,16 @@
 # @link http://about.travis-ci.org/docs/user/languages/php/
 language: php
 
+# Declare container infrastructure
+# @link http://docs.travis-ci.com/user/workers/container-based-infrastructure/
+sudo: false
+
 # Declare versions of PHP to use. Use one decimal max.
 php:
-    # aliased to a recent 5.5.x version
-    - "5.5"
-    # aliased to a recent 5.4.x version
-    - "5.4"
+    # aliased to a recent 7.0.x version
+    - "7.0"
+    # aliased to a recent 5.6.x version
+    - "5.6"
     # aliased to a recent 5.3.x version
     - "5.3"
     # Current $required_php_version for WordPress: 5.2.4
@@ -26,26 +30,14 @@ env:
     # @link https://github.com/WordPress/WordPress
     - WP_VERSION=master WP_MULTISITE=0
     - WP_VERSION=master WP_MULTISITE=1
-    # WordPress 4.0
-    # @link https://github.com/WordPress/WordPress/tree/4.0-branch
-    - WP_VERSION=4.0 WP_MULTISITE=0
-    - WP_VERSION=4.0 WP_MULTISITE=1
-    # WordPress 3.9
-    # @link https://github.com/WordPress/WordPress/tree/3.9-branch
-    - WP_VERSION=3.9 WP_MULTISITE=0
-    - WP_VERSION=3.9 WP_MULTISITE=1
-    # WordPress 3.8
-    # @link https://github.com/WordPress/WordPress/tree/3.8-branch
-    - WP_VERSION=3.8 WP_MULTISITE=0
-    - WP_VERSION=3.8 WP_MULTISITE=1
-    # WordPress 3.7
-    # @link https://github.com/WordPress/WordPress/tree/3.7-branch
-    - WP_VERSION=3.7 WP_MULTISITE=0
-    - WP_VERSION=3.7 WP_MULTISITE=1
-    # WordPress 3.6
-    # @link https://github.com/WordPress/WordPress/tree/3.6-branch
-    - WP_VERSION=3.6 WP_MULTISITE=0
-    - WP_VERSION=3.6 WP_MULTISITE=1
+    # WordPress 4.3
+    # @link https://github.com/WordPress/WordPress/tree/4.3-branch
+    - WP_VERSION=4.3 WP_MULTISITE=0
+    - WP_VERSION=4.3 WP_MULTISITE=1
+    # WordPress 4.2
+    # @link https://github.com/WordPress/WordPress/tree/4.2-branch
+    - WP_VERSION=4.2 WP_MULTISITE=0
+    - WP_VERSION=4.2 WP_MULTISITE=1
     # WordPress 3.5
     # @link https://github.com/WordPress/WordPress/tree/3.5-branch
     - WP_VERSION=3.5 WP_MULTISITE=0
@@ -96,7 +88,7 @@ before_script:
     - git clone https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git wordpress-coding-standards
     # Hop into CodeSniffer directory.
     - cd php-codesniffer
-    # Set install path for WordPress Coding Standards
+    # Set install path for WordPress Coding Standards.
     # @link https://github.com/squizlabs/PHP_CodeSniffer/blob/4237c2fc98cc838730b76ee9cee316f99286a2a7/CodeSniffer.php#L1941
     - scripts/phpcs --config-set installed_paths ../wordpress-coding-standards
     # Hop into plugins directory.

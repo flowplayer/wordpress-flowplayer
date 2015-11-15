@@ -61,10 +61,10 @@ class Flowplayer5 {
 	 */
 	private function __construct() {
 
-		// Load plugin text domain
+		// Load plugin text domain.
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 
-		// Add file support
+		// Add file support.
 		add_filter( 'upload_mimes', array( $this, 'flowplayer_custom_mimes' ) );
 
 	}
@@ -74,7 +74,7 @@ class Flowplayer5 {
 	 *
 	 * @since    1.0.0
 	 *
-	 *@return    Plugin version variable.
+	 * @return   Plugin version variable.
 	 */
 	public function get_plugin_version() {
 		return $this->plugin_version;
@@ -85,7 +85,7 @@ class Flowplayer5 {
 	 *
 	 * @since    1.0.0
 	 *
-	 *@return    Player version variable.
+	 * @return   Player version variable.
 	 */
 	public function get_player_version() {
 		$options = fp5_get_settings();
@@ -101,7 +101,7 @@ class Flowplayer5 {
 	 *
 	 * @since    1.0.0
 	 *
-	 *@return    Plugin slug variable.
+	 * @return   Plugin slug variable.
 	 */
 	public function get_plugin_slug() {
 		return $this->plugin_slug;
@@ -130,7 +130,7 @@ class Flowplayer5 {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param    boolean    $network_wide    True if WPMU superadmin uses "Network Activate" action, false if WPMU is disabled or plugin is activated on an individual blog.
+	 * @param    boolean $network_wide True if WPMU superadmin uses "Network Activate" action, false if WPMU is disabled or plugin is activated on an individual blog.
 	 */
 	public static function activate( $network_wide ) {
 		require_once( plugin_dir_path( __FILE__ ) . 'update.php' );
@@ -142,7 +142,7 @@ class Flowplayer5 {
 	 *
 	 * @since    1.0.0
 	 *
-	 * @param    boolean    $network_wide    True if WPMU superadmin uses "Network Deactivate" action, false if WPMU is disabled or plugin is deactivated on an individual blog.
+	 * @param    boolean $network_wide True if WPMU superadmin uses "Network Deactivate" action, false if WPMU is disabled or plugin is deactivated on an individual blog.
 	 */
 	public static function deactivate( $network_wide ) {
 		flush_rewrite_rules();
@@ -159,7 +159,7 @@ class Flowplayer5 {
 		$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
 
 		load_textdomain( $domain, trailingslashit( WP_LANG_DIR ) . $domain . '/' . $domain . '-' . $locale . '.mo' );
-		load_plugin_textdomain( $domain, FALSE, basename( dirname( FP5_PLUGIN_FILE ) ) . '/languages/' );
+		load_plugin_textdomain( $domain, false, basename( dirname( FP5_PLUGIN_FILE ) ) . '/languages/' );
 
 	}
 
@@ -167,8 +167,12 @@ class Flowplayer5 {
 	 * Add mime support for webm and vtt.
 	 *
 	 * @since    1.0.0
+	 *
+	 * @param    array $mimes    Mime types keyed by the file extension regex corresponding to
+	 *                           those types. 'swf' and 'exe' removed from full list. 'htm|html' also
+	 *                           removed depending on '$user' capabilities.
 	 */
-	public function flowplayer_custom_mimes( $mimes ){
+	public function flowplayer_custom_mimes( $mimes ) {
 
 		$mimes['webm'] = 'video/webm';
 		$mimes['m3u8'] = 'application/x-mpegurl';
@@ -177,5 +181,4 @@ class Flowplayer5 {
 		return $mimes;
 
 	}
-
 }
