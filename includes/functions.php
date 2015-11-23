@@ -18,6 +18,8 @@ if ( ! defined( 'WPINC' ) ) {
  * Output video
  *
  * @since    1.9.0
+ *
+ * @param array $atts
  */
 function fp5_video_output( $atts ) {
 	$flowplayer5_output = new Flowplayer5_Output;
@@ -34,8 +36,10 @@ if ( ! function_exists( 'has_shortcode' ) ) {
 	 * @since 3.6.0
 	 *
 	 * @global array $shortcode_tags
-	 * @param string $tag
-	 * @return boolean
+	 *
+	 * @param string $content Content to search for shortcodes.
+	 * @param string $tag     Shortcode tag to check.
+	 * @return bool Whether the passed content contains the given shortcode.
 	 */
 	function has_shortcode( $content, $tag ) {
 		if ( false === strpos( $content, '[' ) ) {
@@ -63,7 +67,8 @@ if ( ! function_exists( 'has_shortcode' ) ) {
  *
  * @since 1.10.0
  *
- * @param string $tag
+ * @param string $content Content to search for shortcodes.
+ * @param string $tag     Shortcode tag to check.
  * @return false|array
  */
 function fp5_has_shortcode_arg( $content, $tag ) {

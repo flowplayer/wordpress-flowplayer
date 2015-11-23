@@ -14,6 +14,11 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+/**
+ * Add notice when deprictaed filter is used
+ *
+ * @since 1.11.0
+ */
 function fp5_deprecated_hook_admin_notice(){
 	if ( has_filter( 'fp5_filter_flowplayer_data' ) && is_admin() || defined( 'DOING_AJAX' ) && DOING_AJAX ) {
 		$message = __( 'The filter <code>fp5_filter_flowplayer_data</code> is being used. The filter is now deprecated and will be removed in a future update. Please use <code>fp5_js_brand_config</code> instead.', 'flowplayer5' );
@@ -23,11 +28,21 @@ function fp5_deprecated_hook_admin_notice(){
 }
 add_action( 'admin_notices', 'fp5_deprecated_hook_admin_notice' );
 
+/**
+ * Define text domain for dismiss notice
+ *
+ * @since 1.11.0
+ */
 function fp5_caldera_wdn_text_domain() {
 	return 'flowplayer5';
 }
 add_filter( 'caldera_wdn_text_domain', 'fp5_caldera_wdn_text_domain' );
 
+/**
+ * Wrapper for the filter fp5_filter_flowplayer_data
+ *
+ * @since 1.11.0
+ */
 function fp5_deprecated_flowplayer_data( $data_config ) {
 	return apply_filters( 'fp5_filter_flowplayer_data', $data_config );
 }

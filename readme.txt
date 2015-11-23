@@ -3,7 +3,7 @@ Contributors: flowplayerorg, grapplerulrich, anssi
 Donate link: http://flowplayer.org/pricing/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin
 Tags: flowplayer, flowplayer5, flowplayer6, Flowplayer HTML5, responsive, html5, video, player, rtmp, hls, flash, live-streaming, Flowplayer Drive, Adsense, video ads, video-widget, playlist
 Requires at least: 3.5
-Tested up to: 4.3
+Tested up to: 4.3.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -257,6 +257,18 @@ add_filter( 'fp5_post_meta_defaults', 'fp5_post_meta_defaults' );`
 
 We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
 
+= 1.12.1 - 15 November 2015 =
+* Fixed bug with feature checker for loading extra JS
+* Fixed bug with removing settings when commercial key used
+* Improve coding style
+
+= 1.12.0 - 07 November 2015 =
+* Fixed bug for the check to show brand name on own site
+* Added support for the HLS Flowplayer plugin
+* Hide the CDN option when the commercial key is added
+* Automatically add the video title from Flowplayer Drive
+* Add support for lightbox
+
 = 1.11.2 - 06 September 2015 =
 * Fix two small bugs
 * Added Italien translation. Props Maurizio Sansone
@@ -426,6 +438,9 @@ We have a lot of plans for this plugin. You can see some of the up and coming fe
 * Initial release
 
 == Upgrade Notice ==
+
+= 1.12.0 =
+* added lightbox support, added hlsjs plugin and fixed bugs
 
 = 1.11.0 =
 * update to Flowplayer 6 and fix a few bugs

@@ -131,8 +131,7 @@ class Flowplayer5_Frontend {
 		// Register JavaScript
 		if ( $this->has_flowplayer_video ) {
 			wp_enqueue_script( $this->plugin_slug . '-script' );
-			$hls = get_post_custom_values( 'fp5-hls-video', current( $this->has_flowplayer_shortcode ) );
-			if ( ! empty( $hls ) ) {
+			if ( $this->get_video_meta_values( 'fp5-hls-video', $this->has_flowplayer_shortcode ) ) {
 				wp_enqueue_script( $this->plugin_slug . '-hlsjs' );
 			}
 			if ( $asf_js ) {
@@ -142,7 +141,7 @@ class Flowplayer5_Frontend {
 			if ( isset( $this->video_qualities ) ) {
 				wp_enqueue_script( $this->plugin_slug . '-quality-selector' );
 			}
-			if ( get_post_custom_values( 'fp5-lightbox', current( $this->has_flowplayer_shortcode ) ) ) {
+			if ( $this->get_video_meta_values( 'fp5-lightbox', $this->has_flowplayer_shortcode ) ) {
 				wp_enqueue_script( 'magnific-popup' );
 			}
 		}
@@ -291,13 +290,40 @@ class Flowplayer5_Frontend {
 		if ( empty( $this->has_flowplayer_shortcode ) ) {
 			return;
 		}
-		foreach ( $this->has_flowplayer_shortcode as $key => $value ) {
+
+		$this->video_qualities = $this->get_video_meta_values( 'fp5-qualities', $this->has_flowplayer_shortcode );
+	}
+
+	public function get_video_meta( $video_ids ) {
+		if ( isset( $this->video_post_meta ) ){
+			return;
+		}
+		if ( empty( $video_ids ) ) {
+			return;
+		}
+		$video_meta = array();
+		foreach ( $video_ids as $key => $value ) {
+			// Check that it is a single video and not a playlist
 			if ( 'id' . $value === $key ) {
-				$qualities[] = get_post_meta( $post_id, 'fp5-qualities', true );
+				$video_meta[ $key ] = get_post_meta( $value );
 			}
 		}
+		$this->video_post_meta = $video_meta;
+	}
 
-		$this->video_qualities = $qualities;
+	public function get_video_meta_values( $key, $video_ids ) {
+		if ( empty( $video_ids ) ) {
+			return false;
+		}
+		$video_meta_values = array();
+		$this->get_video_meta( $video_ids );
+		foreach ( $video_ids as $id_key => $value ) {
+			// Check that it is a single video and not a playlist
+			if ( 'id' . $value === $id_key ) {
+				$video_meta_values[ $id_key ] = isset( $this->video_post_meta[ $id_key ][ $key ][0] ) ? $this->video_post_meta[ $id_key ][ $key ][0] : '';
+			}
+		}
+		return array_filter( $video_meta_values );
 	}
 
 }

@@ -1,4 +1,4 @@
-<div id="jsplaylist<?php echo absint( $playlist_id ); ?>" class="flowplayer-playlist flowplayer-playlist-<?php echo absint( $playlist_id . ' ' . $playlist_options['fp5-select-skin'] ); ?>">
+<div id="jsplaylist<?php echo absint( $playlist_id ); ?>" class="flowplayer-playlist flowplayer-playlist-<?php echo absint( $playlist_id ). ' ' . esc_attr( $playlist_options['fp5-select-skin'] ); ?>">
 	<a class="fp-prev"><?php _e( '&lt; Prev', 'flowplayer5' ); ?></a><a class="fp-next"><?php _e( 'Next &gt;', 'flowplayer5' ); ?></a>
 </div>
 <script>
