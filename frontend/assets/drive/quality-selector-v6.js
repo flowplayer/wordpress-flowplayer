@@ -12,8 +12,7 @@ flowplayer(function(api, root) {
   if (!flowplayer.support.inlineVideo) return; // No inline video 
 
   if (api.conf.qualities) {
-    api.qualities = typeof api.conf.qualities === 'string' ? api.conf.qualities.split(',') : api.conf.qualities;
-    api.defaultQuality = api.conf.defaultQuality;
+    api.conf.qualities = typeof api.conf.qualities === 'string' ? api.conf.qualities.split(',') : api.conf.qualities;
   }
 
   flowplayer.bean.on(root, 'click', '.fp-quality-selector li', function(ev) {
@@ -40,8 +39,8 @@ flowplayer(function(api, root) {
   });
 
   api.bind('load', function(ev, api, video) {
-    api.qualities = video.qualities || api.qualities || [];
-    api.defaultQuality = video.defaultQuality || api.defaultQuality;
+    api.qualities = video.qualities || api.conf.qualities || [];
+    api.defaultQuality = video.defaultQuality || api.conf.defaultQuality;
     if (typeof api.qualities === 'string') api.qualities = api.qualities.split(',');
     if (!api.quality) return; // Let's go with default quality
     var desiredQuality = findOptimalQuality(api.quality, api.qualities),
@@ -56,11 +55,11 @@ flowplayer(function(api, root) {
   api.bind('ready', function(ev, api, video) {
     var quality = /mpegurl/i.test(video.type) ? 'abr' :  getQualityFromSrc(video.src, api.qualities) || Math.min(video.height, video.width) + 'p';
     removeAllQualityClasses();
-    api.quality = quality;
     common.addClass(root, 'quality-' + quality);
     var ui = common.find('.fp-ui', root)[0];
     common.removeNode(common.find('.fp-quality-selector', ui)[0]);
     if (api.qualities.length < 2) return;
+    api.quality = quality;
     var selector = common.createElement('ul', {'class': 'fp-quality-selector'});
     ui.appendChild(selector);
     if (hasABRSource(video) && canPlay('application/x-mpegurl') || api.conf.swfHls) {
