@@ -291,7 +291,7 @@ class Flowplayer5_Frontend {
 			return;
 		}
 
-		$this->video_qualities = $this->get_video_meta_values( 'fp5-qualities', $this->has_flowplayer_shortcode );
+		$this->video_qualities = apply_filters( 'fp5_filter_video_qualities', $this->get_video_meta_values( 'fp5-qualities', $this->has_flowplayer_shortcode ) );
 	}
 
 	public function get_video_meta( $video_ids ) {
@@ -306,6 +306,9 @@ class Flowplayer5_Frontend {
 			// Check that it is a single video and not a playlist
 			if ( 'id' . $value === $key ) {
 				$video_meta[ $key ] = get_post_meta( $value );
+			}
+			if ( 'playlist' . $value === $key ) {
+				// @TODO - Return array with id for the single videos
 			}
 		}
 		$this->video_post_meta = $video_meta;
