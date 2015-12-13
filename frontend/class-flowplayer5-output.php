@@ -88,7 +88,7 @@ class Flowplayer5_Output {
 		if ( ! $playlist_options ) {
 			return;
 		}
-		$atts = self::get_playlist_videos( $playlist_id );
+		$atts = Flowplayer5_Playlist::get_videos_by_id( $playlist_id );
 		if ( ! $atts ) {
 			return;
 		}
@@ -158,7 +158,7 @@ class Flowplayer5_Output {
 			$return['id']  = $atts['id'];
 			// get the meta from the post type
 			$custom_fields = get_post_custom( $return['id'] );
-			$custom_fields['title'] = get_the_title( $return['id'] );
+			$custom_fields['title'][0] = get_the_title( $return['id'] );
 		} else {
 			$return['id'] = substr( md5( serialize( $atts ) ), 0, 5 );
 			$custom_fields = array();
@@ -240,7 +240,7 @@ class Flowplayer5_Output {
 				( 0 < strlen( $ga_account_id ) ? 'data-analytics="' . esc_attr( $ga_account_id ) . '"' : '' ),
 				( $ratio != 0 ? 'data-ratio="' . esc_attr( $ratio ) . '"' : '' ),
 				( ! empty ( $data_rtmp ) ? 'data-rtmp="' . esc_attr( $data_rtmp ) . '"' : '' ),
-				( ! empty ( $quality ) ? 'data-default-quality="' . esc_attr( $quality ) . '"' : '' ),
+				( ! empty ( $quality ) && ! empty ( $qualities ) ? 'data-default-quality="' . esc_attr( $quality ) . '"' : '' ),
 				( ! empty ( $qualities ) ? 'data-qualities="' . esc_attr( $qualities ) . '"' : '' ),
 			);
 		}
@@ -258,19 +258,19 @@ class Flowplayer5_Output {
 			$js_brand_config['text'] = esc_attr( $brand_text );
 		}
 		if ( 1 == $text_origin ) {
-			$js_brand_config['showOnOrigin'] = esc_attr( $text_origin );
+			$js_brand_config['showOnOrigin'] = true;
 		}
 		$js_brand_config = apply_filters( 'fp5_js_brand_config', $js_brand_config, $return['id'] );
 
 		$js_config = array();
 		if ( 0 == $return['width'] && 0 == $return['height'] ) {
-			$js_config['adaptiveRatio'] = 'true';
+			$js_config['adaptiveRatio'] = true;
 		}
 		if ( 'true' == $live ) {
 			$js_config['live'] = esc_attr( $live );
 		}
 		if ( 'true' == $no_embed ) {
-			$js_config['embed'] = 'false';
+			$js_config['embed'] = false;
 		}
 		if ( 0 < strlen( $key ) ) {
 			$js_config['key'] = esc_attr( $key );
@@ -287,11 +287,15 @@ class Flowplayer5_Output {
 		if ( ! empty ( $data_rtmp ) ) {
 			$js_config['rtmp'] = esc_attr( $data_rtmp );
 		}
-		if ( ! empty ( $quality ) ) {
+		if ( ! empty ( $quality ) && ! empty ( $qualities ) ) {
 			$js_config['defaultQuality'] = esc_attr( $quality );
 		}
 		if ( ! empty ( $qualities ) ) {
-			$js_config['qualities'] = explode( ',', esc_attr( $qualities ) );
+			if ( 'fp6' === $return['fp_version'] ) {
+				$js_config['qualities'] = explode( ',', esc_attr( $qualities ) );
+			} else {
+				$js_config['qualities'] = esc_attr( $qualities );
+			}
 		}
 		if ( 0 < strlen( $key ) ) {
 			$js_config['brand'] = $js_brand_config;
@@ -360,45 +364,6 @@ class Flowplayer5_Output {
 		}
 	}
 
-	static function get_playlist_videos( $playlist_id ) {
-		// WP_Query arguments
-		$args = array(
-			'post_type'      => 'flowplayer5',
-			'post_status'    => 'publish',
-			'orderby'        => 'meta_value_num',
-			'posts_per_page' => '-1',
-			'meta_key'       => 'playlist_order_' . absint( $playlist_id ),
-			'tax_query'      => array(
-				array(
-					'taxonomy' => 'playlist',
-					'field'    => 'id',
-					'terms'    => absint( $playlist_id ),
-				),
-			),
-			'cache_results'          => true,
-			'update_post_meta_cache' => true,
-			'update_post_term_cache' => true,
-		);
-
-		// The Query
-		$query = new WP_Query( $args );
-
-		// The Loop
-		if ( $query->have_posts() ) {
-			while ( $query->have_posts() ) {
-				$query->the_post();
-				$video['id']                     = get_the_ID();
-				$atts[ $video['id'] ]            = self::single_video_processing( $video );
-				$atts[ $video['id'] ]['content'] = get_the_content();
-			}
-		}
-
-		// Restore original Post Data
-		wp_reset_postdata();
-
-		return $atts;
-	}
-
 	private static function trim_implode( $values ) {
 		return trim( implode( ' ', array_filter( $values ) ) );
 	}
@@ -410,30 +375,7 @@ class Flowplayer5_Output {
 		foreach ( $values as $key => $value ) {
 			$output[] = 'data-' . esc_html( $key ) . '="' . esc_html( $value ) . '" ';
 		}
-		return implode( ' ', $output );
-	}
-
-	private static function process_js_config( $values ) {
-		if ( empty( $values ) ) {
-			return;
-		}
-		foreach ( $values as $key => $value ) {
-			switch ( $key ) {
-				case 'embed':
-					$output[] = esc_html( $key ) . ':' . esc_html( $value ) . ',';
-					break;
-				case 'brand':
-					$output[] = esc_html( $key ) . ':{' . self::process_js_config( $value ) . '},';
-					break;
-				case 'qualities':
-					$output[] = esc_html( $key ) . ':' . json_encode( $value ) . ',';
-					break;
-				default:
-					$output[] = esc_html( $key ) . ':"' . esc_html( $value ) . '",';
-					break;
-			}
-		}
-		return rtrim( implode( ' ', $output ), ',' );
+		return implode( '', $output );
 	}
 
 }

@@ -37,8 +37,6 @@ class Flowplayer5_Frontend {
 		$this->plugin_version = $plugin->get_plugin_version();
 		// Call $player_version from public plugin class.
 		$this->player_version = $plugin->get_player_version();
-		// Call $plugin_slug from public plugin class.
-		$this->plugin_slug = $plugin->get_plugin_slug();
 
 		// Pull options
 		$options    = fp5_get_settings();
@@ -94,16 +92,16 @@ class Flowplayer5_Frontend {
 		$asf_css = ( ! empty ( $options['asf_css'] ) ? $options['asf_css'] : false );
 		$suffix  = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
-		wp_register_style( $this->plugin_slug . '-skins', trailingslashit( $this->flowplayer5_directory ) . 'skin/all-skins.css', array(), $this->player_version );
-		wp_register_style( $this->plugin_slug . '-logo-origin', plugins_url( '/assets/css/public-concat' . $suffix . '.css', __FILE__ ), array(), $this->plugin_version );
-		wp_register_style( $this->plugin_slug . '-asf', esc_url( $asf_css ), array(), null );
+		wp_register_style( 'flowplayer5-skins', trailingslashit( $this->flowplayer5_directory ) . 'skin/all-skins.css', array(), $this->player_version );
+		wp_register_style( 'flowplayer5-logo-origin', plugins_url( '/assets/css/public-concat' . $suffix . '.css', __FILE__ ), array(), $this->plugin_version );
+		wp_register_style( 'flowplayer5-asf', esc_url( $asf_css ), array(), null );
 
 		// Register stylesheets
 		if ( $this->has_flowplayer_video ) {
-			wp_enqueue_style( $this->plugin_slug . '-skins' );
-			wp_enqueue_style( $this->plugin_slug . '-logo-origin' );
+			wp_enqueue_style( 'flowplayer5-skins' );
+			wp_enqueue_style( 'flowplayer5-logo-origin' );
 			if ( $asf_css ) {
-				wp_enqueue_style( $this->plugin_slug . '-asf' );
+				wp_enqueue_style( 'flowplayer5-asf' );
 			}
 		}
 
@@ -121,25 +119,25 @@ class Flowplayer5_Frontend {
 		$suffix  = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 		$fp_version = ( isset( $options['fp_version'] ) && 'fp6' === $options['fp_version'] ) ? '-v6' : '';
 
-		wp_register_script( $this->plugin_slug . '-script', trailingslashit( $this->flowplayer5_directory ) . 'flowplayer' . $suffix . '.js', array( 'jquery' ), $this->player_version, false );
-		wp_register_script( $this->plugin_slug . '-ima3', '//s0.2mdn.net/instream/html5/ima3.js', array(), null, false );
-		wp_register_script( $this->plugin_slug . '-asf', esc_url( $asf_js ), array( $this->plugin_slug . '-ima3' ), null, false );
-		wp_register_script( $this->plugin_slug . '-hlsjs', trailingslashit( $this->plugin_directory ) . 'hlsjs/flowplayer.hlsjs' . $suffix . '.js', array( $this->plugin_slug . '-ima3' ), null, false );
-		wp_register_script( $this->plugin_slug . '-quality-selector', plugins_url( '/assets/drive/quality-selector' . $fp_version . $suffix . '.js', __FILE__ ), array( $this->plugin_slug . '-script' ), $this->player_version, false );
+		wp_register_script( 'flowplayer5-script', trailingslashit( $this->flowplayer5_directory ) . 'flowplayer' . $suffix . '.js', array( 'jquery' ), $this->player_version, false );
+		wp_register_script( 'flowplayer5-ima3', '//s0.2mdn.net/instream/html5/ima3.js', array(), null, false );
+		wp_register_script( 'flowplayer5-asf', esc_url( $asf_js ), array( 'flowplayer5-ima3' ), null, false );
+		wp_register_script( 'flowplayer5-hlsjs', trailingslashit( $this->plugin_directory ) . 'hlsjs/flowplayer.hlsjs' . $suffix . '.js', array( 'flowplayer5-script' ), '1be4c78', false );
+		wp_register_script( 'flowplayer5-quality-selector', plugins_url( '/assets/drive/quality-selector' . $fp_version . $suffix . '.js', __FILE__ ), array( 'flowplayer5-script' ), $this->player_version, false );
 		wp_register_script( 'magnific-popup', plugins_url( '/frontend/assets/magnific-popup/magnific-popup' . $suffix . '.js', FP5_PLUGIN_FILE ), array( 'jquery' ), '1.0.0', false );
 
 		// Register JavaScript
 		if ( $this->has_flowplayer_video ) {
-			wp_enqueue_script( $this->plugin_slug . '-script' );
-			if ( $this->get_video_meta_values( 'fp5-hls-video', $this->has_flowplayer_shortcode ) ) {
-				wp_enqueue_script( $this->plugin_slug . '-hlsjs' );
+			wp_enqueue_script( 'flowplayer5-script' );
+			if ( $this->get_video_meta_values( 'fp5-hls-video', $this->has_flowplayer_shortcode ) && $fp_version ) {
+				wp_enqueue_script( 'flowplayer5-hlsjs' );
 			}
 			if ( $asf_js ) {
-				wp_enqueue_script( $this->plugin_slug . '-asf' );
+				wp_enqueue_script( 'flowplayer5-asf' );
 			}
 			$this->video_qualities();
 			if ( isset( $this->video_qualities ) ) {
-				wp_enqueue_script( $this->plugin_slug . '-quality-selector' );
+				wp_enqueue_script( 'flowplayer5-quality-selector' );
 			}
 			if ( $this->get_video_meta_values( 'fp5-lightbox', $this->has_flowplayer_shortcode ) ) {
 				wp_enqueue_script( 'magnific-popup' );
@@ -306,9 +304,13 @@ class Flowplayer5_Frontend {
 			// Check that it is a single video and not a playlist
 			if ( 'id' . $value === $key ) {
 				$video_meta[ $key ] = get_post_meta( $value );
+				$video_meta[ $key ]['id'] = $value;
 			}
 			if ( 'playlist' . $value === $key ) {
-				// @TODO - Return array with id for the single videos
+				$video_meta = array_merge(
+					$video_meta,
+					Flowplayer5_Playlist::get_videos_meta_by_id( $value )
+				);
 			}
 		}
 		$this->video_post_meta = $video_meta;
@@ -320,9 +322,9 @@ class Flowplayer5_Frontend {
 		}
 		$video_meta_values = array();
 		$this->get_video_meta( $video_ids );
-		foreach ( $video_ids as $id_key => $value ) {
+		foreach ( $this->video_post_meta as $id_key => $value ) {
 			// Check that it is a single video and not a playlist
-			if ( 'id' . $value === $id_key ) {
+			if ( 'id' . $value['id'] === $id_key ) {
 				$video_meta_values[ $id_key ] = isset( $this->video_post_meta[ $id_key ][ $key ][0] ) ? $this->video_post_meta[ $id_key ][ $key ][0] : '';
 			}
 		}
