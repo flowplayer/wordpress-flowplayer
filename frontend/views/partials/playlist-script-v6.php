@@ -23,7 +23,7 @@
 ?>
 <script>
 var Playlist<?php echo esc_attr( $playlist_id ); ?> = <?php echo json_encode( $return ); ?>;
-flowplayer('#jsplaylist<?php echo absint( $playlist_id ); ?>', {
+var fpPlaylist<?php echo absint( $playlist_id ); ?> = flowplayer('#jsplaylist<?php echo absint( $playlist_id ); ?>', {
 	playlist: Playlist<?php echo absint( $playlist_id ); ?>
 });
 </script>

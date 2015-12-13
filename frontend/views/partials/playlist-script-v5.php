@@ -21,7 +21,7 @@
 <script>
 (function($) {
 	var Playlist<?php echo esc_attr( $playlist_id ); ?> = <?php echo json_encode( $return ); ?>;
-	$("#jsplaylist<?php echo absint( $playlist_id ); ?>").flowplayer({
+	var fpPlaylist<?php echo absint( $playlist_id ); ?> = $("#jsplaylist<?php echo absint( $playlist_id ); ?>").flowplayer({
 		rtmp: "<?php echo esc_attr( $playlist_options['fp5-rtmp-url'] ); ?>",
 		playlist: Playlist<?php echo absint( $playlist_id ); ?>
 	});
