@@ -85,12 +85,12 @@ class Flowplayer5_Output {
 				$playlist_id = $new_term_id;
 			}
 		}
-		if ( ! $playlist_options ) {
-			return;
-		}
 		$atts = Flowplayer5_Playlist::get_videos_by_id( $playlist_id );
 		if ( ! $atts ) {
 			return;
+		}
+		if ( ! $playlist_options ) {
+			$playlist_options['fp5-select-skin'] = 'minimalist';
 		}
 		ob_start();
 		require( 'views/partials/playlist.php' );
