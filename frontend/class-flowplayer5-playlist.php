@@ -37,6 +37,7 @@ class Flowplayer5_Playlist implements Flowplayer5_IPlaylist {
 				$video[ 'id' ]                                  = get_the_ID();
 				$videos[ 'id' . $video[ 'id' ] ]                = Flowplayer5_Output::single_video_processing( $video );
 				$videos[ 'id' . $video[ 'id' ] ][ 'content' ]   = get_the_content();
+				
 			}
 		}
 
@@ -100,11 +101,12 @@ class Flowplayer5_Playlist implements Flowplayer5_IPlaylist {
 
 	protected function get_video_posts() {
 		$videos = wp_cache_get( 'playlist_query_' . $this->get_id() );
-		if ( $videos ) {
-			return $videos;
+		if ( false === $videos ) {
+			$videos = new WP_Query( $this->get_video_post_args() );
+			if ( ! is_wp_error( $videos ) && $videos->have_posts() ) {
+				wp_cache_set( 'playlist_query_' . $this->get_id(), $videos );
+			}
 		}
-		$videos = new WP_Query( $this->get_video_post_args() );
-		wp_cache_set( 'playlist_query_' . $this->get_id(), $videos );
 		return $videos;
 	}
 
@@ -112,8 +114,9 @@ class Flowplayer5_Playlist implements Flowplayer5_IPlaylist {
 		return array(
 			'post_type'      => 'flowplayer5',
 			'post_status'    => 'publish',
+			'posts_per_page' => '100',
+			'no_found_rows'  => true,
 			'orderby'        => 'meta_value_num',
-			'posts_per_page' => '-1',
 			'meta_key'       => 'playlist_order_' . absint( $this->playlist_id ),
 			'tax_query'      => array(
 				array(
@@ -122,9 +125,6 @@ class Flowplayer5_Playlist implements Flowplayer5_IPlaylist {
 					'terms'    => absint( $this->playlist_id ),
 				),
 			),
-			'cache_results'          => true,
-			'update_post_meta_cache' => true,
-			'update_post_term_cache' => true,
 		);
 	}
 }

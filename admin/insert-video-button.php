@@ -96,7 +96,11 @@ function fp5_modal_content() {
 					<?php
 					// WP_Query arguments
 					$args = array(
-						'post_type' => 'flowplayer5',
+						'post_type'              => 'flowplayer5',
+						'posts_per_page'         => 100,
+						'update_post_meta_cache' => false,
+						'update_post_term_cache' => false,
+						'no_found_rows'          => true,
 					);
 
 					// The Query
