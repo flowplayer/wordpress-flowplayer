@@ -122,7 +122,7 @@ class Flowplayer5_Frontend {
 		wp_register_script( 'flowplayer5-script', trailingslashit( $this->flowplayer5_directory ) . 'flowplayer' . $suffix . '.js', array( 'jquery' ), $this->player_version, false );
 		wp_register_script( 'flowplayer5-ima3', '//s0.2mdn.net/instream/html5/ima3.js', array(), null, false );
 		wp_register_script( 'flowplayer5-asf', esc_url( $asf_js ), array( 'flowplayer5-ima3' ), null, false );
-		wp_register_script( 'flowplayer5-hlsjs', plugins_url( '/assets/hlsjs/flowplayer.hlsjs' . $suffix . '.js', __FILE__ ), array( 'flowplayer5-script' ), '1be4c78', false );
+		wp_register_script( 'flowplayer5-hlsjs', plugins_url( '/assets/hlsjs/flowplayer.hlsjs.js', __FILE__ ), array( 'flowplayer5-script' ), 'adbde54', false );
 		wp_register_script( 'flowplayer5-quality-selector', plugins_url( '/assets/drive/quality-selector' . $fp_version . $suffix . '.js', __FILE__ ), array( 'flowplayer5-script' ), $this->player_version, false );
 		wp_register_script( 'magnific-popup', plugins_url( '/frontend/assets/magnific-popup/magnific-popup' . $suffix . '.js', FP5_PLUGIN_FILE ), array( 'jquery' ), '1.0.0', false );
 
