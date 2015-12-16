@@ -258,6 +258,7 @@ add_filter( 'fp5_post_meta_defaults', 'fp5_post_meta_defaults' );`
 We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
 
 = 1.13.0 - 16 December 2015 =
+* Updated Flowplayer to v6.0.4
 * Updated the quality selector scripts
 * Updated HLS script
 * Included the extra features for playlists that came in Flowplayer v6. e.g. Quality selector for videos in playlists and RTMP URL per Video
