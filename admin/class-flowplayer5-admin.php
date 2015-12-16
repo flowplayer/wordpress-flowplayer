@@ -76,6 +76,10 @@ class Flowplayer5_Admin {
 		add_action( 'dashboard_glance_items', array( $this, 'add_dashboard_counts' ) );
 		add_action( 'right_now_content_table_end', array( $this, 'add_dashboard_counts_old' ) );
 
+		// Delete cache on update
+		add_action( 'save_post_flowplayer5', array( $this, 'delete_cache_post' ), 10, 3 );
+		add_action( 'edited_playlist', array( $this, 'delete_cache_tax' ), 10, 2 );
+
 	}
 
 	/**
@@ -375,6 +379,34 @@ class Flowplayer5_Admin {
 	public function add_dashboard_counts_old() {
 		$glancer = new Gamajo_Dashboard_RightNow;
 		$glancer->add( 'flowplayer5' );
+	}
+
+	/**
+	 * When the post is saved or updated delete the playlist query cache.
+	 *
+	 * @param    int     $post_id    Post ID
+	 * @param    WP_Post $post       Post object
+	 * @param    bool    $update     Whether this is an existing post being updated or not
+	 * @since    1.13.0
+	 */
+	public function delete_cache_post( $post_id, $post, $update ) {
+		$playlists = get_the_terms( $post_id, 'playlist' );
+		if ( $playlists ){
+			foreach ( $playlists as $playlist ) {
+				wp_cache_delete( 'playlist_query_' . $playlist->term_id );
+			}
+		}
+	}
+
+	/**
+	 * When the taxonomy is saved or updated, delete the playlist query cache.
+	 *
+	 * @param    int     $term_id   Term ID
+	 * @param    int     $tt_id     Term taxonmy ID
+	 * @since    1.13.0
+	 */
+	public function delete_cache_tax( $term_id, $tt_id ) {
+		wp_cache_delete( 'playlist_query_' . $term_id );
 	}
 
 }

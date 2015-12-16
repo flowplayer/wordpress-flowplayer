@@ -1,9 +1,9 @@
 === Flowplayer HTML5 for WordPress ===
 Contributors: flowplayerorg, grapplerulrich, anssi
 Donate link: http://flowplayer.org/pricing/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin
-Tags: flowplayer, flowplayer5, flowplayer6, Flowplayer HTML5, responsive, html5, video, player, rtmp, hls, flash, live-streaming, Flowplayer Drive, Adsense, video ads, video-widget, playlist
-Requires at least: 3.5
-Tested up to: 4.3.1
+Tags: flowplayer, flowplayer5, flowplayer6, Flowplayer HTML5, responsive, mobile, embed, html5, video, player, rtmp, hls, flash, live-streaming, Flowplayer Drive, Adsense, video ads, video widget, playlist, ABR, Adaptive Bit Rate
+Requires at least: 3.7
+Tested up to: 4.4
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -29,7 +29,7 @@ Flowplayer HTML5 for WordPress provides a video management system for self hoste
 * Use Flowplayer to play your live streams
 * Show your video in any desired player size. Detects the video dimensions for configuring the correct player size
 * [Supports subtitles](http://flowplayer.org/docs/subtitles.html?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin)
-* Fully internationalized - [Help Translate](https://webtranslateit.com/en/projects/8343-Flowplayer-HTML5-for-WordPress)
+* Fully internationalized - [Help Translate](https://translate.wordpress.org/projects/wp-plugins/flowplayer5)
 * Switch easily between Flowplayer v5 and Flowplayer v6
 
 
@@ -62,7 +62,7 @@ The commercial version is free of Flowplayer branding and you can use your logo.
 
 = Translation =
 
-[Join the Translation Team](https://webtranslateit.com/en/projects/8343-Flowplayer-HTML5-for-WordPress)
+[Join the Translation Team](https://translate.wordpress.org/projects/wp-plugins/flowplayer5)
 
 = Credits =
 
@@ -256,6 +256,15 @@ add_filter( 'fp5_post_meta_defaults', 'fp5_post_meta_defaults' );`
 == Changelog ==
 
 We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
+
+= 1.13.0 - 16 December 2015 =
+* Updated Flowplayer to v6.0.4
+* Updated the quality selector scripts
+* Updated HLS script
+* Included the extra features for playlists that came in Flowplayer v6. e.g. Quality selector for videos in playlists and RTMP URL per Video
+* Updated dashboard widget library code to support PHP 7
+* Increased WordPress minimum requirement to 3.7
+* Improved database queries performance
 
 = 1.12.1 - 15 November 2015 =
 * Fixed bug with feature checker for loading extra JS

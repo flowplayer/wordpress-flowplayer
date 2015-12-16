@@ -17,7 +17,7 @@
    requires:
    - Flowplayer HTML5 version 6.x or greater
    - hls.js https://github.com/dailymotion/hls.js
-   revision: 6133d25
+   revision: adbde54
 
 */
 
@@ -27,6 +27,7 @@
         hlsconf,
         common = flowplayer.common,
         extend = flowplayer.extend,
+        version = flowplayer.version,
 
         isHlsType = function (typ) {
             return typ.toLowerCase().indexOf("mpegurl") > -1;
@@ -36,6 +37,24 @@
             var bean = flowplayer.bean,
                 videoTag,
                 hls,
+                recover,
+
+                bc,
+                has_bg,
+                posterHack = function () {
+                    // abuse timeupdate to re-instate poster
+                    var posterClass = "is-poster",
+                        etype = "progress." + engineName;
+
+                    player.one(etype, function () {
+                        common.addClass(root, posterClass);
+                        player.poster = true;
+                        player.one(etype, function () {
+                            common.removeClass(root, posterClass);
+                            player.poster = false;
+                        });
+                    });
+                },
 
                 engine = {
                     engineName: engineName,
@@ -48,6 +67,9 @@
                             source = sources[i];
                             if (isHlsType(source.type)
                                     && (!source.engine || source.engine === engineName)) {
+                                if (typeof source.src === 'string') {
+                                    source.src = common.createAbsoluteUrl(source.src);
+                                }
                                 return source;
                             }
                         }
@@ -55,7 +77,9 @@
 
                     load: function (video) {
                         var init = !hls,
-                            conf = player.conf;
+                            conf = player.conf,
+                            hlsClientConf = extend({}, hlsconf),
+                            hlsParams = ["autoLevelCapping", "recover", "startLevel", "strict"];
 
                         if (init) {
                             common.removeNode(common.findDirect("video", root)[0]
@@ -117,7 +141,7 @@
                                         }
                                     }
                                 }
-                            } catch (ignored) {}
+                            } catch (ignore) {}
 
                             video.buffer = buffer;
                             player.trigger('buffer', [player, e]);
@@ -129,16 +153,55 @@
                             player.trigger('volume', [player, videoTag.volume]);
                         });
 
-                        hls = new Hls(hlsconf);
+                        hlsParams.forEach(function (key) {
+                            delete hlsClientConf[key];
+                        });
+                        hls = new Hls(hlsClientConf);
+
+                        hlsParams.forEach(function (key) {
+                            var value = hlsconf[key];
+
+                            switch (key) {
+                            case "autoLevelCapping":
+                                if (value === false) {
+                                    value = -1;
+                                }
+                                break;
+                            case "recover":
+                                recover = hlsconf.strict
+                                    ? 0
+                                    : value;
+                                break;
+                            case "startLevel":
+                                switch (value) {
+                                case "auto":
+                                    value = -1;
+                                    break;
+                                case "firstLevel":
+                                    value = undefined;
+                                    break;
+                                }
+                                break;
+                            }
+
+                            if (key !== "strict" && key !== "recover" && value !== undefined) {
+                                hls[key] = value;
+                            }
+                        });
 
                         hls.on(Hls.Events.ERROR, function (e, data) {
                             var fperr,
                                 errobj = {};
 
-                            if (data.fatal || hlsconf.strict) {
+                            if (data.fatal || hlsconf.strict > 0) {
                                 switch (data.type) {
                                 case Hls.ErrorTypes.NETWORK_ERROR:
-                                    if (data.frag && data.frag.url) {
+                                    if (recover) {
+                                        hls.startLoad();
+                                        if (recover > 0) {
+                                            recover -= 1;
+                                        }
+                                    } else if (data.frag && data.frag.url) {
                                         errobj.url = data.frag.url;
                                         fperr = 2;
                                     } else {
@@ -146,20 +209,29 @@
                                     }
                                     break;
                                 case Hls.ErrorTypes.MEDIA_ERROR:
-                                    fperr = 3;
+                                    if (recover) {
+                                        hls.recoverMediaError();
+                                        if (recover > 0) {
+                                            recover -= 1;
+                                        }
+                                    } else {
+                                        fperr = 3;
+                                    }
                                     break;
                                 default:
                                     fperr = 5;
-                                    break;
                                 }
-                                errobj.code = fperr;
-                                if (fperr > 2) {
-                                    errobj.video = extend(video, {
-                                        src: video.src,
-                                        url: data.url || video.src
-                                    });
+
+                                if (fperr !== undefined) {
+                                    errobj.code = fperr;
+                                    if (fperr > 2) {
+                                        errobj.video = extend(video, {
+                                            src: video.src,
+                                            url: data.url || video.src
+                                        });
+                                    }
+                                    player.trigger('error', [player, errobj]);
                                 }
-                                player.trigger('error', [player, errobj]);
                             }
                             /* TODO: */
                             // log non fatals
@@ -170,7 +242,7 @@
                         }
 
                         hls.loadSource(video.src);
-                        hls.attachVideo(videoTag);
+                        hls.attachMedia(videoTag);
 
                         if (videoTag.paused && (video.autoplay || conf.autoplay)) {
                             videoTag.play();
@@ -214,10 +286,29 @@
                     }
                 };
 
+            // pre 6.0.4: no boolean api.conf.poster and no poster with autoplay
+            if (/^6\.0\.[0-3]$/.test(version) &&
+                    !player.conf.splash && !player.conf.poster && !player.conf.autoplay) {
+                bc = common.css(root, 'backgroundColor');
+                // spaces in rgba arg mandatory for recognition
+                has_bg = common.css(root, 'backgroundImage') !== "none" ||
+                        (bc && bc !== "rgba(0, 0, 0, 0)" && bc !== "transparent");
+                if (has_bg) {
+                    player.conf.poster = true;
+                }
+            }
+            if (player.conf.poster) {
+                // when engine is loaded or player stopped
+                // the engine is too late to the party:
+                // poster is already removed and api.poster is false
+                // poster state must be set again
+                player.on("ready." + engineName + " stop." + engineName, posterHack);
+            }
+
             return engine;
         };
 
-    if (Hls.isSupported()) {
+    if (Hls.isSupported() && version.indexOf("5.") !== 0) {
         // only load engine if it can be used
         engineImpl.engineName = engineName; // must be exposed
         engineImpl.canPlay = function (type, conf) {
@@ -229,7 +320,9 @@
             }
 
             // merge hlsjs clip config at earliest opportunity
-            hlsconf = extend({}, conf[engineName], conf.clip[engineName]);
+            hlsconf = extend({
+                recover: 0
+            }, flowplayer.conf[engineName], conf[engineName], conf.clip[engineName]);
 
             // support Safari only when hlsjs debugging
             // https://github.com/dailymotion/hls.js/issues/9
@@ -241,40 +334,6 @@
         // so hlsjs is tested before html5 video hls and flash hls
         flowplayer.engines.unshift(engineImpl);
 
-
-        // poster hack
-        flowplayer(function (api, root) {
-            // detect poster condition as in core on boot
-            var bc = common.css(root, 'backgroundColor'),
-                has_bg = common.css(root, 'backgroundImage') !== "none" ||
-                        (bc && bc !== "rgba(0,0,0,0)" && bc !== "transparent"),
-                posterCondition = has_bg && !api.conf.splash && !api.conf.autoplay,
-
-                posterHack = function () {
-                    //if (api.engine.engineName === engineName) {
-                    // omitting this condition which would confine the hack to
-                    // the hlsjs engine works around
-                    // https://github.com/flowplayer/flowplayer/issues/942
-
-                    // assert that poster is set regardless of client of
-                    // video loading delay
-                    setTimeout(function () {
-                        var posterClass = "is-poster";
-
-                        common.addClass(root, posterClass);
-                        api.one("resume." + engineName, function () {
-                            api.off("ready." + engineName);
-                            api.off("seek." + engineName);
-                            common.removeClass(root, posterClass);
-                        });
-                    }, 0);
-                };
-
-            if (posterCondition) {
-                api.on("ready." + engineName + " stop." + engineName + " seek." + engineName,
-                        posterHack);
-            }
-        });
     }
 
 }.apply(null, (typeof module === 'object' && module.exports)
