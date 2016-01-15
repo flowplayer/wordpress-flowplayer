@@ -1,0 +1,14 @@
+{
+    "name": "flowplayer/wordpress-flowplayer",
+    "description": "Flowplayer HTML5 WordPress plugin",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0+",
+    "authors": [
+        {
+            "name": "Ulrich Pogson",
+            "email": "ulrich@pogson.ch"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}

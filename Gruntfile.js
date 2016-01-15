@@ -66,6 +66,7 @@ module.exports = function(grunt) {
 					'!.git/**',
 					'!Gruntfile.js',
 					'!package.json',
+					'!composer.json',
 					'!.gitignore',
 					'!.gitmodules',
 					'!**/.wti',
