@@ -53,6 +53,7 @@ if ( is_admin() ) {
 	}
 } else {
 	require_once( plugin_dir_path( __FILE__ ) . 'frontend/class-flowplayer5-frontend.php' );
+	require_once( plugin_dir_path( __FILE__ ) . 'frontend/class-flowplayer5-styles-scripts.php' );
 	require_once( plugin_dir_path( __FILE__ ) . 'frontend/class-flowplayer5-playlist.php' );
 	require_once( plugin_dir_path( __FILE__ ) . 'frontend/class-flowplayer5-output.php' );
 	require_once( plugin_dir_path( __FILE__ ) . 'frontend/class-flowplayer5-shortcode.php' );
@@ -76,4 +77,5 @@ if ( is_admin() ) {
 } else {
 	new Flowplayer5_Frontend();
 	new Flowplayer5_Shortcode();
+	new Flowplayer5_Styles_Scripts();
 }
