@@ -325,10 +325,20 @@ class Flowplayer5_Output {
 			( ( $poster == 'true' ) ? 'poster' : '' ),
 		);
 
-		$return['asf_test'] = ( ! empty( $asf_test ) ? 'on' : 'off' );
-		$ads_time           = ( isset( $ads_time ) ? $ads_time : '' );
-		$return['ads_time'] = ( 0 == $ads_time ? 0.01 : $ads_time );
-		$return['ad_type']  = ( ! empty( $ad_type ) ? esc_attr( $ad_type ) : '' );
+		$ads_time   = '0' === $ads_time ? 0.01 : $ads_time;
+		$asf_config = array(
+			'adtest' => ! empty( $asf_test ) ? 'on' : 'off',
+			'description_url' => $return['description_url'],
+			'ads' => array(
+				array(
+					'time' => $ads_time,
+					'ad_type' => ! empty( $ad_type ) ? esc_attr( $ad_type ) : '',
+				),
+			)
+		);
+		if ( $return['asf_js'] && 'fp6' === $return['fp_version'] && ! empty( $ads_time ) ) {
+			$return['js_config']['ima'] = apply_filters( 'fp5_ads_config', $asf_config, $return['id'] );
+		}
 
 		$return['source'] = array();
 		foreach ( $formats as $format => $src ) {
@@ -355,9 +365,9 @@ class Flowplayer5_Output {
 	 * @since    1.9.0
 	 */
 	private static function get_custom_fields( $custom_fields, $key, $override, $override_key, $else = '' ) {
-		if ( ! empty( $override[ $override_key ] ) ) {
+		if ( isset( $override[ $override_key ] ) ) {
 			return $override[ $override_key ];
-		} elseif ( ! empty( $custom_fields[ $key ][0] ) ) {
+		} elseif ( isset( $custom_fields[ $key ][0] ) && ( ! empty( $custom_fields[ $key ][0] ) || is_numeric( $custom_fields[ $key ][0] ) ) ) {
 			return $custom_fields[ $key ][0];
 		} else {
 			return $else;

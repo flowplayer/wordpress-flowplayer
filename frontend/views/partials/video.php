@@ -1,9 +1,5 @@
 <div id="flowplayer-video-<?php echo absint( $atts['id'] ); ?>" style="<?php echo esc_attr( self::trim_implode( $atts['style'] ) ); ?>" class="<?php echo esc_attr( self::trim_implode( $atts['classes'] ) ); ?>" <?php echo fp5_deprecated_flowplayer_data( self::trim_implode( $atts['data_config'] ) ); ?>>
 
-	<?php if ( $atts['asf_js'] ) {
-		require( 'ads-script.php' );
-	} ?>
-
 	<?php do_action( 'fp5_video_top', $atts['id'] ); ?>
 
 	<video <?php echo self::process_data_config( $atts['video_data_config'] ); ?><?php echo self::trim_implode( $atts['attributes'] ); ?>>
