@@ -10,7 +10,7 @@
  */
 ?>
 <div class="fp5-video-meta-box">
-<ul class="nav-tab-wrapper">
+<ul class="nav-tab-wrapper nav-tab-small">
 	<li class="nav-tab"><a href="#media"><?php _e( 'Media Files', $this->plugin_slug ) ?></a></li>
 	<li class="nav-tab"><a href="#skinning"><?php _e( 'Skinning', $this->plugin_slug ) ?></a></li>
 	<li class="nav-tab"><a href="#config"><?php _e( 'Configuration', $this->plugin_slug ) ?></a></li>

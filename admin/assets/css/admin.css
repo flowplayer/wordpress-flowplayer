@@ -88,12 +88,17 @@ select#fp5-select-skin {
 	border-bottom: #ccc solid 1px;;
 }
 
-.ui-tabs-active,
+.nav-tab-wrapper li {
+	margin-bottom: 0;
+}
+
+li.ui-tabs-active,
 .ui-tabs-active:hover {
 	color: #464646;
 	background: none;
 	border-color: #ccc solid 1px;
 	border-bottom: #fff solid 1px;
+	margin-bottom: -1px;
 }
 
 @media screen and ( max-width: 1335px ) {
