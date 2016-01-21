@@ -93,8 +93,7 @@ class Flowplayer5_Shortcode {
 				}
 			}
 		}
-		error_log(print_r($has_shortcode,true));
-		error_log(print_r(wp_debug_backtrace_summary(),true));
+
 		$this->has_flowplayer_shortcode = array_filter( $has_shortcode );
 		return $this->has_flowplayer_shortcode;
 	}
