@@ -196,6 +196,7 @@ class Flowplayer5_Output {
 		$play_button               = self::get_custom_fields( $custom_fields, 'fp5-play-button', $atts, 'play_button' );
 		$ads_time                  = self::get_custom_fields( $custom_fields, 'fp5-ads-time', $atts, 'ads_time' );
 		$ad_type                   = self::get_custom_fields( $custom_fields, 'fp5-ad-type', $atts, 'ad_type' );
+		$fp5_ads                   = maybe_unserialize( self::get_custom_fields( $custom_fields, 'fp5_ads' ) );
 		$title                     = self::get_custom_fields( $custom_fields, 'title', $atts, 'title' );
 		$return['splash']          = self::get_custom_fields( $custom_fields, 'fp5-splash-image', $atts, 'splash' );
 		$return['width']           = self::get_custom_fields( $custom_fields, 'fp5-width', $atts, 'width' );
@@ -325,18 +326,26 @@ class Flowplayer5_Output {
 			( ( $poster == 'true' ) ? 'poster' : '' ),
 		);
 
-		$ads_time   = '0' === $ads_time ? 0.01 : $ads_time;
+		$asf_ads = array();
+		if ( ! empty( $ad_type ) && ! empty( $ads_time ) || '0' === $ads_time ) {
+			$asf_ads[] = array(
+				'time' => $ads_time,
+				'ad_type' => $ad_type,
+			);
+		} elseif ( is_array( $fp5_ads ) ) {
+			foreach( $fp5_ads as $fp5_ad ) {
+				$asf_ads[] = array(
+					'time' => $fp5_ad['fp5-ads-time'],
+					'ad_type' => $fp5_ad['fp5-ad-type'],
+				);
+			}
+		}
 		$asf_config = array(
 			'adtest' => ! empty( $asf_test ) ? 'on' : 'off',
 			'description_url' => $return['description_url'],
-			'ads' => array(
-				array(
-					'time' => $ads_time,
-					'ad_type' => ! empty( $ad_type ) ? esc_attr( $ad_type ) : '',
-				),
-			)
+			'ads' => $asf_ads,
 		);
-		if ( $return['asf_js'] && 'fp6' === $return['fp_version'] && ! empty( $ads_time ) ) {
+		if ( $return['asf_js'] && 'fp6' === $return['fp_version'] && ! empty( $asf_ads ) ) {
 			$return['js_config']['ima'] = apply_filters( 'fp5_ads_config', $asf_config, $return['id'] );
 		}
 
@@ -364,7 +373,7 @@ class Flowplayer5_Output {
 	 *
 	 * @since    1.9.0
 	 */
-	private static function get_custom_fields( $custom_fields, $key, $override, $override_key, $else = '' ) {
+	private static function get_custom_fields( $custom_fields, $key, $override = array(), $override_key = '', $else = '' ) {
 		if ( isset( $override[ $override_key ] ) ) {
 			return $override[ $override_key ];
 		} elseif ( isset( $custom_fields[ $key ][0] ) && ( ! empty( $custom_fields[ $key ][0] ) || is_numeric( $custom_fields[ $key ][0] ) ) ) {

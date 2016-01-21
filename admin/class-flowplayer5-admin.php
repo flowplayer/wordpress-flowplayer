@@ -136,6 +136,7 @@ class Flowplayer5_Admin {
 		// Only run on flowplayer new and edit post screens
 		if ( $screen->post_type === $this->plugin_slug && $screen->base == 'post' ) {
 
+			wp_enqueue_script( 'repeatable-fields', plugins_url( '/assets/js/repeatable-fields' . $suffix . '.js', __FILE__ ), array( 'jquery-ui-sortable' ), $this->plugin_version, false );
 			wp_enqueue_script( $this->plugin_slug . '-media', plugins_url( '/assets/js/media' . $suffix . '.js', __FILE__ ), array( 'jquery-ui-tabs' ), $this->plugin_version, false );
 			wp_localize_script( $this->plugin_slug . '-media', 'splash_image',
 				array(

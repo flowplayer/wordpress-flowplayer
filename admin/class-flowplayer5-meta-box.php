@@ -144,6 +144,14 @@ class Flowplayer5_Video_Meta_Box {
 				'fp5-preload' => array( 'metadata' )
 			) )
 		);
+		// https://core.trac.wordpress.org/ticket/15030
+		$fp5_ads = isset( $fp5_stored_meta['fp5_ads'][0] ) ? maybe_unserialize( $fp5_stored_meta['fp5_ads'][0] ) : array();
+		if ( isset( $fp5_stored_meta['fp5-ad-type'][0] ) ) {
+			$fp5_ads[0]['fp5-ad-type'] = $fp5_stored_meta['fp5-ad-type'][0];
+		}
+		if ( isset( $fp5_stored_meta['fp5-ads-time'][0] ) ) {
+			$fp5_ads[0]['fp5-ads-time'] = $fp5_stored_meta['fp5-ads-time'][0];
+		}
 
 		include_once( plugin_dir_path( __FILE__ ) . 'views/display-video-meta-box.php' );
 
@@ -180,31 +188,28 @@ class Flowplayer5_Video_Meta_Box {
 
 			foreach ( $checkboxes as $checkbox ) {
 				if ( isset( $_POST[ $checkbox ] ) ) {
-					update_post_meta(
-						$post_id,
-						$checkbox,
-						'true'
-					);
+					$value = true;
 				} else {
-					update_post_meta(
-						$post_id,
-						$checkbox,
-						''
-					);
+					$value = '';
 				}
+				update_post_meta(
+					$post_id,
+					$checkbox,
+					$value
+				);
 			}
 
 			// Check, validate and save keys
+			$choices = $this->allowed_dropdown_options();
 			$keys = array(
 				'fp5-select-skin',
 				'fp5-preload',
 				'fp5-coloring',
-				'fp5-ad-type',
 				'fp5-lightbox',
 			);
 
 			foreach ( $keys as $key ) {
-				if ( isset( $_POST[ $key ] ) ) {
+				if ( isset( $_POST[ $key ] ) && in_array( $_POST[ $key ] , $choices[ $key ] ) ) {
 					update_post_meta(
 						$post_id,
 						$key,
@@ -241,7 +246,6 @@ class Flowplayer5_Video_Meta_Box {
 				'fp5-height',
 				'fp5-user-id',
 				'fp5-video-id',
-				'fp5-ads-time',
 				'fp5-duration',
 			);
 
@@ -273,16 +277,71 @@ class Flowplayer5_Video_Meta_Box {
 					);
 				}
 			}
+
+			if ( is_array( $_POST[ 'fp5_ads' ] ) ) {
+				foreach ( $_POST[ 'fp5_ads' ] as $key => $value ) {
+					$new_value[ $key ] = array(
+						'fp5-ad-type' => in_array( $value['fp5-ad-type'], $choices['fp5-ad-type'] ) ? $value['fp5-ad-type'] : '',
+						'fp5-ads-time' => $this->sanitize_postive_number_including_zero( $value['fp5-ads-time'] ),
+					);
+				}
+				update_post_meta(
+					$post_id,
+					'fp5_ads',
+					$new_value
+				);
+				delete_post_meta(
+					$post_id,
+					'fp5-ad-type'
+				);
+				delete_post_meta(
+					$post_id,
+					'fp5-ads-time'
+				);
+			}
+
 		}
 
 	}
 
-	function sanitize_postive_number_including_zero( $number ) {
+	public function sanitize_postive_number_including_zero( $number ) {
 		if ( '' !== $number ) {
 			return absint( $number );
 		} else {
 			return '';
 		}
+	}
+
+	public function allowed_dropdown_options() {
+		$options = array(
+			'fp5-ad-type' => array(
+				'image_text',
+				'video',
+				'skippablevideo',
+			),
+			'fp5-select-skin' => array(
+				'minimalist',
+				'functional',
+				'playful',
+			),
+			'fp5-preload' => array(
+				'none',
+				'metadata',
+				'auto',
+			),
+			'fp5-coloring' => array(
+				'default',
+				'color-alt',
+				'color-alt2',
+				'color-light',
+			),
+			'fp5-lightbox' => array(
+				'',
+				'link',
+				'thumbnail',
+			),
+		);
+		return $options;
 	}
 
 	/**
