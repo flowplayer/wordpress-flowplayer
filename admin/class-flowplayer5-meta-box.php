@@ -78,6 +78,8 @@ class Flowplayer5_Video_Meta_Box {
 		// Setup the function responsible for saving
 		add_action( 'save_post', array( $this, 'save_fp5_video_details' ) );
 
+		add_filter( 'default_hidden_meta_boxes', array( $this, 'default_hidden_meta_boxes' ), 10, 2 );
+
 	}
 
 	/**
@@ -125,7 +127,7 @@ class Flowplayer5_Video_Meta_Box {
 			array( $this, 'display_video_meta_box' ),
 			'flowplayer5',
 			'normal',
-			'default'
+			'high'
 		);
 
 	}
@@ -361,6 +363,13 @@ class Flowplayer5_Video_Meta_Box {
 		// Return true if the user is able to save; otherwise, false.
 		return ! ( $is_autosave || $is_revision) && $is_valid_nonce;
 
+	}
+
+	public function default_hidden_meta_boxes( $hidden, $screen ) {
+		if ( 'post' == $screen->base && 'flowplayer5' == $screen->post_type ) {
+			$hidden[] = 'authordiv';
+		}
+		return $hidden;
 	}
 
 }
