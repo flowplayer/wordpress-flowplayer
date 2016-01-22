@@ -213,20 +213,18 @@ li.ui-tabs-active,
 /* Settings page */
 .fp5-main {
 	float: left;
+	max-width: 742px;
 }
 
 .fp5-main form {
-	background: #fff;
-	border: 1px solid #ddd;
-	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-	box-shadow: 0 1px 2px rgba(0,0,0,0.05);
 	padding: 10px;
 }
 
-#poststuff .fp5-main h3 {
-	border-bottom: 1px solid #eeeeee;
-	padding-top: 0;
-	margin: 0 -10px;
+.fp5-main .form-table {
+	border-bottom: 1px solid #ccc;
+}
+.fp5-main .form-table:last {
+	border-bottom: 0;
 }
 
 #wpbody-content .fp5-sidebar .metabox-holder {
@@ -235,6 +233,10 @@ li.ui-tabs-active,
 
 .fp5-sidebar {
 	float: right;
+}
+
+.flowplayer5_page_flowplayer5_settings #post-body.columns-2 #postbox-container-1 {
+	 margin-right: 0;
 }
 
 #fp5_about .hndle {

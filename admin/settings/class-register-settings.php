@@ -29,7 +29,7 @@ class Flowplayer5_Settings {
 		$this->options  = get_option( 'fp5_settings_general', array() );
 
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
-		add_filter( 'fp5_register_settings', array( $this, 'hide_commercial_options' ) );
+		add_filter( 'fp5_register_settings', array( $this, 'hide_options_conditionally' ) );
 
 	}
 
@@ -89,14 +89,19 @@ class Flowplayer5_Settings {
 
 		foreach ( $this->get_registered_settings() as $tab => $settings ) {
 
+			$title = ! empty( $settings['title'] ) ? $settings['title'] : '__return_null';
 			add_settings_section(
 				'fp5_settings_' . $tab,
-				__return_null(),
-				'__return_false',
+				$title,
+				array( $this, 'section_header_callback'),
 				'flowplayer5_settings'
 			);
 
 			foreach ( $settings as $key => $option ) {
+
+				if( ! is_array( $option ) ) {
+					continue;
+				}
 
 				$callback = ! empty( $option['callback'] ) ? $option['callback'] : array( $this, $option['type'] . '_callback' );
 
@@ -108,6 +113,8 @@ class Flowplayer5_Settings {
 					'fp5_settings_' . $tab,
 					array(
 						'id'      => $key,
+						'label_for' => '', // WP Core args
+						'class'     => '', // WP Core args
 						'desc'    => ! empty( $option['desc'] ) ? $option['desc'] : '',
 						'name'    => isset( $option['name'] ) ? $option['name'] : null,
 						'section' => $tab,
@@ -205,49 +212,8 @@ class Flowplayer5_Settings {
 	function get_registered_settings() {
 		$defaults = $this->get_defaults();
 		$settings = array(
-			/** General Settings */
 			'general' => array(
-				'commercial_version' => array(
-					'name' => '<strong>' . __( 'Commercial Version', 'flowplayer5' ) . '</strong>',
-					'desc' => __( 'The commercial version removes the Flowplayer logo and allows you to use your own logo image.', 'flowplayer5' ) . ' <a href="http://flowplayer.org/pricing/">' . __( 'Purchase license', 'flowplayer5' ) . '</a>',
-					'type' => 'header',
-				),
-				'key' => array(
-					'name' => __( 'License Key', 'flowplayer5' ) . ' <a href="http://flowplayer.org/docs/setup.html#commercial-configuration">?</a>',
-					'desc' => __( 'Specify your License Key here.', 'flowplayer5' ),
-					'type' => 'text',
-					'size' => 'medium',
-				),
-				'directory' => array(
-					'name' => __( 'Remote Assests Directory', 'flowplayer5' ),
-					'type' => 'text',
-					'size' => 'regular',
-					'desc' => __( 'Add the link to the directory with all of the Flowplayer assests', 'flowplayer5' ) . ' e.g. example.com/flowplayer5/'
-				),
-				'logo' => array(
-					'name' => __( 'Logo', 'flowplayer5' ),
-					'type' => 'upload',
-					'button' => __( 'Add Logo', 'flowplayer5' ),
-					'size' => 'regular',
-					'preview' => 'true',
-				),
-				'logo_origin' => array(
-					'name' => __( 'Show Logo on this site', 'flowplayer5' ),
-					'desc' => __( 'Show logo on this site. Uncheck to show on only externally embedded videos.', 'flowplayer5' ),
-					'type' => 'checkbox',
-				),
-				'brand_text' => array(
-					'name' => __( 'Brand Text', 'flowplayer5' ),
-					'type' => 'text',
-					'button' => __( 'Add brand name', 'flowplayer5' ) . ' <a href="http://flowplayer.org/news/releases/html5/v.6.0.0.html">' . __( 'Flowplayer 6 feature', 'flowplayer5' ) . '</a>',
-					'size' => 'regular',
-					'desc' => __( 'If set, the brand name will appear in the controlbar.' ),
-				),
-				'text_origin' => array(
-					'name' => __( 'Show brand name on this site', 'flowplayer5' ),
-					'desc' => __( 'Show brand name on this site. Uncheck to show on only externally embedded videos.', 'flowplayer5' ) . ' <a href="http://flowplayer.org/news/releases/html5/v.6.0.0.html">' . __( 'Flowplayer 6 feature', 'flowplayer5' ) . '</a>',
-					'type' => 'checkbox',
-				),
+				'title'      => __( 'General Settings', 'flowplayer5' ),
 				'fp_version' => array(
 					'name'    => '<strong>' . __( 'Flowplayer Version', 'flowplayer5' ) . '</strong>',
 					'desc'    => __( 'Choose Flowplayer script version', 'flowplayer5' ),
@@ -258,49 +224,97 @@ class Flowplayer5_Settings {
 					),
 					'std'     => $defaults['fp_version']
 				),
-				'flowplayer_drive' => array(
-					'name' => '<strong>' . __( 'Flowplayer Drive', 'flowplayer5' ) . '</strong> <a href="https://flowplayer.org/docs/drive.html">?</a>',
-					'desc' => __( 'Flowplayer Drive is a new feature that will hosts your video in all of the formats that you need.', 'flowplayer5' ),
-					'type' => 'header',
+				'cdn_option' => array(
+					'name' => __( 'CDN hosted files', 'flowplayer5' ),
+					'desc' => __( 'Use Flowplayer\'s CDN to host the CSS and JavaScript assets', 'flowplayer5' ),
+					'type' => 'checkbox',
 				),
+			),
+			'branding' => array(
+				'title'      => __( 'Branding Settings', 'flowplayer5' ),
+				'key' => array(
+					'name' => __( 'License Key', 'flowplayer5' ) . ' <a href="https://flowplayer.org/docs/setup.html#commercial-configuration">?</a>',
+					'desc' => __( 'Enter your license key.', 'flowplayer5' ),
+					'type' => 'text',
+					'size' => 'medium',
+				),
+				'directory' => array(
+					'name' => __( 'Commercial Assests Directory', 'flowplayer5' ),
+					'type' => 'text',
+					'size' => 'regular',
+					'desc' => __( 'Add the link to the directory with the Flowplayer Commercial assests', 'flowplayer5' ) . ' e.g. example.com/flowplayer5/'
+				),
+				'logo' => array(
+					'name' => __( 'Logo', 'flowplayer5' ),
+					'type' => 'upload',
+					'button' => __( 'Add Logo', 'flowplayer5' ),
+					'size' => 'regular',
+					'preview' => 'true',
+				),
+				'logo_origin' => array(
+					'desc' => __( 'Check to show the logo in videos on this site and in externally embedded videos.', 'flowplayer5' ),
+					'type' => 'checkbox',
+				),
+				'brand_text' => array(
+					'name' => __( 'Brand Text', 'flowplayer5' ),
+					'type' => 'text',
+					'button' => __( 'Add brand name', 'flowplayer5' ) . ' <a href="http://flowplayer.org/news/releases/html5/v.6.0.0.html">' . __( 'Flowplayer 6 feature', 'flowplayer5' ) . '</a>',
+					'size' => 'regular',
+					'desc' => __( 'If set, the brand name will appear in the controlbar.' ),
+				),
+				'text_origin' => array(
+					'desc' => __( 'Check to show the title in videos on this site and in externally embedded videos.', 'flowplayer5' ) . ' <a href="http://flowplayer.org/news/releases/html5/v.6.0.0.html">' . __( 'Flowplayer 6 feature', 'flowplayer5' ) . '</a>',
+					'type' => 'checkbox',
+				),
+			),
+			'flowplayer_drive' => array(
+				'title'      => __( 'Flowplayer Drive Settings', 'flowplayer5' ) . ' <a href="https://flowplayer.org/docs/drive.html">?</a>',
 				'user_name' => array(
 					'name' => __( 'Username', 'flowplayer5' ),
-					'desc' => __( 'Specify your username here.', 'flowplayer5' ) ,
+					'desc' => __( 'Enter your flowplayer.org username.', 'flowplayer5' ) ,
 					'type' => 'text',
 					'size' => 'medium',
 				),
 				'password' => array(
 					'name' => __( 'Password', 'flowplayer5' ),
-					'desc' => __( 'Specify your password here.', 'flowplayer5' ),
+					'desc' => __( 'Enter your flowplayer.org password.', 'flowplayer5' ),
 					'type' => 'password',
 					'size' => 'medium',
 				),
-				'video_tracking' => array(
-					'name' => '<strong>' . __( 'Video Tracking', 'flowplayer5' ) . '</strong> <a href="http://flowplayer.org/docs/analytics.html">?</a>',
-					'desc' => __( 'You can track video traffic using Google Analytics (GA).', 'flowplayer5' ),
-					'type' => 'header',
-				),
+			),
+			'video_tracking' => array(
+				'title'      => __( 'Video tracking Settings', 'flowplayer5' ) . ' <a href="http://flowplayer.org/docs/analytics.html">?</a>',
 				'ga_account_id' => array(
 					'name' => __( 'Google Analytics account ID', 'flowplayer5' ),
-					'desc' => __( 'Specify your GA account ID here.', 'flowplayer5' ),
+					'desc' => __( 'Enter your GA account ID.', 'flowplayer5' ),
 					'type' => 'text',
 					'size' => 'medium',
 				),
-				'cdn_options' => array(
-					'name' => '<strong>' . __( 'CDN Option', 'flowplayer5' ) . '</strong>',
-					'desc' => __( 'By default the Flowplayer assets (JS, CSS and SWF) are served from this domain. Use this option to have the assets served from Flowplayer\'s CDN.', 'flowplayer5' ),
-					'type' => 'header',
+			),
+			'asf' => array(
+				'title'      => __( 'AdSense for Flowplayer Setting', 'flowplayer5' ) . ' <a href="http://flowplayer.org/asf/">?</a>',
+				'asf_css' => array(
+					'name' => __( 'AdSense plugin CSS', 'flowplayer5' ),
+					'type' => 'upload',
+					'button' => __( 'Add CSS file', 'flowplayer5' ),
+					'size' => 'regular',
+					'desc' => __( 'Add your custom AdSense plugin CSS file', 'flowplayer5' ),
 				),
-				'cdn_option' => array(
-					'name' => __( 'CDN hosted files', 'flowplayer5' ),
-					'desc' => __( 'Use Flowplayer\'s CDN', 'flowplayer5' ),
+				'asf_js' => array(
+					'name' => __( 'AdSense plugin js', 'flowplayer5' ),
+					'type' => 'upload',
+					'button' => __( 'Add js file', 'flowplayer5' ),
+					'size' => 'regular',
+					'desc' => __( 'Add your custom AdSense plugin javascript file', 'flowplayer5' ),
+				),
+				'asf_test' => array(
+					'name' => __( 'Test Mode', 'flowplayer5' ),
 					'type' => 'checkbox',
-				),
-				'embed_options' => array(
-					'name' => '<strong>' . __( 'Embed Options', 'flowplayer5' ) . '</strong> <a href="http://flowplayer.org/docs/embedding.html#configuration">?</a>',
-					'desc' => __( 'By default the embed feature loads the embed script and Flowplayer assets from our CDN. You can use the fields below to change the locations of these assets.', 'flowplayer5' ),
-					'type' => 'header',
-				),
+					'desc' => __( 'Enable test mode', 'flowplayer5' ),
+				)
+			),
+			'embed_options' => array(
+				'title'      => __( 'Embed asset Setting', 'flowplayer5' ) . ' <a href="https://flowplayer.org/docs/embedding.html#configuration">?</a>',
 				'library' => array(
 					'name' => __( 'Library', 'flowplayer5' ),
 					'desc' => __( 'URL of the Flowplayer API library script', 'flowplayer5' ),
@@ -325,31 +339,7 @@ class Flowplayer5_Settings {
 					'type' => 'text',
 					'size' => 'regular',
 				),
-				'asf' => array(
-					'name' => '<strong>' . __( 'Google AdSense', 'flowplayer5' ) . '</strong> <a href="http://flowplayer.org/asf/">?</a>',
-					'desc' => __( 'Sign up for Google AdSense for Flowplayer to be able to monetize your videos ', 'flowplayer5' ). '</strong> <a href="http://flowplayer.org/asf/">' . __( 'Sign up now', 'flowplayer5' ) . '</a>',
-					'type' => 'header',
-				),
-				'asf_css' => array(
-					'name' => __( 'AdSense plugin CSS', 'flowplayer5' ),
-					'type' => 'upload',
-					'button' => __( 'Add CSS file', 'flowplayer5' ),
-					'size' => 'regular',
-					'desc' => __( 'Add your custom AdSense plugin CSS file', 'flowplayer5' ),
-				),
-				'asf_js' => array(
-					'name' => __( 'AdSense plugin js', 'flowplayer5' ),
-					'type' => 'upload',
-					'button' => __( 'Add js file', 'flowplayer5' ),
-					'size' => 'regular',
-					'desc' => __( 'Add your custom AdSense plugin javascript file', 'flowplayer5' ),
-				),
-				'asf_test' => array(
-					'name' => __( 'Test Mode', 'flowplayer5' ),
-					'type' => 'checkbox',
-					'desc' => __( 'Enable test mode', 'flowplayer5' ),
-				)
-			)
+			),
 		);
 
 		$settings['general'] = apply_filters( 'fp5_settings_general', $settings['general'] );
@@ -357,7 +347,7 @@ class Flowplayer5_Settings {
 	}
 
 	/**
-	 * Header Callback
+	 * Hides options conditionally
 	 *
 	 * Renders the header.
 	 *
@@ -365,22 +355,23 @@ class Flowplayer5_Settings {
 	 * @param array $args Arguments passed by the setting
 	 * @return void
 	 */
-	function hide_commercial_options( $settings ) {
+	function hide_options_conditionally( $settings ) {
 		$setting_values = $this->get_all();
 
 		if ( isset( $settings['general']['fp_version'] ) && 'fp6' !== $setting_values['fp_version'] ) {
-			unset( $settings['general']['brand_text'] );
-			unset( $settings['general']['text_origin'] );
+			unset( $settings['branding']['brand_text'] );
+			unset( $settings['branding']['text_origin'] );
+			unset( $settings['asf'] );
 		}
 
 		if ( empty( $setting_values['key'] ) ) {
-			unset( $settings['general']['logo'] );
-			unset( $settings['general']['logo_origin'] );
+			unset( $settings['branding']['directory'] );
+			unset( $settings['branding']['logo'] );
+			unset( $settings['branding']['logo_origin'] );
 		}
 
 		if ( isset( $setting_values['key'] ) ) {
-			unset( $settings['general']['cdn_options'] );
-			unset( $settings['general']['cdn_option'] );
+			unset( $settings['cdn_options'] );
 		}
 
 		return $settings;
@@ -397,6 +388,37 @@ class Flowplayer5_Settings {
 	 */
 	function header_callback( $args ) {
 		echo '<p class="description">' . $args['desc'] . '</p>';
+	}
+
+	/**
+	 * Header Callback
+	 *
+	 * Renders the header.
+	 *
+	 * @since 2.0
+	 * @param array $args Arguments passed by the setting
+	 * @return void
+	 */
+	function section_header_callback( $args ) {
+		$html = '';
+		switch ( $args['id'] ) {
+			case 'fp5_settings_branding':
+				$html = '<p class="description">' . __( 'The commercial version removes the Flowplayer logo and allows you to use your own logo image.', 'flowplayer5' ) . ' <a href="http://flowplayer.org/pricing/">' . __( 'Purchase license', 'flowplayer5' ) . '</a>' . '</p>';
+				break;
+			case 'fp5_settings_flowplayer_drive':
+				$html = '<p class="description">' . __( 'Flowplayer Drive is a new feature that will hosts your video in all of the formats that you need.', 'flowplayer5' ) . '</p>';
+				break;
+			case 'fp5_settings_video_tracking':
+				$html = '<p class="description">' . __( 'You can track video traffic using Google Analytics (GA).', 'flowplayer5' ) . '</p>';
+				break;
+			case 'fp5_settings_asf':
+				$html = '<p class="description">' . __( 'Sign up for Google AdSense for Flowplayer to be able to monetize your videos ', 'flowplayer5' ). '</strong> <a href="http://flowplayer.org/asf/">' . __( 'Sign up now', 'flowplayer5' ) . '</a>' . '</p>';
+				break;
+			case 'fp5_settings_embed_options':
+				$html = '<p class="description">' . __( 'By default the embed feature loads the embed script and Flowplayer assets from our CDN. You can use the fields below to change the locations of these assets.', 'flowplayer5' ) . '</p>';
+				break;
+		}
+		echo apply_filters( 'fp5_settings_section_callback', $html, $args );
 	}
 
 	/**
@@ -438,7 +460,7 @@ class Flowplayer5_Settings {
 
 		$size = ( isset( $args['size'] ) && ! is_null( $args['size'] ) ) ? $args['size'] : 'regular';
 		$html = '<input type="text" class="' . $size . '-text" id="fp5_settings_general[' . $args['id'] . ']" name="fp5_settings_general[' . $args['id'] . ']" value="' . esc_attr( stripslashes( $value ) ) . '"/>';
-		$html .= '<label for="fp5_settings_general[' . $args['id'] . ']"> '  . $args['desc'] . '</label>';
+		$html .= '<label for="fp5_settings_general[' . $args['id'] . ']"> '  . '<br>' . $args['desc'] . '</label>';
 
 		echo $html;
 	}
@@ -458,7 +480,7 @@ class Flowplayer5_Settings {
 		$size = ( isset( $args['size'] ) && ! is_null( $args['size'] ) ) ? $args['size'] : 'regular';
 		$desc = empty( $this->options['password'] ) ? $args['desc'] : __( 'Your password is saved. For security reasons it will not be displayed here.', 'flowplayer5' );
 		$html = '<input type="password" class="' . $size . '-text" id="fp5_settings_general[' . $args['id'] . ']" name="fp5_settings_general[' . $args['id'] . ']"/>';
-		$html .= '<label for="fp5_settings_general[' . $args['id'] . ']"> '  . $desc . '</label>';
+		$html .= '<label for="fp5_settings_general[' . $args['id'] . ']"> '  . '<br>' . $desc . '</label>';
 
 		echo $html;
 	}
@@ -516,7 +538,7 @@ class Flowplayer5_Settings {
 
 		$html = '<input type="text" class="' . $size . '-text fp5_' . $args['id'] . '_upload_field" id="fp5_settings_general[' . $args['id'] . ']" name="fp5_settings_general[' . $args['id'] . ']" value="' . esc_attr( stripslashes( $value ) ) . '"/>';
 		$html .= '<span>&nbsp;<input type="button" class="fp5_settings_' . $args['id'] . '_upload_button button-secondary" value="' . $args['button'] . '"/></span>';
-		$html .= '<label for="fp5_settings_general[' . $args['id'] . ']"> '  . $args['desc'] . '</label>';
+		$html .= '<label for="fp5_settings_general[' . $args['id'] . ']"> '  . '<br>' . $args['desc'] . '</label>';
 
 		echo $html;
 	}
