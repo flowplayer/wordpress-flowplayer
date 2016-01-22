@@ -107,3 +107,78 @@ function fp5_get_settings() {
 	$flowplayer_settings = new Flowplayer5_Settings;
 	return $flowplayer_settings->get_all();
 }
+
+/**
+ * Display post categories form fields.
+ *
+ * @since 1.14.0
+ *
+ * @todo Create taxonomy-agnostic wrapper for this.
+ *
+ * @param WP_Post $post Post object.
+ * @param array   $box {
+ *     Categories meta box arguments.
+ *
+ *     @type string   $id       Meta box ID.
+ *     @type string   $title    Meta box title.
+ *     @type callable $callback Meta box display callback.
+ *     @type array    $args {
+ *         Extra meta box arguments.
+ *
+ *         @type string $taxonomy Taxonomy. Default 'category'.
+ *     }
+ * }
+ */
+function fp5_playlist_meta_box( $post, $box ) {
+	$defaults = array( 'taxonomy' => 'playlist' );
+	if ( ! isset( $box['args'] ) || ! is_array( $box['args'] ) ) {
+		$args = array();
+	} else {
+		$args = $box['args'];
+	}
+	$r = wp_parse_args( $args, $defaults );
+	$tax_name = esc_attr( $r['taxonomy'] );
+	$taxonomy = get_taxonomy( $r['taxonomy'] );
+	?>
+	<div id="taxonomy-<?php echo $tax_name; ?>" class="categorydiv">
+	<p><?php _e( 'Select one or more playlists below to add this video to them or create a new playlist', 'flowplayer5' ); ?></p>
+		<ul id="<?php echo $tax_name; ?>-tabs" class="category-tabs">
+			<li class="tabs"><a href="#<?php echo $tax_name; ?>-all"><?php echo $taxonomy->labels->all_items; ?></a></li>
+			<li class="hide-if-no-js"><a href="#<?php echo $tax_name; ?>-pop"><?php _e( 'Most Used' ); ?></a></li>
+		</ul>
+
+		<div id="<?php echo $tax_name; ?>-pop" class="tabs-panel" style="display: none;">
+			<ul id="<?php echo $tax_name; ?>checklist-pop" class="categorychecklist form-no-clear" >
+				<?php $popular_ids = wp_popular_terms_checklist( $tax_name ); ?>
+			</ul>
+		</div>
+
+		<div id="<?php echo $tax_name; ?>-all" class="tabs-panel">
+			<?php
+			$name = ( $tax_name == 'category' ) ? 'post_category' : 'tax_input[' . $tax_name . ']';
+			echo "<input type='hidden' name='{$name}[]' value='0' />"; // Allows for an empty term set to be sent. 0 is an invalid Term ID and will be ignored by empty() checks.
+			?>
+			<ul id="<?php echo $tax_name; ?>checklist" data-wp-lists="list:<?php echo $tax_name; ?>" class="categorychecklist form-no-clear">
+				<?php wp_terms_checklist( $post->ID, array( 'taxonomy' => $tax_name, 'popular_cats' => $popular_ids ) ); ?>
+			</ul>
+		</div>
+	<?php if ( current_user_can( $taxonomy->cap->edit_terms ) ) : ?>
+			<div id="<?php echo $tax_name; ?>-adder" class="wp-hidden-children">
+				<a id="<?php echo $tax_name; ?>-add-toggle" href="#<?php echo $tax_name; ?>-add" class="hide-if-no-js taxonomy-add-new">
+					<?php
+						/* translators: %s: add new taxonomy label */
+						printf( __( '+ %s' ), $taxonomy->labels->add_new_item );
+					?>
+				</a>
+				<p id="<?php echo $tax_name; ?>-add" class="category-add wp-hidden-child">
+					<label class="screen-reader-text" for="new<?php echo $tax_name; ?>"><?php echo $taxonomy->labels->add_new_item; ?></label>
+					<input type="text" name="new<?php echo $tax_name; ?>" id="new<?php echo $tax_name; ?>" class="form-required form-input-tip" value="<?php echo esc_attr( $taxonomy->labels->new_item_name ); ?>" aria-required="true"/>
+					<input type="button" id="<?php echo $tax_name; ?>-add-submit" data-wp-lists="add:<?php echo $tax_name; ?>checklist:<?php echo $tax_name; ?>-add" class="button category-add-submit" value="<?php echo esc_attr( $taxonomy->labels->add_new_item ); ?>" />
+					<?php wp_nonce_field( 'add-' . $tax_name, '_ajax_nonce-add-' . $tax_name, false ); ?>
+					<span id="<?php echo $tax_name; ?>-ajax-response"></span>
+				</p>
+			</div>
+		<?php endif; ?>
+	</div>
+	<?php
+}
