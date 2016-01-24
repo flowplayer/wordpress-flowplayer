@@ -5,7 +5,7 @@
  * @package   Flowplayer 5 for WordPress
  * @author    Ulrich Pogson <ulrich@pogson.ch>
  * @license   GPL-2.0+
- * @link      http://flowplayer.org/
+ * @link      https://flowplayer.org/
  * @copyright 2013 Flowplayer Ltd
  */
 
@@ -258,12 +258,12 @@ class Flowplayer5_Settings {
 				'brand_text' => array(
 					'name' => __( 'Brand Text', 'flowplayer5' ),
 					'type' => 'text',
-					'button' => __( 'Add brand name', 'flowplayer5' ) . ' <a href="http://flowplayer.org/news/releases/html5/v.6.0.0.html">' . __( 'Flowplayer 6 feature', 'flowplayer5' ) . '</a>',
+					'button' => __( 'Add brand name', 'flowplayer5' ) . ' <a href="https://flowplayer.org/news/releases/html5/v.6.0.0.html">' . __( 'Flowplayer 6 feature', 'flowplayer5' ) . '</a>',
 					'size' => 'regular',
 					'desc' => __( 'If set, the brand name will appear in the controlbar.' ),
 				),
 				'text_origin' => array(
-					'desc' => __( 'Check to show the title in videos on this site and in externally embedded videos.', 'flowplayer5' ) . ' <a href="http://flowplayer.org/news/releases/html5/v.6.0.0.html">' . __( 'Flowplayer 6 feature', 'flowplayer5' ) . '</a>',
+					'desc' => __( 'Check to show the title in videos on this site and in externally embedded videos.', 'flowplayer5' ) . ' <a href="https://flowplayer.org/news/releases/html5/v.6.0.0.html">' . __( 'Flowplayer 6 feature', 'flowplayer5' ) . '</a>',
 					'type' => 'checkbox',
 				),
 			),
@@ -283,7 +283,7 @@ class Flowplayer5_Settings {
 				),
 			),
 			'video_tracking' => array(
-				'title'      => __( 'Video tracking Settings', 'flowplayer5' ) . ' <a href="http://flowplayer.org/docs/analytics.html">?</a>',
+				'title'      => __( 'Video tracking Settings', 'flowplayer5' ) . ' <a href="https://flowplayer.org/docs/analytics.html">?</a>',
 				'ga_account_id' => array(
 					'name' => __( 'Google Analytics account ID', 'flowplayer5' ),
 					'desc' => __( 'Enter your GA account ID.', 'flowplayer5' ),
@@ -292,7 +292,7 @@ class Flowplayer5_Settings {
 				),
 			),
 			'asf' => array(
-				'title'      => __( 'AdSense for Flowplayer Setting', 'flowplayer5' ) . ' <a href="http://flowplayer.org/asf/">?</a>',
+				'title'      => __( 'AdSense for Flowplayer Setting', 'flowplayer5' ) . ' <a href="https://flowplayer.org/asf/">?</a>',
 				'asf_css' => array(
 					'name' => __( 'AdSense plugin CSS', 'flowplayer5' ),
 					'type' => 'upload',
@@ -403,7 +403,7 @@ class Flowplayer5_Settings {
 		$html = '';
 		switch ( $args['id'] ) {
 			case 'fp5_settings_branding':
-				$html = '<p class="description">' . __( 'The commercial version removes the Flowplayer logo and allows you to use your own logo image.', 'flowplayer5' ) . ' <a href="http://flowplayer.org/pricing/">' . __( 'Purchase license', 'flowplayer5' ) . '</a>' . '</p>';
+				$html = '<p class="description">' . __( 'The commercial version removes the Flowplayer logo and allows you to use your own logo image.', 'flowplayer5' ) . ' <a href="https://flowplayer.org/pricing/">' . __( 'Purchase license', 'flowplayer5' ) . '</a>' . '</p>';
 				break;
 			case 'fp5_settings_flowplayer_drive':
 				$html = '<p class="description">' . __( 'Flowplayer Drive is a new feature that will hosts your video in all of the formats that you need.', 'flowplayer5' ) . '</p>';
@@ -412,7 +412,7 @@ class Flowplayer5_Settings {
 				$html = '<p class="description">' . __( 'You can track video traffic using Google Analytics (GA).', 'flowplayer5' ) . '</p>';
 				break;
 			case 'fp5_settings_asf':
-				$html = '<p class="description">' . __( 'Sign up for Google AdSense for Flowplayer to be able to monetize your videos ', 'flowplayer5' ). '</strong> <a href="http://flowplayer.org/asf/">' . __( 'Sign up now', 'flowplayer5' ) . '</a>' . '</p>';
+				$html = '<p class="description">' . __( 'Sign up for Google AdSense for Flowplayer to be able to monetize your videos ', 'flowplayer5' ). '</strong> <a href="https://flowplayer.org/asf/">' . __( 'Sign up now', 'flowplayer5' ) . '</a>' . '</p>';
 				break;
 			case 'fp5_settings_embed_options':
 				$html = '<p class="description">' . __( 'By default the embed feature loads the embed script and Flowplayer assets from our CDN. You can use the fields below to change the locations of these assets.', 'flowplayer5' ) . '</p>';

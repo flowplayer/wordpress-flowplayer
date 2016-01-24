@@ -1040,7 +1040,7 @@ msgid "Flowplayer ltd."
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "http://flowplayer.org/"
+msgid "https://flowplayer.org/"
 msgstr ""
 
 #: includes/class-register-post-type.php:73

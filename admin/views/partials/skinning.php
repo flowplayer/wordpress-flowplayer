@@ -42,7 +42,7 @@
 			</td>
 		</tr>
 		<tr class="fp5-flowplayer-style'" valign="top">
-			<th scope="row"><?php _e( 'Player style', $this->plugin_slug )?> <a href="http://flowplayer.org/docs/skinning.html#modifier-classes" target="_blank">?</a></th>
+			<th scope="row"><?php _e( 'Player style', $this->plugin_slug )?> <a href="https://flowplayer.org/docs/skinning.html#modifier-classes" target="_blank">?</a></th>
 			<td>
 				<label for="fp5-no-background">
 					<input type="checkbox" name="fp5-no-background" id="fp5-no-background" value="true" <?php if ( isset ( $fp5_stored_meta['fp5-no-background'] ) ) checked( $fp5_stored_meta['fp5-no-background'][0], 'true' ); ?> />

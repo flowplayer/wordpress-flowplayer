@@ -5,7 +5,7 @@
  * @package   Flowplayer_Drive
  * @author    Ulrich Pogson <ulrich@pogson.ch>
  * @license   GPL-2.0+
- * @link      http://flowplayer.org/
+ * @link      https://flowplayer.org/
  * @copyright 2013 Flowplayer Ltd
  */
 
@@ -68,7 +68,7 @@ class Flowplayer_Drive_Error {
 				/* Translators: Please login with your Flowplayer.org username and password. */
 				__( 'Please %1$s with your %2$s username and password.', 'flowplayer5' ),
 				'<a href="' . esc_url( admin_url( 'edit.php?post_type=flowplayer5&page=flowplayer5_settings' ) ) . '">' . __( 'login', 'flowplayer5' ) . '</a>',
-				'<a href="' . esc_url( 'http://flowplayer.org/' ) . '">' . __( 'Flowplayer.org', 'flowplayer5' ) . '</a>'
+				'<a href="' . esc_url( 'https://flowplayer.org/' ) . '">' . __( 'Flowplayer.org', 'flowplayer5' ) . '</a>'
 			)
 		);
 	}
