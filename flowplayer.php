@@ -29,34 +29,41 @@ if ( ! defined( 'WPINC' ) ) {
 if ( ! defined( 'FP5_PLUGIN_FILE' ) )
 	define( 'FP5_PLUGIN_FILE', __FILE__ );
 
-require_once( plugin_dir_path( __FILE__ ) . 'includes/class-flowplayer5.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'includes/class-flowplayer5-widget.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'includes/class-register-post-type.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'includes/class-register-taxonomy.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'admin/settings/class-register-settings.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'admin/settings/class-sanitize-settings.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'includes/functions.php' );
-require_once( plugin_dir_path( __FILE__ ) . 'includes/deprecated.php' );
+$dir = dirname( __FILE__ );
+
+require_once( $dir . '/includes/class-flowplayer5.php' );
+require_once( $dir . '/includes/class-flowplayer5-widget.php' );
+require_once( $dir . '/includes/class-register-post-type.php' );
+require_once( $dir . '/includes/class-register-taxonomy.php' );
+require_once( $dir . '/admin/settings/class-register-settings.php' );
+require_once( $dir . '/admin/settings/class-sanitize-settings.php' );
+require_once( $dir . '/includes/functions.php' );
+require_once( $dir . '/includes/deprecated.php' );
 
 if ( is_admin() ) {
-	require_once( plugin_dir_path( __FILE__ ) . 'admin/class-flowplayer5-admin.php' );
-	require_once( plugin_dir_path( __FILE__ ) . 'admin/class-flowplayer5-meta-box.php' );
-	require_once( plugin_dir_path( __FILE__ ) . 'admin/class-flowplayer5-taxonomy-meta.php' );
-	require_once( plugin_dir_path( __FILE__ ) . 'admin/flowplayer-drive/class-flowplayer-drive.php' );
-	require_once( plugin_dir_path( __FILE__ ) . 'admin/flowplayer-drive/class-flowplayer-drive-error.php' );
-	require_once( plugin_dir_path( __FILE__ ) . 'admin/insert-video-button.php' );
-	if ( ! class_exists( 'Gamajo_Dashboard_Glancer' ) ) {
-		require plugin_dir_path( __FILE__ ) . 'admin/includes/class-gamajo-dashboard-glancer.php';
+	if( ! defined( 'DOING_AJAX ') || ! DOING_AJAX ) {
+		require_once( $dir . '/admin/class-flowplayer5-admin.php' );
+		require_once( $dir . '/admin/class-flowplayer5-meta-box.php' );
+		require_once( $dir . '/admin/class-flowplayer5-taxonomy-meta.php' );
+		require_once( $dir . '/admin/flowplayer-drive/class-flowplayer-drive.php' );
+		require_once( $dir . '/admin/flowplayer-drive/class-flowplayer-drive-error.php' );
+		require_once( $dir . '/admin/insert-video-button.php' );
+
+		if ( ! class_exists( 'Gamajo_Dashboard_Glancer' ) ) {
+			require $dir . '/admin/includes/class-gamajo-dashboard-glancer.php';
+		}
+
+		if ( ! class_exists( 'Gamajo_Dashboard_RightNow' ) ) {
+			require $dir . '/admin/includes/class-gamajo-dashboard-rightnow.php';
+		}
 	}
-	if ( ! class_exists( 'Gamajo_Dashboard_RightNow' ) ) {
-		require plugin_dir_path( __FILE__ ) . 'admin/includes/class-gamajo-dashboard-rightnow.php';
-	}
+
 } else {
-	require_once( plugin_dir_path( __FILE__ ) . 'frontend/class-flowplayer5-frontend.php' );
-	require_once( plugin_dir_path( __FILE__ ) . 'frontend/class-flowplayer5-styles-scripts.php' );
-	require_once( plugin_dir_path( __FILE__ ) . 'frontend/class-flowplayer5-playlist.php' );
-	require_once( plugin_dir_path( __FILE__ ) . 'frontend/class-flowplayer5-output.php' );
-	require_once( plugin_dir_path( __FILE__ ) . 'frontend/class-flowplayer5-shortcode.php' );
+	require_once( $dir . '/frontend/class-flowplayer5-frontend.php' );
+	require_once( $dir . '/frontend/class-flowplayer5-styles-scripts.php' );
+	require_once( $dir . '/frontend/class-flowplayer5-playlist.php' );
+	require_once( $dir . '/frontend/class-flowplayer5-output.php' );
+	require_once( $dir . '/frontend/class-flowplayer5-shortcode.php' );
 }
 
 // Register hooks that are fired when the plugin is activated, deactivated, and uninstalled, respectively.
@@ -69,11 +76,14 @@ Flowplayer5_Taxonomy::get_instance();
 new Flowplayer5_Sanitize_Settings;
 
 if ( is_admin() ) {
-	Flowplayer5_Admin::get_instance();
-	Flowplayer5_Video_Meta_Box::get_instance();
-	$flowplayer_drive = new Flowplayer_Drive();
-	add_action( 'plugins_loaded', array( $flowplayer_drive, 'run' ) );
-	new Flowplayer5_Taxonomy_Meta();
+
+	if( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
+		Flowplayer5_Admin::get_instance();
+		Flowplayer5_Video_Meta_Box::get_instance();
+		$flowplayer_drive = new Flowplayer_Drive();
+		add_action( 'plugins_loaded', array( $flowplayer_drive, 'run' ) );
+		new Flowplayer5_Taxonomy_Meta();
+	}
 } else {
 	new Flowplayer5_Frontend();
 	new Flowplayer5_Shortcode();
