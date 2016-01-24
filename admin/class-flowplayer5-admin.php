@@ -254,9 +254,7 @@ class Flowplayer5_Admin {
 	 * @since    1.0.0
 	 */
 	public function display_plugin_admin_page() {
-
-		include_once( 'views/display-settings.php' );
-
+		include_once dirname( __FILE__ ) . '/views/display-settings.php';
 	}
 
 	/**
