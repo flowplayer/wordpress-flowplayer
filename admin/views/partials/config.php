@@ -4,7 +4,7 @@
 	<tbody>
 
 		<tr class="fp5-video-attributes" valign="top">
-			<th scope="row"><?php _e( 'Video attributes', $this->plugin_slug )?> <a href="http://flowplayer.org/docs/setup.html#video-attributes" target="_blank">?</a></th>
+			<th scope="row"><?php _e( 'Video attributes', $this->plugin_slug )?> <a href="https://flowplayer.org/docs/setup.html#video-attributes" target="_blank">?</a></th>
 			<td>
 				<label for="fp5-autoplay">
 					<input type="checkbox" name="fp5-autoplay" id="fp5-autoplay" value="true" <?php if ( isset ( $fp5_stored_meta['fp5-autoplay'] ) ) checked( $fp5_stored_meta['fp5-autoplay'][0], 'true' ); ?> />

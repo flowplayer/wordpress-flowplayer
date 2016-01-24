@@ -909,7 +909,7 @@ msgstr ""
 
 # INSTRUCTION: Author URI of the plugin/theme
 #. Author URI of the plugin/theme
-msgid "http://flowplayer.org/"
+msgid "https://flowplayer.org/"
 msgstr ""
 
 #: includes/class-register-post-type.php

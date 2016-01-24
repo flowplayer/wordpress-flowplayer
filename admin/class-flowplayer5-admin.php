@@ -5,7 +5,7 @@
  * @package   Flowplayer5_Admin
  * @author    Ulrich Pogson <ulrich@pogson.ch>
  * @license   GPL-2.0+
- * @link      http://flowplayer.org/
+ * @link      https://flowplayer.org/
  * @copyright 2013 Flowplayer Ltd
  */
 
@@ -288,9 +288,9 @@ class Flowplayer5_Admin {
 			$input = array_merge(
 				$input,
 				array(
-					'<a href="http://wordpress.org/plugins/flowplayer5/faq/">' . esc_html__( 'FAQ', $this->plugin_slug ) . '</a>',
-					'<a href="http://wordpress.org/support/plugin/flowplayer5">' . esc_html__( 'Support', $this->plugin_slug ) . '</a>',
-					'<a href="http://wordpress.org/support/view/plugin-reviews/flowplayer5?filter=5">' . esc_html__( 'Rate Plugin', $this->plugin_slug ) . '</a>',
+					'<a href="https://wordpress.org/plugins/flowplayer5/faq/">' . esc_html__( 'FAQ', $this->plugin_slug ) . '</a>',
+					'<a href="https://wordpress.org/support/plugin/flowplayer5">' . esc_html__( 'Support', $this->plugin_slug ) . '</a>',
+					'<a href="https://wordpress.org/support/view/plugin-reviews/flowplayer5?filter=5">' . esc_html__( 'Rate Plugin', $this->plugin_slug ) . '</a>',
 				)
 			);
 		}

@@ -5,7 +5,7 @@
  * @package   Flowplayer5_Video_Meta_Box
  * @author    Ulrich Pogson <ulrich@pogson.ch>
  * @license   GPL-2.0+
- * @link      http://flowplayer.org/
+ * @link      https://flowplayer.org/
  * @copyright 2013 Flowplayer Ltd
  */
 

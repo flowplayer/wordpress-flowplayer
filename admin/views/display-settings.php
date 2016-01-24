@@ -5,7 +5,7 @@
  * @package   Flowplayer 5 for WordPress
  * @author    Ulrich Pogson <ulrich@pogson.ch>
  * @license   GPL-2.0+
- * @link      http://flowplayer.org/
+ * @link      https://flowplayer.org/
  * @copyright 2013 Flowplayer Ltd
  */
 ?>
@@ -34,10 +34,10 @@
 					<div id="fp5_about" class="postbox">
 					<h3 class="hndle"><span><?php _e( 'About Flowplayer HTML5', 'flowplayer5' ); ?></span></h3>
 						<div class="inside">
-							<p><a target="_blank" title="Flowplayer HTML5 for WordPress FAQ" href="http://wordpress.org/plugins/flowplayer5/faq/"><?php _e( 'Plugin documentation', 'flowplayer5' ); ?></a></p>
-							<p><a target="_blank" title="Flowplayer HTML5 for WordPress Support Forum" href="http://wordpress.org/support/plugin/flowplayer5/"><?php _e( 'Support', 'flowplayer5' ); ?></a></p>
-							<p><a target="_blank" title="Review Flowplayer HTML5 for WordPress" href="http://wordpress.org/support/view/plugin-reviews/flowplayer5/"><?php _e( 'Leave us a review', 'flowplayer5' ); ?></a></p>
-							<p><a target="_blank" title="Flowplayer Website" href="http://flowplayer.org/"><img src="<?php echo plugins_url( '../assets/img/flowplayer.png', __FILE__ ) ?>" style="max-width: 100%;"></a></p>
+							<p><a target="_blank" title="Flowplayer HTML5 for WordPress FAQ" href="https://wordpress.org/plugins/flowplayer5/faq/"><?php _e( 'Plugin documentation', 'flowplayer5' ); ?></a></p>
+							<p><a target="_blank" title="Flowplayer HTML5 for WordPress Support Forum" href="https://wordpress.org/support/plugin/flowplayer5/"><?php _e( 'Support', 'flowplayer5' ); ?></a></p>
+							<p><a target="_blank" title="Review Flowplayer HTML5 for WordPress" href="https://wordpress.org/support/view/plugin-reviews/flowplayer5/"><?php _e( 'Leave us a review', 'flowplayer5' ); ?></a></p>
+							<p><a target="_blank" title="Flowplayer Website" href="https://flowplayer.org/"><img src="<?php echo plugins_url( '../assets/img/flowplayer.png', __FILE__ ) ?>" style="max-width: 100%;"></a></p>
 						</div>
 					</div>
 				</div>
