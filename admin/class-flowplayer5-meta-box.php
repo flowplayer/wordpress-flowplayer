@@ -361,7 +361,7 @@ class Flowplayer5_Video_Meta_Box {
 		$is_valid_nonce = ( isset( $_POST[ $nonce ] ) && wp_verify_nonce( $_POST[ $nonce ], plugin_basename( __FILE__ ) ) ) ? true : false;
 
 		// Return true if the user is able to save; otherwise, false.
-		return ! ( $is_autosave || $is_revision) && $is_valid_nonce;
+		return ! $is_autosave && ! $is_revision && $is_valid_nonce;
 
 	}
 
