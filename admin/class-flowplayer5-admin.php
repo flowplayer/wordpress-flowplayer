@@ -319,22 +319,26 @@ class Flowplayer5_Admin {
 	public function set_messages( $messages ) {
 
 		global $post;
+		
+		/* translators: Publish box date format, see http://php.net/date */
+		$scheduled_date = date_i18n( __( 'M j, Y @ H:i', $this->plugin_slug ), strtotime( $post->post_date ) );
+		$shortcode_preview = sprintf( __( 'Shortcode: %1$s', $this->plugin_slug ), '[flowplayer id="' . get_the_ID() . '"]' );
 
-		$messages[ $this->plugin_slug ] = apply_filters( 'fp5_filter_set_messages', array(
-
+		$video_messages = array(
 			0  => '', // Unused. Messages start at index 1.
-			1  => __( 'Video updated.', $this->plugin_slug ) . ' ' . sprintf( __( 'Shortcode: %1$s', $this->plugin_slug ), '[flowplayer id="' . get_the_ID() . '"]' ),
+			1  => __( 'Video updated.', $this->plugin_slug ) . ' ' . $shortcode_preview,
 			2  => __( 'Custom field updated.', $this->plugin_slug ),
 			3  => __( 'Custom field deleted.', $this->plugin_slug ),
-			4  => __( 'Video updated.', $this->plugin_slug ) . ' ' . sprintf( __( 'Shortcode: %1$s', $this->plugin_slug ), '[flowplayer id="' . get_the_ID() . '"]' ),
-			5  => isset( $_GET['revision'] ) ? sprintf( __( $singular . ' restored to revision from %s', $this->plugin_slug ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-			6  => __( 'Video published.', $this->plugin_slug ) . ' ' . sprintf( __( 'Shortcode: %1$s', $this->plugin_slug ), '[flowplayer id="' . get_the_ID() . '"]' ),
-			7  => __( 'Video saved.', $this->plugin_slug ) . ' ' . sprintf( __( 'Shortcode: %1$s', $this->plugin_slug ), '[flowplayer id="' . get_the_ID() . '"]' ),
-			8  => __( 'Video submitted.', $this->plugin_slug ) . ' ' . sprintf( __( 'Shortcode: %1$s', $this->plugin_slug ), '[flowplayer id="' . get_the_ID() . '"]' ),
-			9  => sprintf( __( 'Video scheduled for: %1$s', $this->plugin_slug ), date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ) ),
-			10 => __( 'Video draft updated.', $this->plugin_slug ),
+			4  => __( 'Video updated.', $this->plugin_slug ) . ' ' . $shortcode_preview,
+			5  => isset( $_GET['revision'] ) ? sprintf( __( 'Video restored to revision from %s', $this->plugin_slug ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+			6  => __( 'Video published.', $this->plugin_slug ) . ' ' . $shortcode_preview),
+			7  => __( 'Video saved.', $this->plugin_slug ) . ' ' . $shortcode_preview,
+			8  => __( 'Video submitted.', $this->plugin_slug ) . ' ' . $shortcode_preview,
+			9  => sprintf( __( 'Video scheduled for: %1$s', $this->plugin_slug ), '<strong>' . $scheduled_date . '</strong>' ) . ' ' . $shortcode_preview,
+			10 => __( 'Video draft updated.', $this->plugin_slug ) . ' ' . $shortcode_preview,
+		);
 
-		) );
+		$messages[ $this->plugin_slug ] = apply_filters( 'fp5_filter_set_messages', $video_messages );
 
 		return $messages;
 
