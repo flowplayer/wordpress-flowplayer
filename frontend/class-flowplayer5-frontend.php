@@ -62,39 +62,30 @@ class Flowplayer5_Frontend {
 	 */
 	public function global_config_script() {
 
-		// set the options for the shortcode - pulled from the display-settings.php
-		$options       = fp5_get_settings();
-		$embed_library = ( ! empty ( $options['library'] ) ? $options['library'] : '' );
-		$embed_script  = ( ! empty ( $options['script'] ) ? $options['script'] : '' );
-		$embed_skin    = ( ! empty ( $options['skin'] ) ? $options['skin'] : '' );
-		$embed_swf     = ( ! empty ( $options['swf'] ) ? $options['swf'] : '' );
-		$asf_js        = ( ! empty ( $options['asf_js'] ) ? $options['asf_js'] : '' );
-
-		if ( ( $embed_library || $embed_script || $embed_skin || $embed_swf ) && $this->has_flowplayer_video ) {
-
-			$return = '<!-- flowplayer global options -->';
-			$return .= '<script>';
-			$return .= 'flowplayer.conf = {';
-				$return .= 'embed: {';
-					$return .= ( ! empty ( $embed_library ) ? 'library: "' . esc_js( $embed_library ) . '",' : '' );
-					$return .= ( ! empty ( $embed_script ) ? 'script: "' . esc_js( $embed_script ) . '",' : '' );
-					$return .= ( ! empty ( $embed_skin ) ? 'skin: "' . esc_js( $embed_skin ) . '",' : '' );
-					$return .= ( ! empty ( $embed_swf ) ? 'swf: "' . esc_js( $embed_swf ) . '"' : '' );
-				$return .= '}';
-			$return .= '};';
-			$return .= '</script>';
-
-			echo $return;
-
+		$flowplayer_shortcode = new Flowplayer5_Shortcode();
+		if ( ! $flowplayer_shortcode->has_flowplayer_shortcode() ) {
+			return;
 		}
 
-		if ( $asf_js ) { ?>
-			<script>
-			flowplayer(function(api, root) {
-				flowplayer_ima.create(api, root);
-			});
-			</script>
-		<?php }
+		$embed_options = array(
+			'library' => '',
+			'script'  => '',
+			'skin'    => '',
+			'swf'     => '',
+			'swfHls'  => '',
+		);
+		// set the options for the shortcode - pulled from the display-settings.php
+		$options = fp5_get_settings();
+		$global_conf['embed'] = array_intersect_key( array_filter( $options ), $embed_options );
+		$global_conf = apply_filters( 'fp5_global_config', $global_conf );
+
+		if ( ! empty( $global_conf ) ) {
+			echo '<script>flowplayer.conf = ' .json_encode( $global_conf ) . ';</script>' . "\n";
+		}
+
+		if ( ! empty ( $options['asf_js'] ) ) {
+			echo '<script>flowplayer(function(api, root){ flowplayer_ima.create(api, root); });</script>' . "\n";
+		}
 
 	}
 

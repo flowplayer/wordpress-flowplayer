@@ -322,13 +322,13 @@ class Flowplayer5_Settings {
 					'size' => 'regular',
 				),
 				'script' => array(
-					'name' => __( 'Script', 'flowplayer5' ),
+					'name' => __( 'Embed script', 'flowplayer5' ),
 					'desc' => __( 'URL of the embed script', 'flowplayer5' ),
 					'type' => 'text',
 					'size' => 'regular',
 				),
 				'skin' => array(
-					'name' => __( 'Skin', 'flowplayer5' ),
+					'name' => __( 'Skin CSS', 'flowplayer5' ),
 					'desc' => __( 'URL of skin for embedding', 'flowplayer5' ),
 					'type' => 'text',
 					'size' => 'regular',
@@ -336,6 +336,12 @@ class Flowplayer5_Settings {
 				'swf' => array(
 					'name' => __( 'SWF file', 'flowplayer5' ),
 					'desc' => __( 'URL of SWF file for embedding', 'flowplayer5' ),
+					'type' => 'text',
+					'size' => 'regular',
+				),
+				'swfHls' => array(
+					'name' => __( 'Flash HLS SWF file', 'flowplayer5' ),
+					'desc' => __( 'URL of Flash HLS SWF file for embedding.', 'flowplayer5' ),
 					'type' => 'text',
 					'size' => 'regular',
 				),
