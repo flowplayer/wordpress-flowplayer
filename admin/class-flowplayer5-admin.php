@@ -138,52 +138,60 @@ class Flowplayer5_Admin {
 
 			wp_enqueue_script( 'repeatable-fields', plugins_url( '/assets/js/repeatable-fields' . $suffix . '.js', __FILE__ ), array( 'jquery-ui-sortable' ), $this->plugin_version, false );
 			wp_enqueue_script( $this->plugin_slug . '-media', plugins_url( '/assets/js/media' . $suffix . '.js', __FILE__ ), array( 'jquery-ui-tabs' ), $this->plugin_version, false );
-			wp_localize_script( $this->plugin_slug . '-media', 'splash_image',
+			wp_localize_script(
+				$this->plugin_slug . '-media',
+				'fp5_splash_image',
 				array(
 					'title'  => __( 'Upload or choose a splash image', $this->plugin_slug ), // This will be used as the default title
 					'button' => __( 'Insert Splash Image', $this->plugin_slug )              // This will be used as the default button text
 				)
 			);
-			wp_localize_script( $this->plugin_slug . '-media', 'mp4_video',
+			wp_localize_script(
+				$this->plugin_slug . '-media',
+				'fp5_mp4_video',
 				array(
 					'title'  => __( 'Upload or choose a MP4 video file', $this->plugin_slug ), // This will be used as the default title
 					'button' => __( 'Insert MP4 Video', $this->plugin_slug )                   // This will be used as the default button text
 				)
 			);
-			wp_localize_script( $this->plugin_slug . '-media', 'webm_video',
+			wp_localize_script(
+				$this->plugin_slug . '-media',
+				'fp5_webm_video',
 				array(
 					'title'  => __( 'Upload or choose a WEBM video file', $this->plugin_slug ), // This will be used as the default title
 					'button' => __( 'Insert WEBM Video', $this->plugin_slug )                   // This will be used as the default button text
 				)
 			);
-			wp_localize_script( $this->plugin_slug . '-media', 'ogg_video',
+			wp_localize_script(
+				$this->plugin_slug . '-media',
+				'fp5_ogg_video',
 				array(
 					'title'  => __( 'Upload or choose a OGG video file', $this->plugin_slug ), // This will be used as the default title
 					'button' => __( 'Insert OGG Video', $this->plugin_slug )                   // This will be used as the default button text
 				)
 			);
-			wp_localize_script( $this->plugin_slug . '-media', 'flash_video',
+			wp_localize_script(
+				$this->plugin_slug . '-media',
+				'fp5_flash_video',
 				array(
 					'title'  => __( 'Upload or choose a flash optimized video file', $this->plugin_slug ), // This will be used as the default title
 					'button' => __( 'Insert Flash Video', $this->plugin_slug )                             // This will be used as the default button text
 				)
 			);
-			wp_localize_script( $this->plugin_slug . '-media', 'hls_video',
+			wp_localize_script(
+				$this->plugin_slug . '-media',
+				'fp5_hls_video',
 				array(
 					'title'  => __( 'Upload or choose a HLS video file', $this->plugin_slug ), // This will be used as the default title
 					'button' => __( 'Insert HLS Video', $this->plugin_slug )                   // This will be used as the default button text
 				)
 			);
-			wp_localize_script( $this->plugin_slug . '-media', 'webvtt',
+			wp_localize_script(
+				$this->plugin_slug . '-media',
+				'fp5_webvtt',
 				array(
 					'title'  => __( 'Upload or choose a webvtt file', $this->plugin_slug ), // This will be used as the default title
 					'button' => __( 'Insert webvtt', $this->plugin_slug )                   // This will be used as the default button text
-				)
-			);
-			wp_localize_script( $this->plugin_slug . '-media', 'logo',
-				array(
-					'title'  => __( 'Upload or choose a logo', $this->plugin_slug ), // This will be used as the default title
-					'button' => __( 'Insert Logo', $this->plugin_slug )              // This will be used as the default button text
 				)
 			);
 
@@ -195,19 +203,25 @@ class Flowplayer5_Admin {
 		if ( $screen->post_type === $this->plugin_slug && $screen->id == 'flowplayer5_page_flowplayer5_settings' ) {
 
 			wp_enqueue_script( $this->plugin_slug . '-settings', plugins_url( '/assets/js/settings' . $suffix . '.js', __FILE__ ), array(), $this->plugin_version, false );
-			wp_localize_script( $this->plugin_slug . '-settings', 'logo',
+			wp_localize_script(
+				$this->plugin_slug . '-settings',
+				'fp5_logo',
 				array(
 					'title'  => __( 'Upload or choose a logo', $this->plugin_slug ), // This will be used as the default title
 					'button' => __( 'Insert Logo', $this->plugin_slug )              // This will be used as the default button text
 				)
 			);
-			wp_localize_script( $this->plugin_slug . '-settings', 'asf_css',
+			wp_localize_script(
+				$this->plugin_slug . '-settings',
+				'fp5_asf_css',
 				array(
 					'title'  => __( 'Upload or choose a CSS file', $this->plugin_slug ), // This will be used as the default title
 					'button' => __( 'Insert CSS file', $this->plugin_slug )              // This will be used as the default button text
 				)
 			);
-			wp_localize_script( $this->plugin_slug . '-settings', 'asf_js',
+			wp_localize_script(
+				$this->plugin_slug . '-settings',
+				'fp5_asf_js',
 				array(
 					'title'  => __( 'Upload or choose a JS file', $this->plugin_slug ), // This will be used as the default title
 					'button' => __( 'Insert JS file', $this->plugin_slug )              // This will be used as the default button text

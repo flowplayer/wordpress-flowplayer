@@ -136,12 +136,12 @@ jQuery(document).ready(function ($) {
             className: 'media-frame fp5-media-frame',
             frame: 'select',
             multiple: false,
-            title: splash_image.title,
+            title: fp5_splash_image.title,
             library: {
                 type: 'image'
             },
             button: {
-                text: splash_image.button
+                text: fp5_splash_image.button
             }
         });
 
@@ -172,12 +172,12 @@ jQuery(document).ready(function ($) {
             className: 'media-frame fp5-media-frame',
             frame: 'select',
             multiple: false,
-            title: mp4_video.title,
+            title: fp5_mp4_video.title,
             library: {
                 type: 'video/mp4'
             },
             button: {
-                text: mp4_video.button
+                text: fp5_mp4_video.button
             }
         });
 
@@ -204,12 +204,12 @@ jQuery(document).ready(function ($) {
             className: 'media-frame fp5-media-frame',
             frame: 'select',
             multiple: false,
-            title: webm_video.title,
+            title: fp5_webm_video.title,
             library: {
                 type: 'video/webm'
             },
             button: {
-                text: webm_video.button
+                text: fp5_webm_video.button
             }
         });
 
@@ -238,12 +238,12 @@ jQuery(document).ready(function ($) {
             className: 'media-frame fp5-media-frame',
             frame: 'select',
             multiple: false,
-            title: ogg_video.title,
+            title: fp5_ogg_video.title,
             library: {
                 type: 'video/ogg'
             },
             button: {
-                text: ogg_video.button
+                text: fp5_ogg_video.button
             }
         });
 
@@ -273,12 +273,12 @@ jQuery(document).ready(function ($) {
             className: 'media-frame fp5-media-frame',
             frame: 'select',
             multiple: false,
-            title: flash_video.title,
+            title: fp5_flash_video.title,
             library: {
                 type: ['video/mp4', 'video/x-flv']
             },
             button: {
-                text: flash_video.button
+                text: fp5_flash_video.button
             }
         });
 
@@ -306,12 +306,12 @@ jQuery(document).ready(function ($) {
             className: 'media-frame fp5-media-frame',
             frame: 'select',
             multiple: false,
-            title: hls_video.title,
+            title: fp5_hls_video.title,
             library: {
                 type: ['application/x-mpegurl']
             },
             button: {
-                text: hls_video.button
+                text: fp5_hls_video.button
             }
         });
 
@@ -338,12 +338,12 @@ jQuery(document).ready(function ($) {
             className: 'media-frame fp5-media-frame',
             frame: 'select',
             multiple: false,
-            title: webvtt.title,
+            title: fp5_webvtt.title,
             library: {
                 type: 'text/vtt'
             },
             button: {
-                text: webvtt.button
+                text: fp5_webvtt.button
             }
         });
 
