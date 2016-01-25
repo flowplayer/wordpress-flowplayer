@@ -331,7 +331,7 @@ class Flowplayer5_Admin {
 			3  => __( 'Custom field deleted.', $this->plugin_slug ),
 			4  => __( 'Video updated.', $this->plugin_slug ) . ' ' . $shortcode_preview,
 			5  => isset( $_GET['revision'] ) ? sprintf( __( 'Video restored to revision from %s', $this->plugin_slug ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-			6  => __( 'Video published.', $this->plugin_slug ) . ' ' . $shortcode_preview),
+			6  => __( 'Video published.', $this->plugin_slug ) . ' ' . $shortcode_preview,
 			7  => __( 'Video saved.', $this->plugin_slug ) . ' ' . $shortcode_preview,
 			8  => __( 'Video submitted.', $this->plugin_slug ) . ' ' . $shortcode_preview,
 			9  => sprintf( __( 'Video scheduled for: %1$s', $this->plugin_slug ), '<strong>' . $scheduled_date . '</strong>' ) . ' ' . $shortcode_preview,
