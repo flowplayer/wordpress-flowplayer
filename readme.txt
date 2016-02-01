@@ -215,9 +215,8 @@ add_filter( 'fp5_post_type_args', 'fp5_post_type_arg_hierarchical' );`
  * Display links for single video posts and activate archive page.
  */
 function fp5_post_type_arg_video_post( $args ) {
-	$args['public']            = true;
-	$args['show_in_nav_menus'] = true;
-	$args['has_archive']       = true;
+	$args['public']      = true;
+	$args['has_archive'] = true;
 	return $args;
 }
 add_filter( 'fp5_post_type_args', 'fp5_post_type_arg_video_post' );`
