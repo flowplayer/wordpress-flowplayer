@@ -1,4 +1,4 @@
-<div id="flowplayer-video-<?php echo absint( $atts['id'] ); ?>" style="<?php echo esc_attr( self::trim_implode( $atts['style'] ) ); ?>" class="<?php echo esc_attr( self::trim_implode( $atts['classes'] ) ); ?>" <?php echo fp5_deprecated_flowplayer_data( self::trim_implode( $atts['data_config'] ) ); ?>>
+<div id="flowplayer-video-<?php echo absint( $atts['id'] ); ?>" style="<?php echo esc_attr( self::trim_implode( $atts['style'] ) ); ?>" class="<?php echo esc_attr( self::trim_implode( $atts['video_classes'] ) ) . ' ' . esc_attr( self::trim_implode( $atts['classes'] ) ); ?>" <?php echo fp5_deprecated_flowplayer_data( self::trim_implode( $atts['data_config'] ) ); ?>>
 
 	<?php do_action( 'fp5_video_top', $atts['id'] ); ?>
 
