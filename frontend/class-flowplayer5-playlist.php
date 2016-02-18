@@ -34,10 +34,9 @@ class Flowplayer5_Playlist implements Flowplayer5_IPlaylist {
 		if ( $query->have_posts() ) {
 			while ( $query->have_posts() ) {
 				$query->the_post();
-				$video[ 'id' ]                                  = get_the_ID();
-				$videos[ 'id' . $video[ 'id' ] ]                = Flowplayer5_Output::single_video_processing( $video );
-				$videos[ 'id' . $video[ 'id' ] ][ 'content' ]   = get_the_content();
-				
+				$video['id']                            = get_the_ID();
+				$videos['id' . $video['id']]            = Flowplayer5_Output::single_video_processing( $video );
+				$videos['id' . $video['id']]['content'] = get_the_content();
 			}
 		}
 
@@ -117,12 +116,12 @@ class Flowplayer5_Playlist implements Flowplayer5_IPlaylist {
 			'posts_per_page' => '100',
 			'no_found_rows'  => true,
 			'orderby'        => 'meta_value_num',
-			'meta_key'       => 'playlist_order_' . absint( $this->playlist_id ),
+			'meta_key'       => 'playlist_order_' . absint( $this->get_id() ),
 			'tax_query'      => array(
 				array(
 					'taxonomy' => 'playlist',
 					'field'    => 'id',
-					'terms'    => absint( $this->playlist_id ),
+					'terms'    => absint( $this->get_id() ),
 				),
 			),
 		);
