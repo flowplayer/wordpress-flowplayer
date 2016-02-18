@@ -85,8 +85,8 @@ class Flowplayer_Drive {
 
 		// get the login info
 		$options   = fp5_get_settings();
-		$user_name = ( isset( $options['user_name'] ) ) ? $options['user_name'] : '';
-		$password  = ( isset( $options['password'] ) ) ? $options['password'] : '';
+		$user_name = ( isset( $options['user_name'] ) ) ? $options['user_name'] : false;
+		$password  = ( isset( $options['password'] ) ) ? $options['password'] : false;
 
 		if ( ! $user_name || ! $password ) {
 			Flowplayer_Drive_Error::showLoginError();
