@@ -73,7 +73,7 @@ register_deactivation_hook( __FILE__, array( 'Flowplayer5', 'deactivate' ) );
 Flowplayer5::get_instance();
 Flowplayer5_Post_Type::get_instance();
 Flowplayer5_Taxonomy::get_instance();
-new Flowplayer5_Sanitize_Settings;
+new Flowplayer5_Sanitize_Settings();
 
 if ( is_admin() ) {
 

@@ -148,47 +148,44 @@ class Flowplayer5_Settings {
 			return $input;
 		}
 
-		parse_str( $_POST['_wp_http_referer'], $referrer );
-
 		$saved = $this->options;
+		$settings = $this->get_registered_settings();
 		if ( ! is_array( $saved ) ) {
 			$saved = array();
 		}
-		$settings = $this->get_registered_settings();
-		$tab      = isset( $referrer['tab'] ) ? esc_attr( $referrer['tab'] ) : 'general';
-
 		$input = $input ? $input : array();
-		$input = apply_filters( 'fp5_settings_' . $tab . '_sanitize', $input );
+		foreach ( $settings  as $tab => $setting ) {
+			$input = apply_filters( 'fp5_settings_' . $tab . '_sanitize', $input );
 
-		// Ensure a value is always passed for every checkbox
-		if ( ! empty( $settings[ $tab ] ) ) {
-			foreach ( $settings[ $tab ] as $key => $setting ) {
+			// Ensure a value is always passed for every checkbox
+			if ( ! empty( $settings[ $tab ] ) ) {
+				foreach ( $settings[ $tab ] as $key => $setting ) {
 
-				// Single checkbox
-				if ( isset( $settings[ $tab ][ $key ]['type'] ) && 'checkbox' == $settings[ $tab ][ $key ]['type'] ) {
-					$input[ $key ] = ! empty( $input[ $key ] );
+					// Single checkbox
+					if ( isset( $settings[ $tab ][ $key ]['type'] ) && 'checkbox' == $settings[ $tab ][ $key ]['type'] ) {
+						$input[ $key ] = ! empty( $input[ $key ] );
+					}
+
+				}
+			}
+
+			// Loop through each setting being saved and pass it through a sanitization filter
+			foreach ( $input as $key => $value ) {
+
+				// Get the setting type (checkbox, select, etc)
+				$type = isset( $settings[ $tab ][ $key ][ 'type' ] ) ? $settings[ $tab ][ $key ][ 'type' ] : false;
+				$input[ $key ] = $value;
+				if ( $type ) {
+					// Field type specific filter
+					$input[ $key ] = apply_filters( 'fp5_settings_sanitize_' . $type, $input[ $key ], $key );
 				}
 
-			}
-		}
+				// General filter
+				$input[ $key ] = apply_filters( 'fp5_settings_sanitize', $input[ $key ], $key );
 
-		// Loop through each setting being saved and pass it through a sanitization filter
-		foreach ( $input as $key => $value ) {
-
-			// Get the setting type (checkbox, select, etc)
-			$type = isset( $settings[ $tab ][ $key ][ 'type' ] ) ? $settings[ $tab ][ $key ][ 'type' ] : false;
-			$input[ $key ] = $value;
-
-			if ( $type ) {
-				// Field type specific filter
-				$input[ $key ] = apply_filters( 'fp5_settings_sanitize_' . $type, $input[ $key ], $key );
-			}
-
-			// General filter
-			$input[ $key ] = apply_filters( 'fp5_settings_sanitize', $input[ $key ], $key );
-
-			if ( empty ( $input[ $key ] ) ) {
-				$input[ $key ] = false;
+				if ( empty ( $input[ $key ] ) ) {
+					$input[ $key ] = false;
+				}
 			}
 		}
 
