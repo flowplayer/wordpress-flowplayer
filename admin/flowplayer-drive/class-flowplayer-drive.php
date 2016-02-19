@@ -29,7 +29,7 @@ class Flowplayer_Drive {
 	 *
 	 * @var      string
 	 */
-	protected $account_api_url = 'http://account.api.flowplayer.org/auth?_format=json';
+	protected $account_api_url = 'https://account.api.flowplayer.org/auth?_format=json';
 
 	/**
 	 * Flowplayer Video API URL
@@ -38,7 +38,7 @@ class Flowplayer_Drive {
 	 *
 	 * @var      string
 	 */
-	protected $video_api_url = 'http://drive.api.flowplayer.org/account';
+	protected $video_api_url = 'https://drive.api.flowplayer.org/account';
 
 	/**
 	 * Initialize Flowplayer Drive
