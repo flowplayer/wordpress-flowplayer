@@ -228,7 +228,7 @@ class Flowplayer5_Settings {
 				),
 			),
 			'branding' => array(
-				'title'      => __( 'Branding Settings', 'flowplayer5' ),
+				'title'      => __( 'Branding', 'flowplayer5' ),
 				'key' => array(
 					'name' => __( 'License Key', 'flowplayer5' ) . ' <a href="https://flowplayer.org/docs/setup.html#commercial-configuration">?</a>',
 					'desc' => __( 'Enter your license key.', 'flowplayer5' ),
@@ -265,7 +265,7 @@ class Flowplayer5_Settings {
 				),
 			),
 			'flowplayer_drive' => array(
-				'title'      => __( 'Flowplayer Drive Settings', 'flowplayer5' ) . ' <a href="https://flowplayer.org/docs/drive.html">?</a>',
+				'title'      => __( 'Flowplayer Drive', 'flowplayer5' ) . ' <a href="https://flowplayer.org/docs/drive.html">?</a>',
 				'user_name' => array(
 					'name' => __( 'Username', 'flowplayer5' ),
 					'desc' => __( 'Enter your flowplayer.org username.', 'flowplayer5' ) ,
@@ -280,7 +280,7 @@ class Flowplayer5_Settings {
 				),
 			),
 			'video_tracking' => array(
-				'title'      => __( 'Video tracking Settings', 'flowplayer5' ) . ' <a href="https://flowplayer.org/docs/analytics.html">?</a>',
+				'title'      => __( 'Video tracking', 'flowplayer5' ) . ' <a href="https://flowplayer.org/docs/analytics.html">?</a>',
 				'ga_account_id' => array(
 					'name' => __( 'Google Analytics account ID', 'flowplayer5' ),
 					'desc' => __( 'Enter your GA account ID.', 'flowplayer5' ),
@@ -289,7 +289,7 @@ class Flowplayer5_Settings {
 				),
 			),
 			'asf' => array(
-				'title'      => __( 'AdSense for Flowplayer Setting', 'flowplayer5' ) . ' <a href="https://flowplayer.org/asf/">?</a>',
+				'title'      => __( 'AdSense for Flowplayer', 'flowplayer5' ) . ' <a href="https://flowplayer.org/asf/">?</a>',
 				'asf_css' => array(
 					'name' => __( 'AdSense plugin CSS', 'flowplayer5' ),
 					'type' => 'upload',
@@ -311,7 +311,7 @@ class Flowplayer5_Settings {
 				)
 			),
 			'embed_options' => array(
-				'title'      => __( 'Embed asset Setting', 'flowplayer5' ) . ' <a href="https://flowplayer.org/docs/embedding.html#configuration">?</a>',
+				'title'      => __( 'Embed assets', 'flowplayer5' ) . ' <a href="https://flowplayer.org/docs/embedding.html#configuration">?</a>',
 				'library' => array(
 					'name' => __( 'Library', 'flowplayer5' ),
 					'desc' => __( 'URL of the Flowplayer API library script', 'flowplayer5' ),
