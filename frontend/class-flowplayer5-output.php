@@ -309,23 +309,8 @@ class Flowplayer5_Output {
 				'ads' => $asf_ads,
 			);
 		}
-		if ( 0 == $atts['width'] && 0 == $atts['height'] ) {
-			$js_config['adaptiveRatio'] = true;
-		}
 		if ( 'true' == $atts['live'] ) {
 			$js_config['live'] = esc_attr( $atts['live'] );
-		}
-		if ( 'true' == $atts['no_embed'] ) {
-			$js_config['embed'] = false;
-		}
-		if ( 0 < strlen( $atts['key'] ) ) {
-			$js_config['key'] = esc_attr( $atts['key'] );
-		}
-		if ( 0 < strlen( $atts['key'] ) && 0 < strlen( $atts['logo'] ) ) {
-			$js_config['logo'] = esc_url( $atts['logo'] );
-		}
-		if ( 0 < strlen( $atts['ga_account_id'] ) ) {
-			$js_config['analytics'] = esc_attr( $atts['ga_account_id'] );
 		}
 		if ( $atts['ratio'] != 0 ) {
 			$js_config['ratio'] = esc_attr( $atts['ratio'] );
@@ -343,6 +328,21 @@ class Flowplayer5_Output {
 				$js_config['qualities'] = esc_attr( $atts['qualities'] );
 			}
 		}
+		if ( 0 == $atts['width'] && 0 == $atts['height'] ) {
+			$js_config['adaptiveRatio'] = true;
+		}
+		if ( 'true' == $atts['no_embed'] ) {
+			$js_config['embed'] = false;
+		}
+		if ( 0 < strlen( $atts['key'] ) ) {
+			$js_config['key'] = esc_attr( $atts['key'] );
+		}
+		if ( 0 < strlen( $atts['key'] ) && 0 < strlen( $atts['logo'] ) ) {
+			$js_config['logo'] = esc_url( $atts['logo'] );
+		}
+		if ( 0 < strlen( $atts['ga_account_id'] ) ) {
+			$js_config['analytics'] = esc_attr( $atts['ga_account_id'] );
+		}
 		if ( 0 < strlen( $atts['key'] ) ) {
 			if ( ! empty ( $atts['brand_text'] ) ) {
 				$js_config['brand']['text'] = esc_attr( $atts['brand_text'] );
@@ -351,7 +351,26 @@ class Flowplayer5_Output {
 				$js_config['brand']['showOnOrigin'] = true;
 			}
 		}
-		$return['js_config'] = apply_filters( 'fp5_js_config', $js_config, $atts['id'] );
+		$js_config = apply_filters( 'fp5_js_config', $js_config, $atts['id'] );
+
+		$clip_config = array(
+			'flashls',
+			'loop',
+			'live',
+			'rtmp',
+			'sources',
+			'title',
+			'cuepoints',
+			'dashjs',
+			'defaultQuality',
+			'qualities',
+			'hlsjs',
+			'ima',
+			'subtitles',
+			'thumbnails',
+		);
+		$return['clip_config']   = array_intersect_key( $js_config, $clip_config );
+		$return['player_config'] = array_diff_key( $js_config, $clip_config );
 
 		$return['source'] = array();
 		foreach ( $atts['formats'] as $format => $src ) {
