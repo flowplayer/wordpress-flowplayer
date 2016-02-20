@@ -67,6 +67,7 @@ class Flowplayer5_Styles_Scripts {
 			'asf_css'        => ! empty ( $settings['asf_css'] ) ? $settings['asf_css'] : false,
 			'vast_js'        => ! empty ( $settings['vast_js'] ) ? $settings['vast_js'] : false,
 			'vast_css'       => ! empty ( $settings['vast_css'] ) ? $settings['vast_css'] : false,
+			'qs_dir'         => ! empty ( isset( $settings['fp_version'] ) && 'fp6' === $settings['fp_version'] ) ? 'quality-selector/flowplayer.' : 'drive/',
 			'plugin_version' => $plugin_version,
 			'player_version' => $player_version,
 		);
@@ -133,14 +134,14 @@ class Flowplayer5_Styles_Scripts {
 	 * @since    1.0.0
 	 */
 	public function register_scripts( $options = array() ) {
-		// Register JavaScript
+		// Register JavaScript so that they can be enqueued later
  		wp_register_script( 'flowplayer5-script', $options['flowplayer_directory'] . 'flowplayer' . $options['suffix'] . '.js', array( 'jquery' ), $options['plugin_version'], false );
 		wp_register_script( 'flowplayer5-ima3', '//s0.2mdn.net/instream/html5/ima3.js', array(), null, false );
 		wp_register_script( 'flowplayer5-asf', esc_url( $options['asf_js'] ), array( 'flowplayer5-ima3' ), null, false );
 		wp_register_script( 'flowplayer5-vast', esc_url( $options['vast_js'] ), array(), null, false );
 		wp_register_script( 'hlsjs', $options['assets_directory'] . 'hlsjs/hls.js', array(), null, false );
-		wp_register_script( 'flowplayer5-hlsjs', $options['assets_directory'] . '/hlsjs/flowplayer.hlsjs' . $options['suffix'] . '.js', $options['hls_dep'], 'adbde54', false );
-		wp_register_script( 'flowplayer5-quality-selector', $options['assets_directory'] . '/drive/quality-selector' . $options['fp_6'] . $options['suffix'] . '.js', array( 'flowplayer5-script' ), $options['plugin_version'], false );
+		wp_register_script( 'flowplayer5-hlsjs', $options['assets_directory'] . 'hlsjs/flowplayer.hlsjs' . $options['suffix'] . '.js', $options['hls_dep'], 'adbde54', false );
+		wp_register_script( 'flowplayer5-quality-selector', $options['assets_directory'] . $options['qs_dir'] . 'quality-selector' . $options['suffix'] . '.js', array( 'flowplayer5-script' ), $options['plugin_version'], false );
 		wp_register_script( 'magnific-popup', plugins_url( '/assets/magnific-popup/magnific-popup' . $options['suffix'] . '.js', __FILE__ ), array( 'jquery' ), '1.0.0', false );
 
 	}
