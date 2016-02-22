@@ -190,7 +190,7 @@ class Flowplayer5_Video_Meta_Box {
 
 			foreach ( $checkboxes as $checkbox ) {
 				if ( isset( $_POST[ $checkbox ] ) ) {
-					$value = true;
+					$value = 'true';
 				} else {
 					$value = '';
 				}
