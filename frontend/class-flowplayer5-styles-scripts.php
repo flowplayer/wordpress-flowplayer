@@ -62,7 +62,7 @@ class Flowplayer5_Styles_Scripts {
 			'is_hls'         => $flowplayer_shortcode->get_video_meta_values( 'fp5-hls-video', $has_flowplayer_shortcode ),
 			'is_lightbox'    => $flowplayer_shortcode->get_video_meta_values( 'fp5-lightbox', $has_flowplayer_shortcode ),
 			'has_shortcode'  => $has_flowplayer_shortcode,
-			'qualities'      => isset( $this->video_qualities ),
+			'qualities'      => $flowplayer_shortcode->get_video_qualities( $has_flowplayer_shortcode ),
 			'asf_js'         => ! empty ( $settings['asf_js'] ) ? $settings['asf_js'] : false,
 			'asf_css'        => ! empty ( $settings['asf_css'] ) ? $settings['asf_css'] : false,
 			'vast_js'        => ! empty ( $settings['vast_js'] ) ? $settings['vast_js'] : false,

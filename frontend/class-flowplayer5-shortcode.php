@@ -58,8 +58,11 @@ class Flowplayer5_Shortcode {
 		$has_shortcode  = array();
 		$shortcode_args = array();
 
-
-		if ( isset( $post->post_content ) ) {
+		if ( 'flowplayer5' == get_post_type() ) {
+			if ( is_single() ) {
+				$has_shortcode[ 'id' . $post->ID ] = $post->ID;
+			}
+		} elseif ( isset( $post->post_content ) ) {
 			$shortcode_args = fp5_has_shortcode_arg( $post->post_content, 'flowplayer' );
 			if ( is_array( $shortcode_args ) ) {
 				foreach ( $shortcode_args as $key => $value ) {
@@ -114,36 +117,12 @@ class Flowplayer5_Shortcode {
 		$this->has_flowplayer_video = $has_video;
 	}
 
-	public function video_qualities() {
-
-		if ( isset( $this->video_qualities ) ){
-			return;
-		}
-
-		$post_id   = '';
-		$qualities = array();
-
-		// Check if the post is a flowplayer video
-		if ( 'flowplayer5' == get_post_type() && isset ( $post->ID ) ) {
-			$post_id = $post->ID;
-			$qualities[] = get_post_meta( $post_id, 'fp5-qualities', true );
-			$this->video_qualities = $qualities;
-			return;
-		}
-
-		$has_flowplayer_shortcode = $this->has_flowplayer_shortcode();
-		if ( empty( $has_flowplayer_shortcode) ) {
-			return;
-		}
-
-		$this->video_qualities = apply_filters( 'fp5_filter_video_qualities', $this->get_video_meta_values( 'fp5-qualities', $has_flowplayer_shortcode ) );
+	public function get_video_qualities( $has_flowplayer_shortcode ) {
+		return apply_filters( 'fp5_filter_video_qualities', $this->get_video_meta_values( 'fp5-qualities', $has_flowplayer_shortcode ) );
 	}
 
 	public function get_video_meta( $video_ids ) {
-		if ( isset( $this->video_post_meta ) ){
-			return;
-		}
-		if ( empty( $video_ids ) ) {
+		if ( isset( $this->video_post_meta ) || ! is_array( $video_ids ) ){
 			return;
 		}
 		$video_meta = array();
