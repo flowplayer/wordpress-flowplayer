@@ -144,6 +144,7 @@ class Flowplayer5_Output {
 			'description_url' => '',
 			'lightbox'        => '',
 			'title'           => '',
+			'hls_plugin'      => '',
 		);
 
 		$atts = array_filter( shortcode_atts(
@@ -195,6 +196,7 @@ class Flowplayer5_Output {
 			'height'          => self::get_custom_fields( $custom_fields, 'fp5-height', $atts, 'height' ),
 			'description_url' => self::get_custom_fields( $custom_fields, 'fp5-description-url', $atts, 'description_url', get_permalink() ),
 			'lightbox'        => self::get_custom_fields( $custom_fields, 'fp5-lightbox', $atts, 'lightbox' ),
+			'hls_plugin'      => self::get_custom_fields( $custom_fields, 'fp5-hls-plugin', $atts, 'hls_plugin', true ),
 			'formats'         => array(
 				'application/x-mpegurl' => self::get_custom_fields( $custom_fields, 'fp5-hls-video', $atts, 'hls' ),
 				'video/webm'            => self::get_custom_fields( $custom_fields, 'fp5-webm-video', $atts, 'webm' ),

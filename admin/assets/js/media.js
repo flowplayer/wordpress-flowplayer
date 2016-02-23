@@ -103,6 +103,12 @@ jQuery(document).ready(function ($) {
     });
     $('.choose-video').click(function () {
         var that = $(this);
+        var hlsCheckbox;
+        if( that.attr('data-hls').length > 0 ){
+            hlsCheckbox = true;
+        } else {
+            hlsCheckbox = false;
+        }
         $('input#fp5-splash-image').val(that.attr('data-img'));
         $('input#fp5-mp4-video').val(that.attr('data-mp4'));
         $('input#fp5-hls-video').val(that.attr('data-hls'));
@@ -114,6 +120,7 @@ jQuery(document).ready(function ($) {
         $('input#fp5-data-rtmp').val(that.attr('data-rtmp'));
         $('input#fp5-qualities').val(that.attr('data-qualities'));
         $('input#fp5-default-quality').val(that.attr('data-default-quality'));
+        $("input#fp5-hls-plugin").prop('checked',hlsCheckbox);
         $("input[name='post_title']").val(that.attr('data-video-name'));
         $("#title-prompt-text").addClass('screen-reader-text');
         $.colorbox.close();
@@ -318,6 +325,7 @@ jQuery(document).ready(function ($) {
         fp5_hls_frame.on('select', function () {
             var media_attachment = fp5_hls_frame.state().get('selection').first().toJSON();
             $('#fp5-hls-video').val(media_attachment.url);
+            switchHLSCheckbox(media_attachment.url);
             CreatePreview();
         });
         fp5_hls_frame.open();
@@ -357,4 +365,46 @@ jQuery(document).ready(function ($) {
         fp5_webvtt_frame.open();
     });
 
+    // Check HLS if the setting has not been set. For existing videos that do not have the setting set.
+    if ($(".fp5-hls-notset").length > 0){
+        switchHLSCheckbox($("#fp5-hls-video").val());
+    }
+
 });
+
+// Check if HLS supports CORS
+var createCORSRequest = function(method, url) {
+  var xhr = new XMLHttpRequest();
+  if ("withCredentials" in xhr) {
+    // Most browsers.
+    xhr.open(method, url, true);
+  } else if (typeof XDomainRequest != "undefined") {
+    // IE8 & IE9
+    xhr = new XDomainRequest();
+    xhr.open(method, url);
+  } else {
+    // CORS not supported.
+    xhr = null;
+  }
+  return xhr;
+};
+
+var switchHLSCheckbox = function(url) {
+  var checkbox = document.getElementById("fp5-hls-plugin");
+  if( url.length > 0 ) {
+    var method = 'GET';
+    var xhr = createCORSRequest(method, url);
+
+    xhr.onload = function() {
+      checkbox.checked = true;
+    };
+
+    xhr.onerror = function() {
+      checkbox.checked = false;
+    };
+
+    xhr.send();
+  } else {
+      checkbox.checked = false;
+  }
+};

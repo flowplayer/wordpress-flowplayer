@@ -186,6 +186,7 @@ class Flowplayer5_Video_Meta_Box {
 				'fp5-live',
 				'fp5-play-button',
 				'fp5-show-title',
+				'fp5-hls-plugin',
 			);
 
 			foreach ( $checkboxes as $checkbox ) {
