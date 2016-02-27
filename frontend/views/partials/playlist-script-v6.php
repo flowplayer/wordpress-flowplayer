@@ -23,4 +23,4 @@ foreach ( $atts as $video_id => $video ) {
 }
 $player_config['playlist'] = $return;
 ?>
-<script>var fpPlaylist<?php echo absint( $playlist_id ); ?> = flowplayer('#jsplaylist<?php echo absint( $playlist_id ); ?>', <?php echo json_encode( $player_config ); ?> );</script>
+<script>var fpPlaylist<?php echo absint( $first_video['playlist'] ); ?> = flowplayer('#jsplaylist<?php echo absint( $first_video['playlist'] ); ?>', <?php echo json_encode( $player_config ); ?> );</script>

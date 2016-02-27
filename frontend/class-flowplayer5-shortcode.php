@@ -32,73 +32,47 @@ class Flowplayer5_Shortcode {
 	public function __construct() {
 
 		// Register shortcode.
-		add_shortcode( 'flowplayer', array( $this, 'shortcode_video_output' ) );
+		add_shortcode( 'flowplayer', 'fp5_video_output' );
 
 	}
 
-	/**
-	 * Flowplayer Video HTML Output
-	 *
-	 * Retrieves a media files and settings to display a video.
-	 *
-	 * @since    1.3.0
-	 *
-	 * @param    array $atts Shortcode attributes.
-	 */
-	public function shortcode_video_output( $atts ) {
-		return fp5_video_output( $atts );
-	}
-
-	public function has_flowplayer_shortcode() {
-		if ( is_404() || isset( $this->has_flowplayer_shortcode ) ) {
+	public function flowplayer_shortcode_atts() {
+		if ( is_404() || isset( $this->shortcode_atts ) ) {
 			return;
 		}
 
 		$post           = get_queried_object();
-		$has_shortcode  = array();
-		$shortcode_args = array();
+		$shortcode_atts = array();
 
 		if ( 'flowplayer5' == get_post_type() ) {
 			if ( is_single() ) {
-				$has_shortcode[ 'id' . $post->ID ] = $post->ID;
+				$shortcode_atts['id'] = $post->ID;
 			}
 		} elseif ( isset( $post->post_content ) ) {
-			$shortcode_args = fp5_has_shortcode_arg( $post->post_content, 'flowplayer' );
-			if ( is_array( $shortcode_args ) ) {
-				foreach ( $shortcode_args as $key => $value ) {
-					if ( isset( $value['id'] ) ) {
-						$has_shortcode[ 'id' . $value['id'] ] = $value['id'];
-					} elseif ( isset( $value['playlist'] ) ) {
-						$has_shortcode[ 'playlist' . $value['playlist'] ] = $value['playlist'];
-					} elseif ( ! empty( $value['mp4'] ) || ! empty( $value['webm'] ) || ! empty( $value['ogg'] ) || ! empty( $value['flash'] ) || ! empty( $value['hls'] ) ) {
-						$video_id = substr( md5( serialize( $value ) ), 0, 5 );
-						$has_shortcode[ 'video' . $video_id ] = $video_id;
-					}
-				}
+			$raw_shortcode_atts = fp5_has_shortcode_arg( $post->post_content, 'flowplayer' );
+			if ( is_array( $raw_shortcode_atts ) ) {
+				$shortcode_atts = $this->process_shortcode_atts( $raw_shortcode_atts );
 			}
 		} else {
 			global $wp_query;
 			foreach ( $wp_query->posts as $post ) {
 				$post_content = isset( $post->post_content ) ? $post->post_content : '';
-				$shortcode_args = fp5_has_shortcode_arg( $post_content, 'flowplayer' );
-				if ( ! $shortcode_args ) {
+				$raw_shortcode_atts = fp5_has_shortcode_arg( $post_content, 'flowplayer' );
+				if ( ! $raw_shortcode_atts ) {
 					continue;
 				}
-				foreach ( $shortcode_args as $key => $value ) {
-					if ( isset( $value['id'] ) ) {
-						$has_shortcode[ 'id' . $value['id'] ] = $value['id'];
-					} elseif ( isset( $value['playlist'] ) ) {
-						$has_shortcode[ 'playlist' . $value['playlist'] ] = $value['playlist'];
-					} elseif ( ! empty( $value['mp4'] ) || ! empty( $value['webm'] ) || ! empty( $value['ogg'] ) || ! empty( $value['flash'] ) || ! empty( $value['hls'] ) ) {
-						$video_id = substr( md5( serialize( $value ) ), 0, 5 );
-						$has_shortcode[ 'video' . $video_id ] = $video_id;
-					}
-				}
+				$shortcode_atts = $this->process_shortcode_atts( $raw_shortcode_atts );
 			}
 		}
+		$this->shortcode_atts = array_filter( $shortcode_atts );
+		return $this->shortcode_atts;
+	}
 
-		$this->has_flowplayer_shortcode = array_filter( $has_shortcode );
-		return $this->has_flowplayer_shortcode;
+	public function has_flowplayer_shortcode() {
+		if ( empty( $this->flowplayer_shortcode_atts() ) ) {
+			return false;
+		}
+		return true;
 	}
 
 	public function has_flowplayer_video() {
@@ -117,44 +91,45 @@ class Flowplayer5_Shortcode {
 		$this->has_flowplayer_video = $has_video;
 	}
 
-	public function get_video_qualities( $has_flowplayer_shortcode ) {
-		return apply_filters( 'fp5_filter_video_qualities', $this->get_video_meta_values( 'fp5-qualities', $has_flowplayer_shortcode ) );
-	}
-
-	public function get_video_meta( $video_ids ) {
-		if ( isset( $this->video_post_meta ) || ! is_array( $video_ids ) ){
-			return;
-		}
-		$video_meta = array();
-		foreach ( $video_ids as $key => $value ) {
-			// Check that it is a single video and not a playlist
-			if ( 'id' . $value === $key ) {
-				$video_meta[ $key ] = get_post_meta( $value );
-				$video_meta[ $key ]['id'] = $value;
-			}
-			if ( 'playlist' . $value === $key ) {
-				$video_meta = array_merge(
-					$video_meta,
-					Flowplayer5_Playlist::get_videos_meta_by_id( $value )
-				);
+	public function process_shortcode_atts( $raw_shortcode_args ) {
+		$shortcode_args = array();
+		foreach ( $raw_shortcode_args as $key => $value ) {
+			if ( ! empty( $value['id'] ) ) {
+				$shortcode_args = $value;
+			} elseif ( isset( $value['playlist'] ) ) {
+				$shortcode_args = $value;
+			} elseif ( ! empty( $value['mp4'] ) || ! empty( $value['webm'] ) || ! empty( $value['ogg'] ) || ! empty( $value['flash'] ) || ! empty( $value['hls'] ) ) {
+				$video_id = substr( md5( serialize( $value ) ), 0, 5 );
+				$shortcode_args       = $value;
+				$shortcode_args['id'] = $video_id;
 			}
 		}
-		$this->video_post_meta = $video_meta;
+		return $shortcode_args;
 	}
 
-	public function get_video_meta_values( $key, $video_ids ) {
-		if ( empty( $video_ids ) ) {
+	public function get_video_qualities( $atts ) {
+		return apply_filters( 'fp5_filter_video_qualities', $this->get_video_meta_value( 'qualities', $atts ) );
+	}
+
+	public function get_video_meta_value( $key, $atts ) {
+		if ( empty( $atts ) ) {
 			return false;
 		}
 		$video_meta_values = array();
-		$this->get_video_meta( $video_ids );
-		foreach ( $this->video_post_meta as $id_key => $value ) {
-			// Check that it is a single video and not a playlist
-			if ( 'id' . $value['id'] === $id_key ) {
-				$video_meta_values[ $id_key ] = isset( $this->video_post_meta[ $id_key ][ $key ][0] ) ? $this->video_post_meta[ $id_key ][ $key ][0] : '';
-			}
+		foreach ( $atts as $id_key => $value ) {
+			$video_meta_values[ $id_key ] = isset( $atts[ $id_key ][ $key ] ) ? $atts[ $id_key ][ $key ] : '';
 		}
 		return array_filter( $video_meta_values );
+	}
+
+	public function has_feature( $key, $atts ) {
+		if ( empty( $atts ) ) {
+			return false;
+		}
+		foreach ( $atts as $id_key => $value ) {
+			$video_meta_values[] = empty( $atts[ $id_key ][ $key ] ) ? false : true;
+		}
+		return in_array( true, $video_meta_values, true );
 	}
 
 }

@@ -20,10 +20,10 @@
 ?>
 <script>
 (function($) {
-	var Playlist<?php echo esc_attr( $playlist_id ); ?> = <?php echo json_encode( $return ); ?>;
-	var fpPlaylist<?php echo absint( $playlist_id ); ?> = $("#jsplaylist<?php echo absint( $playlist_id ); ?>").flowplayer({
-		rtmp: "<?php echo esc_attr( $playlist_options['fp5-rtmp-url'] ); ?>",
-		playlist: Playlist<?php echo absint( $playlist_id ); ?>
+	var Playlist<?php echo esc_attr( $first_video['playlist'] ); ?> = <?php echo json_encode( $return ); ?>;
+	var fpPlaylist<?php echo absint( $first_video['playlist'] ); ?> = $("#jsplaylist<?php echo absint( $first_video['playlist'] ); ?>").flowplayer({
+		rtmp: "<?php echo esc_attr( $first_video['playlist_options']['fp5-rtmp-url'] ); ?>",
+		playlist: Playlist<?php echo absint( $first_video['playlist'] ); ?>
 	});
 })(jQuery);
 </script>

@@ -31,14 +31,43 @@ class Flowplayer5_Output {
 	 *
 	 * @since    1.3.0
 	 *
-	 * @param    array $atts Shortcode attributes
+	 * @param    array $atts Shortcode attributes.
+	 *
+	 * @return array string Player markup.
 	 */
-	public function video_output( $atts ) {
+	public function player_output( $atts ) {
+		$atts = $this->video_atts( $atts );
 		if ( isset( $atts['playlist'] ) ) {
+			unset( $atts['playlist'] );
 			return self::playlist_output( $atts );
 		} else {
-			return self::single_video_output( $atts );
+			return self::single_video_output( reset( $atts ) );
 		}
+	}
+
+	/**
+	 * Process shortcode attributes
+	 *
+	 * Fetch videos for playlist, return meta data from single video and fetch settings.
+	 *
+	 * @since    1.14.0
+	 *
+	 * @param    array $atts Shortcode attributes.
+	 *
+	 * @return array string Arrays with video.
+	 */
+	public function video_atts( $raw_atts ) {
+		if ( isset( $raw_atts['playlist'] ) ) {
+			$playlist_id = Flowplayer5_Playlist::wp_get_split_term( $raw_atts['playlist'] );
+			$atts = Flowplayer5_Playlist::get_videos_by_id( $playlist_id );
+			$atts['playlist'] = $playlist_id;
+		} elseif ( empty( $raw_atts['id'] ) ) {
+			$raw_atts['id'] = substr( md5( serialize( $raw_atts ) ), 0, 5 );
+			$atts[ 'video' . $raw_atts['id'] ] = self::get_shortcode_attr( $raw_atts );
+		} else {
+			$atts[ 'id' . $raw_atts['id'] ] = self::get_shortcode_attr( $raw_atts );
+		}
+		return $atts;
 	}
 
 	/**
@@ -51,10 +80,10 @@ class Flowplayer5_Output {
 	 * @param    array $atts Shortcode attributes
 	 */
 	private static function single_video_output( $atts ) {
-		$atts = self::single_video_processing( $atts );
 		if ( ! $atts ) {
 			return;
 		}
+		$atts = self::single_video_processing( $atts );
 		ob_start();
 		if ( $atts['lightbox'] ) {
 			require( 'views/partials/lightbox.php' );
@@ -75,24 +104,14 @@ class Flowplayer5_Output {
 	 * @param    array $atts Shortcode attributes
 	 */
 	private static function playlist_output( $atts ) {
-		$playlist_id = $atts['playlist'];
-		$playlist_options = get_option( 'playlist_' . absint( $playlist_id ) );
-		// Check if old id is being used in the shortcode
-		if ( ! $playlist_options && function_exists( 'wp_get_split_term' ) ) {
-			$new_term_id = wp_get_split_term( absint( $playlist_id ), 'playlist' );
-			$playlist_options = get_option( 'playlist_' . absint( $new_term_id ) );
-			if ( $playlist_options ) {
-				$playlist_id = $new_term_id;
-			}
-		}
-		$atts = Flowplayer5_Playlist::get_videos_by_id( $playlist_id );
 		if ( ! is_array( $atts ) ) {
 			return;
 		}
-		if ( ! $playlist_options ) {
-			$playlist_options['fp5-select-skin'] = 'minimalist';
+		foreach( $atts as $key => $value ) {
+			$new_atts[ $key ] = self::single_video_processing( $value );
 		}
-		$first_video = current( $atts );
+		$atts = $new_atts;
+		$first_video = reset( $atts );
 		ob_start();
 		require( 'views/partials/playlist.php' );
 		return ob_get_clean();
@@ -153,13 +172,13 @@ class Flowplayer5_Output {
 			'flowplayer'
 		) );
 
-		if ( ! empty( $atts['id'] ) ) {
+		$custom_fields = array();
+		if ( is_numeric( $atts['id'] ) ) {
 			// get the meta from the post type
 			$custom_fields             = get_post_custom( $atts['id'] );
 			$custom_fields['title'][0] = get_the_title( $atts['id'] );
-		} else {
-			$atts['id'] = substr( md5( serialize( $atts ) ), 0, 5 );
-			$custom_fields        = array();
+		} elseif ( empty( $atts['id'] ) ) {
+			$atts['id']    = substr( md5( serialize( $atts ) ), 0, 5 );
 		}
 
 		$shortcode_attr = array(
@@ -225,8 +244,6 @@ class Flowplayer5_Output {
 	}
 
 	static public function single_video_processing( $atts ) {
-
-		$atts = self::get_shortcode_attr( $atts );
 
 		// Prepare styles
 		$ratio = ( ( $atts['width'] != 0 && $atts['height'] != 0 ) ? intval( $atts['height'] ) / intval( $atts['width'] ) : '' );

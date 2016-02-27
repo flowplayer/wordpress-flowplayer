@@ -49,20 +49,22 @@ class Flowplayer5_Styles_Scripts {
 		$plugin_version           = $plugin->get_plugin_version();
 		$player_version           = $plugin->get_player_version();
 		$flowplayer_shortcode     = new Flowplayer5_Shortcode();
-		$has_flowplayer_shortcode = $flowplayer_shortcode->has_flowplayer_shortcode();
+		$has_flowplayer_shortcode = $flowplayer_shortcode->flowplayer_shortcode_atts();
+		$flowplayer_output        = new Flowplayer5_Output();
+		$shortcode_attr           = $flowplayer_output->video_atts( $has_flowplayer_shortcode );
 		$settings                 = fp5_get_settings();
 
-		$options     = array(
+		$options = array(
 			'cdn'            => isset( $settings['cdn_option'] ),
 			'key'            => ! empty ( $settings['key'] ) ? $settings['key'] : '',
 			'fp_dir'         => ! empty ( $settings['directory'] ) ? $settings['directory'] : '',
 			'fp_6'           => ( isset( $settings['fp_version'] ) && 'fp6' === $settings['fp_version'] ) ? '-v6' : '',
 			'suffix'         => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min',
 			'hls_dep'        => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? array( 'flowplayer5-script', 'hlsjs' ) : array( 'flowplayer5-script' ),
-			'is_hls'         => $flowplayer_shortcode->get_video_meta_values( 'fp5-hls-video', $has_flowplayer_shortcode ),
-			'is_lightbox'    => $flowplayer_shortcode->get_video_meta_values( 'fp5-lightbox', $has_flowplayer_shortcode ),
+			'is_hls'         => $flowplayer_shortcode->has_feature( 'application/x-mpegurl', $flowplayer_shortcode->get_video_meta_value( 'formats', $shortcode_attr ) ) && $flowplayer_shortcode->get_video_meta_value( 'hls_plugin', $shortcode_attr ),
+			'is_lightbox'    => $flowplayer_shortcode->get_video_meta_value( 'lightbox', $shortcode_attr ),
 			'has_shortcode'  => $has_flowplayer_shortcode,
-			'qualities'      => $flowplayer_shortcode->get_video_qualities( $has_flowplayer_shortcode ),
+			'qualities'      => $flowplayer_shortcode->get_video_qualities( $shortcode_attr ),
 			'asf_js'         => ! empty ( $settings['asf_js'] ) ? $settings['asf_js'] : false,
 			'asf_css'        => ! empty ( $settings['asf_css'] ) ? $settings['asf_css'] : false,
 			'vast_js'        => ! empty ( $settings['vast_js'] ) ? $settings['vast_js'] : false,

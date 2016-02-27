@@ -15,15 +15,17 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * Output video
+ * Return player markup.
  *
- * @since    1.9.0
+ * @since 1.9.0
  *
- * @param array $atts
+ * @param array $atts List of defined shortcode attributes.
+ *
+ * @return array string Player markup.
  */
 function fp5_video_output( $atts ) {
 	$flowplayer5_output = new Flowplayer5_Output;
-	return $flowplayer5_output->video_output( $atts );
+	return $flowplayer5_output->player_output( $atts );
 }
 
 /**

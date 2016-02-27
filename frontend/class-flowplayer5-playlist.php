@@ -34,34 +34,15 @@ class Flowplayer5_Playlist implements Flowplayer5_IPlaylist {
 		if ( $query->have_posts() ) {
 			while ( $query->have_posts() ) {
 				$query->the_post();
-				$video['id']                            = get_the_ID();
-				$videos['id' . $video['id']]            = Flowplayer5_Output::single_video_processing( $video );
-				$videos['id' . $video['id']]['content'] = get_the_content();
+				$video['id']                                       = get_the_ID();
+				$videos[ 'id' . $video['id'] ]                     = Flowplayer5_Output::get_shortcode_attr( $video );
+				$videos[ 'id' . $video['id'] ]['content']          = get_the_content();
+				$videos[ 'id' . $video['id'] ]['playlist']         = $this->get_id();
+				$videos[ 'id' . $video['id'] ]['playlist_options'] = $this->get_term_meta( $this->get_id() );
 			}
 		}
 
 		wp_reset_postdata();
-
-		return $videos;
-	}
-
-	public function get_videos_meta() {
-
-		$videos = array();
-		$query  = $this->get_video_posts();
-
-		// The Loop
-		if ( $query->have_posts() ) {
-			while ( $query->have_posts() ) {
-				$query->the_post();
-				$video_id                         = get_the_ID();
-				$videos[ 'id' . $video_id ]       = get_post_custom();
-				$videos[ 'id' . $video_id ]['id'] = $video_id;
-			}
-		}
-
-		wp_reset_postdata();
-
 		return $videos;
 	}
 
@@ -76,19 +57,6 @@ class Flowplayer5_Playlist implements Flowplayer5_IPlaylist {
 		$playlist = new self( $playlist_id );
 
 		return $playlist->get_videos();
-	}
-
-	/**
-	 * Act as a helper function for one off task of getting videos for a single playlist.
-	 *
-	 * @param string $playlist_id Playlist ID.
-	 *
-	 * @return array
-	 */
-	public static function get_videos_meta_by_id( $playlist_id ) {
-		$playlist = new self( $playlist_id );
-
-		return $playlist->get_videos_meta();
 	}
 
 	/**
@@ -125,5 +93,28 @@ class Flowplayer5_Playlist implements Flowplayer5_IPlaylist {
 				),
 			),
 		);
+	}
+
+	public static function get_term_meta( $term_id, $key = '' ) {
+		$term_meta = '';
+		if ( function_exists('get_term_meta') ) {
+			$term_meta = get_term_meta( $term_id, $key );
+		}
+		if ( empty( $term_meta ) ) {
+			$term_meta = get_option( 'playlist_' . $term_id );
+			if ( $key && isset( $term_meta[ $key ] ) ) {
+				$term_meta = $term_meta[ $key ];
+			}
+		}
+		return $term_meta;
+	}
+
+	public static function wp_get_split_term( $term_id ) {
+		$term_meta = self::get_term_meta( $term_id );
+		// Check if old id is being used in the shortcode
+		if ( ! $term_meta && function_exists( 'wp_get_split_term' ) ) {
+			$term_id = wp_get_split_term( $term_id, 'playlist' );
+		}
+		return $term_id;
 	}
 }
