@@ -142,7 +142,7 @@ class Flowplayer5_Styles_Scripts {
 		wp_register_script( 'flowplayer5-asf', esc_url( $options['asf_js'] ), array( 'flowplayer5-ima3' ), null, false );
 		wp_register_script( 'flowplayer5-vast', esc_url( $options['vast_js'] ), array(), null, false );
 		wp_register_script( 'hlsjs', $options['assets_directory'] . 'hlsjs/hls.js', array(), null, false );
-		wp_register_script( 'flowplayer5-hlsjs', $options['assets_directory'] . 'hlsjs/flowplayer.hlsjs' . $options['suffix'] . '.js', $options['hls_dep'], 'adbde54', false );
+		wp_register_script( 'flowplayer5-hlsjs', $options['assets_directory'] . 'hlsjs/flowplayer.hlsjs' . $options['suffix'] . '.js', $options['hls_dep'], '0456f85', false );
 		wp_register_script( 'flowplayer5-quality-selector', $options['assets_directory'] . $options['qs_dir'] . 'quality-selector' . $options['suffix'] . '.js', array( 'flowplayer5-script' ), $options['plugin_version'], false );
 		wp_register_script( 'magnific-popup', plugins_url( '/assets/magnific-popup/magnific-popup' . $options['suffix'] . '.js', __FILE__ ), array( 'jquery' ), '1.0.0', false );
 

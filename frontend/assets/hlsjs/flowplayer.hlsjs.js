@@ -17,7 +17,7 @@
    requires:
    - Flowplayer HTML5 version 6.x or greater
    - hls.js https://github.com/dailymotion/hls.js
-   revision: 1db3ae9
+   revision: 0456f85
 
 */
 
@@ -27,6 +27,7 @@
         hlsconf,
         common = flowplayer.common,
         extend = flowplayer.extend,
+        support = flowplayer.support,
         version = flowplayer.version,
 
         isHlsType = function (typ) {
@@ -56,6 +57,140 @@
                     });
                 },
 
+                getStartLevelConf = function () {
+                    var value = hlsconf.startLevel;
+
+                    switch (value) {
+                    case "auto":
+                        value = -1;
+                        break;
+                    case "firstLevel":
+                        value = undefined;
+                        break;
+                    }
+                    return value;
+                },
+
+                qActive = "active",
+                dataQuality = function (quality) {
+                    // e.g. "Level 1" -> "level1"
+                    if (!quality) {
+                        quality = player.quality;
+                    }
+                    return quality.toLowerCase().replace(/\ /g, "");
+                },
+                removeAllQualityClasses = function () {
+                    var qualities = player.qualities;
+
+                    if (!qualities || !qualities.length) {
+                        return;
+                    }
+                    common.removeClass(root, "quality-abr");
+                    qualities.forEach(function (quality) {
+                        common.removeClass(root, "quality-" + dataQuality(quality));
+                    });
+                },
+                qClean = function () {
+                    delete player.hlsQualities;
+                    player.qualities = [];
+                    removeAllQualityClasses();
+                    common.find(".fp-quality-selector li", root).forEach(bean.off);
+                    common.find(".fp-quality-selector", root).forEach(common.removeNode);
+                },
+                qIndex = function () {
+                    return player.hlsQualities[player.qualities.indexOf(player.quality) + 1];
+                },
+                initQualitySelection = function (hlsQualitiesConf, data) {
+                    var levels = data.levels,
+                        levelIndex = 0,
+                        selector;
+
+                    player.hlsQualities = [];
+                    levels.forEach(function (level) {
+                        if ((hlsQualitiesConf === true || hlsQualitiesConf.indexOf(levelIndex) > -1) &&
+                                level.videoCodec &&
+                                window.MediaSource.isTypeSupported('video/mp4;codecs=' + level.videoCodec)) {
+                            // do not check audioCodec,
+                            // as e.g. HE_AAC is decoded as LC_AAC by hls.js on Android
+                            player.hlsQualities.push(levelIndex);
+                        }
+                        levelIndex += 1;
+                    });
+                    if (player.hlsQualities.length < 2) {
+                        qClean();
+                        return;
+                    }
+
+                    player.qualities = [];
+                    player.hlsQualities.forEach(function (levelIndex) {
+                        var level = levels[levelIndex],
+                            width = level.width,
+                            height = level.height,
+                            label = (width && height)
+                                ? Math.min(width, height) + "p"
+                                : "Level " + (levelIndex + 1);
+
+                        player.qualities.push(label);
+                    });
+
+                    selector = common.createElement("ul", {
+                        "class": "fp-quality-selector"
+                    });
+                    common.find(".fp-ui", root)[0].appendChild(selector);
+
+                    player.hlsQualities.unshift(-1);
+
+                    if (!player.quality || player.qualities.indexOf(player.quality) < 0) {
+                        hls.startLevel = getStartLevelConf();
+                        player.quality = "abr";
+                    } else {
+                        hls.startLevel = qIndex();
+                    }
+
+                    selector.appendChild(common.createElement("li", {
+                        "data-quality": "abr"
+                    }, "Auto"));
+                    player.qualities.forEach(function (q) {
+                        selector.appendChild(common.createElement("li", {
+                            "data-quality": dataQuality(q)
+                        }, q));
+                    });
+
+                    common.addClass(root, "quality-" + dataQuality());
+
+                    bean.on(root, "click", ".fp-quality-selector li", function (e) {
+                        var choice = e.currentTarget,
+                            selectors,
+                            active,
+                            i;
+
+                        if (common.hasClass(choice, qActive)) {
+                            return;
+                        }
+
+                        selectors = common.find(".fp-quality-selector li", root);
+
+                        for (i = 0; i < selectors.length; i += 1) {
+                            active = selectors[i] === choice;
+                            if (active) {
+                                player.quality = i > 0
+                                    ? player.qualities[i - 1]
+                                    : "abr";
+                                if (hlsconf.smoothSwitching) {
+                                    hls.nextLevel = qIndex();
+                                } else {
+                                    hls.currentLevel = qIndex();
+                                }
+                                player.resume();
+                                common.addClass(choice, qActive);
+                            }
+                            common.toggleClass(selectors[i], qActive, active);
+                        }
+                        removeAllQualityClasses();
+                        common.addClass(root, "quality-" + dataQuality());
+                    });
+                },
+
                 engine = {
                     engineName: engineName,
 
@@ -78,8 +213,24 @@
                     load: function (video) {
                         var init = !hls,
                             conf = player.conf,
+                            hlsQualitiesConf = conf.clip.hlsQualities || conf.hlsQualities,
                             hlsClientConf = extend({}, hlsconf),
-                            hlsParams = ["anamorphic", "autoLevelCapping", "recover", "startLevel", "strict"];
+                            hlsParams = [
+                                "anamorphic", "autoLevelCapping", "recover",
+                                "smoothSwitching", "startLevel", "strict"
+                            ],
+                            hlsEvents = [
+                                "MEDIA_ATTACHING", "MEDIA_ATTACHED", "MEDIA_DETACHING", "MEDIA_DETACHED",
+                                "MANIFEST_LOADING", "MANIFEST_LOADED", "MANIFEST_PARSED",
+                                "LEVEL_LOADING", "LEVEL_LOADED", "LEVEL_UPDATED", "LEVEL_PTS_UPDATED", "LEVEL_SWITCH",
+                                "KEY_LOADING", "KEY_LOADED",
+                                "FRAG_LOADING", "FRAG_LOAD_PROGRESS", "FRAG_LOADED",
+                                "FRAG_PARSING_INIT_SEGMENT", "FRAG_PARSING_METADATA", "FRAG_PARSING_DATA", "FRAG_PARSED",
+                                "FRAG_BUFFERED", "FRAG_CHANGED",
+                                "FPS_DROP",
+                                "DESTROYING",
+                                "ERROR"
+                            ];
 
                         if (init) {
                             common.removeNode(common.findDirect("video", root)[0]
@@ -114,6 +265,20 @@
                                 url: videoTag.currentSrc
                             });
                             player.trigger('ready', [player, video]);
+
+                            var quality = player.quality,
+                                abr = quality === "abr",
+                                selectorIndex;
+
+                            if (quality) {
+                                if (!abr) {
+                                    hls.currentLevel = hls.startLevel;
+                                }
+                                selectorIndex = abr
+                                    ? 0
+                                    : player.qualities.indexOf(quality) + 1;
+                                common.addClass(common.find(".fp-quality-selector li", root)[selectorIndex], qActive);
+                            }
                         });
                         bean.on(videoTag, "seeked", function () {
                             player.trigger('seek', [player, videoTag.currentTime]);
@@ -174,14 +339,9 @@
                                     : value;
                                 break;
                             case "startLevel":
-                                switch (value) {
-                                case "auto":
-                                    value = -1;
-                                    break;
-                                case "firstLevel":
-                                    value = undefined;
-                                    break;
-                                }
+                                value = (player.hlsQualities && player.quality)
+                                    ? qIndex()
+                                    : getStartLevelConf();
                                 break;
                             }
 
@@ -190,52 +350,70 @@
                             }
                         });
 
-                        hls.on(Hls.Events.ERROR, function (e, data) {
-                            var fperr,
-                                errobj = {};
+                        qClean();
 
-                            if (data.fatal || hlsconf.strict > 0) {
-                                switch (data.type) {
-                                case Hls.ErrorTypes.NETWORK_ERROR:
-                                    if (recover) {
-                                        hls.startLoad();
-                                        if (recover > 0) {
-                                            recover -= 1;
-                                        }
-                                    } else if (data.frag && data.frag.url) {
-                                        errobj.url = data.frag.url;
-                                        fperr = 2;
+                        hlsEvents.forEach(function (e) {
+                            hls.on(Hls.Events[e], function (etype, data) {
+                                var fperr,
+                                    errobj = {};
+
+                                switch (e) {
+                                case "MANIFEST_PARSED":
+                                    if (support.inlineVideo && hlsQualitiesConf) {
+                                        initQualitySelection(hlsQualitiesConf, data);
                                     } else {
-                                        fperr = 4;
+                                        delete player.quality;
                                     }
                                     break;
-                                case Hls.ErrorTypes.MEDIA_ERROR:
-                                    if (recover) {
-                                        hls.recoverMediaError();
-                                        if (recover > 0) {
-                                            recover -= 1;
+
+                                case "ERROR":
+                                    if (data.fatal || hlsconf.strict > 0) {
+                                        switch (data.type) {
+                                        case Hls.ErrorTypes.NETWORK_ERROR:
+                                            if (recover) {
+                                                hls.startLoad();
+                                                if (recover > 0) {
+                                                    recover -= 1;
+                                                }
+                                            } else if (data.frag && data.frag.url) {
+                                                errobj.url = data.frag.url;
+                                                fperr = 2;
+                                            } else {
+                                                fperr = 4;
+                                            }
+                                            break;
+                                        case Hls.ErrorTypes.MEDIA_ERROR:
+                                            if (recover) {
+                                                hls.recoverMediaError();
+                                                if (recover > 0) {
+                                                    recover -= 1;
+                                                }
+                                            } else {
+                                                fperr = 3;
+                                            }
+                                            break;
+                                        default:
+                                            fperr = 5;
                                         }
-                                    } else {
-                                        fperr = 3;
+
+                                        if (fperr !== undefined) {
+                                            errobj.code = fperr;
+                                            if (fperr > 2) {
+                                                errobj.video = extend(video, {
+                                                    src: video.src,
+                                                    url: data.url || video.src
+                                                });
+                                            }
+                                            player.trigger('error', [player, errobj]);
+                                            return;
+                                        }
                                     }
+                                    // log non fatals?
                                     break;
-                                default:
-                                    fperr = 5;
                                 }
 
-                                if (fperr !== undefined) {
-                                    errobj.code = fperr;
-                                    if (fperr > 2) {
-                                        errobj.video = extend(video, {
-                                            src: video.src,
-                                            url: data.url || video.src
-                                        });
-                                    }
-                                    player.trigger('error', [player, errobj]);
-                                }
-                            }
-                            /* TODO: */
-                            // log non fatals
+                                player.trigger(etype, [player, data]);
+                            });
                         });
 
                         if (init) {
@@ -283,6 +461,7 @@
                             bean.off(videoTag);
                             common.removeNode(videoTag);
                             videoTag = 0;
+                            qClean();
                         }
                     }
                 };
@@ -313,7 +492,7 @@
         // only load engine if it can be used
         engineImpl.engineName = engineName; // must be exposed
         engineImpl.canPlay = function (type, conf) {
-            var b = flowplayer.support.browser,
+            var b = support.browser,
                 wn = window.navigator,
                 IE11 = wn.userAgent.indexOf("Trident/7") > -1;
 
@@ -324,6 +503,7 @@
 
             // merge hlsjs clip config at earliest opportunity
             hlsconf = extend({
+                smoothSwitching: true,
                 recover: 0
             }, flowplayer.conf[engineName], conf[engineName], conf.clip[engineName]);
 
@@ -347,6 +527,15 @@
         // put on top of engine stack
         // so hlsjs is tested before html5 video hls and flash hls
         flowplayer.engines.unshift(engineImpl);
+
+        flowplayer(function (api) {
+            // to take precedence over VOD quality selector
+            // hlsQualities must be configure at player or global level
+            var hlsQualities = api.conf.hlsQualities || flowplayer.conf.hlsQualities;
+            if (hlsQualities) {
+                api.pluginQualitySelectorEnabled = engineImpl.canPlay("application/x-mpegurl", api.conf);
+            }
+        });
 
     }
 
