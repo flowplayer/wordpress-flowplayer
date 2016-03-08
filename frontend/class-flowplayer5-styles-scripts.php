@@ -55,7 +55,7 @@ class Flowplayer5_Styles_Scripts {
 		$settings                 = fp5_get_settings();
 
 		$options = array(
-			'cdn'            => isset( $settings['cdn_option'] ),
+			'cdn'            => isset( $settings['cdn_option'] ) ? $settings['cdn_option'] : false,
 			'key'            => ! empty ( $settings['key'] ) ? $settings['key'] : '',
 			'fp_dir'         => ! empty ( $settings['directory'] ) ? $settings['directory'] : '',
 			'fp_6'           => ( isset( $settings['fp_version'] ) && 'fp6' === $settings['fp_version'] ) ? '-v6' : '',
@@ -97,9 +97,9 @@ class Flowplayer5_Styles_Scripts {
 
 	public function get_assets_directory( $options = array() ) {
 		if ( $options['cdn'] ) {
-			$assets_directory = plugins_url( '/assets', __FILE__ );
-		} else {
 			$assets_directory = '//releases.flowplayer.org/';
+		} else {
+			$assets_directory = plugins_url( '/assets', __FILE__ );
 		}
 		return apply_filters( 'fp5_assets_directory', $assets_directory );
 	}
