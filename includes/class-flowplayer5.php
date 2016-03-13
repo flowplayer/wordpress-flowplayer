@@ -14,6 +14,38 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+class Flowplayer5_Plugin {
+
+	public function run() {
+		$this->register_common();
+		if ( is_admin() ) {
+			$this->register_backend();
+		} else {
+			$this->register_frontend();
+		}
+	}
+
+	protected function register_common() {
+		$post_type = new Flowplayer5_Post_Type();
+		add_action( 'init', array( $post_type, 'register' ) );
+		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
+		add_filter( 'upload_mimes', array( $this, 'flowplayer_custom_mimes' ) );
+		// Register hooks that are fired when the plugin is activated, deactivated, and uninstalled, respectively.
+		register_activation_hook( FP5_PLUGIN_DIR, array( 'Flowplayer5', 'activate' ) );
+		register_deactivation_hook( FP5_PLUGIN_DIR, array( 'Flowplayer5', 'deactivate' ) );
+	}
+
+	protected function register_backend() {
+		$dashboard = new Flowplayer5_Dashboard();
+		add_action( 'admin_init', array( $dashboard, 'register' ) );
+	}
+
+	protected function register_frontend() {
+		$shortcode = new Flowplayer5_Shortcode();
+		add_action( 'init', array( $shortcode, 'register' ) );
+	}
+}
+
 /**
  * Initial Flowplayer5 class
  *
@@ -23,51 +55,6 @@ if ( ! defined( 'WPINC' ) ) {
  * @since 1.0.0
  */
 class Flowplayer5 {
-
-	/**
-	 * Plugin version, used for cache-busting of style and script file references.
-	 *
-	 * @since   1.0.0
-	 *
-	 * @var     string
-	 */
-	protected $plugin_version = '1.13.0';
-
-	/**
-	 * Unique identifier for your plugin.
-	 *
-	 * Use this value (not the variable name) as the text domain when internationalizing strings of text. It should
-	 * match the Text Domain file header in the main plugin file.
-	 *
-	 * @since    1.0.0
-	 *
-	 * @var      string
-	 */
-	protected $plugin_slug = 'flowplayer5';
-
-	/**
-	 * Instance of this class.
-	 *
-	 * @since    1.0.0
-	 *
-	 * @var      object
-	 */
-	protected static $instance = null;
-
-	/**
-	 * Initialize the plugin by setting localization.
-	 *
-	 * @since    1.0.0
-	 */
-	private function __construct() {
-
-		// Load plugin text domain.
-		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
-
-		// Add file support.
-		add_filter( 'upload_mimes', array( $this, 'flowplayer_custom_mimes' ) );
-
-	}
 
 	/**
 	 * Return the plugin version.
@@ -94,35 +81,6 @@ class Flowplayer5 {
 		} else {
 			return '5.5.2';
 		}
-	}
-
-	/**
-	 * Return the plugin slug.
-	 *
-	 * @since    1.0.0
-	 *
-	 * @return   Plugin slug variable.
-	 */
-	public function get_plugin_slug() {
-		return $this->plugin_slug;
-	}
-
-	/**
-	 * Return an instance of this class.
-	 *
-	 * @since    1.0.0
-	 *
-	 * @return   object    A single instance of this class.
-	 */
-	public static function get_instance() {
-
-		// If the single instance hasn't been set, set it now.
-		if ( null == self::$instance ) {
-			self::$instance = new self;
-		}
-
-		return self::$instance;
-
 	}
 
 	/**

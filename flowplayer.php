@@ -25,9 +25,16 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-// Plugin Root File
-if ( ! defined( 'FP5_PLUGIN_FILE' ) )
-	define( 'FP5_PLUGIN_FILE', __FILE__ );
+if ( ! defined( 'FP5_PLUGIN_DIR' ) ) {
+	define( 'FP5_PLUGIN_DIR', __DIR__ );
+}
+
+if ( file_exists( FP5_PLUGIN_DIR . '/vendor/autoload.php' ) {
+	require FP5_PLUGIN_DIR . '/vendor/autoload.php';
+}
+
+$plugin = new Flowplayer5_Plugin();
+$plugin->run();
 
 $dir = dirname( __FILE__ );
 
@@ -65,10 +72,6 @@ if ( is_admin() ) {
 	require_once( $dir . '/frontend/class-flowplayer5-output.php' );
 	require_once( $dir . '/frontend/class-flowplayer5-shortcode.php' );
 }
-
-// Register hooks that are fired when the plugin is activated, deactivated, and uninstalled, respectively.
-register_activation_hook( __FILE__, array( 'Flowplayer5', 'activate' ) );
-register_deactivation_hook( __FILE__, array( 'Flowplayer5', 'deactivate' ) );
 
 Flowplayer5::get_instance();
 Flowplayer5_Post_Type::get_instance();
