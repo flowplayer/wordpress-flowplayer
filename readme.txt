@@ -185,7 +185,6 @@ Why would you want to do that? :-) If you do need to uninstall the plugin all of
 
 * [fp5_video_top](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/views/display-single-video.php#L23)
 * [fp5_video_bottom](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/views/display-single-video.php#L30)
-* [fp5_video_config](https://github.com/flowplayer/wordpress-flowplayer/blob/master/frontend/views/display-single-video.php#L43)
 
 = Examples =
 
@@ -225,13 +224,17 @@ add_filter( 'fp5_post_type_args', 'fp5_post_type_arg_video_post' );`
 `/**
  * Disable "Help Tooltip" - Add additional configuration options.
  */
-function fp5_video_config() {
+function fp5_js_config( $config, $id ) {
 
-	$config = 'tooltip: false,';
+	// Defne setting for video 15
+	if ( '15' == $id ) {
+		$config['tooltip']    = false;
+	}
+	$config['fullscreen'] = false;
 
-	echo $config;
+	return $config;
 }
-add_action( 'fp5_video_config', 'fp5_video_config' );`
+add_filter( 'fp5_js_config', 'fp5_js_config', 10, 2 );`
 
 
 `/**
