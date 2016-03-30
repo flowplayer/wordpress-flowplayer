@@ -368,7 +368,13 @@ class Flowplayer5_Settings {
 					'button' => __( 'Add js file', 'flowplayer5' ),
 					'size' => 'regular',
 					'desc' => __( 'Add your custom AdSense plugin javascript file', 'flowplayer5' ),
-				)
+				),
+				'vast_default_ad_tag' => array(
+					'name' => __( 'Default Tag', 'flowplayer5' ),
+					'desc' => __( 'URL of default VAST ad tag', 'flowplayer5' ),
+					'type' => 'text',
+					'size' => 'regular',
+				),
 			)
 		);
 

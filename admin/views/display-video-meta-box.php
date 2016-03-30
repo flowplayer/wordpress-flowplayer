@@ -325,7 +325,7 @@
 			<th scope="row"><label for="fp5-vast-ads-time" class="fp5-row-title"><?php _e( 'Ads Time', $this->plugin_slug )?></label></th>
 			<td>
 				<input type="text" name="fp5-vast-ads-time" id="fp5-vast-ads-time" value="<?php if ( isset ( $fp5_stored_meta['fp5-vast-ads-time'] ) ) echo esc_attr( $fp5_stored_meta['fp5-vast-ads-time'][0] ); ?>" />
-				<?php _e( 'Time in seconds into the video. 0 for pre-roll. -1 for post-roll.', $this->plugin_slug ); ?>
+				<?php _e( 'Time in seconds into the video. 0 for pre-roll. -1 for post-roll. Default is pre-roll.', $this->plugin_slug ); ?>
 			</td>
 		</tr>
 
@@ -333,7 +333,7 @@
 			<th scope="row"><label for="fp5-vast-ads-tag" class="fp5-row-title"><?php _e( 'Ad Tag', $this->plugin_slug )?></label></th>
 			<td>
 				<input type="text" name="fp5-vast-ads-tag" id="fp5-vast-ads-tag" value="<?php if ( isset ( $fp5_stored_meta['fp5-vast-ads-tag'] ) ) echo esc_url( $fp5_stored_meta['fp5-vast-ads-tag'][0] ); ?>" />
-				<?php _e( 'Ad Tag for VAST ad.', $this->plugin_slug ); ?>
+				<?php _e( 'Ad Tag for VAST ad. Leave blank for global default ad tag.', $this->plugin_slug ); ?>
 			</td>
 		</tr>
 

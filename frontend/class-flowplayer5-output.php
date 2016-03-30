@@ -220,6 +220,9 @@ class Flowplayer5_Output {
 		$return['asf_js']     = ( isset( $options['asf_js'] ) ) ? $options['asf_js'] : '';
 		$return['vast_js']    = ( isset( $options['vast_js'] ) ) ? $options['vast_js'] : '';
 		$return['fp_version'] = ( isset( $options['fp_version'] ) ) ? $options['fp_version'] : '';
+		// Global VAST ad tag
+		$vast_default_ad_tag 							= ( isset( $options['vast_default_ad_tag'] ) ) ? $options['vast_default_ad_tag'] : '';
+		$return['vast_default_ad_tag']    = $vast_default_ad_tag;
 
 		// Shortcode processing
 		$ratio = ( ( $return['width'] != 0 && $return['height'] != 0 ) ? intval( $return['height'] ) / intval( $return['width'] ) : '' );
@@ -337,7 +340,8 @@ class Flowplayer5_Output {
 		$vast_ads_time						= ( isset( $vast_ads_time ) ? $vast_ads_time : '' );
 		$return['vast_ads_time'] 	= ( ! empty( $vast_ads_time ) ? $vast_ads_time : 0 );
 		$vast_ads_tag							= ( isset( $vast_ads_tag ) ? $vast_ads_tag : '' );
-		$return['vast_ads_tag']		= ( ! empty( $vast_ads_tag ) ? $vast_ads_tag : '' );
+		$vast_ads_tag							= ( empty($vast_ads_tag) ? $vast_default_ad_tag : $vast_ads_tag); // If empty fall back to the global ad tag
+		$return['vast_ads_tag']		= $vast_ads_tag;
 		$vast_disable							= ( isset( $vast_disable ) ? $vast_disable : false );
 		$return['vast_disable']		= ( ! empty( $vast_disable) ? $vast_disable : '' );
 

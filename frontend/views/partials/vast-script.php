@@ -1,6 +1,6 @@
 <!-- Flowplayer VAST config -->
 <script>
-  <?php if( ( !empty( $atts['vast_ads_time'] ) || !empty( $atts['vast_ads_tag'] ) ) && $atts['vast_disable'] != 'true' ) { ?>
+  <?php if( $atts['vast_disable'] != 'true' ) { ?>
     flowplayer_ima.conf({
       ads: [{
         time: "<?php echo esc_attr( $atts['vast_ads_time'] ); ?>",

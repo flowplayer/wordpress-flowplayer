@@ -90,11 +90,13 @@ class Flowplayer5_Frontend {
 		// Pull options
 		$options = fp5_get_settings();
 		$asf_css = ( ! empty ( $options['asf_css'] ) ? $options['asf_css'] : false );
+		$vast_css = ( ! empty ( $options['vast_css'] ) ? $options['vast_css'] : false );
 		$suffix  = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 
 		wp_register_style( 'flowplayer5-skins', trailingslashit( $this->flowplayer5_directory ) . 'skin/all-skins.css', array(), $this->player_version );
 		wp_register_style( 'flowplayer5-logo-origin', plugins_url( '/assets/css/public-concat' . $suffix . '.css', __FILE__ ), array(), $this->plugin_version );
 		wp_register_style( 'flowplayer5-asf', esc_url( $asf_css ), array(), null );
+		wp_register_style( 'flowplayer5-vast', esc_url( $vast_css ), array(), null );
 
 		// Register stylesheets
 		if ( $this->has_flowplayer_video ) {
@@ -102,6 +104,9 @@ class Flowplayer5_Frontend {
 			wp_enqueue_style( 'flowplayer5-logo-origin' );
 			if ( $asf_css ) {
 				wp_enqueue_style( 'flowplayer5-asf' );
+			}
+			if ( $vast_css ) {
+				wp_enqueue_style( 'flowplayer5-vast' );
 			}
 		}
 
