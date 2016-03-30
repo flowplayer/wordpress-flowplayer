@@ -176,6 +176,7 @@ class Flowplayer5_Video_Meta_Box {
 				'fp5-live',
 				'fp5-play-button',
 				'fp5-show-title',
+				'fp5-vast-disable'
 			);
 
 			foreach ( $checkboxes as $checkbox ) {
@@ -222,6 +223,7 @@ class Flowplayer5_Video_Meta_Box {
 				'fp5-hls-video',
 				'fp5-vtt-subtitles',
 				'fp5-description-url',
+				'fp5-vast-ads-tag'
 			);
 
 			foreach ( $urls as $url ) {
@@ -234,7 +236,22 @@ class Flowplayer5_Video_Meta_Box {
 				}
 			}
 
-			// Check, validate and save numbers
+			// Check, validate and save integers (positive or negative)
+			$integers = array(
+				'fp5-vast-ads-time'
+			);
+
+			foreach ( $integers as $integer ) {
+				if ( isset( $_POST[ $integer ] ) ) {
+					update_post_meta(
+						$post_id,
+						$integer,
+						intval( $_POST[ $integer ] )
+					);
+				}
+			}
+
+			// Check, validate and save numbers (positive only)
 			$numbers = array(
 				'fp5-max-width',
 				'fp5-width',
