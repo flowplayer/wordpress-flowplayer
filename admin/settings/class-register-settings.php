@@ -348,7 +348,33 @@ class Flowplayer5_Settings {
 					'name' => __( 'Test Mode', 'flowplayer5' ),
 					'type' => 'checkbox',
 					'desc' => __( 'Enable test mode', 'flowplayer5' ),
-				)
+				),
+
+				'vast' => array(
+					'name' => '<strong>' . __( 'VAST', 'flowplayer5' ) . '</strong> <a href="https://flowplayer.org/vast/">?</a>',
+					'desc' => __( 'Sign up for VAST for Flowplayer to be able to monetize your videos', 'flowplayer5' ). '</strong> <a href="http://flowplayer.org/vast/">' . __( 'Sign up now', 'flowplayer5' ) . '</a>',
+					'type' => 'header',
+				),
+				'vast_css' => array(
+					'name' => __( 'VAST plugin CSS', 'flowplayer5' ),
+					'type' => 'upload',
+					'button' => __( 'Add CSS file', 'flowplayer5' ),
+					'size' => 'regular',
+					'desc' => __( 'Add your custom VAST plugin CSS file', 'flowplayer5' ),
+				),
+				'vast_js' => array(
+					'name' => __( 'VAST plugin js', 'flowplayer5' ),
+					'type' => 'upload',
+					'button' => __( 'Add js file', 'flowplayer5' ),
+					'size' => 'regular',
+					'desc' => __( 'Add your custom VAST plugin javascript file', 'flowplayer5' ),
+				),
+				'vast_default_ad_tag' => array(
+					'name' => __( 'Default Tag', 'flowplayer5' ),
+					'desc' => __( 'URL of default VAST ad tag', 'flowplayer5' ),
+					'type' => 'text',
+					'size' => 'regular',
+				),
 			)
 		);
 

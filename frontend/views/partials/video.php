@@ -4,6 +4,10 @@
 		require( 'ads-script.php' );
 	} ?>
 
+	<?php if ( $atts['vast_js'] ) {
+		require( 'vast-script.php' );
+	} ?>
+
 	<?php do_action( 'fp5_video_top', $atts['id'] ); ?>
 
 	<video <?php echo self::process_data_config( $atts['video_data_config'] ); ?><?php echo self::trim_implode( $atts['attributes'] ); ?>>

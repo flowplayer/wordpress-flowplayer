@@ -15,6 +15,7 @@
 	<li class="nav-tab"><a href="#skinning"><?php _e( 'Skinning', $this->plugin_slug ) ?></a></li>
 	<li class="nav-tab"><a href="#config"><?php _e( 'Configuration', $this->plugin_slug ) ?></a></li>
 	<li class="nav-tab"><a href="#asf"><?php _e( 'Google AdSense', $this->plugin_slug ) ?></a></li>
+	<li class="nav-tab"><a href="#vast"><?php _e( 'VAST', $this->plugin_slug ) ?></a></li>
 </ul>
 <div id="media">
 	<p style="width:70%;float:left;">
@@ -314,6 +315,40 @@
 	</tbody>
 </table>
 </div>
+
+<div class="hidden" id="vast">
+<p><?php _e( 'Enable and configure VAST.', $this->plugin_slug ); ?> <a href="<?php echo esc_url( admin_url( 'edit.php?post_type=flowplayer5&page=flowplayer5_settings' ) ); ?>"><?php _e( 'Set up VAST', 'flowplayer5' ); ?></a></p>
+<table class="form-table">
+	<tbody>
+
+		<tr class="fp5-vast-ads-time" valign="top">
+			<th scope="row"><label for="fp5-vast-ads-time" class="fp5-row-title"><?php _e( 'Ads Time', $this->plugin_slug )?></label></th>
+			<td>
+				<input type="text" name="fp5-vast-ads-time" id="fp5-vast-ads-time" value="<?php if ( isset ( $fp5_stored_meta['fp5-vast-ads-time'] ) ) echo esc_attr( $fp5_stored_meta['fp5-vast-ads-time'][0] ); ?>" />
+				<?php _e( 'Time in seconds into the video. 0 for pre-roll. -1 for post-roll. Default is pre-roll.', $this->plugin_slug ); ?>
+			</td>
+		</tr>
+
+		<tr class="fp5-vast-ads-tag" valign="top">
+			<th scope="row"><label for="fp5-vast-ads-tag" class="fp5-row-title"><?php _e( 'Ad Tag', $this->plugin_slug )?></label></th>
+			<td>
+				<input type="text" name="fp5-vast-ads-tag" id="fp5-vast-ads-tag" value="<?php if ( isset ( $fp5_stored_meta['fp5-vast-ads-tag'] ) ) echo esc_url( $fp5_stored_meta['fp5-vast-ads-tag'][0] ); ?>" />
+				<?php _e( 'Ad Tag for VAST ad. Leave blank for global default ad tag.', $this->plugin_slug ); ?>
+			</td>
+		</tr>
+
+		<tr class="fp5-vast-disable" valign="top">
+			<th scope="row"><label for="fp5-vast-disable" class="fp5-row-title"><?php _e( 'Disable', $this->plugin_slug )?></label></th>
+			<td>
+				<input type="checkbox" name="fp5-vast-disable" id="fp5-vast-disable" value="true" <?php if ( isset ( $fp5_stored_meta['fp5-vast-disable'] ) ) checked( $fp5_stored_meta['fp5-vast-disable'][0], 'true' ); ?> />
+				<?php _e( 'Disable ads for this video?', $this->plugin_slug ); ?>
+			</td>
+		</tr>
+
+	</tbody>
+</table>
+</div>
+
 </div>
 
 <p>

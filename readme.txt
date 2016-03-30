@@ -57,6 +57,12 @@ The commercial version is free of Flowplayer branding and you can use your logo.
 
 [Sign up for Google AdSense for Flowplayer (ASF)](http://flowplayer.org/asf/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin)
 
+= VAST ad serving =
+
+[Video Ad Serving Template (VAST)](https://flowplayer.org/vast/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin) - With the VAST plugin you can use any VAST compatible ad server or video ad network to show video ads in Flowplayer
+
+[Sign up for VAST for Flowplayer (ASF)](https://flowplayer.org/vast/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin)
+
 
 == Other Notes ==
 

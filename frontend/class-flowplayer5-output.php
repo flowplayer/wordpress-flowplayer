@@ -196,6 +196,9 @@ class Flowplayer5_Output {
 		$play_button               = self::get_custom_fields( $custom_fields, 'fp5-play-button', $atts, 'play_button' );
 		$ads_time                  = self::get_custom_fields( $custom_fields, 'fp5-ads-time', $atts, 'ads_time' );
 		$ad_type                   = self::get_custom_fields( $custom_fields, 'fp5-ad-type', $atts, 'ad_type' );
+		$vast_ads_time						 = self::get_custom_fields( $custom_fields, 'fp5-vast-ads-time', $atts, 'vast_ads_time' );
+		$vast_ads_tag							 = self::get_custom_fields( $custom_fields, 'fp5-vast-ads-tag', $atts, 'vast_ads_tag' );
+		$vast_disable							 = self::get_custom_fields( $custom_fields, 'fp5-vast-disable', $atts, 'vast_disable' );
 		$title                     = self::get_custom_fields( $custom_fields, 'title', $atts, 'title' );
 		$return['splash']          = self::get_custom_fields( $custom_fields, 'fp5-splash-image', $atts, 'splash' );
 		$return['width']           = self::get_custom_fields( $custom_fields, 'fp5-width', $atts, 'width' );
@@ -215,7 +218,11 @@ class Flowplayer5_Output {
 		$text_origin          = ( isset( $options['text_origin'] ) ) ? $options['text_origin'] : '';
 		$asf_test             = ( isset( $options['asf_test'] ) ) ? $options['asf_test'] : '';
 		$return['asf_js']     = ( isset( $options['asf_js'] ) ) ? $options['asf_js'] : '';
+		$return['vast_js']    = ( isset( $options['vast_js'] ) ) ? $options['vast_js'] : '';
 		$return['fp_version'] = ( isset( $options['fp_version'] ) ) ? $options['fp_version'] : '';
+		// Global VAST ad tag
+		$vast_default_ad_tag 							= ( isset( $options['vast_default_ad_tag'] ) ) ? $options['vast_default_ad_tag'] : '';
+		$return['vast_default_ad_tag']    = $vast_default_ad_tag;
 
 		// Shortcode processing
 		$ratio = ( ( $return['width'] != 0 && $return['height'] != 0 ) ? intval( $return['height'] ) / intval( $return['width'] ) : '' );
@@ -329,6 +336,14 @@ class Flowplayer5_Output {
 		$ads_time           = ( isset( $ads_time ) ? $ads_time : '' );
 		$return['ads_time'] = ( 0 == $ads_time ? 0.01 : $ads_time );
 		$return['ad_type']  = ( ! empty( $ad_type ) ? esc_attr( $ad_type ) : '' );
+
+		$vast_ads_time						= ( isset( $vast_ads_time ) ? $vast_ads_time : '' );
+		$return['vast_ads_time'] 	= ( ! empty( $vast_ads_time ) ? $vast_ads_time : 0 );
+		$vast_ads_tag							= ( isset( $vast_ads_tag ) ? $vast_ads_tag : '' );
+		$vast_ads_tag							= ( empty($vast_ads_tag) ? $vast_default_ad_tag : $vast_ads_tag); // If empty fall back to the global ad tag
+		$return['vast_ads_tag']		= $vast_ads_tag;
+		$vast_disable							= ( isset( $vast_disable ) ? $vast_disable : false );
+		$return['vast_disable']		= ( ! empty( $vast_disable) ? $vast_disable : '' );
 
 		$return['source'] = array();
 		foreach ( $formats as $format => $src ) {
