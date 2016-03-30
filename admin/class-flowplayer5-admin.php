@@ -218,6 +218,12 @@ class Flowplayer5_Admin {
 					'button' => __( 'Insert JS file', $this->plugin_slug )              // This will be used as the default button text
 				)
 			);
+			wp_localize_script( $this->plugin_slug . '-settings', 'vast_css',
+				array(
+					'title'  => __( 'Upload or choose a CSS file', $this->plugin_slug ), // This will be used as the default title
+					'button' => __( 'Insert CSS file', $this->plugin_slug )              // This will be used as the default button text
+				)
+			);
 
 			wp_enqueue_media();
 

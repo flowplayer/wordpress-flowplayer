@@ -342,7 +342,7 @@ class Flowplayer5_Settings {
 					'type' => 'upload',
 					'button' => __( 'Add js file', 'flowplayer5' ),
 					'size' => 'regular',
-					'desc' => __( 'Add your custom VAST plugin javascript file', 'flowplayer5' ),
+					'desc' => __( 'Add your custom AdSense plugin javascript file', 'flowplayer5' ),
 				),
 				'asf_test' => array(
 					'name' => __( 'Test Mode', 'flowplayer5' ),
@@ -360,14 +360,14 @@ class Flowplayer5_Settings {
 					'type' => 'upload',
 					'button' => __( 'Add CSS file', 'flowplayer5' ),
 					'size' => 'regular',
-					'desc' => __( 'Add your custom AdSense plugin CSS file', 'flowplayer5' ),
+					'desc' => __( 'Add your custom VAST plugin CSS file', 'flowplayer5' ),
 				),
 				'vast_js' => array(
 					'name' => __( 'VAST plugin js', 'flowplayer5' ),
 					'type' => 'upload',
 					'button' => __( 'Add js file', 'flowplayer5' ),
 					'size' => 'regular',
-					'desc' => __( 'Add your custom AdSense plugin javascript file', 'flowplayer5' ),
+					'desc' => __( 'Add your custom VAST plugin javascript file', 'flowplayer5' ),
 				),
 				'vast_default_ad_tag' => array(
 					'name' => __( 'Default Tag', 'flowplayer5' ),

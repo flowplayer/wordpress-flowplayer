@@ -1,8 +1,4 @@
 <!-- Flowplayer single video config -->
-<?php
-$options = fp5_get_settings();
-?>
-
 <script>
 jQuery( document ).ready( function( $ ) {
 	var fpVideo<?php echo absint( $atts['id'] ); ?> = $(".flowplayer-video-<?php echo esc_attr( $atts['id'] ); ?>").flowplayer(
