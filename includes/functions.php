@@ -48,7 +48,7 @@ if ( ! function_exists( 'has_shortcode' ) ) {
 			return false;
 		}
 		if ( shortcode_exists( $tag ) ) {
-			preg_match_all( '/' . get_shortcode_regex() . '/s', $content, $matches, PREG_SET_ORDER );
+			preg_match_all( '/' . get_shortcode_regex() . '/', $content, $matches, PREG_SET_ORDER );
 			if ( empty( $matches ) )
 				return false;
 
