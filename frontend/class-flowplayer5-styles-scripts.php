@@ -24,79 +24,83 @@ if ( ! defined( 'WPINC' ) ) {
  */
 class Flowplayer5_Styles_Scripts {
 
-	/**
-	 * Initialize the plugin by setting localization, filters, and administration functions.
-	 *
-	 * @since    1.0.0
-	 */
-	public function __construct() {
-		// Load public-facing style sheet and JavaScript.
-		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles_script' ) );
-	}
+	public function run() {
+		$plugin               = Flowplayer5::get_instance();
+		$this->plugin_version = $plugin->get_plugin_version();
+		$this->player_version = $plugin->get_player_version();
+		$settings             = fp5_get_settings();
 
-	public function enqueue_styles_script() {
-		$options = $this->get_options();
-		if ( $options['has_shortcode'] ) {
-			$this->register_styles( $options );
-			$this->enqueue_styles( $options );
-			$this->register_scripts( $options );
-			$this->enqueue_scripts( $options );
+		$flowplayer_shortcode = new Flowplayer5_Shortcode();
+		$shortcodes = $flowplayer_shortcode->video_shortcode_atts();
+		if ( ! is_array( $shortcodes ) ) {
+			return;
+		}
+
+		$atts = array();
+		foreach ( $shortcodes as $shortcode ) {
+			if ( isset( $shortcode['playlist'] ) ) {
+				$playlist_id = Flowplayer5_Playlist::wp_get_split_term( $shortcode['playlist'] );
+				$atts = Flowplayer5_Playlist::get_videos_by_id( $playlist_id );
+			} else {
+				$atts[] = Flowplayer5_Parse::get_shortcode_attr( $shortcode );
+			}
+		}
+
+		$config = $this->get_config( $atts, $settings, $flowplayer_shortcode );
+
+		if ( $config['has_shortcode'] ) {
+			$this->register_styles( $config );
+			$this->enqueue_styles( $config );
+			$this->register_scripts( $config );
+			$this->enqueue_scripts( $config );
 		}
 	}
 
-	public function get_options() {
-		$plugin                   = Flowplayer5::get_instance();
-		$plugin_version           = $plugin->get_plugin_version();
-		$player_version           = $plugin->get_player_version();
-		$flowplayer_shortcode     = new Flowplayer5_Shortcode();
-		$has_flowplayer_shortcode = $flowplayer_shortcode->flowplayer_shortcode_atts();
-		$flowplayer_output        = new Flowplayer5_Output();
-		$shortcode_attr           = $flowplayer_output->video_atts( $has_flowplayer_shortcode );
-		$settings                 = fp5_get_settings();
-
-		$options = array(
-			'cdn'            => isset( $settings['cdn_option'] ) ? $settings['cdn_option'] : false,
-			'key'            => ! empty ( $settings['key'] ) ? $settings['key'] : '',
-			'fp_dir'         => ! empty ( $settings['directory'] ) ? $settings['directory'] : '',
-			'fp_6'           => ( isset( $settings['fp_version'] ) && 'fp6' === $settings['fp_version'] ) ? '-v6' : '',
-			'suffix'         => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min',
-			'hls_dep'        => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? array( 'flowplayer5-script', 'hlsjs' ) : array( 'flowplayer5-script' ),
-			'is_hls'         => $flowplayer_shortcode->has_feature( 'application/x-mpegurl', $flowplayer_shortcode->get_video_meta_value( 'formats', $shortcode_attr ) ) && $flowplayer_shortcode->get_video_meta_value( 'hls_plugin', $shortcode_attr ),
-			'is_lightbox'    => $flowplayer_shortcode->get_video_meta_value( 'lightbox', $shortcode_attr ),
-			'has_shortcode'  => $has_flowplayer_shortcode,
-			'qualities'      => $flowplayer_shortcode->get_video_qualities( $shortcode_attr ),
-			'asf_js'         => ! empty ( $settings['asf_js'] ) ? $settings['asf_js'] : false,
-			'asf_css'        => ! empty ( $settings['asf_css'] ) ? $settings['asf_css'] : false,
-			'vast_js'        => ! empty ( $settings['vast_js'] ) ? $settings['vast_js'] : false,
-			'vast_css'       => ! empty ( $settings['vast_css'] ) ? $settings['vast_css'] : false,
-			'qs_dir'         => ! empty ( isset( $settings['fp_version'] ) && 'fp6' === $settings['fp_version'] ) ? 'quality-selector/flowplayer.' : 'drive/',
-			'plugin_version' => $plugin_version,
-			'player_version' => $player_version,
+	public function get_config( $atts, $settings, $flowplayer_shortcode ) {
+		$first_video = reset( $atts );
+		$config = array(
+			'plugin_version'   => $this->plugin_version,
+			'player_version'   => $this->player_version,
+			'cdn'              => ! empty ( $settings['cdn_option'] ) ? $settings['cdn_option'] : false,
+			'key'              => ! empty ( $settings['key'] ) ? $settings['key'] : false,
+			'fp_dir'           => ! empty ( $settings['directory'] ) ? $settings['directory'] : false,
+			'asf_js'           => ! empty ( $settings['asf_js'] ) ? $settings['asf_js'] : false,
+			'asf_css'          => ! empty ( $settings['asf_css'] ) ? $settings['asf_css'] : false,
+			'vast_js'          => ! empty ( $settings['vast_js'] ) ? $settings['vast_js'] : false,
+			'vast_css'         => ! empty ( $settings['vast_css'] ) ? $settings['vast_css'] : false,
+			'suffix'           => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min',
+			'hls_dep'          => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? array( 'flowplayer5-script', 'hlsjs' ) : array( 'flowplayer5-script' ),
+			'has_shortcode'    => $flowplayer_shortcode->has_flowplayer_shortcode(),
+			'is_hls'           => $flowplayer_shortcode->get_attr_value( 'application/x-mpegurl', $atts ) && $flowplayer_shortcode->get_attr_value( 'hls_plugin', $atts ),
+			'is_lightbox'      => $flowplayer_shortcode->get_attr_value( 'lightbox', $atts ) && ! isset( $first_video['playlist'] ),
+			'qualities'        => $flowplayer_shortcode->get_video_qualities( $atts ),
+			'qs_dir'           => 'fp6' === $settings['fp_version'] ? 'quality-selector/flowplayer.' : 'drive/',
+			'fp_6'             => 'fp6' === $settings['fp_version'] ? '-v6' : '',
+			'fp_directory'     => trailingslashit( $this->get_flowplayer_directory( $settings ) ),
+			'assets_directory' => trailingslashit( $this->get_assets_directory( $settings ) ),
 		);
-		$options['flowplayer_directory'] = trailingslashit( $this->get_flowplayer_directory( $options ) );
-		$options['assets_directory']     = trailingslashit( $this->get_assets_directory( $options ) );
 
-		return $options;
+		return $config;
 	}
 
-	public function get_flowplayer_directory( $options = array()  ) {
+	private function get_flowplayer_directory( $settings = array()  ) {
 		$flowplayer5_commercial = trailingslashit( WP_CONTENT_DIR ) . 'flowplayer-commercial';
 
-		if ( is_file( $flowplayer5_commercial ) && ! $options['cdn'] && $options['key'] ) {
+		if ( is_file( $flowplayer5_commercial ) && ! $settings['cdn'] && $settings['key'] ) {
 			$flowplayer5_directory = $flowplayer5_commercial;
-		} elseif ( $options['fp_dir'] ) {
-			$flowplayer5_directory = $options['fp_dir'];
-		} elseif ( $options['cdn'] && ! $options['key'] ) {
-			$flowplayer5_directory = plugins_url( '/assets/flowplayer' . $options['fp_6'], __FILE__  );
+		} elseif ( ! empty( $settings['directory'] ) ) {
+			$flowplayer5_directory = $settings['directory'];
+		} elseif ( $settings['cdn_option'] && ! $settings['key'] ) {
+			$flowplayer5_directory = plugins_url( '/assets/flowplayer' . $settings['fp_6'], __FILE__  );
 		} else {
-			$flowplayer5_directory = '//releases.flowplayer.org/' . $options['player_version'] . '/'. ( $options['key'] ? 'commercial' : '' );
+			$flowplayer5_directory = '//releases.flowplayer.org/' . $this->player_version . '/'. ( $settings['key'] ? 'commercial' : '' );
 		}
 
 		return apply_filters( 'flowplayer_directory', $flowplayer5_directory );
 	}
 
-	public function get_assets_directory( $options = array() ) {
-		if ( $options['cdn'] ) {
+	private function get_assets_directory( $settings ) {
+		if ( $settings['cdn_option'] ) {
 			$assets_directory = '//releases.flowplayer.org/';
 		} else {
 			$assets_directory = plugins_url( '/assets', __FILE__ );
@@ -109,12 +113,12 @@ class Flowplayer5_Styles_Scripts {
 	 *
 	 * @since    1.0.0
 	 */
-	public function register_styles( $options = array() ) {
+	private function register_styles( $config ) {
 		// Register stylesheets
-		wp_register_style( 'flowplayer5-skins', $options['flowplayer_directory'] . 'skin/all-skins.css', array(), $options['plugin_version'] );
-		wp_register_style( 'flowplayer5-logo-origin', plugins_url( '/assets/css/public-concat' . $options['suffix'] . '.css', __FILE__ ), array(), $options['plugin_version'] );
-		wp_register_style( 'flowplayer5-asf', esc_url( $options['asf_css'] ), array(), null );
-		wp_register_style( 'flowplayer5-vast', esc_url( $options['vast_css'] ), array(), null );
+		wp_register_style( 'flowplayer5-skins', $config['fp_directory'] . 'skin/all-skins.css', array(), $config['plugin_version'] );
+		wp_register_style( 'flowplayer5-logo-origin', plugins_url( '/assets/css/public-concat' . $config['suffix'] . '.css', __FILE__ ), array(), $config['plugin_version'] );
+		wp_register_style( 'flowplayer5-asf', esc_url( $config['asf_css'] ), array(), null );
+		wp_register_style( 'flowplayer5-vast', esc_url( $config['vast_css'] ), array(), null );
 	}
 
 	/**
@@ -122,10 +126,10 @@ class Flowplayer5_Styles_Scripts {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_styles( $options = array() ) {
+	private function enqueue_styles( $config ) {
 		wp_enqueue_style( 'flowplayer5-skins' );
 		wp_enqueue_style( 'flowplayer5-logo-origin' );
-		if ( $options['asf_css'] ) {
+		if ( $config['asf_css'] ) {
 			wp_enqueue_style( 'flowplayer5-asf' );
 		}
 	}
@@ -135,16 +139,16 @@ class Flowplayer5_Styles_Scripts {
 	 *
 	 * @since    1.0.0
 	 */
-	public function register_scripts( $options = array() ) {
+	private function register_scripts( $config ) {
 		// Register JavaScript so that they can be enqueued later
- 		wp_register_script( 'flowplayer5-script', $options['flowplayer_directory'] . 'flowplayer' . $options['suffix'] . '.js', array( 'jquery' ), $options['plugin_version'], false );
+ 		wp_register_script( 'flowplayer5-script', $config['fp_directory'] . 'flowplayer' . $config['suffix'] . '.js', array( 'jquery' ), $config['plugin_version'], false );
 		wp_register_script( 'flowplayer5-ima3', '//s0.2mdn.net/instream/html5/ima3.js', array(), null, false );
-		wp_register_script( 'flowplayer5-asf', esc_url( $options['asf_js'] ), array( 'flowplayer5-ima3' ), null, false );
-		wp_register_script( 'flowplayer5-vast', esc_url( $options['vast_js'] ), array(), null, false );
-		wp_register_script( 'hlsjs', $options['assets_directory'] . 'hlsjs/hls.js', array(), null, false );
-		wp_register_script( 'flowplayer5-hlsjs', $options['assets_directory'] . 'hlsjs/flowplayer.hlsjs' . $options['suffix'] . '.js', $options['hls_dep'], '0456f85', false );
-		wp_register_script( 'flowplayer5-quality-selector', $options['assets_directory'] . $options['qs_dir'] . 'quality-selector' . $options['suffix'] . '.js', array( 'flowplayer5-script' ), $options['plugin_version'], false );
-		wp_register_script( 'magnific-popup', plugins_url( '/assets/magnific-popup/magnific-popup' . $options['suffix'] . '.js', __FILE__ ), array( 'jquery' ), '1.0.0', false );
+		wp_register_script( 'flowplayer5-asf', esc_url( $config['asf_js'] ), array( 'flowplayer5-ima3' ), null, false );
+		wp_register_script( 'flowplayer5-vast', esc_url( $config['vast_js'] ), array(), null, false );
+		wp_register_script( 'hlsjs', $config['assets_directory'] . 'hlsjs/hls.js', array(), null, false );
+		wp_register_script( 'flowplayer5-hlsjs', $config['assets_directory'] . 'hlsjs/flowplayer.hlsjs' . $config['suffix'] . '.js', $config['hls_dep'], '0456f85', false );
+		wp_register_script( 'flowplayer5-quality-selector', $config['assets_directory'] . $config['qs_dir'] . 'quality-selector' . $config['suffix'] . '.js', array( 'flowplayer5-script' ), $config['plugin_version'], false );
+		wp_register_script( 'magnific-popup', plugins_url( '/assets/magnific-popup/magnific-popup' . $config['suffix'] . '.js', __FILE__ ), array( 'jquery' ), '1.0.0', false );
 
 	}
 
@@ -153,18 +157,18 @@ class Flowplayer5_Styles_Scripts {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_scripts( $options = array() ) {
+	private function enqueue_scripts( $config ) {
 		wp_enqueue_script( 'flowplayer5-script' );
-		if ( $options['is_hls'] && $options['fp_6'] ){
+		if ( $config['is_hls'] && $config['fp_6'] ){
 			wp_enqueue_script( 'flowplayer5-hlsjs' );
 		}
-		if ( $options['asf_js'] ){
+		if ( $config['asf_js'] ){
 			wp_enqueue_script( 'flowplayer5-asf' );
 		}
-		if ( $options['qualities'] ){
+		if ( $config['qualities'] ){
 			wp_enqueue_script( 'flowplayer5-quality-selector' );
 		}
-		if ( $options['is_lightbox'] ){
+		if ( $config['is_lightbox'] ){
 			wp_enqueue_script( 'magnific-popup' );
 		}
 	}

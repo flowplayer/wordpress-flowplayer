@@ -35,7 +35,7 @@ class Flowplayer5_Playlist implements Flowplayer5_IPlaylist {
 			while ( $query->have_posts() ) {
 				$query->the_post();
 				$video['id']                                       = get_the_ID();
-				$videos[ 'id' . $video['id'] ]                     = Flowplayer5_Output::get_shortcode_attr( $video );
+				$videos[ 'id' . $video['id'] ]                     = Flowplayer5_Parse::get_shortcode_attr( $video );
 				$videos[ 'id' . $video['id'] ]['content']          = get_the_content();
 				$videos[ 'id' . $video['id'] ]['playlist']         = $this->get_id();
 				$videos[ 'id' . $video['id'] ]['playlist_options'] = $this->get_term_meta( $this->get_id() );

@@ -23,26 +23,6 @@ if ( ! defined( 'WPINC' ) ) {
 class Flowplayer5_Taxonomy_Meta {
 
 	/**
-	 * Initializes the differnt functions
-	 *
-	 * @since     1.9.0
-	 */
-	public function __construct() {
-
-		add_action( 'admin_head-edit-tags.php', array( $this, 'remove_category_fields' ) );
-		add_action( 'save_post', array( $this, 'video_save' ), 10, 2 );
-		add_action( 'edited_playlist', array( $this, 'save_taxonomy_custom_meta' ), 10, 2 );
-		add_action( 'create_playlist', array( $this, 'save_taxonomy_custom_meta' ), 10, 2 );
-		add_action( 'playlist_add_form_fields', array( $this, 'taxonomy_add_new_meta_field' ), 10, 2 );
-		add_action( 'delete_playlist', array( $this, 'taxonomy_delete_meta_field' ), 10, 2 );
-		add_action( 'playlist_edit_form_fields', array( $this, 'taxonomy_edit_meta_field' ), 10, 2 );
-		add_filter( 'manage_edit-playlist_columns', array( $this, 'add_playlist_columns' ) );
-		add_filter( 'manage_playlist_custom_column', array( $this, 'add_playlist_column_content' ), 10, 3 );
-		add_action( 'split_shared_term', array( $this, 'update_playlist_order_for_split_terms' ), 10, 4 );
-
-	}
-
-	/**
 	 * Remove redudant fields.
 	 *
 	 * Remove the description field and parent selectbox

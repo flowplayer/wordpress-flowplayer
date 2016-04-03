@@ -10,10 +10,10 @@ $video_formats = array(
 foreach ( $atts as $video_id => $video ) {
 	$sources = array();
 	foreach ( $video_formats as $format => $type ) {
-		if ( ! empty( $video['src'][ $type ] ) ) {
+		if ( ! empty( $video['formats'][ $type ] ) ) {
 			$sources[] = array(
 				'type' => esc_attr( $type ),
-				'src' => esc_attr( $video['src'][ $type ] ),
+				'src' => esc_attr( $video['formats'][ $type ] ),
 			);
 		}
 	}

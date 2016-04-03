@@ -25,21 +25,6 @@ if ( ! defined( 'WPINC' ) ) {
 class Flowplayer5_Frontend {
 
 	/**
-	 * Initialize the plugin by setting localization, filters, and administration functions.
-	 *
-	 * @since    1.0.0
-	 */
-	public function __construct() {
-
-		// Filter video output to video post
-		add_filter( 'the_content',  array( $this, 'get_video_output' ) );
-
-		// Load script for Flowplayer global configuration
-		add_action( 'wp_head', array( $this, 'global_config_script' ) );
-
-	}
-
-	/**
 	 * Add video to Video post
 	 *
 	 * Add video html to flowplayer video posts

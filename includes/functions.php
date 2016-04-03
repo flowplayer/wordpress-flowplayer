@@ -24,8 +24,8 @@ if ( ! defined( 'WPINC' ) ) {
  * @return array string Player markup.
  */
 function fp5_video_output( $atts ) {
-	$flowplayer5_output = new Flowplayer5_Output;
-	return $flowplayer5_output->player_output( $atts );
+	$render = new Flowplayer5_Render;
+	return $render->player_render( $atts );
 }
 
 /**
@@ -62,40 +62,6 @@ if ( ! function_exists( 'has_shortcode' ) ) {
 		}
 		return false;
 	}
-}
-
-/**
- * Whether the passed content contains the specified shortcode and return args
- *
- * @since 1.10.0
- *
- * @param string $content Content to search for shortcodes.
- * @param string $tag     Shortcode tag to check.
- * @return false|array
- */
-function fp5_has_shortcode_arg( $content, $tag ) {
-
-	if ( false === strpos( $content, '[' ) ) {
-		return false;
-	}
-
-	if ( shortcode_exists( $tag ) ) {
-		preg_match_all( '/' . get_shortcode_regex() . '/s', $content, $matches, PREG_SET_ORDER );
-
-		if ( empty( $matches ) ) {
-			return false;
-		}
-		$shortcode_arg = false;
-		foreach ( $matches as $shortcode ) {
-			if ( $tag === $shortcode[2] ) {
-				$shortcode_arg[] = shortcode_parse_atts( $shortcode[3] );
-			} elseif ( ! empty( $shortcode[5] ) && has_shortcode( $shortcode[5], $tag ) ) {
-				$shortcode_arg = fp5_has_shortcode_arg( $shortcode[5], $tag );
-			}
-		}
-		return $shortcode_arg;
-	}
-	return false;
 }
 
 /**

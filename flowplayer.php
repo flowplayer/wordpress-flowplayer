@@ -32,6 +32,7 @@ if ( ! defined( 'FP5_PLUGIN_FILE' ) )
 $dir = dirname( __FILE__ );
 
 require_once( $dir . '/includes/class-flowplayer5.php' );
+require_once( $dir . '/includes/class-flowplayer5-plugin.php' );
 require_once( $dir . '/includes/class-flowplayer5-widget.php' );
 require_once( $dir . '/includes/class-register-post-type.php' );
 require_once( $dir . '/includes/class-register-taxonomy.php' );
@@ -64,6 +65,7 @@ if ( is_admin() ) {
 	require_once( $dir . '/frontend/class-flowplayer5-playlist.php' );
 	require_once( $dir . '/frontend/class-flowplayer5-output.php' );
 	require_once( $dir . '/frontend/class-flowplayer5-shortcode.php' );
+	require_once( $dir . '/frontend/class-flowplayer5-parse.php' );
 }
 
 // Register hooks that are fired when the plugin is activated, deactivated, and uninstalled, respectively.
@@ -71,21 +73,16 @@ register_activation_hook( __FILE__, array( 'Flowplayer5', 'activate' ) );
 register_deactivation_hook( __FILE__, array( 'Flowplayer5', 'deactivate' ) );
 
 Flowplayer5::get_instance();
+
+$plugin = new Flowplayer5_Plugin();
+$plugin->run();
+
 Flowplayer5_Post_Type::get_instance();
 Flowplayer5_Taxonomy::get_instance();
-new Flowplayer5_Sanitize_Settings();
 
 if ( is_admin() ) {
-
-	if( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
+	if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
 		Flowplayer5_Admin::get_instance();
 		Flowplayer5_Video_Meta_Box::get_instance();
-		$flowplayer_drive = new Flowplayer_Drive();
-		add_action( 'plugins_loaded', array( $flowplayer_drive, 'run' ) );
-		new Flowplayer5_Taxonomy_Meta();
 	}
-} else {
-	new Flowplayer5_Frontend();
-	new Flowplayer5_Shortcode();
-	new Flowplayer5_Styles_Scripts();
 }

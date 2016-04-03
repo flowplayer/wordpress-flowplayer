@@ -1,22 +1,23 @@
 <?php
-	$video_formats = array(
-		'wemb'  => 'video/webm',
-		'mp4'   => 'video/mp4',
-		'ogg'   => 'video/ogg',
-		'flash' => 'video/flash',
-	);
-	// https://flowplayer.org/v5docs/playlist.html#javascript-playlists
-	foreach ( $atts as $video_id => $video ) {
-		$sources = array();
-		foreach ( $video_formats as $format => $type ) {
-			if ( ! empty( $video['src'][ $type ] ) ) {
-				$sources[] = array(
-					esc_attr( $format ) => esc_attr( $video['src'][ $type ] ),
-				);
-			}
+$video_formats = array(
+	'wemb'  => 'video/webm',
+	'mp4'   => 'video/mp4',
+	'ogg'   => 'video/ogg',
+	'flash' => 'video/flash',
+);
+
+// https://flowplayer.org/v5docs/playlist.html#javascript-playlists
+foreach ( $atts as $video_id => $video ) {
+	$sources = array();
+	foreach ( $video_formats as $format => $type ) {
+		if ( ! empty( $video['formats'][ $type ] ) ) {
+			$sources[] = array(
+				esc_attr( $format ) => esc_attr( $video['formats'][ $type ] ),
+			);
 		}
-		$return[] = $sources;
 	}
+	$return[] = $sources;
+}
 ?>
 <script>
 (function($) {
