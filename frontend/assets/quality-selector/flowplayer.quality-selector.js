@@ -7,7 +7,7 @@
    Released under the MIT License:
    http://www.opensource.org/licenses/mit-license.php
 
-   revision: cc55c62
+   revision: 4f2e08f
 
 */
 
@@ -28,9 +28,10 @@
     }
 
     flowplayer.bean.on(root, 'click', '.fp-quality-selector li', function(ev) {
-      if (!/\bactive\b/.test(this.className)) {
+      var elem = ev.currentTarget;
+      if (!common.hasClass(elem, 'active')) {
         var currentTime = api.finished ? 0 : api.video.time
-         ,  quality = ev.currentTarget.getAttribute('data-quality')
+         ,  quality = elem.getAttribute('data-quality')
          ,  src;
         src = processClip(api.video, quality);
         api.quality = quality;
@@ -49,7 +50,7 @@
       }
     });
 
-    api.bind('load', function(ev, api, video) {
+    api.on('load', function(ev, api, video) {
       api.qualities = video.qualities || api.conf.qualities || [];
       api.defaultQuality = video.defaultQuality || api.conf.defaultQuality;
       if (typeof api.qualities === 'string') api.qualities = api.qualities.split(',');
@@ -61,9 +62,8 @@
         api.loading = false;
         api.load(newClip);
       }
-    });
 
-    api.bind('ready', function(ev, api, video) {
+    }).on('ready', function(ev, api, video) {
       var quality = /mpegurl/i.test(video.type) ? 'abr' :  getQualityFromSrc(video.src, api.qualities) || Math.min(video.height, video.width) + 'p';
       removeAllQualityClasses();
       common.addClass(root, 'quality-' + quality);
@@ -79,10 +79,11 @@
       api.qualities.forEach(function(q) {
         selector.appendChild(common.createElement('li', {'data-quality': q, 'class': q == quality ? 'active': ''}, q));
       });
-    });
-    api.bind('unload', function() {
+
+    }).on('unload', function() {
       removeAllQualityClasses();
       common.removeNode(common.find('.fp-quality-selector', root)[0]);
+
     });
 
 
@@ -107,6 +108,7 @@
 
     function removeAllQualityClasses() {
       if (!api.qualities || !api.qualities.length) return;
+      common.removeClass(root, 'quality-abr');
       api.qualities.forEach(function(quality) {
         common.removeClass(root, 'quality-' + quality);
       });
