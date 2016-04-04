@@ -133,6 +133,7 @@ class Flowplayer5_Shortcode {
 	}
 
 	public function get_video_qualities( $atts ) {
+		// Use `fp5_filter_has_shortcode` instead and define the video id.
 		return apply_filters( 'fp5_filter_video_qualities', $this->get_attr_value( 'qualities', $atts ) );
 	}
 
