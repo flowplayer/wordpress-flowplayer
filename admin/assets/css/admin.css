@@ -244,6 +244,15 @@ li.ui-tabs-active,
 }
 
 /*
+ * Playlist taxonomy styles
+ */
+/* Only works WP 4.1+ */
+.taxonomy-playlist .term-parent-wrap,
+.taxonomy-playlist .term-description-wrap{
+	display: none;
+}
+
+/*
  * Sortable videos
 */
 .taxonomy-playlist .fp5-product-order li {

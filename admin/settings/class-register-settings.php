@@ -32,9 +32,12 @@ class Flowplayer5_Settings {
 		$settings_array = $this->get_registered_settings();
 		foreach( $settings_array as $section => $setting ) {
 			if ( isset( $setting['title'] ) ) {
-				continue;
+				unset( $setting['title'] );
 			}
-			$defaults = array_merge( $defaults, array_fill_keys( $setting, '' ) ) ;
+			foreach ( $setting as $setting_name => $setting_config ) {
+				$setting_names[ $setting_name ] = '';
+			}
+			$defaults = array_merge( $setting_names, $defaults ) ;
 		}
 		return apply_filters( 'fp5_option_defaults', $defaults );
 	}

@@ -238,7 +238,7 @@ class Flowplayer5_Admin {
 		}
 
 		// Only run on new and edit post screens
-		if ( $screen->base == 'edit-tags' ) {
+		if ( 'edit-playlist' === $screen->id ) {
 			wp_enqueue_script( 'jquery-ui-sortable' );
 		}
 

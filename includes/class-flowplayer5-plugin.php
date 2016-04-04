@@ -29,6 +29,8 @@ class Flowplayer5_Plugin {
 
 		$taxonomy_meta = new Flowplayer5_Taxonomy_Meta();
 		add_action( 'admin_head-edit-tags.php', array( $taxonomy_meta, 'remove_category_fields' ) );
+		add_action( 'admin_head-edit-tags.php', array( $taxonomy_meta, 'init_sortable' ) );
+		add_action( 'admin_head-term.php', array( $taxonomy_meta, 'init_sortable' ) );
 		add_action( 'save_post', array( $taxonomy_meta, 'video_save' ), 10, 2 );
 		add_action( 'edited_playlist', array( $taxonomy_meta, 'save_taxonomy_custom_meta' ), 10, 2 );
 		add_action( 'create_playlist', array( $taxonomy_meta, 'save_taxonomy_custom_meta' ), 10, 2 );

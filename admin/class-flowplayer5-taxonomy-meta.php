@@ -33,7 +33,8 @@ class Flowplayer5_Taxonomy_Meta {
 
 		$screen = get_current_screen();
 
-		if ( 'playlist' != $screen->taxonomy ) {
+		// Run if lower then WP 4.1 and on edit-tags.php pages
+		if ( 'edit-playlist' !== $screen->id || version_compare( $GLOBALS['wp_version'], '4.1-beta1', '>' ) ) {
 			return;
 		}
 
@@ -45,12 +46,35 @@ class Flowplayer5_Taxonomy_Meta {
 			$parent = 'parent().parent()';
 		}
 
+
 		?>
 			<script type="text/javascript">
 				jQuery(document).ready(function($) {
 					$('label[for=parent]').<?php echo $parent; ?>.remove();
 					$('label[for=tag-description]').<?php echo $parent; ?>.remove();
 					$('textarea[id=description]').<?php echo $parent; ?>.remove();
+				});
+			</script>
+		<?php
+	}
+
+	/**
+	 * initialize sortable videos.
+	 *
+	 * @since     2.0.0
+	 */
+	public function init_sortable() {
+
+		$screen = get_current_screen();
+
+		// Run only on edit-tags.php before 4.5 and after only on term.php for playlists
+		if ( 'edit-playlist' !== $screen->id || 'admin_head-edit-tags.php' === current_filter() && version_compare( $GLOBALS['wp_version'], '4.5-beta3', '>' ) ) {
+			return;
+		}
+
+		?>
+			<script type="text/javascript">
+				jQuery(document).ready(function($) {
 					jQuery('.fp5-product-order').sortable();
 				});
 			</script>
