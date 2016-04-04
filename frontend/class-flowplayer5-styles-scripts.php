@@ -20,7 +20,7 @@ if ( ! defined( 'WPINC' ) ) {
  * @package Flowplayer5_Frontend
  * @author  Ulrich Pogson <ulrich@pogson.ch>
  *
- * @since 1.14.0
+ * @since 2.0.0
  */
 class Flowplayer5_Styles_Scripts {
 

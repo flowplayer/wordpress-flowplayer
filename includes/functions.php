@@ -79,7 +79,7 @@ function fp5_get_settings() {
 /**
  * Display post categories form fields.
  *
- * @since 1.14.0
+ * @since 2.0.0
  *
  * @todo Create taxonomy-agnostic wrapper for this.
  *
