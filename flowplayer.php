@@ -74,8 +74,9 @@ register_deactivation_hook( __FILE__, array( 'Flowplayer5', 'deactivate' ) );
 
 Flowplayer5::get_instance();
 
-$plugin = new Flowplayer5_Plugin();
-$plugin->run();
+// Don't use $plugins as it is not supported before WP 4.0 See: #28102
+$fp5_plugin = new Flowplayer5_Plugin();
+$fp5_plugin->run();
 
 Flowplayer5_Post_Type::get_instance();
 Flowplayer5_Taxonomy::get_instance();
