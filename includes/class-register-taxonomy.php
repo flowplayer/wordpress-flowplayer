@@ -102,6 +102,7 @@ class Flowplayer5_Taxonomy {
 			'show_in_nav_menus'          => true,
 			'show_tagcloud'              => false,
 			'query_var'                  => 'playlist',
+			'meta_box_cb'                => 'fp5_playlist_meta_box',
 			'rewrite'                    => $rewrite,
 		);
 

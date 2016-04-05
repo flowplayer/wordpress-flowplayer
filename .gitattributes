@@ -5,3 +5,4 @@ Gruntfile.js export-ignore
 package.json export-ignore
 build.xml export-ignore
 codesniffer.ruleset.xml export-ignore
+composer.json export-ignore

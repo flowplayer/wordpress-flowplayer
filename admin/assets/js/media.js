@@ -4,7 +4,7 @@
  * @package   Flowplayer 5 for Wordpress
  * @author    Ulrich Pogson <ulrich@pogson.ch>
  * @license   GPL-2.0+
- * @link      http://flowplayer.org/
+ * @link      https://flowplayer.org/
  * @copyright 2013 Flowplayer Ltd
 
  * @since    1.0.0
@@ -103,6 +103,12 @@ jQuery(document).ready(function ($) {
     });
     $('.choose-video').click(function () {
         var that = $(this);
+        var hlsCheckbox;
+        if( that.attr('data-hls').length > 0 ){
+            hlsCheckbox = true;
+        } else {
+            hlsCheckbox = false;
+        }
         $('input#fp5-splash-image').val(that.attr('data-img'));
         $('input#fp5-mp4-video').val(that.attr('data-mp4'));
         $('input#fp5-hls-video').val(that.attr('data-hls'));
@@ -114,6 +120,7 @@ jQuery(document).ready(function ($) {
         $('input#fp5-data-rtmp').val(that.attr('data-rtmp'));
         $('input#fp5-qualities').val(that.attr('data-qualities'));
         $('input#fp5-default-quality').val(that.attr('data-default-quality'));
+        $("input#fp5-hls-plugin").prop('checked',hlsCheckbox);
         $("input[name='post_title']").val(that.attr('data-video-name'));
         $("#title-prompt-text").addClass('screen-reader-text');
         $.colorbox.close();
@@ -136,12 +143,12 @@ jQuery(document).ready(function ($) {
             className: 'media-frame fp5-media-frame',
             frame: 'select',
             multiple: false,
-            title: splash_image.title,
+            title: fp5_splash_image.title,
             library: {
                 type: 'image'
             },
             button: {
-                text: splash_image.button
+                text: fp5_splash_image.button
             }
         });
 
@@ -172,12 +179,12 @@ jQuery(document).ready(function ($) {
             className: 'media-frame fp5-media-frame',
             frame: 'select',
             multiple: false,
-            title: mp4_video.title,
+            title: fp5_mp4_video.title,
             library: {
                 type: 'video/mp4'
             },
             button: {
-                text: mp4_video.button
+                text: fp5_mp4_video.button
             }
         });
 
@@ -204,12 +211,12 @@ jQuery(document).ready(function ($) {
             className: 'media-frame fp5-media-frame',
             frame: 'select',
             multiple: false,
-            title: webm_video.title,
+            title: fp5_webm_video.title,
             library: {
                 type: 'video/webm'
             },
             button: {
-                text: webm_video.button
+                text: fp5_webm_video.button
             }
         });
 
@@ -238,12 +245,12 @@ jQuery(document).ready(function ($) {
             className: 'media-frame fp5-media-frame',
             frame: 'select',
             multiple: false,
-            title: ogg_video.title,
+            title: fp5_ogg_video.title,
             library: {
                 type: 'video/ogg'
             },
             button: {
-                text: ogg_video.button
+                text: fp5_ogg_video.button
             }
         });
 
@@ -273,12 +280,12 @@ jQuery(document).ready(function ($) {
             className: 'media-frame fp5-media-frame',
             frame: 'select',
             multiple: false,
-            title: flash_video.title,
+            title: fp5_flash_video.title,
             library: {
                 type: ['video/mp4', 'video/x-flv']
             },
             button: {
-                text: flash_video.button
+                text: fp5_flash_video.button
             }
         });
 
@@ -306,18 +313,19 @@ jQuery(document).ready(function ($) {
             className: 'media-frame fp5-media-frame',
             frame: 'select',
             multiple: false,
-            title: hls_video.title,
+            title: fp5_hls_video.title,
             library: {
                 type: ['application/x-mpegurl']
             },
             button: {
-                text: hls_video.button
+                text: fp5_hls_video.button
             }
         });
 
         fp5_hls_frame.on('select', function () {
             var media_attachment = fp5_hls_frame.state().get('selection').first().toJSON();
             $('#fp5-hls-video').val(media_attachment.url);
+            switchHLSCheckbox(media_attachment.url);
             CreatePreview();
         });
         fp5_hls_frame.open();
@@ -338,12 +346,12 @@ jQuery(document).ready(function ($) {
             className: 'media-frame fp5-media-frame',
             frame: 'select',
             multiple: false,
-            title: webvtt.title,
+            title: fp5_webvtt.title,
             library: {
                 type: 'text/vtt'
             },
             button: {
-                text: webvtt.button
+                text: fp5_webvtt.button
             }
         });
 
@@ -357,4 +365,46 @@ jQuery(document).ready(function ($) {
         fp5_webvtt_frame.open();
     });
 
+    // Check HLS if the setting has not been set. For existing videos that do not have the setting set.
+    if ($(".fp5-hls-notset").length > 0){
+        switchHLSCheckbox($("#fp5-hls-video").val());
+    }
+
 });
+
+// Check if HLS supports CORS
+var createCORSRequest = function(method, url) {
+  var xhr = new XMLHttpRequest();
+  if ("withCredentials" in xhr) {
+    // Most browsers.
+    xhr.open(method, url, true);
+  } else if (typeof XDomainRequest != "undefined") {
+    // IE8 & IE9
+    xhr = new XDomainRequest();
+    xhr.open(method, url);
+  } else {
+    // CORS not supported.
+    xhr = null;
+  }
+  return xhr;
+};
+
+var switchHLSCheckbox = function(url) {
+  var checkbox = document.getElementById("fp5-hls-plugin");
+  if( url.length > 0 ) {
+    var method = 'GET';
+    var xhr = createCORSRequest(method, url);
+
+    xhr.onload = function() {
+      checkbox.checked = true;
+    };
+
+    xhr.onerror = function() {
+      checkbox.checked = false;
+    };
+
+    xhr.send();
+  } else {
+      checkbox.checked = false;
+  }
+};

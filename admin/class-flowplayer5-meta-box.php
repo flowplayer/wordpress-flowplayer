@@ -5,7 +5,7 @@
  * @package   Flowplayer5_Video_Meta_Box
  * @author    Ulrich Pogson <ulrich@pogson.ch>
  * @license   GPL-2.0+
- * @link      http://flowplayer.org/
+ * @link      https://flowplayer.org/
  * @copyright 2013 Flowplayer Ltd
  */
 
@@ -78,6 +78,8 @@ class Flowplayer5_Video_Meta_Box {
 		// Setup the function responsible for saving
 		add_action( 'save_post', array( $this, 'save_fp5_video_details' ) );
 
+		add_filter( 'default_hidden_meta_boxes', array( $this, 'default_hidden_meta_boxes' ), 10, 2 );
+
 	}
 
 	/**
@@ -125,7 +127,7 @@ class Flowplayer5_Video_Meta_Box {
 			array( $this, 'display_video_meta_box' ),
 			'flowplayer5',
 			'normal',
-			'default'
+			'high'
 		);
 
 	}
@@ -144,6 +146,14 @@ class Flowplayer5_Video_Meta_Box {
 				'fp5-preload' => array( 'metadata' )
 			) )
 		);
+		// https://core.trac.wordpress.org/ticket/15030
+		$fp5_ads = isset( $fp5_stored_meta['fp5_ads'][0] ) ? maybe_unserialize( $fp5_stored_meta['fp5_ads'][0] ) : array();
+		if ( isset( $fp5_stored_meta['fp5-ad-type'][0] ) ) {
+			$fp5_ads[0]['fp5-ad-type'] = $fp5_stored_meta['fp5-ad-type'][0];
+		}
+		if ( isset( $fp5_stored_meta['fp5-ads-time'][0] ) ) {
+			$fp5_ads[0]['fp5-ads-time'] = $fp5_stored_meta['fp5-ads-time'][0];
+		}
 
 		include_once( plugin_dir_path( __FILE__ ) . 'views/display-video-meta-box.php' );
 
@@ -176,35 +186,33 @@ class Flowplayer5_Video_Meta_Box {
 				'fp5-live',
 				'fp5-play-button',
 				'fp5-show-title',
+				'fp5-hls-plugin',
 			);
 
 			foreach ( $checkboxes as $checkbox ) {
 				if ( isset( $_POST[ $checkbox ] ) ) {
-					update_post_meta(
-						$post_id,
-						$checkbox,
-						'true'
-					);
+					$value = 'true';
 				} else {
-					update_post_meta(
-						$post_id,
-						$checkbox,
-						''
-					);
+					$value = '';
 				}
+				update_post_meta(
+					$post_id,
+					$checkbox,
+					$value
+				);
 			}
 
 			// Check, validate and save keys
+			$choices = $this->allowed_dropdown_options();
 			$keys = array(
 				'fp5-select-skin',
 				'fp5-preload',
 				'fp5-coloring',
-				'fp5-ad-type',
 				'fp5-lightbox',
 			);
 
 			foreach ( $keys as $key ) {
-				if ( isset( $_POST[ $key ] ) ) {
+				if ( isset( $_POST[ $key ] ) && in_array( $_POST[ $key ] , $choices[ $key ] ) ) {
 					update_post_meta(
 						$post_id,
 						$key,
@@ -241,7 +249,6 @@ class Flowplayer5_Video_Meta_Box {
 				'fp5-height',
 				'fp5-user-id',
 				'fp5-video-id',
-				'fp5-ads-time',
 				'fp5-duration',
 			);
 
@@ -273,16 +280,71 @@ class Flowplayer5_Video_Meta_Box {
 					);
 				}
 			}
+
+			if ( is_array( $_POST[ 'fp5_ads' ] ) ) {
+				foreach ( $_POST[ 'fp5_ads' ] as $key => $value ) {
+					$new_value[ $key ] = array(
+						'fp5-ad-type' => in_array( $value['fp5-ad-type'], $choices['fp5-ad-type'] ) ? $value['fp5-ad-type'] : '',
+						'fp5-ads-time' => $this->sanitize_postive_number_including_zero( $value['fp5-ads-time'] ),
+					);
+				}
+				update_post_meta(
+					$post_id,
+					'fp5_ads',
+					$new_value
+				);
+				delete_post_meta(
+					$post_id,
+					'fp5-ad-type'
+				);
+				delete_post_meta(
+					$post_id,
+					'fp5-ads-time'
+				);
+			}
+
 		}
 
 	}
 
-	function sanitize_postive_number_including_zero( $number ) {
+	public function sanitize_postive_number_including_zero( $number ) {
 		if ( '' !== $number ) {
 			return absint( $number );
 		} else {
 			return '';
 		}
+	}
+
+	public function allowed_dropdown_options() {
+		$options = array(
+			'fp5-ad-type' => array(
+				'image_text',
+				'video',
+				'skippablevideo',
+			),
+			'fp5-select-skin' => array(
+				'minimalist',
+				'functional',
+				'playful',
+			),
+			'fp5-preload' => array(
+				'none',
+				'metadata',
+				'auto',
+			),
+			'fp5-coloring' => array(
+				'default',
+				'color-alt',
+				'color-alt2',
+				'color-light',
+			),
+			'fp5-lightbox' => array(
+				'',
+				'link',
+				'thumbnail',
+			),
+		);
+		return $options;
 	}
 
 	/**
@@ -300,8 +362,15 @@ class Flowplayer5_Video_Meta_Box {
 		$is_valid_nonce = ( isset( $_POST[ $nonce ] ) && wp_verify_nonce( $_POST[ $nonce ], plugin_basename( __FILE__ ) ) ) ? true : false;
 
 		// Return true if the user is able to save; otherwise, false.
-		return ! ( $is_autosave || $is_revision) && $is_valid_nonce;
+		return ! $is_autosave && ! $is_revision && $is_valid_nonce;
 
+	}
+
+	public function default_hidden_meta_boxes( $hidden, $screen ) {
+		if ( 'post' == $screen->base && 'flowplayer5' == $screen->post_type ) {
+			$hidden[] = 'authordiv';
+		}
+		return $hidden;
 	}
 
 }

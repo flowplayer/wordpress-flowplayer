@@ -4,7 +4,7 @@
  * @package   Flowplayer 5 for Wordpress
  * @author    Ulrich Pogson <ulrich@pogson.ch>
  * @license   GPL-2.0+
- * @link      http://flowplayer.org/
+ * @link      https://flowplayer.org/
  * @copyright 2013 Flowplayer Ltd
 
  * @since   1.3.0
@@ -27,12 +27,12 @@ jQuery(document).ready(function($){
             className: 'media-frame fp5-media-frame',
             frame: 'select',
             multiple: false,
-            title: logo.title,
+            title: fp5_logo.title,
             library: {
                 type: 'image'
             },
             button: {
-                text:  logo.button
+                text: fp5_logo.button
             }
         });
 
@@ -61,12 +61,12 @@ jQuery(document).ready(function($){
             className: 'media-frame fp5-media-frame',
             frame: 'select',
             multiple: false,
-            title: asf_js.title,
+            title: fp5_asf_js.title,
             library: {
                 type: 'application/javascript'
             },
             button: {
-                text: asf_js.button
+                text: fp5_asf_js.button
             }
         });
 
@@ -95,12 +95,12 @@ jQuery(document).ready(function($){
             className: 'media-frame fp5-media-frame',
             frame: 'select',
             multiple: false,
-            title: asf_css.title,
+            title: fp5_asf_css.title,
             library: {
                 type: 'text/css'
             },
             button: {
-                text: asf_css.button
+                text: fp5_asf_css.button
             }
         });
 

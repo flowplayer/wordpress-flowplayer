@@ -100,22 +100,19 @@ class Flowplayer5_Post_Type {
 		$args = array(
 			'label'               => __( 'flowplayer5', 'flowplayer5' ),
 			'description'         => __( 'Flowplayer Videos', 'flowplayer5' ),
-			'labels'              => apply_filters( 'fp5_post_type_labels', $labels ),
-			'supports'            => apply_filters( 'fp5_post_type_supports', $supports ),
+			'labels'              => apply_filters( 'fp5_post_type_labels', $labels ), // Use `fp5_post_type_args` instead.
+			'supports'            => apply_filters( 'fp5_post_type_supports', $supports ), // Use `fp5_post_type_args` instead.
 			'hierarchical'        => false,
 			'public'              => false,
 			'show_ui'             => true,
 			'show_in_menu'        => true,
-			'show_in_nav_menus'   => false,
 			'show_in_admin_bar'   => true,
 			'show_admin_column'   => true,
 			'menu_position'       => 15,
 			'menu_icon'           => ( version_compare( $GLOBALS['wp_version'], '3.8-alpha', '>' ) ) ? 'dashicons-format-video' : '',
 			'can_export'          => true,
 			'has_archive'         => false,
-			'exclude_from_search' => true,
-			'publicly_queryable'  => true,
-			'rewrite'             => apply_filters( 'fp5_post_type_rewrite', $rewrite ),
+			'rewrite'             => apply_filters( 'fp5_post_type_rewrite', $rewrite ), // Use `fp5_post_type_args` instead.
 			'query_var'           => 'video',
 			'capability_type'     => 'page',
 		);

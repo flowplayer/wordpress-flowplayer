@@ -5,7 +5,7 @@
  * @package   Flowplayer_Drive
  * @author    Ulrich Pogson <ulrich@pogson.ch>
  * @license   GPL-2.0+
- * @link      http://flowplayer.org/
+ * @link      https://flowplayer.org/
  * @copyright 2013 Flowplayer Ltd
  */
 
@@ -29,7 +29,7 @@ class Flowplayer_Drive {
 	 *
 	 * @var      string
 	 */
-	protected $account_api_url = 'http://account.api.flowplayer.org/auth?_format=json';
+	protected $account_api_url = 'https://account.api.flowplayer.org/auth?_format=json';
 
 	/**
 	 * Flowplayer Video API URL
@@ -38,7 +38,7 @@ class Flowplayer_Drive {
 	 *
 	 * @var      string
 	 */
-	protected $video_api_url = 'http://videos.api.flowplayer.org/account';
+	protected $video_api_url = 'https://drive.api.flowplayer.org/account';
 
 	/**
 	 * Initialize Flowplayer Drive
@@ -85,8 +85,8 @@ class Flowplayer_Drive {
 
 		// get the login info
 		$options   = fp5_get_settings();
-		$user_name = ( isset( $options['user_name'] ) ) ? $options['user_name'] : '';
-		$password  = ( isset( $options['password'] ) ) ? $options['password'] : '';
+		$user_name = ( isset( $options['user_name'] ) ) ? $options['user_name'] : false;
+		$password  = ( isset( $options['password'] ) ) ? $options['password'] : false;
 
 		if ( ! $user_name || ! $password ) {
 			Flowplayer_Drive_Error::showLoginError();
