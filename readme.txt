@@ -258,7 +258,7 @@ add_filter( 'fp5_post_meta_defaults', 'fp5_post_meta_defaults' );`
 We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
 
 = 2.0.0 - 5 April 2016 =
-This is a large update. It has been tested extensivly but we still could have missed something. Make sure to test it before installing on a live site.
+This is a large update. It has been tested extensively but we still could have missed something. Make sure to test it before installing on a live site.
 * Updated Flowplayer to v6.0.5
 * Add support for multiple ads in a video
 * Restyled the settings page to make it easier to use.
@@ -267,11 +267,11 @@ This is a large update. It has been tested extensivly but we still could have mi
 * Fixed tab styles in WP 4.4
 * Update support for WP 4.5
 * Added an setting to define the Flash HLS SWF file
-* Depricated action `fp5_video_config`, use the filter `fp5_js_config` instead
-* Changed from hardcoding the ads configuration to an array so that they are easier to customize.
+* Deprecated action `fp5_video_config`, use the filter `fp5_js_config` instead
+* Changed from hard coding the ads configuration to an array so that they are easier to customize.
 * A few code improvements from @dannyvankooten
-* Made the preview button disapear as it is not needed
-* Rearanged a chunk of code to make it more extendable.
+* Made the preview button disappear as it is not needed
+* Rearranged a chunk of code to make it more extendable
 
 = 1.13.0 - 16 December 2015 =
 * Updated Flowplayer to v6.0.4
