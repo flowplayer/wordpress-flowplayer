@@ -49,7 +49,8 @@ class Flowplayer5_Settings {
 	 * @return mixed
 	*/
 	public function get( $key, $default = false ) {
-		$value = ! empty( $this->get_all()[ $key ] ) ? $this->get_all()[ $key ] : $default;
+		$settings = $this->get_all();
+		$value = ! empty( $settings[ $key ] ) ? $settings[ $key ] : $default;
 		return apply_filters( 'fp5_setting_' . $key, $value );
 	}
 
@@ -412,7 +413,6 @@ class Flowplayer5_Settings {
 	 *
 	 * @since 1.11.0
 	 * @param array $args Arguments passed by the setting
-	 * @global $this->get_all() Array of all the Flowplayer5 Options
 	 * @return void
 	 */
 	function checkbox_callback( $args ) {
@@ -458,7 +458,7 @@ class Flowplayer5_Settings {
 	function password_callback( $args ) {
 
 		$size = ( isset( $args['size'] ) && ! is_null( $args['size'] ) ) ? $args['size'] : 'regular';
-		$desc = empty( $this->get_all()['password'] ) ? $args['desc'] : __( 'Your password is saved. For security reasons it will not be displayed here.', 'flowplayer5' );
+		$desc = empty( $args['value'] ) ? $args['desc'] : __( 'Your password is saved. For security reasons it will not be displayed here.', 'flowplayer5' );
 		$html = '<input type="password" class="' . $size . '-text" id="fp5_settings_general[' . $args['id'] . ']" name="fp5_settings_general[' . $args['id'] . ']"/>';
 		$html .= '<label for="fp5_settings_general[' . $args['id'] . ']"> '  . '<br>' . $desc . '</label>';
 
