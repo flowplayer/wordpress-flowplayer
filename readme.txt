@@ -58,23 +58,6 @@ The commercial version is free of Flowplayer branding and you can use your logo.
 [Sign up for Google AdSense for Flowplayer (ASF)](https://flowplayer.org/asf/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin)
 
 
-== Other Notes ==
-
-= Translation =
-
-[Join the Translation Team](https://translate.wordpress.org/projects/wp-plugins/flowplayer5)
-
-= Credits =
-
-The plugin can also be found on [GitHub](https://github.com/flowplayer/wordpress-flowplayer).
-
-* Thank you [Tom McFarlin](http://tommcfarlin.com/) for the [WordPress Plugin Boilerplate](https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate)
-* The settings code was adapted from [Easy Digital Downloads](https://github.com/easydigitaldownloads/Easy-Digital-Downloads) by [Pippin Williamson](http://pippinsplugins.com/)
-* The meta box settings was adapted from [Theme Foundation](http://themefoundation.com/wordpress-meta-boxes-guide/) by [Alex Mansfield](http://sackclothstudios.com/)
-* Thank you [Brady Vercher](http://www.blazersix.com/) for help with the playlist
-* Thank you [Pippin Williamson](https://pippinsplugins.com/) for the great tutorials
-
-
 == Frequently Asked Questions ==
 
 = Installing from the WordPress dashboard =
@@ -243,6 +226,20 @@ function fp5_post_meta_defaults( $defaults ) {
 	return $defaults;
 }
 add_filter( 'fp5_post_meta_defaults', 'fp5_post_meta_defaults' );`
+
+= Translation =
+
+[Join the Translation Team](https://translate.wordpress.org/projects/wp-plugins/flowplayer5)
+
+= Credits =
+
+The plugin can also be found on [GitHub](https://github.com/flowplayer/wordpress-flowplayer).
+
+* Thank you [Tom McFarlin](http://tommcfarlin.com/) for the [WordPress Plugin Boilerplate](https://github.com/tommcfarlin/WordPress-Plugin-Boilerplate)
+* The settings code was adapted from [Easy Digital Downloads](https://github.com/easydigitaldownloads/Easy-Digital-Downloads) by [Pippin Williamson](http://pippinsplugins.com/)
+* The meta box settings was adapted from [Theme Foundation](http://themefoundation.com/wordpress-meta-boxes-guide/) by [Alex Mansfield](http://sackclothstudios.com/)
+* Thank you [Brady Vercher](http://www.blazersix.com/) for help with the playlist
+* Thank you [Pippin Williamson](https://pippinsplugins.com/) for the great tutorials
 
 
 == Screenshots ==
