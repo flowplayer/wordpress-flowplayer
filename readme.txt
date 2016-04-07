@@ -254,6 +254,9 @@ The plugin can also be found on [GitHub](https://github.com/flowplayer/wordpress
 
 We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
 
+= 2.0.1 - 6 April 2016 =
+* Fix issue for sites with older PHP versions
+
 = 2.0.0 - 5 April 2016 =
 This is a large update. It has been tested extensively but we still could have missed something. Make sure to test it before installing on a live site.
 * Updated Flowplayer to v6.0.5
