@@ -103,7 +103,7 @@ class Flowplayer5_Parse {
 			'skin'            => self::get_custom_fields( $custom_fields, 'fp5-select-skin', $atts, 'skin', 'minimalist' ),
 			'subtitles'       => self::get_custom_fields( $custom_fields, 'fp5-vtt-subtitles', $atts, 'subtitles' ),
 			'max_width'       => self::get_custom_fields( $custom_fields, 'fp5-max-width', $atts, 'max_width' ),
-			'ratio'           => self::get_custom_fields( $custom_fields, 'fp5-aspect-ratio', $atts, 'ratio' ),
+			'ratio'           => self::get_custom_fields( '', '', $atts, 'ratio' ),
 			'fixed'           => self::get_custom_fields( $custom_fields, 'fp5-fixed-width', $atts, 'fixed' ),
 			'data_rtmp'       => self::get_custom_fields( $custom_fields, 'fp5-data-rtmp', $atts, 'rtmp' ),
 			'quality'         => self::get_custom_fields( $custom_fields, 'fp5-default-quality', $atts, 'quality' ),
@@ -153,7 +153,7 @@ class Flowplayer5_Parse {
 				( 0 < strlen( $atts['key'] ) ? 'data-key="' . esc_attr( $atts['key'] ) . '"' : '' ),
 				( 0 < strlen( $atts['key'] ) && 0 < strlen( $atts['logo'] ) ? 'data-logo="' . esc_url( $atts['logo'] ) . '"' : '' ),
 				( 0 < strlen( $atts['ga_account_id'] ) ? 'data-analytics="' . esc_attr( $atts['ga_account_id'] ) . '"' : '' ),
-				( ( $atts['width'] != 0 && $atts['height'] != 0 ) ? 'data-ratio="' . intval( $atts['height'] ) / intval( $atts['width'] ) . '"' : '' ),
+				( ( $atts['width'] > 0 && $atts['height'] > 0 ) ? 'data-ratio="' . $atts['ratio'] . '"' : '' ),
 				( ! empty ( $atts['data_rtmp'] ) ? 'data-rtmp="' . esc_attr( $atts['data_rtmp'] ) . '"' : '' ),
 				( ! empty ( $atts['quality'] ) && ! empty ( $atts['qualities'] ) ? 'data-default-quality="' . esc_attr( $atts['quality'] ) . '"' : '' ),
 				( ! empty ( $atts['qualities'] ) ? 'data-qualities="' . esc_attr( $atts['qualities'] ) . '"' : '' ),
@@ -229,8 +229,10 @@ class Flowplayer5_Parse {
 		if ( 'true' == $atts['live'] ) {
 			$js_config['live'] = esc_attr( $atts['live'] );
 		}
-		if ( $atts['ratio'] != 0 ) {
+		if ( 0 < $atts['ratio'] ) {
 			$js_config['ratio'] = esc_attr( $atts['ratio'] );
+		} elseif ( 0 < $atts['width'] && 0 < $atts['height'] ) {
+			$js_config['ratio'] = intval( $atts['height'] ) / intval( $atts['width'] );
 		}
 		if ( ! empty ( $atts['data_rtmp'] ) ) {
 			$js_config['rtmp'] = esc_attr( $atts['data_rtmp'] );
