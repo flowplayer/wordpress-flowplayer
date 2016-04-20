@@ -227,7 +227,7 @@ class Flowplayer5_Parse {
 			);
 		}
 		if ( 'true' == $atts['live'] ) {
-			$js_config['live'] = esc_attr( $atts['live'] );
+			$js_config['live'] = (bool) $atts['live'];
 		}
 		if ( 0 < $atts['ratio'] ) {
 			$js_config['ratio'] = esc_attr( $atts['ratio'] );
