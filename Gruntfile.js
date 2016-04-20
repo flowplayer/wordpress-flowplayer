@@ -93,13 +93,24 @@ module.exports = function(grunt) {
 					},
 				]
 			},
-			frontend: {
+			drive: {
 				files: [
 					{
 						expand: true,     // Enable dynamic expansion.
 						cwd: 'frontend/assets/drive/',      // Src matches are relative to this path.
 						src: ['*.js', '!*.min.js'], // Actual pattern(s) to match.
 						dest: 'frontend/assets/drive/',   // Destination path prefix.
+						ext: '.min.js',   // Dest filepaths will have this extension.
+					},
+				]
+			},
+			magnific_popup: {
+				files: [
+					{
+						expand: true,     // Enable dynamic expansion.
+						cwd: 'frontend/assets/magnific-popup/',      // Src matches are relative to this path.
+						src: ['*.js', '!*.min.js'], // Actual pattern(s) to match.
+						dest: 'frontend/assets/magnific-popup/',   // Destination path prefix.
 						ext: '.min.js',   // Dest filepaths will have this extension.
 					},
 				]
@@ -129,6 +140,13 @@ module.exports = function(grunt) {
 				cwd: 'frontend/assets/css/',
 				src: ['*.css', '!*.min.css'],
 				dest: 'frontend/assets/css/',
+				ext: '.min.css'
+			},
+			magnific_popup: {
+				expand: true,
+				cwd: 'frontend/assets/magnific-popup/',
+				src: ['*.css', '!*.min.css'],
+				dest: 'frontend/assets/magnific-popup/',
 				ext: '.min.css'
 			},
 			flowplayer: {
