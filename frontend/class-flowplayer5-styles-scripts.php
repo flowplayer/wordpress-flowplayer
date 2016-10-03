@@ -90,7 +90,7 @@ class Flowplayer5_Styles_Scripts {
 		} elseif ( ! empty( $settings['directory'] ) ) {
 			$flowplayer5_directory = $settings['directory'];
 		} elseif ( $settings['cdn_option'] && ! $settings['key'] ) {
-			$flowplayer5_directory = plugins_url( '/assets/flowplayer' . $settings['fp_6'], __FILE__  );
+			$flowplayer5_directory = plugins_url( '/assets/flowplayer' . ( 'fp6' === $settings['fp_version'] ? '-v6' : '' ), __FILE__  );
 		} else {
 			$flowplayer5_directory = '//releases.flowplayer.org/' . $this->player_version . '/'. ( $settings['key'] ? 'commercial' : '' );
 		}
