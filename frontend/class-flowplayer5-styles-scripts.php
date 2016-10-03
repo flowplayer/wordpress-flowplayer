@@ -70,7 +70,7 @@ class Flowplayer5_Styles_Scripts {
 			'suffix'           => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min',
 			'hls_dep'          => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? array( 'flowplayer5-script', 'hlsjs' ) : array( 'flowplayer5-script' ),
 			'has_shortcode'    => $flowplayer_shortcode->has_flowplayer_shortcode(),
-			'is_hls'           => $flowplayer_shortcode->get_attr_value( 'application/x-mpegurl', $atts ) && $flowplayer_shortcode->get_attr_value( 'hls_plugin', $atts ),
+			'is_hls'           => $flowplayer_shortcode->get_attr_value( 'application/x-mpegurl', $flowplayer_shortcode->get_attr_value( 'formats', $atts ) ) && $flowplayer_shortcode->get_attr_value( 'hls_plugin', $atts ),
 			'is_lightbox'      => $flowplayer_shortcode->get_attr_value( 'lightbox', $atts ) && ! isset( $first_video['playlist'] ),
 			'qualities'        => $flowplayer_shortcode->get_video_qualities( $atts ),
 			'qs_dir'           => 'fp6' === $settings['fp_version'] ? 'quality-selector/flowplayer.' : 'drive/',
