@@ -65,7 +65,6 @@ class Flowplayer5_Styles_Scripts {
 			'key'              => ! empty ( $settings['key'] ) ? $settings['key'] : false,
 			'fp_dir'           => ! empty ( $settings['directory'] ) ? $settings['directory'] : false,
 			'asf_js'           => ! empty ( $settings['asf_js'] ) ? $settings['asf_js'] : false,
-			'asf_css'          => ! empty ( $settings['asf_css'] ) ? $settings['asf_css'] : false,
 			'vast_js'          => ! empty ( $settings['vast_js'] ) ? $settings['vast_js'] : false,
 			'vast_css'         => ! empty ( $settings['vast_css'] ) ? $settings['vast_css'] : false,
 			'suffix'           => defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min',
@@ -117,7 +116,6 @@ class Flowplayer5_Styles_Scripts {
 		// Register stylesheets
 		wp_register_style( 'flowplayer5-skins', $config['fp_directory'] . 'skin/all-skins.css', array(), $config['plugin_version'] );
 		wp_register_style( 'flowplayer5-logo-origin', plugins_url( '/assets/css/public-concat' . $config['suffix'] . '.css', __FILE__ ), array(), $config['plugin_version'] );
-		wp_register_style( 'flowplayer5-asf', esc_url( $config['asf_css'] ), array(), null );
 		wp_register_style( 'flowplayer5-vast', esc_url( $config['vast_css'] ), array(), null );
 	}
 
@@ -129,9 +127,6 @@ class Flowplayer5_Styles_Scripts {
 	private function enqueue_styles( $config ) {
 		wp_enqueue_style( 'flowplayer5-skins' );
 		wp_enqueue_style( 'flowplayer5-logo-origin' );
-		if ( $config['asf_css'] ) {
-			wp_enqueue_style( 'flowplayer5-asf' );
-		}
 	}
 
 	/**

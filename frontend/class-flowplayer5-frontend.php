@@ -68,10 +68,6 @@ class Flowplayer5_Frontend {
 			echo '<script>flowplayer.conf = ' .json_encode( $global_conf ) . ';</script>' . "\n";
 		}
 
-		if ( ! empty ( $options['asf_js'] ) ) {
-			echo '<script>flowplayer(function(api, root){ flowplayer_ima.create(api, root); });</script>' . "\n";
-		}
-
 	}
 
 }

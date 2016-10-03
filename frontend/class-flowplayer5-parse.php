@@ -221,7 +221,7 @@ class Flowplayer5_Parse {
 		}
 		if ( $atts['asf_js'] && 'fp6' === $atts['fp_version'] && ! empty( $atts['fp5_ads'] ) ) {
 			$js_config['ima'] = array(
-				'adtest' => ! empty( $asf_test ) ? 'on' : 'off',
+				'adtest' => ! empty( $atts['asf_test'] ) ? 'on' : 'off',
 				'description_url' => $atts['description_url'],
 				'ads' => $asf_ads,
 			);

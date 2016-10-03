@@ -292,17 +292,10 @@ class Flowplayer5_Settings {
 			'asf' => array(
 				'title'     => __( 'AdSense for Flowplayer', 'flowplayer5' ) . ' <a href="https://flowplayer.org/asf/">?</a>',
 				'condition' => array( $this, 'is_fp6' ),
-				'asf_css' => array(
-					'name'   => __( 'AdSense plugin CSS', 'flowplayer5' ),
-					'type'   => 'upload',
-					'button' => __( 'Add CSS file', 'flowplayer5' ),
-					'size'   => 'regular',
-					'desc'   => __( 'Add your custom AdSense plugin CSS file', 'flowplayer5' ),
-				),
 				'asf_js' => array(
-					'name'   => __( 'AdSense plugin js', 'flowplayer5' ),
+					'name'   => __( 'AdSense plugin JS', 'flowplayer5' ),
 					'type'   => 'upload',
-					'button' => __( 'Add js file', 'flowplayer5' ),
+					'button' => __( 'Add JS file', 'flowplayer5' ),
 					'size'  => 'regular',
 					'desc'   => __( 'Add your custom AdSense plugin javascript file', 'flowplayer5' ),
 				),
