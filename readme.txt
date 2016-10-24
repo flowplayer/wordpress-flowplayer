@@ -254,8 +254,11 @@ The plugin can also be found on [GitHub](https://github.com/flowplayer/wordpress
 
 We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
 
-= 2.X.X -  =
+= 2.0.2 -  =
 * Update support for AdSense for Flowplayer to version 2
+* Add support for Flowplayer Drive Analytics script
+* Fix HLS plugin loading
+* Fix the slightly inconsistent behaviour of the CDN setting
 
 = 2.0.1 - 6 April 2016 =
 * Fix issue for sites with older PHP versions
