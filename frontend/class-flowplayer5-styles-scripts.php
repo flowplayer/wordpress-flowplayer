@@ -58,6 +58,7 @@ class Flowplayer5_Styles_Scripts {
 
 	public function get_config( $atts, $settings, $flowplayer_shortcode ) {
 		$first_video = reset( $atts );
+
 		$config = array(
 			'plugin_version'   => $this->plugin_version,
 			'player_version'   => $this->player_version,
@@ -77,6 +78,7 @@ class Flowplayer5_Styles_Scripts {
 			'fp_6'             => 'fp6' === $settings['fp_version'] ? '-v6' : '',
 			'fp_directory'     => trailingslashit( $this->get_flowplayer_directory( $settings ) ),
 			'assets_directory' => trailingslashit( $this->get_assets_directory( $settings ) ),
+			'use_drive_analytics' => ! empty ( $settings['drive_analytics'] ) && boolval( $settings['drive_analytics'] ),
 		);
 
 		return $config;
@@ -144,7 +146,7 @@ class Flowplayer5_Styles_Scripts {
 		wp_register_script( 'flowplayer5-hlsjs', $config['assets_directory'] . 'hlsjs/flowplayer.hlsjs' . $config['suffix'] . '.js', $config['hls_dep'], 'fd94460', false );
 		wp_register_script( 'flowplayer5-quality-selector', $config['assets_directory'] . $config['qs_dir'] . 'quality-selector' . $config['suffix'] . '.js', array( 'flowplayer5-script' ), '4f2e08f', false );
 		wp_register_script( 'magnific-popup', plugins_url( '/assets/magnific-popup/magnific-popup' . $config['suffix'] . '.js', __FILE__ ), array( 'jquery' ), '1.0.0', false );
-
+		wp_register_script( 'flowplayer5-drive-analytics', '//releases.flowplayer.org/drive-analytics/flowplayer.drive-analytics.min.js', array( 'flowplayer5-script' ), null, false );
 	}
 
 	/**
@@ -154,6 +156,9 @@ class Flowplayer5_Styles_Scripts {
 	 */
 	private function enqueue_scripts( $config ) {
 		wp_enqueue_script( 'flowplayer5-script' );
+		if ( $config['use_drive_analytics'] ){
+			wp_enqueue_script( 'flowplayer5-drive-analytics' );
+		}
 		if ( $config['is_hls'] && $config['fp_6'] ){
 			wp_enqueue_script( 'flowplayer5-hlsjs' );
 		}

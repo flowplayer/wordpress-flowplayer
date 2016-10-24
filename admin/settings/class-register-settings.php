@@ -279,6 +279,12 @@ class Flowplayer5_Settings {
 					'type' => 'password',
 					'size' => 'medium',
 				),
+				'drive_analytics' => array(
+					'name' => __( 'Drive Analytics', 'flowplayer5' ) . ' <a href="https://flowplayer.org/blog/improved-analytics/">?</a>',
+					'type' => 'checkbox',
+					'desc' => __( 'Enable the Drive Analytics script', 'flowplayer5' ),
+					'condition' => array( $this, 'is_fp6' ),
+				)
 			),
 			'video_tracking' => array(
 				'title' => __( 'Video tracking', 'flowplayer5' ) . ' <a href="https://flowplayer.org/docs/analytics.html">?</a>',
