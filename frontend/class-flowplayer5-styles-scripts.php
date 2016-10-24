@@ -88,12 +88,16 @@ class Flowplayer5_Styles_Scripts {
 		$flowplayer5_commercial = trailingslashit( WP_CONTENT_DIR ) . 'flowplayer-commercial';
 
 		if ( is_file( $flowplayer5_commercial ) && ! $settings['cdn'] && $settings['key'] ) {
+  		// Use files from the 'flowplayer-commercial' default folder
 			$flowplayer5_directory = $flowplayer5_commercial;
 		} elseif ( ! empty( $settings['directory'] ) ) {
+  		// Use files from a specified (commercial) folder
 			$flowplayer5_directory = $settings['directory'];
-		} elseif ( $settings['cdn_option'] && ! $settings['key'] ) {
+		} elseif ( ! $settings['cdn_option'] ) {
+  		// Use the local assets
 			$flowplayer5_directory = plugins_url( '/assets/flowplayer' . ( 'fp6' === $settings['fp_version'] ? '-v6' : '' ), __FILE__  );
 		} else {
+  		// Use the CDN assets (default)
 			$flowplayer5_directory = '//releases.flowplayer.org/' . $this->player_version . '/'. ( $settings['key'] ? 'commercial' : '' );
 		}
 
