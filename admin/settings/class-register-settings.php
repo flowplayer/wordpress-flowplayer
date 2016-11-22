@@ -311,6 +311,17 @@ class Flowplayer5_Settings {
 					'desc' => __( 'Enable test mode', 'flowplayer5' ),
 				)
 			),
+			'vast' => array(
+				'title'     => __( 'VAST Ads', 'flowplayer5' ) . ' <a href="https://flowplayer.org/docs/vast.html">?</a>',
+				'condition' => array( $this, 'is_fp6' ),
+				'vast_js' => array(
+					'name'   => __( 'VAST plugin URL', 'flowplayer5' ),
+					'type'   => 'upload',
+					'button' => __( 'Add JS file', 'flowplayer5' ),
+					'size'  => 'regular',
+					'desc'   => __( 'Add your custom VAST plugin file', 'flowplayer5' ),
+				)
+			),
 			'embed_options' => array(
 				'title' => __( 'Embed assets', 'flowplayer5' ) . ' <a href="https://flowplayer.org/docs/embedding.html#configuration">?</a>',
 				'library' => array(

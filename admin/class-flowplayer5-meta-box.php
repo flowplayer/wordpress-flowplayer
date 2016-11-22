@@ -154,6 +154,15 @@ class Flowplayer5_Video_Meta_Box {
 		if ( isset( $fp5_stored_meta['fp5-ads-time'][0] ) ) {
 			$fp5_ads[0]['fp5-ads-time'] = $fp5_stored_meta['fp5-ads-time'][0];
 		}
+		
+		$fp5_vast_ads = isset( $fp5_stored_meta['fp5_vast_ads'][0] ) ? maybe_unserialize( $fp5_stored_meta['fp5_vast_ads'][0] ) : array();
+		if ( isset( $fp5_stored_meta['fp5-vast-ads-time'][0] ) ) {
+			$fp5_vast_ads[0]['fp5-vast-ads-time'] = $fp5_stored_meta['fp5-vast-ads-time'][0];
+		}
+		if ( isset( $fp5_stored_meta['fp5-vast-ads-url'][0] ) ) {
+			$fp5_vast_ads[0]['fp5-vast-ads-url'] = $fp5_stored_meta['fp5-vast-ads-url'][0];
+		}
+
 
 		include_once( plugin_dir_path( __FILE__ ) . 'views/display-video-meta-box.php' );
 
@@ -230,6 +239,7 @@ class Flowplayer5_Video_Meta_Box {
 				'fp5-hls-video',
 				'fp5-vtt-subtitles',
 				'fp5-description-url',
+				'fp5-adrules-xml-url',
 			);
 
 			foreach ( $urls as $url ) {
@@ -281,7 +291,7 @@ class Flowplayer5_Video_Meta_Box {
 				}
 			}
 
-			if ( is_array( $_POST[ 'fp5_ads' ] ) ) {
+			if ( array_key_exists( 'fp5_ads', $_POST ) && is_array( $_POST[ 'fp5_ads' ] ) ) {
 				foreach ( $_POST[ 'fp5_ads' ] as $key => $value ) {
 					$new_value[ $key ] = array(
 						'fp5-ad-type' => in_array( $value['fp5-ad-type'], $choices['fp5-ad-type'] ) ? $value['fp5-ad-type'] : '',
@@ -293,13 +303,30 @@ class Flowplayer5_Video_Meta_Box {
 					'fp5_ads',
 					$new_value
 				);
+			} else {
 				delete_post_meta(
 					$post_id,
-					'fp5-ad-type'
+					'fp5_ads'
 				);
+			}
+			
+			
+      if ( array_key_exists( 'fp5_vast_ads', $_POST ) && is_array( $_POST[ 'fp5_vast_ads' ] ) ) {
+				foreach ( $_POST[ 'fp5_vast_ads' ] as $key => $value ) {
+					$new_value[ $key ] = array(
+						'fp5-vast-ads-time' => $this->sanitize_postive_number_including_zero( $value['fp5-vast-ads-time'] ),
+						'fp5-vast-ads-url' => esc_url_raw( $value['fp5-vast-ads-url'] ),
+					);
+				}
+				update_post_meta(
+					$post_id,
+					'fp5_vast_ads',
+					$new_value
+				);
+			} else {
 				delete_post_meta(
 					$post_id,
-					'fp5-ads-time'
+					'fp5_vast_ads'
 				);
 			}
 

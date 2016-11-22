@@ -15,12 +15,14 @@
 	<li class="nav-tab"><a href="#skinning"><?php _e( 'Skinning', $this->plugin_slug ) ?></a></li>
 	<li class="nav-tab"><a href="#config"><?php _e( 'Configuration', $this->plugin_slug ) ?></a></li>
 	<li class="nav-tab"><a href="#asf"><?php _e( 'Google AdSense', $this->plugin_slug ) ?></a></li>
+	<li class="nav-tab"><a href="#vast"><?php _e( 'VAST', $this->plugin_slug ) ?></a></li>
 </ul>
 <?php
 	require( 'partials/media.php' );
 	require( 'partials/skinning.php' );
 	require( 'partials/config.php' );
 	require( 'partials/ads.php' );
+	require( 'partials/vast.php' );
 ?>
 </div>
 

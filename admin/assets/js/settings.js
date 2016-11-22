@@ -80,4 +80,38 @@ jQuery(document).ready(function($){
         fp5_asf_js_frame.open();
     });
 
+    // Add VAST JS
+    var fp5_vast_js_frame;
+
+    $(document.body).on('click.fp5OpenMediaManager', '.fp5_settings_vast_js_upload_button', function(e){
+        e.preventDefault();
+
+        if ( fp5_asf_js_frame ) {
+            fp5_asf_js_frame.open();
+            return;
+        }
+
+        fp5_vast_js_frame = wp.media.frames.fp5_vast_js_frame = wp.media({
+            className: 'media-frame fp5-media-frame',
+            frame: 'select',
+            multiple: false,
+            title: fp5_vast_js.title,
+            library: {
+                type: 'application/javascript'
+            },
+            button: {
+                text: fp5_vast_js.button
+            }
+        });
+
+        fp5_vast_js_frame.on('select', function(){
+            var media_attachment = fp5_vast_js_frame.state().get('selection').first().toJSON();
+
+            $('.fp5_vast_js_upload_field').val(media_attachment.url);
+            $('.fp5_settings_upload_preview').attr('src',media_attachment.url);
+        });
+
+        fp5_vast_js_frame.open();
+    });
+
 });

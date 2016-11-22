@@ -122,6 +122,8 @@ class Flowplayer5_Parse {
 			'ads_time'        => self::get_custom_fields( $custom_fields, 'fp5-ads-time', $atts, 'ads_time' ),
 			'ad_type'         => self::get_custom_fields( $custom_fields, 'fp5-ad-type', $atts, 'ad_type' ),
 			'fp5_ads'         => maybe_unserialize( self::get_custom_fields( $custom_fields, 'fp5_ads' ) ),
+			'vast_adrules'    => self::get_custom_fields( $custom_fields, 'fp5-adrules-xml-url', $atts, 'adrules_xml' ),
+			'fp5_vast_ads'    => maybe_unserialize( self::get_custom_fields( $custom_fields, 'fp5_vast_ads' ) ),
 			'title'           => self::get_custom_fields( $custom_fields, 'title', $atts, 'title' ),
 			'splash'          => self::get_custom_fields( $custom_fields, 'fp5-splash-image', $atts, 'splash' ),
 			'width'           => self::get_custom_fields( $custom_fields, 'fp5-width', $atts, 'width' ),
@@ -206,6 +208,8 @@ class Flowplayer5_Parse {
 
 		// Prepare JS config
 		$js_config = array();
+
+		// ASF ads
 		if ( ! empty( $atts['ad_type'] ) && ! empty( $atts['ads_time'] ) || '0' === $atts['ads_time'] ) {
 			$asf_ads[] = array(
 				'time'    => $atts['ads_time'],
@@ -226,6 +230,28 @@ class Flowplayer5_Parse {
 				'ads' => $asf_ads,
 			);
 		}
+		
+		// VAST
+		if ( is_array( $atts['fp5_vast_ads'] ) ) {
+			foreach( $atts['fp5_vast_ads'] as $fp5_vast_ad ) {
+				$vast_ads[] = array(
+					'time'    => $fp5_vast_ad['fp5-vast-ads-time'],
+					'adTag'   => $fp5_vast_ad['fp5-vast-ads-url'],
+				);
+			}	
+		}
+		if ( $atts['vast_js'] && 'fp6' === $atts['fp_version'] ) {
+  		if ( ! empty( $atts['fp5_vast_ads'] ) ) {
+  			$js_config['ima'] = array(
+  				'ads' => $vast_ads,
+  			);
+			} elseif ( ! empty( $atts['vast_adrules'] ) ) {
+  			$js_config['ima'] = array(
+  				'adRules' => $atts['vast_adrules'],
+  			);
+			}
+		}
+		
 		if ( 'true' == $atts['live'] ) {
 			$js_config['live'] = (bool) $atts['live'];
 		}
