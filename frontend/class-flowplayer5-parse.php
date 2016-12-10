@@ -181,6 +181,10 @@ class Flowplayer5_Parse {
 			$atts['skin'],
 		);
 
+		if( 'fp5' === $atts['fp_version'] ) {
+			$return['player_classes'][] = $atts['coloring'];
+		}
+
 		// Prepare video classes
 		$return['classes'] = array(
 			( ! empty ( $atts['splash'] ) ? 'is-splash' : '' ),
