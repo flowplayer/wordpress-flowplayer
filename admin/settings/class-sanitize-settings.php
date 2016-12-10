@@ -65,6 +65,9 @@ class Flowplayer5_Sanitize_Settings {
 			case 'swf':
 				$value = esc_url_raw( $value );
 				break;
+			case 'vast_redirects_global':
+				$value = intval( sanitize_text_field( $value ) );
+				break;
 			default:
 				$value = sanitize_text_field( $value );
 				break;

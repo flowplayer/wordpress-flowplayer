@@ -124,6 +124,8 @@ class Flowplayer5_Parse {
 			'fp5_ads'         => maybe_unserialize( self::get_custom_fields( $custom_fields, 'fp5_ads' ) ),
 			'vast_adrules'    => self::get_custom_fields( $custom_fields, 'fp5-adrules-xml-url', $atts, 'adrules_xml' ),
 			'fp5_vast_ads'    => maybe_unserialize( self::get_custom_fields( $custom_fields, 'fp5_vast_ads' ) ),
+			'vast_vpaidmode'  => self::get_custom_fields( $custom_fields, 'fp5-vast-vpaidmode', $atts, 'vast_vpaidmode' ),
+			'vast_redirects'  => self::get_custom_fields( $custom_fields, 'fp5-vast-redirects', $atts, 'vast_redirects' ),
 			'title'           => self::get_custom_fields( $custom_fields, 'title', $atts, 'title' ),
 			'splash'          => self::get_custom_fields( $custom_fields, 'fp5-splash-image', $atts, 'splash' ),
 			'width'           => self::get_custom_fields( $custom_fields, 'fp5-width', $atts, 'width' ),
@@ -230,7 +232,7 @@ class Flowplayer5_Parse {
 				'ads' => $asf_ads,
 			);
 		}
-		
+
 		// VAST
 		if ( is_array( $atts['fp5_vast_ads'] ) ) {
 			foreach( $atts['fp5_vast_ads'] as $fp5_vast_ad ) {
@@ -238,7 +240,7 @@ class Flowplayer5_Parse {
 					'time'    => $fp5_vast_ad['fp5-vast-ads-time'],
 					'adTag'   => $fp5_vast_ad['fp5-vast-ads-url'],
 				);
-			}	
+			}
 		}
 		if ( $atts['vast_js'] && 'fp6' === $atts['fp_version'] ) {
   		if ( ! empty( $atts['fp5_vast_ads'] ) ) {
@@ -250,8 +252,25 @@ class Flowplayer5_Parse {
   				'adRules' => $atts['vast_adrules'],
   			);
 			}
+
+			if ( array_key_exists( 'ima', $js_config ) ) {
+				// Vpaidmode
+				if ( $atts['vast_vpaidmode'] !== '' ) {
+					$js_config['ima']['VpaidMode'] = strtoupper( $atts['vast_vpaidmode'] );
+				} elseif ( $atts['vast_vpaidmode_global'] !== '' ) {
+					$js_config['ima']['VpaidMode'] = strtoupper( $atts['vast_vpaidmode_global'] );
+				}
+
+				// Redirects
+				if ( $atts['vast_redirects'] !== '' ) {
+					$js_config['ima']['redirects'] = intval( $atts['vast_redirects'] );
+				} elseif ( $atts['vast_redirects_global'] !== '' ) {
+					$js_config['ima']['redirects'] = $atts['vast_redirects_global'];
+				}
+			}
+
 		}
-		
+
 		if ( 'true' == $atts['live'] ) {
 			$js_config['live'] = (bool) $atts['live'];
 		}

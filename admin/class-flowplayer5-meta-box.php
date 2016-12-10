@@ -138,7 +138,7 @@ class Flowplayer5_Video_Meta_Box {
 	 * @since      1.0.0
 	 */
 	public function display_video_meta_box( $post ) {
-
+    
 		wp_nonce_field( plugin_basename( __FILE__ ), 'fp5-nonce' );
 		$fp5_stored_meta = wp_parse_args(
 			get_post_meta( $post->ID ),
@@ -218,6 +218,7 @@ class Flowplayer5_Video_Meta_Box {
 				'fp5-preload',
 				'fp5-coloring',
 				'fp5-lightbox',
+				'fp5-vast-vpaidmode',
 			);
 
 			foreach ( $keys as $key ) {
@@ -260,6 +261,7 @@ class Flowplayer5_Video_Meta_Box {
 				'fp5-user-id',
 				'fp5-video-id',
 				'fp5-duration',
+				'fp5-vast-redirects',
 			);
 
 			foreach ( $numbers as $number ) {
@@ -369,6 +371,12 @@ class Flowplayer5_Video_Meta_Box {
 				'',
 				'link',
 				'thumbnail',
+			),
+			'fp5-vast-vpaidmode' => array(
+				'',
+				'DISABLED',
+				'ENABLED',
+				'INSECURE',
 			),
 		);
 		return $options;

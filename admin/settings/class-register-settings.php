@@ -29,6 +29,10 @@ class Flowplayer5_Settings {
 		} else {
 			$defaults['fp_version'] = 'fp5';
 		}
+		
+		$defaults['vast_vpaidmode_global'] = 'ENABLED';
+		$defaults['vast_redirects_global'] = 4;		
+		
 		$settings_array = $this->get_registered_settings();
 		foreach( $settings_array as $section => $setting ) {
 			if ( isset( $setting['title'] ) ) {
@@ -320,7 +324,23 @@ class Flowplayer5_Settings {
 					'button' => __( 'Add JS file', 'flowplayer5' ),
 					'size'  => 'regular',
 					'desc'   => __( 'Add your custom VAST plugin file', 'flowplayer5' ),
-				)
+				),
+				'vast_vpaidmode_global' => array(
+					'name'    => __( 'VpaidMode default', 'flowplayer5' ),
+					'desc'    => __( 'Global default which can be overridden in individual videos', 'flowplayer5' ),
+					'type'    => 'select',
+					'options' => array(
+						'DISABLED' => __( 'Disabled', 'flowplayer5' ),
+						'ENABLED' => __( 'Enabled', 'flowplayer5' ),
+						'INSECURE' => __( 'Insecure', 'flowplayer5' )
+					),
+				),
+				'vast_redirects_global' => array(
+					'name'   => __( 'Redirects', 'flowplayer5' ),
+					'desc'    => __( 'Maximum number of redirects to try before ad load is aborted. Global default which can be overridden in individual videos', 'flowplayer5' ),
+					'type'   => 'text',
+					'size'  => 'small',
+				),
 			),
 			'embed_options' => array(
 				'title' => __( 'Embed assets', 'flowplayer5' ) . ' <a href="https://flowplayer.org/docs/embedding.html#configuration">?</a>',

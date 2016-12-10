@@ -18,6 +18,29 @@ jQuery(function() {
 <table class="form-table">
 	<tbody>
 
+		<tr class="fp5-vast-vpaidmode" valign="top">
+			<th scope="row"><label for="fp5-vast-vpaidmode" class="fp5-row-title"><?php _e( 'VpaidMode', $this->plugin_slug )?></label></th>
+			<td>
+				<select id="fp5-vast-vpaidmode" name="fp5-vast-vpaidmode">
+					<option id="fp5-vast-vpaidmode-default" value="" <?php if ( isset ( $fp5_stored_meta['fp5-vast-vpaidmode'] ) ) selected( $fp5_stored_meta['fp5-vast-vpaidmode'][0], '' ); ?>>Use global setting</option>
+					<option id="fp5-vast-vpaidmode-disabled" value="DISABLED" <?php if ( isset ( $fp5_stored_meta['fp5-vast-vpaidmode'] ) ) selected( $fp5_stored_meta['fp5-vast-vpaidmode'][0], 'disabled' ); ?>>Disabled</option>
+					<option id="fp5-vast-vpaidmode-enabled" value="ENABLED" <?php if ( isset ( $fp5_stored_meta['fp5-vast-vpaidmode'] ) ) selected( $fp5_stored_meta['fp5-vast-vpaidmode'][0], 'enabled' ); ?>>Enabled</option>
+					<option id="fp5-vast-vpaidmode-insecure" value="INSECURE" <?php if ( isset ( $fp5_stored_meta['fp5-vast-vpaidmode'] ) ) selected( $fp5_stored_meta['fp5-vast-vpaidmode'][0], 'insecure' ); ?>>Insecure</option>
+				</select>
+
+				<?php _e( 'Determines VPAID functionality.', $this->plugin_slug ); ?>
+			</td>
+		</tr>
+
+		<tr class="fp5-vast-redirects" valign="top">
+			<th scope="row"><label for="fp5-vast-redirects" class="fp5-row-title"><?php _e( 'Redirects', $this->plugin_slug )?></label></th>
+			<td>
+				<input type="text" style="width: 60px;" name="fp5-vast-redirects" id="fp5-vast-redirects" value="<?php if ( isset ( $fp5_stored_meta['fp5-vast-redirects'] ) ) echo $fp5_stored_meta['fp5-vast-redirects'][0]; ?>" /><br>
+
+				<?php _e( 'Maximum number of redirects to try before ad load is aborted. Leave empty to use the global setting.', $this->plugin_slug ); ?>
+			</td>
+		</tr>
+
 		<tr class="fp5-adrules-xml-url" valign="top">
 			<th scope="row"><label for="fp5-adrules-xml-url" class="fp5-row-title"><?php _e( 'AdRules URL', $this->plugin_slug )?></label></th>
 			<td>
