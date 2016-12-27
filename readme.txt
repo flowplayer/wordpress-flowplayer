@@ -3,8 +3,8 @@ Contributors: flowplayerorg, grapplerulrich, anssi
 Donate link: https://flowplayer.org/pricing/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin
 Tags: flowplayer, flowplayer5, flowplayer6, Flowplayer HTML5, responsive, mobile, embed, html5, video, player, rtmp, hls, flash, live-streaming, Flowplayer Drive, Adsense, video ads, video widget, playlist, ABR, Adaptive Bit Rate
 Requires at least: 3.7
-Tested up to: 4.6
-Stable tag: 2.0.2
+Tested up to: 4.7
+Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -253,6 +253,13 @@ The plugin can also be found on [GitHub](https://github.com/flowplayer/wordpress
 == Changelog ==
 
 We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
+
+= 2.1.0 - 27 December 2016 =
+* Add VAST support
+* Prefer HLS format if available
+* Fix webm support in playlists
+# Fix coloring option for FP5
+* Update support for WP 4.7
 
 = 2.0.2 - 27 October 2016 =
 * Update support for AdSense for Flowplayer to version 2
