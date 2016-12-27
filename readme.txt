@@ -1,5 +1,5 @@
 === Flowplayer HTML5 for WordPress ===
-Contributors: flowplayerorg, grapplerulrich, anssi
+Contributors: flowplayerorg, grapplerulrich, underdude, anssi
 Donate link: https://flowplayer.org/pricing/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin
 Tags: flowplayer, flowplayer5, flowplayer6, Flowplayer HTML5, responsive, mobile, embed, html5, video, player, rtmp, hls, flash, live-streaming, Flowplayer Drive, Adsense, video ads, video widget, playlist, ABR, Adaptive Bit Rate
 Requires at least: 3.7
