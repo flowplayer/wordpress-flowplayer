@@ -28,15 +28,15 @@ jQuery(function() {
 	</tbody>
 </table>
 <table class="form-table">
-<thead>
+	<thead>
 		<tr>
 			<th style="width: 20%"><?php _e( 'Ad Type', $this->plugin_slug )?></th>
 			<th><?php _e( 'Seconds into the video', $this->plugin_slug )?></th>
 			<th style="width: 2%"></th>
 		</tr>
 	</thead>
-	<tbody>
 
+	<tfoot>
 		<tr class="fp5-ad-description" valign="top">
 			<td>
 				<a class="button-secondary fp5_add_repeatable"><?php _e( 'Add new ad', $this->plugin_slug ); ?></a>
@@ -45,7 +45,9 @@ jQuery(function() {
 				<?php _e( 'Leave the field blank to disable the ads in the video.', $this->plugin_slug ); ?>
 			</td>
 		</tr>
+	</tfoot>
 
+	<tbody>
 		<tr class="template fp5-ad-row" valign="top" style="display:none;">
 			<td>
 				<select name="fp5_ads[][fp5-ad-type]" id="fp5-ad-type">

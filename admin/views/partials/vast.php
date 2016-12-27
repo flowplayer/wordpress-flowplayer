@@ -54,15 +54,15 @@ jQuery(function() {
 </table>
 
 <table class="form-table">
-<thead>
+	<thead>
 		<tr>
 			<th><?php _e( 'Seconds into the video', $this->plugin_slug )?></th>
 			<th style="width: auto; padding-left: 10px;"><?php _e( 'adTag URL', $this->plugin_slug )?></th>
 			<th style="width: 2%"></th>
 		</tr>
 	</thead>
-	<tbody>
 
+	<tfoot>
 		<tr class="fp5-ad-description" valign="top">
 			<td>
 				<a class="button-secondary fp5_add_repeatable"><?php _e( 'Add new ad', $this->plugin_slug ); ?></a>
@@ -70,7 +70,9 @@ jQuery(function() {
 			<td>
 			</td>
 		</tr>
+	</tfoot>
 
+	<tbody>
 		<tr class="template fp5-ad-row" valign="top" style="display:none;">
 			<td>
 				<input type="text" name="fp5_vast_ads[{{row-count-placeholder}}][fp5-vast-ads-time]" id="fp5-vast-ads-time"/>
