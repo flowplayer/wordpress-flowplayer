@@ -24,15 +24,11 @@ class Flowplayer5_Settings {
 	*/
 	private function get_defaults( $options ) {
 		$defaults = array();
-		if ( empty( $options ) ) {
-			$defaults['fp_version'] = 'fp6';
-		} else {
-			$defaults['fp_version'] = 'fp5';
-		}
-		
+
+  	$defaults['fp_version'] = 'fp7';
 		$defaults['vast_vpaidmode_global'] = 'ENABLED';
-		$defaults['vast_redirects_global'] = 4;		
-		
+		$defaults['vast_redirects_global'] = 4;
+
 		$settings_array = $this->get_registered_settings();
 		foreach( $settings_array as $section => $setting ) {
 			if ( isset( $setting['title'] ) ) {
@@ -216,8 +212,8 @@ class Flowplayer5_Settings {
 					'desc'    => __( 'Choose Flowplayer script version', 'flowplayer5' ),
 					'type'    => 'select',
 					'options' => array(
-						'fp5' => __( 'Version 5', 'flowplayer5' ),
-						'fp6' => __( 'Version 6', 'flowplayer5' )
+						'fp6' => __( 'Version 6', 'flowplayer5' ),
+						'fp7' => __( 'Version 7', 'flowplayer5' )
 					),
 				),
 				'cdn_option' => array(
@@ -378,6 +374,10 @@ class Flowplayer5_Settings {
 		);
 		$settings['general'] = apply_filters( 'fp5_settings_general', $settings['general'] );
 		return apply_filters( 'fp5_register_settings', $settings );
+	}
+
+	private function is_fp7( $setting_values ) {
+		return 'fp7' === $setting_values['fp_version'];
 	}
 
 	private function is_fp6( $setting_values ) {

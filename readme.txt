@@ -1,10 +1,10 @@
 === Flowplayer HTML5 for WordPress ===
 Contributors: flowplayerorg, grapplerulrich, underdude, anssi
 Donate link: https://flowplayer.org/pricing/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin
-Tags: flowplayer, flowplayer5, flowplayer6, Flowplayer HTML5, responsive, mobile, embed, html5, video, player, rtmp, hls, flash, live-streaming, Flowplayer Drive, Adsense, video ads, video widget, playlist, ABR, Adaptive Bit Rate
+Tags: flowplayer, flowplayer7, flowplayer6, Flowplayer HTML5, responsive, mobile, embed, html5, video, player, rtmp, hls, flash, live-streaming, Flowplayer Drive, Adsense, video ads, video widget, playlist, ABR, Adaptive Bit Rate
 Requires at least: 3.7
 Tested up to: 4.7
-Stable tag: 2.1.0
+Stable tag: 2.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -253,6 +253,10 @@ The plugin can also be found on [GitHub](https://github.com/flowplayer/wordpress
 == Changelog ==
 
 We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
+
+= 2.2.0 - 10 April 2017 =
+* Support Flowplayer 7
+* Remove support for Flowplayer 5
 
 = 2.1.0 - 27 December 2016 =
 * Add VAST support

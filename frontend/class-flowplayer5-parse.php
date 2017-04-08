@@ -50,6 +50,7 @@ class Flowplayer5_Parse {
 			'preload'         => '',
 			'poster'          => '',
 			'skin'            => '',
+			'timeline'        => '',
 			'splash'          => '',
 			'subtitles'       => '',
 			'max_width'       => '',
@@ -67,8 +68,11 @@ class Flowplayer5_Parse {
 			'show_title'      => '',
 			'no_hover'        => '',
 			'no_mute'         => '',
+			'show_mute'       => '',
 			'no_volume'       => '',
 			'no_embed'        => '',
+			'no_share'        => '',
+			'no_buffer'       => '',
 			'live'            => '',
 			'play_button'     => '',
 			'ads_time'        => '',
@@ -77,6 +81,8 @@ class Flowplayer5_Parse {
 			'lightbox'        => '',
 			'title'           => '',
 			'hls_plugin'      => '',
+			'icons_edgy'      => '',
+			'icons_outlined'  => '',
 		);
 
 		$atts = array_filter( shortcode_atts(
@@ -101,6 +107,7 @@ class Flowplayer5_Parse {
 			'preload'         => self::get_custom_fields( $custom_fields, 'fp5-preload', $atts, 'preload' ),
 			'poster'          => self::get_custom_fields( $custom_fields, 'fp5-poster', $atts, 'poster' ),
 			'skin'            => self::get_custom_fields( $custom_fields, 'fp5-select-skin', $atts, 'skin', 'minimalist' ),
+			'timeline'        => self::get_custom_fields( $custom_fields, 'fp5-timeline-style', $atts, 'timeline', 'timeline-default' ),
 			'subtitles'       => self::get_custom_fields( $custom_fields, 'fp5-vtt-subtitles', $atts, 'subtitles' ),
 			'max_width'       => self::get_custom_fields( $custom_fields, 'fp5-max-width', $atts, 'max_width' ),
 			'ratio'           => self::get_custom_fields( '', '', $atts, 'ratio' ),
@@ -108,17 +115,21 @@ class Flowplayer5_Parse {
 			'data_rtmp'       => self::get_custom_fields( $custom_fields, 'fp5-data-rtmp', $atts, 'rtmp' ),
 			'quality'         => self::get_custom_fields( $custom_fields, 'fp5-default-quality', $atts, 'quality' ),
 			'qualities'       => self::get_custom_fields( $custom_fields, 'fp5-qualities', $atts, 'qualities' ),
-			'coloring'        => self::get_custom_fields( $custom_fields, 'fp5-coloring', $atts, 'coloring' ),
 			'fixed_controls'  => self::get_custom_fields( $custom_fields, 'fp5-fixed-controls', $atts, 'fixed_controls' ),
 			'background'      => self::get_custom_fields( $custom_fields, 'fp5-no-background', $atts, 'background' ),
 			'aside_time'      => self::get_custom_fields( $custom_fields, 'fp5-aside-time', $atts, 'aside_time' ),
 			'show_title'      => self::get_custom_fields( $custom_fields, 'fp5-show-title', $atts, 'show_title' ),
 			'no_hover'        => self::get_custom_fields( $custom_fields, 'fp5-no-hover', $atts, 'no_hover' ),
 			'no_mute'         => self::get_custom_fields( $custom_fields, 'fp5-no-mute', $atts, 'no_mute' ),
+			'show_mute'       => self::get_custom_fields( $custom_fields, 'fp5-show-mute', $atts, 'show_mute' ),
 			'no_volume'       => self::get_custom_fields( $custom_fields, 'fp5-no-volume', $atts, 'no_volume' ),
 			'no_embed'        => self::get_custom_fields( $custom_fields, 'fp5-no-embed', $atts, 'no_embed' ),
+			'no_share'        => self::get_custom_fields( $custom_fields, 'fp5-no-share', $atts, 'no_share' ),
+			'no_buffer'       => self::get_custom_fields( $custom_fields, 'fp5-no-buffer', $atts, 'no_buffer' ),
 			'live'            => self::get_custom_fields( $custom_fields, 'fp5-live', $atts, 'live' ),
 			'play_button'     => self::get_custom_fields( $custom_fields, 'fp5-play-button', $atts, 'play_button' ),
+			'icons_edgy'      => self::get_custom_fields( $custom_fields, 'fp5-icons-edgy', $atts, 'icons_edgy' ),
+			'icons_outlined'  => self::get_custom_fields( $custom_fields, 'fp5-icons-outlined', $atts, 'icons_outlined' ),
 			'ads_time'        => self::get_custom_fields( $custom_fields, 'fp5-ads-time', $atts, 'ads_time' ),
 			'ad_type'         => self::get_custom_fields( $custom_fields, 'fp5-ad-type', $atts, 'ad_type' ),
 			'fp5_ads'         => maybe_unserialize( self::get_custom_fields( $custom_fields, 'fp5_ads' ) ),
@@ -179,23 +190,23 @@ class Flowplayer5_Parse {
 			'flowplayer-video-' . $atts['id'],
 			'flowplayer-' . $atts['id'],
 			$atts['skin'],
+			$atts['timeline'],
 		);
-
-		if( 'fp5' === $atts['fp_version'] ) {
-			$return['player_classes'][] = $atts['coloring'];
-		}
 
 		// Prepare video classes
 		$return['classes'] = array(
 			( ! empty ( $atts['splash'] ) ? 'is-splash' : '' ),
 			( ! empty ( $atts['logo_origin'] ) ? 'commercial' : '' ),
-			( $atts['fixed_controls'] ? 'fixed-controls' : '' ),
+			( $atts['fixed_controls'] ? 'fixed-controls no-toggle' : '' ),
 			( $atts['background'] ? 'no-background' : '' ),
 			( $atts['aside_time'] ? 'aside-time' : '' ),
-			( $atts['no_hover'] ? 'no-hover' : '' ),
+			( $atts['show_mute'] ? 'fp-mute' : '' ),
 			( $atts['no_mute'] ? 'no-mute' : '' ),
+			( $atts['no_buffer'] ? 'no-buffer' : '' ),
 			( $atts['no_volume'] ? 'no-volume' : '' ),
 			( $atts['play_button'] ? 'play-button' : '' ),
+			( $atts['icons_edgy'] ? 'fp-edgy' : '' ),
+			( $atts['icons_outlined'] ? 'fp-outlined' : '' ),
 		);
 
 		$return['attributes'] = array(
@@ -207,8 +218,8 @@ class Flowplayer5_Parse {
 
 		// Prepare video tag data config
 		$video_data_config = array();
-		if ( ! empty ( $title ) && ! empty ( $show_title ) ) {
-			$video_data_config['title'] = esc_attr( $title );
+		if ( ! empty ( $atts['title'] ) && ! empty ( $atts['show_title'] ) ) {
+			$video_data_config['title'] = esc_attr( $atts['title'] );
 		}
 		$return['video_data_config'] = apply_filters( 'fp5_video_data_config', $video_data_config, $atts['id'] );
 
@@ -219,7 +230,7 @@ class Flowplayer5_Parse {
 		if ( ! empty( $atts['ad_type'] ) && ! empty( $atts['ads_time'] ) || '0' === $atts['ads_time'] ) {
 			$asf_ads[] = array(
 				'time'    => $atts['ads_time'],
-				'ad_type' => $atts['ad_typ'],
+				'ad_type' => $atts['ad_type'],
 			);
 		} elseif ( is_array( $atts['fp5_ads'] ) ) {
 			foreach( $atts['fp5_ads'] as $fp5_ad ) {
@@ -229,7 +240,7 @@ class Flowplayer5_Parse {
 				);
 			}
 		}
-		if ( $atts['asf_js'] && 'fp6' === $atts['fp_version'] && ! empty( $atts['fp5_ads'] ) ) {
+		if ( $atts['asf_js'] && ! empty( $atts['fp5_ads'] ) ) {
 			$js_config['ima'] = array(
 				'adtest' => ! empty( $atts['asf_test'] ) ? 'on' : 'off',
 				'description_url' => $atts['description_url'],
@@ -246,7 +257,7 @@ class Flowplayer5_Parse {
 				);
 			}
 		}
-		if ( $atts['vast_js'] && 'fp6' === $atts['fp_version'] ) {
+		if ( $atts['vast_js'] ) {
   		if ( ! empty( $atts['fp5_vast_ads'] ) ) {
   			$js_config['ima'] = array(
   				'ads' => $vast_ads,
@@ -290,17 +301,16 @@ class Flowplayer5_Parse {
 			$js_config['defaultQuality'] = esc_attr( $atts['quality'] );
 		}
 		if ( ! empty ( $atts['qualities'] ) ) {
-			if ( 'fp6' === $atts['fp_version'] ) {
-				$js_config['qualities'] = explode( ',', esc_attr( $atts['qualities'] ) );
-			} else {
-				$js_config['qualities'] = esc_attr( $atts['qualities'] );
-			}
+			$js_config['qualities'] = explode( ',', esc_attr( $atts['qualities'] ) );
 		}
 		if ( 0 == $atts['width'] && 0 == $atts['height'] ) {
 			$js_config['adaptiveRatio'] = true;
 		}
 		if ( 'true' == $atts['no_embed'] ) {
 			$js_config['embed'] = false;
+		}
+		if ( 'true' == $atts['no_share'] ) {
+			$js_config['share'] = false;
 		}
 		if ( 0 < strlen( $atts['key'] ) ) {
 			$js_config['key'] = esc_attr( $atts['key'] );

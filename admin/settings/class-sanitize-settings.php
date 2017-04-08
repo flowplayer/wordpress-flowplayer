@@ -110,7 +110,7 @@ class Flowplayer5_Sanitize_Settings {
 
 		switch ( $key ) {
 			case 'fp_version':
-				if ( ! in_array( $value, array( 'fp5', 'fp6' ), true ) ) {
+				if ( ! in_array( $value, array( 'fp7', 'fp6' ), true ) ) {
 					return false;
 				}
 				break;

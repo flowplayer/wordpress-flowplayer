@@ -31,7 +31,7 @@ class Flowplayer5 {
 	 *
 	 * @var     string
 	 */
-	protected $plugin_version = '2.0.1';
+	protected $plugin_version = '2.2.0';
 
 	/**
 	 * Unique identifier for your plugin.
@@ -89,10 +89,10 @@ class Flowplayer5 {
 	 */
 	public function get_player_version() {
 		$options = fp5_get_settings();
-		if ( isset( $options['fp_version'] ) && 'fp6' === $options['fp_version'] ) {
-			return '6.0.5';
+		if ( isset( $options['fp_version'] ) && 'fp7' === $options['fp_version'] ) {
+			return '7.0.2';
 		} else {
-			return '5.5.2';
+			return '6.0.5';
 		}
 	}
 

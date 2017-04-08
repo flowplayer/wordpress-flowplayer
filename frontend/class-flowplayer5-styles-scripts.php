@@ -73,8 +73,9 @@ class Flowplayer5_Styles_Scripts {
 			'is_hls'           => $flowplayer_shortcode->get_attr_value( 'application/x-mpegurl', $flowplayer_shortcode->get_attr_value( 'formats', $atts ) ) && $flowplayer_shortcode->get_attr_value( 'hls_plugin', $atts ),
 			'is_lightbox'      => $flowplayer_shortcode->get_attr_value( 'lightbox', $atts ) && ! isset( $first_video['playlist'] ),
 			'qualities'        => $flowplayer_shortcode->get_video_qualities( $atts ),
-			'qs_dir'           => 'fp6' === $settings['fp_version'] ? 'quality-selector/flowplayer.' : 'drive/',
+			'qs_dir'           => 'fp7' === $settings['fp_version'] ? 'vod-quality-selector/flowplayer.vod-' : 'quality-selector/flowplayer.',
 			'fp_6'             => 'fp6' === $settings['fp_version'] ? '-v6' : '',
+			'fp_7'             => 'fp7' === $settings['fp_version'] ? '-v7' : '',
 			'fp_directory'     => trailingslashit( $this->get_flowplayer_directory( $settings ) ),
 			'assets_directory' => trailingslashit( $this->get_assets_directory( $settings ) ),
 			'use_drive_analytics' => ! empty ( $settings['drive_analytics'] ) && boolval( $settings['drive_analytics'] ),
@@ -94,7 +95,19 @@ class Flowplayer5_Styles_Scripts {
 			$flowplayer5_directory = $settings['directory'];
 		} elseif ( ! $settings['cdn_option'] ) {
   		// Use the local assets
-			$flowplayer5_directory = plugins_url( '/assets/flowplayer' . ( 'fp6' === $settings['fp_version'] ? '-v6' : '' ), __FILE__  );
+  		switch ( $settings['fp_version'] ) {
+  			case 'fp7':
+					$assets_postfix = '-v7';
+					break;
+  			case 'fp6':
+					$assets_postfix = '-v6';
+					break;
+				default:
+					$assets_postfix = '';
+					break;
+			}
+
+			$flowplayer5_directory = plugins_url( '/assets/flowplayer' . $assets_postfix, __FILE__  );
 		} else {
   		// Use the CDN assets (default)
 			$flowplayer5_directory = '//releases.flowplayer.org/' . $this->player_version . '/'. ( $settings['key'] ? 'commercial' : '' );
@@ -119,7 +132,7 @@ class Flowplayer5_Styles_Scripts {
 	 */
 	private function register_styles( $config ) {
 		// Register stylesheets
-		wp_register_style( 'flowplayer5-skins', $config['fp_directory'] . 'skin/all-skins.css', array(), $config['plugin_version'] );
+		wp_register_style( 'flowplayer5-skins', $config['fp_directory'] . 'skin/' . ( $config['fp_7'] == '-v7' ? 'skin.css' : 'all-skins.css' ), array(), $config['plugin_version'] );
 		wp_register_style( 'flowplayer5-logo-origin', plugins_url( '/assets/css/public-concat' . $config['suffix'] . '.css', __FILE__ ), array(), $config['plugin_version'] );
 	}
 
@@ -145,7 +158,7 @@ class Flowplayer5_Styles_Scripts {
 		wp_register_script( 'flowplayer5-asf', esc_url( $config['asf_js'] ), array( 'flowplayer5-ima3' ), null, false );
 		wp_register_script( 'flowplayer5-vast', esc_url( $config['vast_js'] ), array( 'flowplayer5-ima3' ), null, false );
 		wp_register_script( 'hlsjs', $config['assets_directory'] . 'hlsjs/hls.js', array(), null, false );
-		wp_register_script( 'flowplayer5-hlsjs', $config['assets_directory'] . 'hlsjs/flowplayer.hlsjs' . $config['suffix'] . '.js', $config['hls_dep'], 'fd94460', false );
+		wp_register_script( 'flowplayer5-hlsjs', $config['assets_directory'] . 'hlsjs/flowplayer.hlsjs' . $config['suffix'] . '.js', $config['hls_dep'], 'g397c8eb', false );
 		wp_register_script( 'flowplayer5-quality-selector', $config['assets_directory'] . $config['qs_dir'] . 'quality-selector' . $config['suffix'] . '.js', array( 'flowplayer5-script' ), '4f2e08f', false );
 		wp_register_script( 'magnific-popup', plugins_url( '/assets/magnific-popup/magnific-popup' . $config['suffix'] . '.js', __FILE__ ), array( 'jquery' ), '1.0.0', false );
 		wp_register_script( 'flowplayer5-drive-analytics', '//releases.flowplayer.org/drive-analytics/flowplayer.drive-analytics.min.js', array( 'flowplayer5-script' ), null, false );
@@ -161,7 +174,7 @@ class Flowplayer5_Styles_Scripts {
 		if ( $config['use_drive_analytics'] ){
 			wp_enqueue_script( 'flowplayer5-drive-analytics' );
 		}
-		if ( $config['is_hls'] && $config['fp_6'] ){
+		if ( $config['is_hls'] ){
 			wp_enqueue_script( 'flowplayer5-hlsjs' );
 		}
 		if ( $config['asf_js'] ){

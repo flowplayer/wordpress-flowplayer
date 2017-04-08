@@ -35,17 +35,6 @@ jQuery(document).ready(function ($) {
         }
     } );
 
-    // Update skin image according to selection
-    $('#fp5-select-skin option').each(function () {
-        if ($(this).is(':selected')) {
-            $("." + $(this).val()).show();
-        }
-    });
-    $("select#fp5-select-skin").change(function () {
-        $("img").hide();
-        $("." + $(this).val()).show();
-    });
-
     // Create html5 preview and calculate width and height of preview
     var CreatePreview;
     $('#video video').remove();

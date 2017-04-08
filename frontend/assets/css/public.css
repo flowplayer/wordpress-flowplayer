@@ -10,11 +10,14 @@
 
 .flowplayer-video {
 	background-color: #777;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: greyscale;
 }
 
 /* Fix for TwentyFifteen */
 .flowplayer .fp-ui a {
 	border-bottom: none;
+	box-shadow: none;
 }
 
 .playful.fixed-controls {

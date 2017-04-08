@@ -138,7 +138,7 @@ class Flowplayer5_Video_Meta_Box {
 	 * @since      1.0.0
 	 */
 	public function display_video_meta_box( $post ) {
-    
+
 		wp_nonce_field( plugin_basename( __FILE__ ), 'fp5-nonce' );
 		$fp5_stored_meta = wp_parse_args(
 			get_post_meta( $post->ID ),
@@ -154,7 +154,7 @@ class Flowplayer5_Video_Meta_Box {
 		if ( isset( $fp5_stored_meta['fp5-ads-time'][0] ) ) {
 			$fp5_ads[0]['fp5-ads-time'] = $fp5_stored_meta['fp5-ads-time'][0];
 		}
-		
+
 		$fp5_vast_ads = isset( $fp5_stored_meta['fp5_vast_ads'][0] ) ? maybe_unserialize( $fp5_stored_meta['fp5_vast_ads'][0] ) : array();
 		if ( isset( $fp5_stored_meta['fp5-vast-ads-time'][0] ) ) {
 			$fp5_vast_ads[0]['fp5-vast-ads-time'] = $fp5_stored_meta['fp5-vast-ads-time'][0];
@@ -189,13 +189,18 @@ class Flowplayer5_Video_Meta_Box {
 				'fp5-aside-time',
 				'fp5-no-hover',
 				'fp5-no-mute',
+				'fp5-show-mute',
 				'fp5-no-time',
 				'fp5-no-volume',
 				'fp5-no-embed',
+				'fp5-no-share',
+				'fp5-no-buffer',
 				'fp5-live',
 				'fp5-play-button',
 				'fp5-show-title',
 				'fp5-hls-plugin',
+				'fp5-icons-edgy',
+				'fp5-icons-outlined',
 			);
 
 			foreach ( $checkboxes as $checkbox ) {
@@ -215,6 +220,7 @@ class Flowplayer5_Video_Meta_Box {
 			$choices = $this->allowed_dropdown_options();
 			$keys = array(
 				'fp5-select-skin',
+				'fp5-timeline-style',
 				'fp5-preload',
 				'fp5-coloring',
 				'fp5-lightbox',
@@ -311,8 +317,8 @@ class Flowplayer5_Video_Meta_Box {
 					'fp5_ads'
 				);
 			}
-			
-			
+
+
       if ( array_key_exists( 'fp5_vast_ads', $_POST ) && is_array( $_POST[ 'fp5_vast_ads' ] ) ) {
 				foreach ( $_POST[ 'fp5_vast_ads' ] as $key => $value ) {
 					$new_value[ $key ] = array(
@@ -355,6 +361,15 @@ class Flowplayer5_Video_Meta_Box {
 				'minimalist',
 				'functional',
 				'playful',
+				'fp-default',
+				'fp-minimal',
+				'fp-playful',
+			),
+			'fp5-timeline-style' => array(
+				'timeline-default',
+				'fp-slim',
+				'fp-full',
+				'fp-fat',
 			),
 			'fp5-preload' => array(
 				'none',
