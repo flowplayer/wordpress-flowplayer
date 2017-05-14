@@ -257,12 +257,10 @@ class Flowplayer5_Settings {
 					'button'    => __( 'Add brand name', 'flowplayer5' ) . ' <a href="https://flowplayer.org/news/releases/html5/v.6.0.0.html">' . __( 'Flowplayer 6 feature', 'flowplayer5' ) . '</a>',
 					'size'      => 'regular',
 					'desc'      => __( 'If set, the brand name will appear in the controlbar.' ),
-					'condition' => array( $this, 'is_fp6' ),
 				),
 				'text_origin' => array(
 					'desc'     => __( 'Check to show the title in videos on this site and in externally embedded videos.', 'flowplayer5' ) . ' <a href="https://flowplayer.org/news/releases/html5/v.6.0.0.html">' . __( 'Flowplayer 6 feature', 'flowplayer5' ) . '</a>',
 					'type'      => 'checkbox',
-					'condition' => array( $this, 'is_fp6' ),
 				),
 			),
 			'flowplayer_drive' => array(
@@ -283,7 +281,6 @@ class Flowplayer5_Settings {
 					'name' => __( 'Drive Analytics', 'flowplayer5' ) . ' <a href="https://flowplayer.org/blog/improved-analytics/">?</a>',
 					'type' => 'checkbox',
 					'desc' => __( 'Enable the Drive Analytics script', 'flowplayer5' ),
-					'condition' => array( $this, 'is_fp6' ),
 				)
 			),
 			'video_tracking' => array(

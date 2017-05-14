@@ -16,13 +16,6 @@
 					<?php _e( 'Loop', $this->plugin_slug )?>
 				</label>
 				|
-				<label for="fp5-preload" class="fp5-row-title"><?php _e( 'Preload', $this->plugin_slug )?></label>
-				<select name="fp5-preload" id="fp5-preload">
-					<option value="none" <?php if ( isset ( $fp5_stored_meta['fp5-preload'] ) ) selected( $fp5_stored_meta['fp5-preload'][0], 'none' ); ?>>none</option>
-					<option value="metadata" <?php if ( isset ( $fp5_stored_meta['fp5-preload'] ) ) selected( $fp5_stored_meta['fp5-preload'][0], 'metadata' ); ?>>metadata</option>
-					<option value="auto" <?php if ( isset ( $fp5_stored_meta['fp5-preload'] ) ) selected( $fp5_stored_meta['fp5-preload'][0], 'auto' ); ?>>auto</option>
-				</select>
-				|
 				<label for="fp5-live">
 					<input type="checkbox" name="fp5-live" id="fp5-live" value="true" <?php if ( isset ( $fp5_stored_meta['fp5-live'] ) ) checked( $fp5_stored_meta['fp5-live'][0], 'true' ); ?> />
 					<?php _e( 'Live streaming', $this->plugin_slug ); ?>
@@ -61,7 +54,7 @@
 		</tr>
 
 		<tr class="fp5-quality" valign="top">
-			<th scope="row"><?php _e( 'Video quality', $this->plugin_slug )?> <a href="https://flowplayer.org/demos/qsel/" target="_blank">?</a></th>
+			<th scope="row"><?php _e( 'VOD quality selection', $this->plugin_slug )?> <a href="https://flowplayer.org/demos/qsel/" target="_blank">?</a></th>
 			<td>
 				<label for="fp5-default-quality" class="fp5-row-title"><?php _e( 'Default quality', $this->plugin_slug )?></label>
 				<input type="text" name="fp5-default-quality" id="fp5-default-quality" placeholder="<?php _e( '360p', $this->plugin_slug )?>" value="<?php if ( isset ( $fp5_stored_meta['fp5-default-quality'] ) ) echo esc_attr( $fp5_stored_meta['fp5-default-quality'][0] ); ?>" />

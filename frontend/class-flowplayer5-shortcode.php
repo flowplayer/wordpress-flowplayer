@@ -87,7 +87,7 @@ class Flowplayer5_Shortcode {
 			global $wp_query;
 			foreach ( $wp_query->posts as $post ) {
 				if ( isset( $post->post_content ) ) {
-					$shortcode_atts = $this->has_shortcode_arg( $post->post_content, 'flowplayer' );
+					$shortcode_atts[] = $this->has_shortcode_arg( $post->post_content, 'flowplayer' );
 					if ( ! $shortcode_atts ) {
 						continue;
 					}
@@ -95,6 +95,7 @@ class Flowplayer5_Shortcode {
 			}
 		}
 		$this->shortcode_atts = $shortcode_atts;
+
 		return $this->shortcode_atts;
 	}
 

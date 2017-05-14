@@ -36,13 +36,12 @@ class Flowplayer5_Parse {
 		/**
 		 * flowplayer shortcode
 		 *
-		 * @example [flowplayer id="123" splash="trailer_1080p.jpg" webm="trailer_1080p.webm" mp4="trailer_1080p.mp4" ogg="trailer_1080p.ogv" width="1920" height="1080" skin="functional" autoplay="true" loop="true" fixed="false" subtitles="bunny-en.vtt" fixed_controls="true" coloring="default" preload="auto"]
+		 * @example [flowplayer id="123" splash="trailer_1080p.jpg" webm="trailer_1080p.webm" mp4="trailer_1080p.mp4" width="1920" height="1080" skin="functional" autoplay="true" loop="true" fixed="false" subtitles="bunny-en.vtt" fixed_controls="true" coloring="default" preload="auto"]
 		 */
 		$shortcode_defaults = array(
 			'id'              => '',
 			'mp4'             => '',
 			'webm'            => '',
-			'ogg'             => '',
 			'flash'           => '',
 			'hls'             => '',
 			'loop'            => '',
@@ -148,7 +147,6 @@ class Flowplayer5_Parse {
 				'application/x-mpegurl' => self::get_custom_fields( $custom_fields, 'fp5-hls-video', $atts, 'hls' ),
 				'video/webm'            => self::get_custom_fields( $custom_fields, 'fp5-webm-video', $atts, 'webm' ),
 				'video/mp4'             => self::get_custom_fields( $custom_fields, 'fp5-mp4-video', $atts, 'mp4' ),
-				'video/ogg'             => self::get_custom_fields( $custom_fields, 'fp5-ogg-video', $atts, 'ogg' ),
 				'video/flash'           => self::get_custom_fields( $custom_fields, 'fp5-flash-video', $atts, 'flash' ),
 			),
 		);
@@ -212,7 +210,6 @@ class Flowplayer5_Parse {
 		$return['attributes'] = array(
 			( ( $atts['autoplay'] == 'true' ) ? 'autoplay' : '' ),
 			( ( $atts['loop'] == 'true' ) ? 'loop' : '' ),
-			( ! empty ( $atts['preload'] ) ? 'preload="' . esc_attr( $atts['preload'] ) . '"' : '' ),
 			( ( $atts['poster'] == 'true' ) ? 'poster' : '' ),
 		);
 
@@ -351,7 +348,7 @@ class Flowplayer5_Parse {
 		$return['player_config'] = array_diff_key( $js_config, $clip_config );
 
 		// Check if a video has been added before output
-		if ( $atts['formats']['video/webm'] || $atts['formats']['video/mp4'] || $atts['formats']['video/ogg'] || $atts['formats']['video/flash'] || $atts['formats']['application/x-mpegurl'] ) {
+		if ( $atts['formats']['video/webm'] || $atts['formats']['video/mp4'] || $atts['formats']['video/flash'] || $atts['formats']['application/x-mpegurl'] ) {
 			return array_merge( $atts, $return );
 		}
 

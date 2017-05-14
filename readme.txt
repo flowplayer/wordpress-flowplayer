@@ -3,8 +3,8 @@ Contributors: flowplayerorg, grapplerulrich, underdude, anssi
 Donate link: https://flowplayer.org/pricing/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin
 Tags: flowplayer, flowplayer7, flowplayer6, Flowplayer HTML5, responsive, mobile, embed, html5, video, player, rtmp, hls, flash, live-streaming, Flowplayer Drive, Adsense, video ads, video widget, playlist, ABR, Adaptive Bit Rate
 Requires at least: 3.7
-Tested up to: 4.7
-Stable tag: 2.2.0
+Tested up to: 4.7.4
+Stable tag: 3.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -25,12 +25,12 @@ Flowplayer HTML5 for WordPress provides a video management system for self hoste
 * Style the video player with the three default Flowplayer skins: [Minimalist](https://flowplayer.org/demos/#minimalist?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin), [Functional](https://flowplayer.org/demos/#functional?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin) and [Playful](https://flowplayer.org/demos/#playful?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin)
 * Track your video video audience and traffic with [Google Analytics](https://flowplayer.org/docs/analytics.html?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin)
 * Video adverts with [Google AdSense](https://flowplayer.org/asf/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin)
-* Supports WEBM, MP4, OGG, FLV(flash), RTMP and HLS video formats.
+* Supports WEBM, MP4, FLV(flash), RTMP and HLS video formats.
 * Use Flowplayer to play your live streams
 * Show your video in any desired player size. Detects the video dimensions for configuring the correct player size
 * [Supports subtitles](https://flowplayer.org/docs/subtitles.html?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin)
 * Fully internationalized - [Help Translate](https://translate.wordpress.org/projects/wp-plugins/flowplayer5)
-* Switch easily between Flowplayer v5 and Flowplayer v6
+* Switch easily between Flowplayer v6 and Flowplayer v7
 
 
 [Demos](https://flowplayer.org/demos/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin) | [Documentation](https://wordpress.org/plugins/flowplayer5/faq/) | [Support](http://wordpress.org/support/plugin/flowplayer5)
@@ -94,7 +94,7 @@ There are three ways you add add a video
 3. You can store your videos on Amazon S3 or any other cloud host and add the links manually.
 
 = What video format do I need? =
-It is recommended to add at least two [video formats](https://flowplayer.org/docs/setup.html?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin#video-formats) so that the video plays on as many browsers as possible. By default Flowplayer attempts to use HTML5 video, and if it's not supported then Flash (9.0+) and MP4 is used. MP4 is enough for complete browser support, but providing WebM and/or OGG video gives you broader support for HTML5 video which is the preferred technology.
+It is recommended to add at least two [video formats](https://flowplayer.org/docs/setup.html?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin#video-formats) so that the video plays on as many browsers as possible. By default Flowplayer attempts to use HTML5 video, and if it's not supported then Flash (9.0+) and MP4 is used. MP4 is enough for complete browser support, but providing WebM video gives you broader support for HTML5 video which is the preferred technology.
 
 = Why use Flowplayer when there is video support since WordPress 3.6? =
 
@@ -254,9 +254,10 @@ The plugin can also be found on [GitHub](https://github.com/flowplayer/wordpress
 
 We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
 
-= 2.2.0 - 10 April 2017 =
+= 3.0.0 - 14 May 2017 =
 * Support Flowplayer 7
 * Remove support for Flowplayer 5
+* Deprecate support for OGG video
 
 = 2.1.0 - 27 December 2016 =
 * Add VAST support

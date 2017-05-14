@@ -16,25 +16,6 @@ jQuery(document).ready(function ($) {
     $(".fp5-video-meta-box div.hidden").removeClass('hidden');
     $(".fp5-video-meta-box").tabs();
 
-    // Media toggle
-    var mode_checkbox = $('input#fp5-toggle');
-    var advance = $('.fp5-video-meta-box .advance');
-    // On load: Hide the below option is toggle is on.
-    if ( mode_checkbox.is( ':checked' ) ) {
-        advance.show();
-    } else {
-        advance.hide();
-    }
-
-    // Hide and show on change.
-    mode_checkbox.change( function () {
-        if ( mode_checkbox.is( ':checked' ) ) {
-            advance.show();
-        } else {
-            advance.hide();
-        }
-    } );
-
     // Create html5 preview and calculate width and height of preview
     var CreatePreview;
     $('#video video').remove();
@@ -43,7 +24,6 @@ jQuery(document).ready(function ($) {
         $('#video').append('<video controls="controls" preload="metadata" id="preview">' +
             '<source type="video/webm" src="' + $('#fp5-webm-video').val() + '"/>' +
             '<source type="video/mp4" src="' + $('#fp5-mp4-video').val() + '"/>' +
-            '<source type="video/ogg" src="' + $('#fp5-ogg-video').val() + '"/>' +
             '</video>');
 
         var preview = $("#preview");
@@ -217,40 +197,6 @@ jQuery(document).ready(function ($) {
         });
 
         fp5_webm_frame.open();
-    });
-
-    // Add ogg video
-    var fp5_ogg_frame;
-
-    $(document.body).on('click.fp5OpenMediaManager', '.fp5-add-ogg', function(e){
-        e.preventDefault();
-
-        if ( fp5_ogg_frame ) {
-            fp5_ogg_frame.open();
-            return;
-        }
-
-        fp5_ogg_frame = wp.media.frames.fp5_ogg_frame = wp.media({
-            className: 'media-frame fp5-media-frame',
-            frame: 'select',
-            multiple: false,
-            title: fp5_ogg_video.title,
-            library: {
-                type: 'video/ogg'
-            },
-            button: {
-                text: fp5_ogg_video.button
-            }
-        });
-
-        fp5_ogg_frame.on('select', function () {
-            var media_attachment = fp5_ogg_frame.state().get('selection').first().toJSON();
-
-            $('#fp5-ogg-video').val(media_attachment.url);
-            CreatePreview();
-        });
-
-        fp5_ogg_frame.open();
     });
 
     // Add flash video

@@ -3,7 +3,6 @@ $video_formats = array(
 	'hls' => 'application/x-mpegurl',
 	'webm'  => 'video/webm',
 	'mp4'   => 'video/mp4',
-	'ogg'   => 'video/ogg',
 	'flash' => 'video/flash',
 );
 // https://flowplayer.org/docs/playlist.html#javascript-install

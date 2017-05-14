@@ -2,7 +2,6 @@
 $video_formats = array(
 	'webm'  => 'video/webm',
 	'mp4'   => 'video/mp4',
-	'ogg'   => 'video/ogg',
 	'flash' => 'video/flash',
 );
 
