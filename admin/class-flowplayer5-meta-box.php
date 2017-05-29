@@ -349,7 +349,7 @@ class Flowplayer5_Video_Meta_Box {
 		if( $number == -1 ) {
 			return $number;
 		} else {
-			return sanitize_postive_number_including_zero( $number );
+			return $this->sanitize_postive_number_including_zero( $number );
 		}
 	}
 

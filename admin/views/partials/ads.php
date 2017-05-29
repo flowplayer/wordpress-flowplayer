@@ -50,14 +50,14 @@ jQuery(function() {
 	<tbody>
 		<tr class="template fp5-ad-row" valign="top" style="display:none;">
 			<td>
-				<select name="fp5_ads[][fp5-ad-type]" id="fp5-ad-type">
+				<select name="fp5_ads[{{row-count-placeholder}}][fp5-ad-type]" id="fp5-ad-type">
 					<option value="image_text"><?php _e( 'Image & Text', $this->plugin_slug ); ?></option>
 					<option value="video"><?php _e( 'Video', $this->plugin_slug )?></option>
 					<option value="skippablevideo"><?php _e( 'Skippable Video', $this->plugin_slug ); ?></option>
 				</select>
 			</td>
 			<td>
-				<input type="text" name="fp5_ads[][fp5-ads-time]" id="fp5-ads-time"/>
+				<input type="text" name="fp5_ads[{{row-count-placeholder}}][fp5-ads-time]" id="fp5-ads-time"/>
 			</td>
 			<td>
 				<button class="fp5_remove_repeatable">x</button>
