@@ -83,9 +83,15 @@
 .flowplayer.is-splash.is-loading .fp-ui > .fp-play, .flowplayer.is-poster.is-loading .fp-ui > .fp-play {
   display: none; }
 
+.flowplayer.is-splash.is-loading .fp-ui > .fp-waiting, .flowplayer.is-poster.is-loading .fp-ui > .fp-waiting {
+  display: block; }
+
 .flowplayer.is-poster .fp-engine {
   left: -9999em;
   top: -9999em; }
+
+.flowplayer.is-poster .fp-captions {
+  display: none !important; }
 
 .flowplayer.is-disabled .fp-color {
   background-color: #999; }
@@ -121,9 +127,11 @@
 .flowplayer.is-fullscreen.fp-edgy.fp-outlined .fp-fullscreen:before, .flowplayer.is-fullscreen.fp-edgy.fp-minimal .fp-fullscreen:before {
   content: "\e316"; }
 
-.flowplayer.is-loading .fp-waiting svg, .flowplayer.is-loading .fp-waiting p, .flowplayer.is-seeking .fp-waiting svg, .flowplayer.is-seeking .fp-waiting p {
-  filter: alpha(opacity=100);
-  opacity: 1; }
+.flowplayer.is-loading .fp-waiting, .flowplayer.is-seeking .fp-waiting {
+  display: block; }
+  .flowplayer.is-loading .fp-waiting svg, .flowplayer.is-loading .fp-waiting p, .flowplayer.is-seeking .fp-waiting svg, .flowplayer.is-seeking .fp-waiting p {
+    filter: alpha(opacity=100);
+    opacity: 1; }
 
 .flowplayer.is-loading .fp-play, .flowplayer.is-seeking .fp-play {
   display: none !important; }
@@ -491,17 +499,19 @@
     right: 0;
     height: 100%;
     width: 100%; }
-  .flowplayer video.fp-engine::-webkit-media-controls {
+  .flowplayer video.fp-engine:not(.native-subtitles)::-webkit-media-controls {
     display: none !important; }
   .flowplayer .fp-player {
     position: absolute;
     bottom: 0;
     top: 0; }
-  .flowplayer .fp-waiting p {
-    filter: alpha(opacity=0);
-    opacity: 0;
-    color: #ccc;
-    font-weight: bold; }
+  .flowplayer .fp-waiting {
+    display: none; }
+    .flowplayer .fp-waiting p {
+      filter: alpha(opacity=0);
+      opacity: 0;
+      color: #ccc;
+      font-weight: bold; }
   .flowplayer .fp-ui {
     height: 100%;
     top: 0;
@@ -938,6 +948,8 @@
       text-align: left;
       color: #fff;
       white-space: nowrap; }
+  .flowplayer .fp-subtitle-menu {
+    width: 9em; }
   .flowplayer .fp-share-menu {
     width: 9em;
     padding-bottom: 0.2em; }
@@ -1007,3 +1019,4 @@
   height: 0 !important;
   overflow: hidden !important;
   position: absolute; }
+

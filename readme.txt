@@ -4,7 +4,7 @@ Donate link: https://flowplayer.org/pricing/?utm_source=wordpress.org&utm_medium
 Tags: flowplayer, flowplayer7, flowplayer6, Flowplayer HTML5, responsive, mobile, embed, html5, video, player, rtmp, hls, flash, live-streaming, Flowplayer Drive, Adsense, video ads, video widget, playlist, ABR, Adaptive Bit Rate
 Requires at least: 3.7
 Tested up to: 4.7.4
-Stable tag: 3.0.0
+Stable tag: 3.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 

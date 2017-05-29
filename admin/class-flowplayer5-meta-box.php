@@ -300,11 +300,14 @@ class Flowplayer5_Video_Meta_Box {
 			}
 
 			if ( array_key_exists( 'fp5_ads', $_POST ) && is_array( $_POST[ 'fp5_ads' ] ) ) {
+				$new_value = array();
 				foreach ( $_POST[ 'fp5_ads' ] as $key => $value ) {
-					$new_value[ $key ] = array(
-						'fp5-ad-type' => in_array( $value['fp5-ad-type'], $choices['fp5-ad-type'] ) ? $value['fp5-ad-type'] : '',
-						'fp5-ads-time' => $this->sanitize_postive_number_including_zero( $value['fp5-ads-time'] ),
-					);
+					if( count( $value ) == 2 ) {
+						$new_value[ $key ] = array(
+							'fp5-ad-type' => in_array( $value['fp5-ad-type'], $choices['fp5-ad-type'] ) ? $value['fp5-ad-type'] : '',
+							'fp5-ads-time' => $this->sanitize_number_larger_than_minus_one( $value['fp5-ads-time'] ),
+						);
+					}
 				}
 				update_post_meta(
 					$post_id,
@@ -322,7 +325,7 @@ class Flowplayer5_Video_Meta_Box {
       if ( array_key_exists( 'fp5_vast_ads', $_POST ) && is_array( $_POST[ 'fp5_vast_ads' ] ) ) {
 				foreach ( $_POST[ 'fp5_vast_ads' ] as $key => $value ) {
 					$new_value[ $key ] = array(
-						'fp5-vast-ads-time' => $this->sanitize_postive_number_including_zero( $value['fp5-vast-ads-time'] ),
+						'fp5-vast-ads-time' => $this->sanitize_number_larger_than_minus_one( $value['fp5-vast-ads-time'] ),
 						'fp5-vast-ads-url' => esc_url_raw( $value['fp5-vast-ads-url'] ),
 					);
 				}
@@ -340,6 +343,14 @@ class Flowplayer5_Video_Meta_Box {
 
 		}
 
+	}
+
+	public function sanitize_number_larger_than_minus_one( $number ) {
+		if( $number == -1 ) {
+			return $number;
+		} else {
+			return sanitize_postive_number_including_zero( $number );
+		}
 	}
 
 	public function sanitize_postive_number_including_zero( $number ) {

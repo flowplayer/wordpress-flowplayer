@@ -88,10 +88,10 @@ class Flowplayer5_Styles_Scripts {
 	private function get_flowplayer_directory( $settings = array()  ) {
 		$flowplayer5_commercial = trailingslashit( WP_CONTENT_DIR ) . 'flowplayer-commercial';
 
-		if ( is_file( $flowplayer5_commercial ) && ! $settings['cdn'] && $settings['key'] ) {
+		if ( is_file( $flowplayer5_commercial ) && ! $settings['cdn_option'] && $settings['key'] ) {
   		// Use files from the 'flowplayer-commercial' default folder
 			$flowplayer5_directory = $flowplayer5_commercial;
-		} elseif ( ! empty( $settings['directory'] ) ) {
+		} elseif ( ! empty( $settings['directory'] ) && ! $settings['cdn_option'] ) {
   		// Use files from a specified (commercial) folder
 			$flowplayer5_directory = $settings['directory'];
 		} elseif ( ! $settings['cdn_option'] ) {

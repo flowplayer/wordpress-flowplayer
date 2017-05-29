@@ -220,7 +220,6 @@ class Flowplayer5_Settings {
 					'name'      => __( 'CDN hosted files', 'flowplayer5' ),
 					'desc'      => __( 'Use Flowplayer\'s CDN to host the CSS and JavaScript assets', 'flowplayer5' ),
 					'type'      => 'checkbox',
-					'condition' => array( $this, 'has_no_licence' ),
 				),
 			),
 			'branding' => array(
@@ -235,7 +234,7 @@ class Flowplayer5_Settings {
 					'name'     => __( 'Commercial Assests Directory', 'flowplayer5' ),
 					'type'     => 'text',
 					'size'     => 'regular',
-					'desc'     => __( 'Add the link to the directory with the Flowplayer Commercial assests', 'flowplayer5' ) . ' e.g. example.com/flowplayer5/',
+					'desc'     => __( 'Add the link to the directory with the Flowplayer Commercial assests', 'flowplayer5' ) . ' e.g. example.com/flowplayer5/. Not used if CDN option selected above.',
 					'condition' => array( $this, 'has_licence' ),
 				),
 				'logo' => array(
@@ -294,7 +293,6 @@ class Flowplayer5_Settings {
 			),
 			'asf' => array(
 				'title'     => __( 'AdSense for Flowplayer', 'flowplayer5' ) . ' <a href="https://flowplayer.org/asf/">?</a>',
-				'condition' => array( $this, 'is_fp6' ),
 				'asf_js' => array(
 					'name'   => __( 'AdSense plugin JS', 'flowplayer5' ),
 					'type'   => 'upload',
@@ -310,7 +308,6 @@ class Flowplayer5_Settings {
 			),
 			'vast' => array(
 				'title'     => __( 'VAST Ads', 'flowplayer5' ) . ' <a href="https://flowplayer.org/docs/vast.html">?</a>',
-				'condition' => array( $this, 'is_fp6' ),
 				'vast_js' => array(
 					'name'   => __( 'VAST plugin URL', 'flowplayer5' ),
 					'type'   => 'upload',
