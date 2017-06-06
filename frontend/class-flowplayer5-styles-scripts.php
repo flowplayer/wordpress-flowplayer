@@ -161,7 +161,7 @@ class Flowplayer5_Styles_Scripts {
 		wp_register_script( 'hlsjs', $config['assets_directory'] . 'hlsjs/hls.js', array(), null, false );
 		wp_register_script( 'flowplayer5-hlsjs', $config['assets_directory'] . 'hlsjs/flowplayer.hlsjs' . $config['suffix'] . '.js', $config['hls_dep'], 'g397c8eb', false );
 		wp_register_script( 'flowplayer5-quality-selector', $config['assets_directory'] . $config['qs_dir'] . 'quality-selector' . $config['suffix'] . '.js', array( 'flowplayer5-script' ), '4f2e08f', false );
-		wp_register_script( 'magnific-popup', plugins_url( '/assets/magnific-popup/magnific-popup' . $config['suffix'] . '.js', __FILE__ ), array( 'jquery' ), '1.0.0', false );
+		wp_register_script( 'flowplayer5-magnific-popup', plugins_url( '/assets/magnific-popup/magnific-popup' . $config['suffix'] . '.js', __FILE__ ), array( 'jquery' ), '1.0.0', false );
 		wp_register_script( 'flowplayer5-drive-analytics', '//releases.flowplayer.org/drive-analytics/flowplayer.drive-analytics.min.js', array( 'flowplayer5-script' ), null, false );
 	}
 
@@ -188,7 +188,7 @@ class Flowplayer5_Styles_Scripts {
 			wp_enqueue_script( 'flowplayer5-quality-selector' );
 		}
 		if ( $config['is_lightbox'] ){
-			wp_enqueue_script( 'magnific-popup' );
+			wp_enqueue_script( 'flowplayer5-magnific-popup' );
 		}
 	}
 
