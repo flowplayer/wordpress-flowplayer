@@ -25,6 +25,7 @@ if ( ! defined( 'WPINC' ) ) {
 class Flowplayer5_Parse {
 
 	public static function playlist_single_video_config( $atts ) {
+		$new_atts = array();
 		foreach( $atts as $key => $value ) {
 			$new_atts[ $key ] = self::single_video_config( $value );
 		}

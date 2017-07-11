@@ -113,7 +113,10 @@ class Flowplayer5_Playlist implements Flowplayer5_IPlaylist {
 		$term_meta = self::get_term_meta( $term_id );
 		// Check if old id is being used in the shortcode
 		if ( ! $term_meta && function_exists( 'wp_get_split_term' ) ) {
-			$term_id = wp_get_split_term( $term_id, 'playlist' );
+			$split_term_id = wp_get_split_term( $term_id, 'playlist' );
+			if( $split_term_id ) {
+				$term_id = $split_term_id;
+			}
 		}
 		return $term_id;
 	}
