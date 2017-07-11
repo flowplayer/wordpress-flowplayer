@@ -37,6 +37,11 @@ class Flowplayer5_Styles_Scripts {
 			return;
 		}
 
+		// In archives shortcodes end up in nested arrays
+		if( ! array_key_exists( 'id' , $shortcodes[0] ) && ! array_key_exists( 'playlist' , $shortcodes[0] ) ) {
+			$shortcodes = call_user_func_array( 'array_merge' , $shortcodes );
+		}
+
 		$atts = array();
 		foreach ( $shortcodes as $shortcode ) {
 			if ( isset( $shortcode['playlist'] ) ) {
