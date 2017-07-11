@@ -210,7 +210,7 @@ class Flowplayer5_Parse {
 		$return['attributes'] = array(
 			( ( $atts['autoplay'] == 'true' ) ? 'autoplay' : '' ),
 			( ( $atts['loop'] == 'true' ) ? 'loop' : '' ),
-			( ! empty ( $atts['preload'] ) ? 'preload="' . esc_attr( $atts['preload'] ) . '"' : '' ),
+			( ! empty ( $atts['preload'] && 'true' !== $atts['live'] ) ? 'preload="' . esc_attr( $atts['preload'] ) . '"' : '' ),
 			( ( $atts['poster'] == 'true' ) ? 'poster' : '' ),
 		);
 
