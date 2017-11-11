@@ -127,8 +127,11 @@
 .flowplayer.is-fullscreen.fp-edgy.fp-outlined .fp-fullscreen:before, .flowplayer.is-fullscreen.fp-edgy.fp-minimal .fp-fullscreen:before {
   content: "\e316"; }
 
+.flowplayer.is-fullscreen.is-mouseout.is-playing .fp-ui {
+  cursor: none; }
+
 .flowplayer.is-loading .fp-waiting, .flowplayer.is-seeking .fp-waiting {
-  display: block; }
+  display: block !important; }
   .flowplayer.is-loading .fp-waiting svg, .flowplayer.is-loading .fp-waiting p, .flowplayer.is-seeking .fp-waiting svg, .flowplayer.is-seeking .fp-waiting p {
     filter: alpha(opacity=100);
     opacity: 1; }
@@ -186,9 +189,6 @@
 .flowplayer.is-live.is-dvr.is-live-position .fp-duration {
   color: #00abcd; }
 
-.flowplayer.is-live .fp-timestamp {
-  display: none !important; }
-
 .flowplayer.is-flash-disabled .fp-waiting {
   display: none !important; }
 
@@ -202,6 +202,12 @@
 
 .flowplayer.is-flash-disabled .fp-engine {
   top: 0; }
+
+.flowplayer.is-tiny {
+  font-size: .7em; }
+
+.flowplayer.is-small {
+  font-size: .8em; }
 
 .flowplayer.no-buffer .fp-ui .fp-controls .fp-timeline .fp-buffer {
   display: none; }
