@@ -8,20 +8,29 @@
 			<td>
 				<label for="fp5-autoplay">
 					<input type="checkbox" name="fp5-autoplay" id="fp5-autoplay" value="true" <?php if ( isset ( $fp5_stored_meta['fp5-autoplay'] ) ) checked( $fp5_stored_meta['fp5-autoplay'][0], 'true' ); ?> />
-					<?php _e( 'Autoplay', $this->plugin_slug )?>
+					<?php _e( 'Autoplay', $this->plugin_slug ); ?>
 				</label>
-				|
+				<br/><br/>
+				<label for="fp5-muted">
+					<input type="checkbox" name="fp5-muted" id="fp5-muted" value="true" <?php if ( isset ( $fp5_stored_meta['fp5-muted'] ) ) checked( $fp5_stored_meta['fp5-muted'][0], 'true' ); ?> />
+					<?php _e( 'Muted', $this->plugin_slug ); ?>
+				</label>
+				/
+				<label for="fp5-initial-volume"><?php _e( 'initial volume:', $this->plugin_slug ); ?></label>
+				<input type="number" name="fp5-initial-volume" id="fp5-initial-volume" min="0" max="100" step="1" value="<?php if ( isset ( $fp5_stored_meta['fp5-initial-volume'] ) ) { echo esc_attr( $fp5_stored_meta['fp5-initial-volume'][0] ); } else { echo "100"; } ?>" /> %
+				<br/>
+
+				<br/>
 				<label for="fp5-loop">
 					<input type="checkbox" name="fp5-loop" id="fp5-loop" value="true" <?php if ( isset ( $fp5_stored_meta['fp5-loop'] ) ) checked( $fp5_stored_meta['fp5-loop'][0], 'true' ); ?> />
 					<?php _e( 'Loop', $this->plugin_slug )?>
 				</label>
-				|
-
+				<br/>
 				<label for="fp5-live">
 					<input type="checkbox" name="fp5-live" id="fp5-live" value="true" <?php if ( isset ( $fp5_stored_meta['fp5-live'] ) ) checked( $fp5_stored_meta['fp5-live'][0], 'true' ); ?> />
 					<?php _e( 'Live streaming', $this->plugin_slug ); ?>
 				</label>
-				|
+				<br/>
 				<label for="fp5-hls-plugin">
 					<input type="checkbox" name="fp5-hls-plugin" id="fp5-hls-plugin" value="true" <?php echo isset( $fp5_stored_meta['fp5-hls-plugin'][0] ) ? checked( $fp5_stored_meta['fp5-hls-plugin'][0], 'true', false ) : 'class="fp5-hls-notset"'; ?> />
 					<?php _e( 'Load HLS plugin', $this->plugin_slug ); ?> <a href="https://flowplayer.org/docs/plugins.html#hlsjs">?</a>

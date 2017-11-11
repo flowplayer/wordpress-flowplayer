@@ -181,6 +181,7 @@ class Flowplayer5_Video_Meta_Box {
 			// Check, validate and save checkboxes
 			$checkboxes = array(
 				'fp5-autoplay',
+				'fp5-muted',
 				'fp5-loop',
 				'fp5-fixed-controls',
 				'fp5-aspect-ratio',
@@ -268,6 +269,7 @@ class Flowplayer5_Video_Meta_Box {
 				'fp5-video-id',
 				'fp5-duration',
 				'fp5-vast-redirects',
+				'fp5-initial-volume',
 			);
 
 			foreach ( $numbers as $number ) {

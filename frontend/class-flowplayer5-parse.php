@@ -47,6 +47,8 @@ class Flowplayer5_Parse {
 			'hls'             => '',
 			'loop'            => '',
 			'autoplay'        => '',
+			'muted'           => '',
+			'volume'          => '',
 			'preload'         => '',
 			'poster'          => '',
 			'skin'            => '',
@@ -104,6 +106,8 @@ class Flowplayer5_Parse {
 			'id'              => $atts['id'],
 			'loop'            => self::get_custom_fields( $custom_fields, 'fp5-loop', $atts, 'loop' ),
 			'autoplay'        => self::get_custom_fields( $custom_fields, 'fp5-autoplay', $atts, 'autoplay' ),
+			'muted'           => self::get_custom_fields( $custom_fields, 'fp5-muted', $atts, 'muted' ),
+			'volume'          => self::get_custom_fields( $custom_fields, 'fp5-initial-volume', $atts, 'volume' ),
 			'preload'         => self::get_custom_fields( $custom_fields, 'fp5-preload', $atts, 'preload' ),
 			'poster'          => self::get_custom_fields( $custom_fields, 'fp5-poster', $atts, 'poster' ),
 			'skin'            => self::get_custom_fields( $custom_fields, 'fp5-select-skin', $atts, 'skin', 'minimalist' ),
@@ -175,13 +179,16 @@ class Flowplayer5_Parse {
 		}
 
 		// Prepare styles
+		$return['style'] = array();
 		if ( $atts['fixed'] == 'true' && ! empty( $atts['width'] ) && ! empty( $atts['height'] ) ) {
 			$return['style']['width'] = $atts['width'] . 'px';
 			$return['style']['height'] = $atts['height'] . 'px';
 		} elseif ( $atts['max_width'] != 0 ) {
 			$return['style']['max-width'] = $atts['max_width'] . 'px';
 		}
-		$return['style']['background-image'] = 'url(' . esc_url( $atts['splash'] ) . ')';
+		if( ! empty( $atts['splash'] ) ) {
+			$return['style']['background-image'] = 'url(' . esc_url( $atts['splash'] ) . ')';
+		}
 
 		// Prepare player classes
 		$return['player_classes'] = array(
@@ -285,6 +292,11 @@ class Flowplayer5_Parse {
 
 		}
 
+		if ( 'true' == $atts['muted'] ) {
+			$js_config['muted'] = (bool) $atts['muted'];
+		} elseif ( "100" !== $atts['volume'] ) {
+			$js_config['volume'] = floatval( $atts['volume'] ) / 100;
+		}
 		if ( 'true' == $atts['live'] ) {
 			$js_config['live'] = (bool) $atts['live'];
 		}
