@@ -10,6 +10,10 @@
 					<input type="checkbox" name="fp5-autoplay" id="fp5-autoplay" value="true" <?php if ( isset ( $fp5_stored_meta['fp5-autoplay'] ) ) checked( $fp5_stored_meta['fp5-autoplay'][0], 'true' ); ?> />
 					<?php _e( 'Autoplay', $this->plugin_slug ); ?>
 				</label>
+				| <label for="fp5-autoplay-viewport">
+					<input type="checkbox" name="fp5-autoplay-viewport" id="fp5-autoplay-viewport" value="true" <?php if ( isset ( $fp5_stored_meta['fp5-autoplay-viewport'] ) ) checked( $fp5_stored_meta['fp5-autoplay-viewport'][0], 'true' ); ?> />
+					<?php _e( 'Autoplay when video in view', $this->plugin_slug ); ?>
+				</label>
 				<br/><br/>
 				<label for="fp5-muted">
 					<input type="checkbox" name="fp5-muted" id="fp5-muted" value="true" <?php if ( isset ( $fp5_stored_meta['fp5-muted'] ) ) checked( $fp5_stored_meta['fp5-muted'][0], 'true' ); ?> />

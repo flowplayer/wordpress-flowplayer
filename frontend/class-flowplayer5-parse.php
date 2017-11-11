@@ -47,6 +47,7 @@ class Flowplayer5_Parse {
 			'hls'             => '',
 			'loop'            => '',
 			'autoplay'        => '',
+			'autoplay_viewport' => '',
 			'muted'           => '',
 			'volume'          => '',
 			'preload'         => '',
@@ -106,6 +107,7 @@ class Flowplayer5_Parse {
 			'id'              => $atts['id'],
 			'loop'            => self::get_custom_fields( $custom_fields, 'fp5-loop', $atts, 'loop' ),
 			'autoplay'        => self::get_custom_fields( $custom_fields, 'fp5-autoplay', $atts, 'autoplay' ),
+			'autoplay_viewport' => self::get_custom_fields( $custom_fields, 'fp5-autoplay-viewport', $atts, 'autoplay_viewport' ),
 			'muted'           => self::get_custom_fields( $custom_fields, 'fp5-muted', $atts, 'muted' ),
 			'volume'          => self::get_custom_fields( $custom_fields, 'fp5-initial-volume', $atts, 'volume' ),
 			'preload'         => self::get_custom_fields( $custom_fields, 'fp5-preload', $atts, 'preload' ),
@@ -290,6 +292,10 @@ class Flowplayer5_Parse {
 				}
 			}
 
+		}
+
+		if ( 'true' == $atts['autoplay_viewport'] ) {
+			$js_config['viewportAutoplay'] = (bool) $atts['autoplay_viewport'];
 		}
 
 		if ( 'true' == $atts['muted'] ) {

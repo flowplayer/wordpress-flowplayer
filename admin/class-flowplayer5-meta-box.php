@@ -181,6 +181,7 @@ class Flowplayer5_Video_Meta_Box {
 			// Check, validate and save checkboxes
 			$checkboxes = array(
 				'fp5-autoplay',
+				'fp5-autoplay-viewport',
 				'fp5-muted',
 				'fp5-loop',
 				'fp5-fixed-controls',
