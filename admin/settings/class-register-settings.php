@@ -333,7 +333,7 @@ class Flowplayer5_Settings {
 				),
 			),
 			'embed_options' => array(
-				'title' => __( 'Embed assets', 'flowplayer5' ) . ' <a href="https://flowplayer.org/docs/embedding.html#configuration">?</a>',
+				'title' => __( 'Embed assets', 'flowplayer5' ) . ' <a href="https://flowplayer.com/docs/sharing.html#player-options">?</a>',
 				'library' => array(
 					'name' => __( 'Library', 'flowplayer5' ),
 					'desc' => __( 'URL of the Flowplayer API library script', 'flowplayer5' ),
