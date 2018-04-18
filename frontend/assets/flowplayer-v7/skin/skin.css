@@ -183,6 +183,9 @@
 .flowplayer.is-live .fp-timeline {
   visibility: hidden; }
 
+.flowplayer.is-live .fp-bar > *.fp-buffer, .flowplayer.is-live .fp-bar-slider > *.fp-buffer {
+  max-width: 100%; }
+
 .flowplayer.is-live.is-dvr .fp-timeline {
   visibility: visible; }
 
@@ -273,9 +276,6 @@
   opacity: 0.3;
   -webkit-transition: opacity 0.2s;
   transition: opacity 0.2s; }
-  .flowplayer.fp-default-playlist .fp-prev:hover, .flowplayer.fp-default-playlist .fp-next:hover {
-    filter: alpha(opacity=100);
-    opacity: 1; }
   .flowplayer.fp-default-playlist .fp-prev:before, .flowplayer.fp-default-playlist .fp-next:before {
     font-family: flowplayer;
     font-size: 2.8em; }
@@ -494,7 +494,7 @@
        -moz-box-sizing: border-box;
             box-sizing: border-box; }
   .flowplayer.is-ready:not(.is-poster) {
-    background-color: #333; }
+    background: none !important; }
   .flowplayer .fp-engine {
     display: block;
     width: 100%;
@@ -1010,6 +1010,10 @@
       -webkit-transform: rotate(180deg);
           -ms-transform: rotate(180deg);
               transform: rotate(180deg); }
+    .flowplayer.is-rtl .fp-menu .fp-icon {
+      -webkit-transform: none;
+          -ms-transform: none;
+              transform: none; }
   .flowplayer.-grayscale video.fp-engine {
     -webkit-filter: grayscale(100%);
     filter: grayscale(100%); }

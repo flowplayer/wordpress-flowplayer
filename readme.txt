@@ -3,7 +3,7 @@ Contributors: flowplayerorg, grapplerulrich, underdude, anssi
 Donate link: https://flowplayer.org/pricing/?utm_source=wordpress.org&utm_medium=readme&utm_campaign=Flowplayer%20Plugin
 Tags: flowplayer, flowplayer7, flowplayer6, Flowplayer HTML5, responsive, mobile, embed, html5, video, player, rtmp, hls, flash, live-streaming, Flowplayer Drive, Adsense, video ads, video widget, playlist, ABR, Adaptive Bit Rate
 Requires at least: 3.7
-Tested up to: 4.9.0
+Tested up to: 4.9.5
 Stable tag: 3.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -254,8 +254,8 @@ The plugin can also be found on [GitHub](https://github.com/flowplayer/wordpress
 
 We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
 
-= 3.1.0 - 11 November 2017 =
-* Update Flowplayer to 7.2.1
+= 3.1.0 - 18 April 2018 =
+* Update Flowplayer to 7.2.5
 * Add configuration options to mute or set initial volume
 * Add support and configuration option for [Viewport autoplay -plugin](https://flowplayer.com/blog/videos-like-images/)
 * Fix few small things
