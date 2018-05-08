@@ -33,7 +33,7 @@ class Flowplayer5_Styles_Scripts {
 		$flowplayer_shortcode = new Flowplayer5_Shortcode();
 		$shortcodes = $flowplayer_shortcode->video_shortcode_atts();
 
-		if ( ! is_array( $shortcodes ) ) {
+		if ( ! is_array( $shortcodes ) || ! count( $shortcodes ) ) {
 			return;
 		}
 
