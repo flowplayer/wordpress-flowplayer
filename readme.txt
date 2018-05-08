@@ -4,7 +4,7 @@ Donate link: https://flowplayer.org/pricing/?utm_source=wordpress.org&utm_medium
 Tags: flowplayer, flowplayer7, flowplayer6, Flowplayer HTML5, responsive, mobile, embed, html5, video, player, rtmp, hls, flash, live-streaming, Flowplayer Drive, Adsense, video ads, video widget, playlist, ABR, Adaptive Bit Rate
 Requires at least: 3.7
 Tested up to: 4.9.5
-Stable tag: 3.1.0
+Stable tag: 3.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -170,6 +170,7 @@ Why would you want to do that? :-) If you do need to uninstall the plugin all of
 = Examples =
 
 Here are a few code examples of things that have been asked.
+
 `/**
  * Load flowplayer assets on the home page for video 14.
  */
@@ -253,6 +254,10 @@ The plugin can also be found on [GitHub](https://github.com/flowplayer/wordpress
 == Changelog ==
 
 We have a lot of plans for this plugin. You can see some of the up and coming features in the [roadmap](https://github.com/flowplayer/wordpress-flowplayer/issues?labels=enhancement&page=1&state=open)
+
+= 3.1.1 - 8 May 2018 =
+* Use the new hlsjs-lite implementation for HLS
+* Fix PHP warning on archive pages
 
 = 3.1.0 - 18 April 2018 =
 * Update Flowplayer to 7.2.5

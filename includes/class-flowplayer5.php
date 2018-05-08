@@ -31,7 +31,7 @@ class Flowplayer5 {
 	 *
 	 * @var     string
 	 */
-	protected $plugin_version = '3.1.0';
+	protected $plugin_version = '3.1.1';
 
 	/**
 	 * Unique identifier for your plugin.
